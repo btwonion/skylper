@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "name": "${name}",
+  "description": "${description}",
+  "contact": {
+    "issues": "https://github.com/btwonion/skylper/issues",
+    "sources": "https://github.com/btwonion/skylper"
+  },
+  "authors": [
+    {
+      "name": "btwonion"
+    }
+  ],
+  "contributors": [],
+  "license": [
+    "GNU General Public License v3.0"
+  ],
+  "version": "${version}",
+  "environment": "client",
+  "depends": {
+    "fabric-language-kotlin": ">=1.10.17+kotlin.1.9.22",
+    "fabric-api": ">=0.93.1+1.20.4",
+    "yet_another_config_lib_v3": ">=3.3.1+1.20.4",
+    "minecraft": ">=1.20.4"
+  },
+  "suggests": {
+    "modmenu": "7.0.0"
+  },
+  "entrypoints": {
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "dev.nyon.skylper.Skylper"
+      }
+    ],
+    "modmenu": [
+      {
+        "adapter": "kotlin",
+        "value": "dev.nyon.skylper.config.ModMenuImpl"
+      }
+    ]
+  },
+  "mixins": [
+    "skylper.mixins.json"
+  ],
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/pmHTtZnMd3"
+      }
+    }
+  }
+}
