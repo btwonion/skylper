@@ -57,7 +57,7 @@ dependencies {
 
     modImplementation("dev.isxander.yacl:yet-another-config-lib-fabric:3.3.1+1.20.4")
     modImplementation("com.terraformersmc:modmenu:9.0.0-pre.1")
-    modImplementation("maven.modrinth:y6DuFGwJ:Wa84opTT")
+    modCompileOnly("maven.modrinth:y6DuFGwJ:Wa84opTT")
 
     runtimeTestMods.forEach { (projectId, versionId) ->
         modRuntimeOnly("maven.modrinth:$projectId:$versionId")
@@ -67,6 +67,7 @@ dependencies {
 
     val ktorVersion = "2.3.7"
     include(implementation("io.ktor:ktor-client-core:$ktorVersion")!!)
+    
     include(implementation("io.ktor:ktor-client-cio:$ktorVersion")!!)
     include(implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")!!)
     include(implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")!!)
