@@ -38,11 +38,6 @@ object HollowsModule {
     )
     val waypoints: MutableMap<String, HollowsStructureWaypoint> = mutableMapOf()
 
-    val shouldHighlightChests: Boolean
-        get() {
-            return isPlayerInHollows && config.crystalHollows.highlightChests
-        }
-
     fun init() {
         PlayerChatLocationListener.init()
         ChatStructureListener.init()
