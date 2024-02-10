@@ -5,7 +5,7 @@ import net.minecraft.world.phys.AABB
 @Suppress("SpellCheckingInspection")
 enum class HollowsStructure(
     val box: AABB,
-    val zone: HollowsZone,
+    val zone: HollowsZone?,
     val minY: Int,
     val maxY: Int,
     val displayName: String,
@@ -75,5 +75,14 @@ enum class HollowsStructure(
         "Crystal Nucleus",
         "internal_crystal_nucleus",
         0x7E0B7F
+    ),
+    FAIRY_GROTTO(
+        AABB(0.0, 0.0, 0.0, 50.0, 30.0, 50.0), null, 30, 200, "Fairy Grotto", "internal_fairy_grotto", 0xFF096E
+    ),
+    CORLEONE(
+        AABB(0.0, 0.0, 0.0, 50.0, 30.0, 50.0), null, 30, 200, "Corleone", "internal_corleone", 0xFF0003
+    ),
+    KEY_GUARDIAN(
+        AABB(0.0, 0.0, 0.0, 50.0, 30.0, 50.0), null, 30, 200, "Key Guardian", "internal_key_guardian", 0xFF0003
     )
 }

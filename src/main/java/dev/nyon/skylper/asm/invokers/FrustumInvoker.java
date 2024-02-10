@@ -1,4 +1,4 @@
-package dev.nyon.skylper.mixins;
+package dev.nyon.skylper.asm.invokers;
 
 import net.minecraft.client.renderer.culling.Frustum;
 import org.spongepowered.asm.mixin.Mixin;
@@ -8,5 +8,12 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface FrustumInvoker {
 
     @Invoker
-    boolean invokeCubeInFrustum(double minX, double minY, double minZ, double maxX, double maxY, double maxZ);
+    boolean invokeCubeInFrustum(
+        double minX,
+        double minY,
+        double minZ,
+        double maxX,
+        double maxY,
+        double maxZ
+    );
 }

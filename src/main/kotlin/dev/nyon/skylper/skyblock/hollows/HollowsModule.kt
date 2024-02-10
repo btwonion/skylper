@@ -1,35 +1,21 @@
 package dev.nyon.skylper.skyblock.hollows
 
-import de.hysky.skyblocker.utils.waypoint.Waypoint
+import dev.nyon.skylper.config.config
+import dev.nyon.skylper.extensions.AreaChangeEvent
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
-import dev.nyon.skylper.extensions.IslandChangeEvent
-import dev.nyon.skylper.extensions.math.blockPos
-import dev.nyon.skylper.skyblock.PlayerSessionData
-import dev.nyon.skylper.skyblock.data.currentProfile
-import dev.nyon.skylper.skyblock.data.playerData
+import dev.nyon.skylper.extensions.LevelChangeEvent
+import dev.nyon.skylper.extensions.RenderAfterTranslucentEvent
+import dev.nyon.skylper.minecraft
+import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
+import dev.nyon.skylper.skyblock.data.skylper.currentProfile
+import dev.nyon.skylper.skyblock.data.skylper.playerData
+import dev.nyon.skylper.skyblock.hollows.locations.ChatStructureListener
+import dev.nyon.skylper.skyblock.hollows.locations.PlayerChatLocationListener
+import dev.nyon.skylper.skyblock.hollows.render.ChestHighlighter
 import dev.nyon.skylper.skyblock.hollows.render.HollowsStructureWaypoint
-import dev.nyon.skylper.skyblock.hollows.solvers.wishing.WishingCompassSolver
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents
 import net.minecraft.world.phys.AABB
 
-@Suppress("SpellCheckingInspection")
 object HollowsModule {
-    private val nucleusNames = listOf("Crystal Nucleus")
-    private val jungleNames = listOf("Jungle", "Jungle Temple")
-    private val goblinHideoutNames = listOf("Goblin Holdout", "Goblin Queen's Den")
-    private val mithrilDepositsNames = listOf("Mithril Deposits", "Mines of Divan")
-    private val precursorRemnantsNames = listOf("Precursor Remnants", "Lost Precursor City")
-    private val magmaFieldsNames = listOf("Magma Fields", "Khazad-dûm")
-    private val extraNames = listOf("Dragon's Lair", "Fairy Grotto")
-    private val crystalHollowsNames = listOf(
-        nucleusNames,
-        jungleNames,
-        goblinHideoutNames,
-        mithrilDepositsNames,
-        precursorRemnantsNames,
-        magmaFieldsNames,
-        extraNames
-    ).flatten()
     val hollowsBox = AABB(201.0, 30.0, 201.0, 824.0, 189.0, 824.0)
 
     val foundCrystals: Set<Crystal>
@@ -39,27 +25,42 @@ object HollowsModule {
 
     val isPlayerInHollows: Boolean
         get() {
-            return crystalHollowsNames.contains(PlayerSessionData.currentIsland)
+            val areaMatch = PlayerSessionData.currentArea?.contains("Crystal Hollows") == true
+            val posMatch = hollowsBox.contains(
+                minecraft.player?.position() ?: return false
+            )
+
+            return areaMatch && posMatch
         }
 
-    private val defaultCrystalHollowsWaypoints: Map<String, Waypoint> = mapOf(
-        HollowsStructure.CRYSTAL_NUCLEUS.internalWaypointName to HollowsStructureWaypoint(
-            HollowsStructure.CRYSTAL_NUCLEUS.box.center,
-            HollowsStructure.CRYSTAL_NUCLEUS
-        )
+    private val nucleusWaypoint = HollowsStructure.CRYSTAL_NUCLEUS.internalWaypointName to HollowsStructureWaypoint(
+        HollowsStructure.CRYSTAL_NUCLEUS.box.center, HollowsStructure.CRYSTAL_NUCLEUS, false
     )
-    val waypoints: MutableMap<String, Waypoint> = mutableMapOf()
+    val waypoints: MutableMap<String, HollowsStructureWaypoint> = mutableMapOf()
+
+    val shouldHighlightChests: Boolean
+        get() {
+            return isPlayerInHollows && config.crystalHollows.highlightChests
+        }
 
     fun init() {
-        WishingCompassSolver.init()
+        PlayerChatLocationListener.init()
+        ChatStructureListener.init()
+        ChestHighlighter.init()
 
-        listenEvent<IslandChangeEvent> {
-            if (it.next?.contains("Crystal Hollows") == false) waypoints.clear()
+        listenEvent<LevelChangeEvent> {
+            waypoints.clear()
+            waypoints[nucleusWaypoint.first] = nucleusWaypoint.second
         }
-        WorldRenderEvents.AFTER_TRANSLUCENT.register { context ->
-            if (!isPlayerInHollows) return@register
-            waypoints.also { it.putAll(defaultCrystalHollowsWaypoints) }.values.forEach { waypoint ->
-                waypoint.render(context)
+        listenEvent<AreaChangeEvent> {
+            if (it.next?.contains("Crystal Hollows") == false) waypoints.clear()
+            else waypoints[nucleusWaypoint.first] = nucleusWaypoint.second
+        }
+        listenEvent<RenderAfterTranslucentEvent> {
+            if (!config.crystalHollows.showWaypoints) return@listenEvent
+            if (!isPlayerInHollows) return@listenEvent
+            waypoints.values.forEach { waypoint ->
+                waypoint.render(it.context)
             }
         }
     }

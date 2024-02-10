@@ -1,17 +1,8 @@
 {
   "menu.skylper.name": "skylper",
-  "chat.skytils.hollows.compass_solver.nucleus": "Wishing Compass must be used outside of the Crystal Nucleus for accurate results.",
-  "chat.skytils.hollows.compass_solver.still_processing": "Wait a little longer before using the Wishing Compass again.",
-  "chat.skytils.hollows.compass_solver.too_close": "Move a little further before using the Wishing Compass again.",
-  "chat.skytils.hollows.compass_solver.possible_targets_changed": "Possible wishing compass targets have changed. Solver has been reset.",
-  "chat.skytils.hollows.compass_solver.no_particles": "No particles detected for prior compass use. Need another position to solve.",
-  "chat.skytils.hollows.compass_solver.unknown_error": "An unknown error occurred in the Wishing Compass module. Please report this to a developer.",
-  "chat.skytils.hollows.compass_solver.failed_exception": "Unable to determine wishing compass target.",
-  "chat.skytils.hollows.compass_solver.failed_no_repeating": "Timed out waiting for repeat set of compass particles.",
-  "chat.skytils.hollows.compass_solver.failed_no_particles": "Timed out waiting for compass particles.",
-  "chat.skytils.hollows.compass_solver.failed_intersection_calculation": "Unable to determine intersection of wishing compasses.",
-  "chat.skytils.hollows.compass_solver.failed_invalid_solution": "Failed to find solution.",
-  "chat.skytils.hollows.compass_solver.failed_need_second_compass": "Need another position to determine wishing compass target.",
-  "chat.skylper.hollows.compass_solver.solved": "Found {} with the coordinates {}, {}, {}.",
-  "chat.skylper.hollows.compass_solver.solved_nucleus": "The Wishing Compass is targeting the Crystal Nucleus."
+  "chat.skylper.hollows.locations.found": "Found {} with the coordinates {}, {}, {}!",
+  "chat.skylper.hollows.locations.pick": "Click to select {} for this coordinates!",
+  "chat.skylper.hollows.command.no_internal_waypoint_name": "No matching waypoint could be found for this key!",
+  "chat.skylper.hollows.command.waypoint_created": "Successfully created waypoint for {}!",
+  "chat.skylper.hollows.command.waypoint_deleted": "The waypoint {} was deleted successfully!"
 }

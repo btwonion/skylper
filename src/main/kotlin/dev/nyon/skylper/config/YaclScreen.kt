@@ -5,6 +5,7 @@ import dev.nyon.konfig.config.saveConfig
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
 
+@Suppress("SpellCheckingInspection")
 internal fun createYaclScreen(parent: Screen?): Screen {
     val builder = YetAnotherConfigLib.createBuilder()
 

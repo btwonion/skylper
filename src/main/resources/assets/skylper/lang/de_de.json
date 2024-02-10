@@ -1,17 +1,8 @@
 {
   "menu.skylper.name": "skylper",
-  "chat.skytils.hollows.compass_solver.nucleus": "Der Wishing Kompass muss für passende Ergebnisse außerhalb des Crystal Nucleus verwendet werden.",
-  "chat.skytils.hollows.compass_solver.still_processing": "Warte einen Moment bevor du den Kompass noch einmal verwendest.",
-  "chat.skytils.hollows.compass_solver.too_close": "Bewege dich weiter bevor du den Kompass noch einmal verwendest.",
-  "chat.skytils.hollows.compass_solver.possible_targets_changed": "Die möglichen Ziele haben sich geändert, der Wishing Kompass Helfer wurde zurückgesetzt.",
-  "chat.skytils.hollows.compass_solver.no_particles": "Es konnten keine Partikel vom Kompass festgestellt werden. Bitte nutze eine andere Position.",
-  "chat.skytils.hollows.compass_solver.unknown_error": "Ein unbekannter Fehler ist im Wishing Kompass Modul aufgetreten. Bitte wende dich an einen Entwickler.",
-  "chat.skytils.hollows.compass_solver.failed_exception": "Es konnte kein Wishing Kompass Ziel gefunden werden.",
-  "chat.skytils.hollows.compass_solver.failed_no_repeating": "Es konnten keine weiteren Kompass Partikel gefunden werden.",
-  "chat.skytils.hollows.compass_solver.failed_no_particles": "Es konnten keine weiteren Kompass Partikel gefunden werden.",
-  "chat.skytils.hollows.compass_solver.failed_intersection_calculation": "Der Schnittpunkt des Kompasses konnte nicht bestimmt werden.",
-  "chat.skytils.hollows.compass_solver.failed_invalid_solution": "Es konnte keine Lösung gefunden werden.",
-  "chat.skytils.hollows.compass_solver.failed_need_second_compass": "Es wird ein weiteres Ziel zum Lösen des Wishing Kompasses benötigt.",
-  "chat.skylper.hollows.compass_solver.solved": "Es wurde {} mit den folgenden Koordinaten gefunden: {}, {}, {}.",
-  "chat.skylper.hollows.compass_solver.solved_nucleus": "Der Wishing Compass zeigt auf den Crystal Nucleus."
+  "chat.skylper.hollows.locations.found": "Die Struktur {} liegt bei den Koordinaten {}, {}, {}!",
+  "chat.skylper.hollows.locations.pick": "Klicke um eine Markierung für {} für diese Koordinaten hinzuzufügen!",
+  "chat.skylper.hollows.command.no_internal_waypoint_name": "Es konnte keine passende Markierung für diesen Namen gefunden werden!",
+  "chat.skylper.hollows.command.waypoint_created": "Es wurde erfolgreich eine Markierung für {} erstellt!",
+  "chat.skylper.hollows.command.waypoint_deleted": "Die Markierung {} wurde erfolgreich gelöscht!"
 }

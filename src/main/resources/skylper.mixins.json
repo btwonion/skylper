@@ -1,17 +1,21 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "dev.nyon.skylper.mixins",
+  "package": "dev.nyon.skylper.asm",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "ConnectionMixin",
-    "LevelRendererMixin"
+    "invokers.RenderHelperInvoker",
+    "mixins.ConnectionMixin",
+    "mixins.LevelRendererMixin"
   ],
   "client": [
-    "FrustumInvoker",
-    "LevelRendererAccessor",
-    "MinecraftMixin",
-    "PlayerTabOverlayMixin"
+    "accessors.GuiAccessor",
+    "accessors.LevelRendererAccessor",
+    "accessors.PlayerTabOverlayAccessor",
+    "invokers.FrustumInvoker",
+    "mixins.ChatListenerMixin",
+    "mixins.ClientLevelMixin",
+    "mixins.MinecraftMixin"
   ],
   "injectors": {
     "defaultRequire": 1

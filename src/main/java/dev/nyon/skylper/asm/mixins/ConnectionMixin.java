@@ -1,9 +1,8 @@
-package dev.nyon.skylper.mixins;
+package dev.nyon.skylper.asm.mixins;
 
-import dev.nyon.skylper.extensions.IslandChangeEvent;
-import dev.nyon.skylper.extensions.DebugKt;
 import dev.nyon.skylper.extensions.EventHandler;
-import dev.nyon.skylper.skyblock.PlayerSessionData;
+import dev.nyon.skylper.extensions.HypixelJoinEvent;
+import dev.nyon.skylper.extensions.HypixelQuitEvent;
 import net.minecraft.network.Connection;
 import net.minecraft.network.PacketSendListener;
 import net.minecraft.network.chat.Component;
@@ -26,8 +25,7 @@ public class ConnectionMixin {
     private SocketAddress address;
 
     @Inject(
-        method = "doSendPacket",
-        at = @At("TAIL")
+        method = "doSendPacket", at = @At("TAIL")
     )
     private void checkForHypixelConnection(
         Packet<?> packet,
@@ -39,24 +37,16 @@ public class ConnectionMixin {
         if (!(address instanceof InetSocketAddress inetSocketAddress)) return;
         if (!inetSocketAddress.getHostName()
             .contains("hypixel.net")) return;
-        PlayerSessionData.INSTANCE.setOnHypixel(true);
-        DebugKt.debug("Joined Hypixel!");
+        EventHandler.INSTANCE.invokeEvent(HypixelJoinEvent.INSTANCE);
     }
 
     @Inject(
-        method = "disconnect",
-        at = @At("TAIL")
+        method = "disconnect", at = @At("TAIL")
     )
     private void clearDestinationTargets(
         Component message,
         CallbackInfo ci
     ) {
-        if (PlayerSessionData.INSTANCE.getCurrentIsland() != null)
-            EventHandler.INSTANCE.invokeEvent(new IslandChangeEvent(PlayerSessionData.INSTANCE.getCurrentIsland(), null));
-        PlayerSessionData.INSTANCE.setOnHypixel(false);
-        PlayerSessionData.INSTANCE.setOnSkyblock(false);
-        PlayerSessionData.INSTANCE.setCurrentIsland(null);
-        PlayerSessionData.INSTANCE.setProfile(null);
-        DebugKt.debug("Left Hypixel!");
+        EventHandler.INSTANCE.invokeEvent(HypixelQuitEvent.INSTANCE);
     }
 }

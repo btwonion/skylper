@@ -1,4 +1,4 @@
-package dev.nyon.skylper.skyblock.data
+package dev.nyon.skylper.skyblock.data.skylper
 
 import dev.nyon.konfig.config.saveConfig
 import dev.nyon.skylper.mcScope

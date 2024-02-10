@@ -38,9 +38,9 @@ repositories {
 }
 
 val runtimeTestMods = mapOf(
-    "yjgIrBjZ" to "HhWVxCH0", // AuthMe by axieum for authentication in dev environment
-    "9s6osm5g" to "eBZiZ9NS", // ClothConfig by shedaniel as dependency for AuthMe
-    "AANobbMI" to "InGKdfel" // Sodium by jellyquid3 for performance
+    "auth-me" to "8.0.0+1.20.4", // AuthMe by axieum for authentication in dev environment
+    "cloth-config" to "13.0.121+fabric", // ClothConfig by shedaniel as dependency for AuthMe
+    "sodium" to "mc1.20.4-0.5.8" // Sodium by jellyquid3 for performance
 )
 
 dependencies {
@@ -51,13 +51,15 @@ dependencies {
     })
 
     implementation("org.vineflower:vineflower:1.9.3")
-    modImplementation("net.fabricmc:fabric-loader:0.15.5")
+    modImplementation("net.fabricmc:fabric-loader:0.15.6")
     modImplementation("net.fabricmc.fabric-api:fabric-api:0.93.1+$mcVersion")
     modImplementation("net.fabricmc:fabric-language-kotlin:1.10.17+kotlin.1.9.22")
 
-    modImplementation("dev.isxander.yacl:yet-another-config-lib-fabric:3.3.1+1.20.4")
+    modImplementation("dev.isxander.yacl:yet-another-config-lib-fabric:3.3.2+1.20.4")
     modImplementation("com.terraformersmc:modmenu:9.0.0-pre.1")
-    modCompileOnly("maven.modrinth:y6DuFGwJ:Wa84opTT")
+    modImplementation("net.silkmc:silk-core:1.10.3")
+    modImplementation("net.silkmc:silk-commands:1.10.3")
+    modCompileOnly("maven.modrinth:y6DuFGwJ:bKu6Hdms") // Skyblocker by Wohlhabend - place the mod for testing in the mods folder (they have weird includes)
 
     runtimeTestMods.forEach { (projectId, versionId) ->
         modRuntimeOnly("maven.modrinth:$projectId:$versionId")
@@ -71,6 +73,8 @@ dependencies {
     include(implementation("io.ktor:ktor-client-cio:$ktorVersion")!!)
     include(implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")!!)
     include(implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")!!)
+
+    testImplementation(kotlin("test"))
 }
 
 tasks {

@@ -5,9 +5,9 @@ import dev.nyon.konfig.config.loadConfig
 import dev.nyon.skylper.config.Config
 import dev.nyon.skylper.config.configDir
 import dev.nyon.skylper.config.migrate
-import dev.nyon.skylper.extensions.neu.NeuDownloader
-import dev.nyon.skylper.skyblock.PlayerSessionData
-import dev.nyon.skylper.skyblock.data.*
+import dev.nyon.skylper.extensions.FabricEvents
+import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
+import dev.nyon.skylper.skyblock.data.skylper.*
 import dev.nyon.skylper.skyblock.hollows.HollowsModule
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -47,11 +47,12 @@ object Skylper : ClientModInitializer {
         mcScope.launch { setup() }
     }
 
-    private fun setup() {
-        //NeuDownloader.reloadFiles() Not needed at the moment
-        PlayerSessionData.startTicker()
+    private fun setup() { //NeuDownloader.reloadFiles() Not needed at the moment
+        PlayerSessionData.startUpdaters()
         PlayerDataUpdater.initUpdaters()
         PlayerDataSaver.startSaveTask()
+
+        FabricEvents.listenForFabricEvents()
 
         HollowsModule.init()
     }

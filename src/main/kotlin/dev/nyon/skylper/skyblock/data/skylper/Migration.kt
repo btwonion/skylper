@@ -1,4 +1,4 @@
-package dev.nyon.skylper.skyblock.data
+package dev.nyon.skylper.skyblock.data.skylper
 
 import kotlinx.serialization.json.JsonElement
 

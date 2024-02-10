@@ -1,8 +1,7 @@
 package dev.nyon.skylper.extensions
 
-import dev.nyon.skylper.mixins.FrustumInvoker
+import dev.nyon.skylper.asm.invokers.FrustumInvoker
 import net.minecraft.client.renderer.culling.Frustum
-
 
 fun Frustum.isCubeInFrustum(
     minX: Double, minY: Double, minZ: Double, maxX: Double, maxY: Double, maxZ: Double

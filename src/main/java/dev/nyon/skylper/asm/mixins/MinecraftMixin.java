@@ -1,4 +1,4 @@
-package dev.nyon.skylper.mixins;
+package dev.nyon.skylper.asm.mixins;
 
 import dev.nyon.skylper.extensions.EventHandler;
 import dev.nyon.skylper.extensions.TickEvent;
@@ -12,8 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MinecraftMixin {
 
     @Inject(
-        method = "tick",
-        at = @At("TAIL")
+        method = "tick", at = @At("TAIL")
     )
     public void dispatchTickEvent(CallbackInfo ci) {
         EventHandler.INSTANCE.invokeEvent(TickEvent.INSTANCE);
