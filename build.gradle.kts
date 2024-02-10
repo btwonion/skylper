@@ -65,7 +65,7 @@ dependencies {
         modRuntimeOnly("maven.modrinth:$projectId:$versionId")
     }
 
-    include(modImplementation("dev.nyon:konfig:1.1.0-1.20.4")!!)
+    include(modImplementation("dev.nyon:konfig:2.0.0-1.20.4")!!)
 
     val ktorVersion = "2.3.7"
     include(implementation("io.ktor:ktor-client-core:$ktorVersion")!!)

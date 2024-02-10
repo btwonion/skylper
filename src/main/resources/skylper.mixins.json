@@ -14,8 +14,9 @@
     "accessors.PlayerTabOverlayAccessor",
     "invokers.FrustumInvoker",
     "mixins.ChatListenerMixin",
-    "mixins.ClientLevelMixin",
-    "mixins.MinecraftMixin"
+    "mixins.LevelMixin",
+    "mixins.MinecraftMixin",
+    "mixins.MultiPlayerGameModeMixin"
   ],
   "injectors": {
     "defaultRequire": 1

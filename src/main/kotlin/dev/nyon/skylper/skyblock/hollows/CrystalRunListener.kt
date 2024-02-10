@@ -8,6 +8,5 @@ object CrystalRunListener {
     fun listenChat() = listenEvent<MessageEvent> {
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
 
-
     }
 }
