@@ -1,8 +1,8 @@
 {
   "menu.skylper.name": "skylper",
-  "chat.skylper.hollows.locations.found": "Die Struktur {} liegt bei den Koordinaten {}, {}, {}!",
-  "chat.skylper.hollows.locations.pick": "Klicke um eine Markierung für {} für diese Koordinaten hinzuzufügen!",
+  "chat.skylper.hollows.locations.found": "Die Struktur %d liegt bei den Koordinaten %d, %d, %d!",
+  "chat.skylper.hollows.locations.pick": "Klicke um eine Markierung für %d für diese Koordinaten hinzuzufügen!",
   "chat.skylper.hollows.command.no_internal_waypoint_name": "Es konnte keine passende Markierung für diesen Namen gefunden werden!",
-  "chat.skylper.hollows.command.waypoint_created": "Es wurde erfolgreich eine Markierung für {} erstellt!",
-  "chat.skylper.hollows.command.waypoint_deleted": "Die Markierung {} wurde erfolgreich gelöscht!"
+  "chat.skylper.hollows.command.waypoint_created": "Es wurde erfolgreich eine Markierung für %d erstellt!",
+  "chat.skylper.hollows.command.waypoint_deleted": "Die Markierung %d wurde erfolgreich gelöscht!"
 }

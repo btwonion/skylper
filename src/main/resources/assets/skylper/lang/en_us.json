@@ -1,8 +1,8 @@
 {
   "menu.skylper.name": "skylper",
-  "chat.skylper.hollows.locations.found": "Found {} with the coordinates {}, {}, {}!",
-  "chat.skylper.hollows.locations.pick": "Click to select {} for this coordinates!",
+  "chat.skylper.hollows.locations.found": "Found %d with the coordinates %d, %d, %d!",
+  "chat.skylper.hollows.locations.pick": "Click to select %d for this coordinates!",
   "chat.skylper.hollows.command.no_internal_waypoint_name": "No matching waypoint could be found for this key!",
-  "chat.skylper.hollows.command.waypoint_created": "Successfully created waypoint for {}!",
-  "chat.skylper.hollows.command.waypoint_deleted": "The waypoint {} was deleted successfully!"
+  "chat.skylper.hollows.command.waypoint_created": "Successfully created waypoint for %d!",
+  "chat.skylper.hollows.command.waypoint_deleted": "The waypoint %d was deleted successfully!"
 }

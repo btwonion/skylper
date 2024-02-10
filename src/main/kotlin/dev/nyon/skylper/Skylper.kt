@@ -10,6 +10,7 @@ import dev.nyon.skylper.extensions.FabricEvents
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.data.skylper.*
 import dev.nyon.skylper.skyblock.hollows.HollowsModule
+import dev.nyon.skylper.skyblock.registerRootCommand
 import kotlinx.coroutines.*
 import net.fabricmc.api.ClientModInitializer
 import net.minecraft.client.Minecraft
@@ -47,6 +48,7 @@ object Skylper : ClientModInitializer {
         PlayerSessionData.startUpdaters()
         PlayerDataUpdater.initUpdaters()
         PlayerDataSaver.startSaveTask()
+        registerRootCommand()
 
         FabricEvents.listenForFabricEvents()
 

@@ -63,10 +63,10 @@ object PlayerChatLocationListener {
                 "chat.skylper.hollows.locations.pick",
                 Component.literal(structure.displayName).withStyle(ChatFormatting.RED)
             ).withStyle {
+                val command = "/skylper hollows waypoints set ${structure.internalWaypointName} ${location.x.toInt()} ${location.y?.toInt() ?: structure.minY} ${location.z.toInt()}"
                 it.withClickEvent(
                     ClickEvent(
-                        ClickEvent.Action.RUN_COMMAND,
-                        "/skylper hollows waypoints set ${structure.internalWaypointName} ${location.x}, ${location.y ?: structure.minY.toDouble()} ${location.z}"
+                        ClickEvent.Action.SUGGEST_COMMAND, command
                     )
                 )
             })
