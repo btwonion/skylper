@@ -16,7 +16,7 @@ class HollowsStructureWaypoint(
     wPos.blockPos, { Type.WAYPOINT }, color.getRGBComponents(null), true
 ) {
     override fun render(context: WorldRenderContext?) {
-        RenderHelperInvoker.invokeRenderBeaconBeam(context, pos, colorComponents)
+        RenderHelperInvoker.invokeRenderBeaconBeam(context, pos.atY(0), colorComponents)
 
         // In jungle temple the Y is way above the crystal --> the title should be on the entrance Y
         RenderHelper.renderText(context, Component.literal(displayName), pos.atY(descY).center, 10f, true)

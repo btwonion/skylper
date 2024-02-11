@@ -4,6 +4,7 @@ import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.MessageEvent
 import dev.nyon.skylper.extensions.color
+import dev.nyon.skylper.extensions.debug
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.hollows.HollowsModule
 import dev.nyon.skylper.skyblock.hollows.HollowsStructure
@@ -22,7 +23,7 @@ object PlayerChatLocationListener {
         if (!config.crystalHollows.parseLocationChats) return@listenEvent
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
 
-        val rawMessage = event.text.string
+        val rawMessage = event.text.string.dropWhile { it != ':' }
         val loc = regex.find(rawMessage)?.groupValues?.let {
             when (it.size) {
                 2 -> RawLocation(it[0].toDouble(), null, it[1].toDouble())
@@ -31,9 +32,13 @@ object PlayerChatLocationListener {
             }
         } ?: return@listenEvent
 
+        debug("foudn location")
+
         if (!HollowsModule.hollowsBox.contains(
                 loc.x, loc.y ?: 30.0, loc.z
             )) return@listenEvent
+
+        debug("box matched")
 
         handleRawLocation(loc, rawMessage)
     }
@@ -41,6 +46,7 @@ object PlayerChatLocationListener {
     private fun handleRawLocation(location: RawLocation, rawMessage: String) {
         val matchingStructure = HollowsStructure.entries.find { rawMessage.contains(it.displayName, true) }
         if (HollowsModule.waypoints.containsKey(matchingStructure?.internalWaypointName)) return
+        debug("did not contain")
         if (matchingStructure != null) {
             val pos = Vec3(
                 location.x, location.y ?: matchingStructure.minY.toDouble(), location.z

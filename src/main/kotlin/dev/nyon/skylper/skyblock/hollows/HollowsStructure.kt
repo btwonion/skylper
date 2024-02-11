@@ -1,5 +1,6 @@
 package dev.nyon.skylper.skyblock.hollows
 
+import dev.nyon.skylper.config.config
 import net.minecraft.world.phys.AABB
 
 @Suppress("SpellCheckingInspection")
@@ -65,7 +66,7 @@ enum class HollowsStructure(
         102,
         "Mines of Divan",
         "internal_mines_of_divan",
-        0x084C9B
+        0x0E8208
     ),
     CRYSTAL_NUCLEUS(
         HollowsZone.CRYSTAL_NUCLEUS.box,
@@ -84,5 +85,21 @@ enum class HollowsStructure(
     ),
     KEY_GUARDIAN(
         AABB(0.0, 0.0, 0.0, 50.0, 30.0, 50.0), null, 30, 200, "Key Guardian", "internal_key_guardian", 0xFF0003
-    )
+    );
+
+    fun isWaypointEnabled(): Boolean {
+        return when (this) {
+            GOBLIN_QUEEN -> config.crystalHollows.hollowsWaypoints.goblinQueen
+            GOBLIN_KING -> config.crystalHollows.hollowsWaypoints.goblinKing
+            KHAZAD_DUM -> config.crystalHollows.hollowsWaypoints.khazadDum
+            JUNGLE_TEMPLE -> config.crystalHollows.hollowsWaypoints.jungleTemple
+            ODAWA -> config.crystalHollows.hollowsWaypoints.odawa
+            PRECURSOR_CITY -> config.crystalHollows.hollowsWaypoints.precursorCity
+            MINES_OF_DIVAN -> config.crystalHollows.hollowsWaypoints.minesOfDivan
+            CRYSTAL_NUCLEUS -> config.crystalHollows.hollowsWaypoints.nucleus
+            FAIRY_GROTTO -> config.crystalHollows.hollowsWaypoints.fairyGrotto
+            CORLEONE -> config.crystalHollows.hollowsWaypoints.corleone
+            KEY_GUARDIAN -> config.crystalHollows.hollowsWaypoints.keyGuardian
+        }
+    }
 }

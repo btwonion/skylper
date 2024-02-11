@@ -1,5 +1,7 @@
 package dev.nyon.skylper.extensions
 
+import dev.nyon.skylper.mcScope
+import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
 @Suppress("unchecked_cast")
@@ -10,9 +12,11 @@ object EventHandler {
 
     private val debugIgnoredEvents: List<KClass<*>> = listOf(
         TickEvent::class,
+        EntitySpawnEvent::class,
         ParticleSpawnEvent::class,
         MessageEvent::class,
         RenderAfterTranslucentEvent::class,
+        RenderHudEvent::class,
         BlockUpdateEvent::class
     )
 
@@ -26,7 +30,7 @@ object EventHandler {
         else (listeners.first { it.kClass == eventClass } as EventInstance<E>).listeners.add(callback)
     }
 
-    fun <E : Any> invokeEvent(event: E) {
+    fun <E : Any> invokeEvent(event: E) = mcScope.launch {
         val eventListeners = listeners.find { it.kClass == event::class } as EventInstance<E>?
         eventListeners?.listeners?.forEach {
             it.invoke(event)

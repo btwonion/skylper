@@ -100,8 +100,8 @@ object PlayerSessionData {
         }
 
         if (!containsSkyblockTitle) {
+            if (isOnSkyblock) invokeEvent(SkyblockQuitEvent)
             isOnSkyblock = false
-            invokeEvent(SkyblockQuitEvent)
             clearData()
         }
     }

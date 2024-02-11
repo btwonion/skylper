@@ -6,25 +6,19 @@ import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.LevelChangeEvent
 import dev.nyon.skylper.extensions.RenderAfterTranslucentEvent
 import dev.nyon.skylper.extensions.color
-import dev.nyon.skylper.extensions.math.blockPos
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
-import dev.nyon.skylper.skyblock.data.skylper.currentProfile
-import dev.nyon.skylper.skyblock.data.skylper.playerData
 import dev.nyon.skylper.skyblock.hollows.locations.ChatStructureListener
 import dev.nyon.skylper.skyblock.hollows.locations.CrystalRunListener
+import dev.nyon.skylper.skyblock.hollows.locations.NameTagEntityListener
 import dev.nyon.skylper.skyblock.hollows.locations.PlayerChatLocationListener
 import dev.nyon.skylper.skyblock.hollows.render.ChestHighlighter
 import dev.nyon.skylper.skyblock.hollows.render.HollowsStructureWaypoint
+import dev.nyon.skylper.skyblock.hollows.render.tabhud.CrystalCompletionWidget
 import net.minecraft.world.phys.AABB
 
 object HollowsModule {
     val hollowsBox = AABB(201.0, 30.0, 201.0, 824.0, 189.0, 824.0)
-
-    val foundCrystals: Set<Crystal>
-        get() {
-            return playerData.currentProfile?.crystalHollows?.foundCrystals ?: mutableSetOf()
-        }
 
     val isPlayerInHollows: Boolean
         get() {
@@ -37,7 +31,7 @@ object HollowsModule {
         }
 
     private val nucleusWaypoint = HollowsStructure.CRYSTAL_NUCLEUS.internalWaypointName to HollowsStructureWaypoint(
-        HollowsStructure.CRYSTAL_NUCLEUS.box.center.blockPos.atY(0).center,
+        HollowsStructure.CRYSTAL_NUCLEUS.box.center,
         HollowsStructure.CRYSTAL_NUCLEUS.displayName,
         (HollowsStructure.CRYSTAL_NUCLEUS.maxY + HollowsStructure.CRYSTAL_NUCLEUS.minY) / 2,
         HollowsStructure.CRYSTAL_NUCLEUS.waypointColor.color
@@ -46,20 +40,21 @@ object HollowsModule {
 
     fun init() {
         PlayerChatLocationListener.init()
+        NameTagEntityListener.init()
         ChatStructureListener.init()
         ChestHighlighter.init()
         CrystalRunListener.init()
+        CrystalCompletionWidget.init()
 
         listenEvent<LevelChangeEvent> {
             waypoints.clear()
-            waypoints[nucleusWaypoint.first] = nucleusWaypoint.second
+            if (config.crystalHollows.hollowsWaypoints.nucleus) waypoints[nucleusWaypoint.first] = nucleusWaypoint.second
         }
         listenEvent<AreaChangeEvent> {
             if (it.next?.contains("Crystal Hollows") == false) waypoints.clear()
             else waypoints[nucleusWaypoint.first] = nucleusWaypoint.second
         }
         listenEvent<RenderAfterTranslucentEvent> {
-            if (!config.crystalHollows.showWaypoints) return@listenEvent
             if (!isPlayerInHollows) return@listenEvent
             waypoints.values.forEach { waypoint ->
                 waypoint.render(it.context)

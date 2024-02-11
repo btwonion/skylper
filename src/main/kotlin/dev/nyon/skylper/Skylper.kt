@@ -11,6 +11,7 @@ import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.data.skylper.*
 import dev.nyon.skylper.skyblock.hollows.HollowsModule
 import dev.nyon.skylper.skyblock.registerRootCommand
+import dev.nyon.skylper.skyblock.render.SkylperHud
 import kotlinx.coroutines.*
 import net.fabricmc.api.ClientModInitializer
 import net.minecraft.client.Minecraft
@@ -51,6 +52,8 @@ object Skylper : ClientModInitializer {
         registerRootCommand()
 
         FabricEvents.listenForFabricEvents()
+
+        SkylperHud.init()
 
         HollowsModule.init()
     }
