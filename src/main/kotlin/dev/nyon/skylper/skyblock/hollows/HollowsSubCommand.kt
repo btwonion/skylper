@@ -1,5 +1,6 @@
 package dev.nyon.skylper.skyblock.hollows
 
+import dev.nyon.skylper.extensions.color
 import dev.nyon.skylper.extensions.math.vec3
 import dev.nyon.skylper.skyblock.hollows.render.HollowsStructureWaypoint
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument
@@ -24,7 +25,10 @@ fun LiteralCommandBuilder<ClientCommandSourceStack>.appendCrystalHollowsSubComma
                             }
 
                             HollowsModule.waypoints[structure.internalWaypointName] = HollowsStructureWaypoint(
-                                loc, structure
+                                loc,
+                                structure.displayName,
+                                if (structure == HollowsStructure.JUNGLE_TEMPLE) 115 else (structure.maxY + structure.minY) / 2,
+                                structure.waypointColor.color
                             )
                             source.sendSuccess(
                                 Component.translatable(

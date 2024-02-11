@@ -5,11 +5,14 @@ import dev.nyon.skylper.extensions.AreaChangeEvent
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.LevelChangeEvent
 import dev.nyon.skylper.extensions.RenderAfterTranslucentEvent
+import dev.nyon.skylper.extensions.color
+import dev.nyon.skylper.extensions.math.blockPos
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.data.skylper.currentProfile
 import dev.nyon.skylper.skyblock.data.skylper.playerData
 import dev.nyon.skylper.skyblock.hollows.locations.ChatStructureListener
+import dev.nyon.skylper.skyblock.hollows.locations.CrystalRunListener
 import dev.nyon.skylper.skyblock.hollows.locations.PlayerChatLocationListener
 import dev.nyon.skylper.skyblock.hollows.render.ChestHighlighter
 import dev.nyon.skylper.skyblock.hollows.render.HollowsStructureWaypoint
@@ -34,7 +37,10 @@ object HollowsModule {
         }
 
     private val nucleusWaypoint = HollowsStructure.CRYSTAL_NUCLEUS.internalWaypointName to HollowsStructureWaypoint(
-        HollowsStructure.CRYSTAL_NUCLEUS.box.center, HollowsStructure.CRYSTAL_NUCLEUS, false
+        HollowsStructure.CRYSTAL_NUCLEUS.box.center.blockPos.atY(0).center,
+        HollowsStructure.CRYSTAL_NUCLEUS.displayName,
+        (HollowsStructure.CRYSTAL_NUCLEUS.maxY + HollowsStructure.CRYSTAL_NUCLEUS.minY) / 2,
+        HollowsStructure.CRYSTAL_NUCLEUS.waypointColor.color
     )
     val waypoints: MutableMap<String, HollowsStructureWaypoint> = mutableMapOf()
 
@@ -42,6 +48,7 @@ object HollowsModule {
         PlayerChatLocationListener.init()
         ChatStructureListener.init()
         ChestHighlighter.init()
+        CrystalRunListener.init()
 
         listenEvent<LevelChangeEvent> {
             waypoints.clear()

@@ -3,6 +3,7 @@ package dev.nyon.skylper.skyblock.hollows.locations
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.MessageEvent
+import dev.nyon.skylper.extensions.color
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.hollows.HollowsModule
 import dev.nyon.skylper.skyblock.hollows.HollowsStructure
@@ -22,15 +23,13 @@ object PlayerChatLocationListener {
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
 
         val rawMessage = event.text.string
-        val loc = regex.find(rawMessage)?.groupValues?.toMutableList()
-            .also { set -> set?.removeIf { it.isEmpty() || it.toDoubleOrNull() == null } }
-            ?.let {
-                when (it.size) {
-                    2 -> RawLocation(it[0].toDouble(), null, it[1].toDouble())
-                    3 -> RawLocation(it[0].toDouble(), it[1].toDouble(), it[2].toDouble())
-                    else -> return@listenEvent
-                }
-            } ?: return@listenEvent
+        val loc = regex.find(rawMessage)?.groupValues?.let {
+            when (it.size) {
+                2 -> RawLocation(it[0].toDouble(), null, it[1].toDouble())
+                3 -> RawLocation(it[0].toDouble(), it[1].toDouble(), it[2].toDouble())
+                else -> return@listenEvent
+            }
+        } ?: return@listenEvent
 
         if (!HollowsModule.hollowsBox.contains(
                 loc.x, loc.y ?: 30.0, loc.z
@@ -47,7 +46,10 @@ object PlayerChatLocationListener {
                 location.x, location.y ?: matchingStructure.minY.toDouble(), location.z
             )
             HollowsModule.waypoints[matchingStructure.internalWaypointName] = HollowsStructureWaypoint(
-                pos, matchingStructure
+                pos,
+                matchingStructure.displayName,
+                if (matchingStructure == HollowsStructure.JUNGLE_TEMPLE) 115 else (matchingStructure.maxY + matchingStructure.minY) / 2,
+                matchingStructure.waypointColor.color
             )
             minecraft.player?.sendSystemMessage(
                 Component.translatable(

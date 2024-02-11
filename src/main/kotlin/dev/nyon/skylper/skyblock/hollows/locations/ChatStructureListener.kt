@@ -3,6 +3,7 @@ package dev.nyon.skylper.skyblock.hollows.locations
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.MessageEvent
+import dev.nyon.skylper.extensions.color
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.hollows.HollowsModule
 import dev.nyon.skylper.skyblock.hollows.HollowsStructure
@@ -30,7 +31,10 @@ object ChatStructureListener {
         if (matchingStructure != null) {
             val playerLoc = minecraft.player?.position() ?: return@listenEvent
             HollowsModule.waypoints[matchingStructure.internalWaypointName] = HollowsStructureWaypoint(
-                Vec3(playerLoc.x, matchingStructure.minY.toDouble(), playerLoc.z), matchingStructure
+                Vec3(playerLoc.x, matchingStructure.minY.toDouble(), playerLoc.z),
+                matchingStructure.displayName,
+                if (matchingStructure == HollowsStructure.JUNGLE_TEMPLE) 115 else (matchingStructure.maxY + matchingStructure.minY) / 2,
+                matchingStructure.waypointColor.color
             )
         }
     }

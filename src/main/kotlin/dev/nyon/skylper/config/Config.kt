@@ -23,6 +23,7 @@ data class Config(val crystalHollows: CrystalHollowsConfig = CrystalHollowsConfi
     @Serializable
     data class CrystalHollowsConfig(
         val showWaypoints: Boolean = true,
+        val showJungleTempleCrystalWaypoint: Boolean = true,
         val parseLocationChats: Boolean = true,
         val highlightChests: Boolean = true,
         val chestHighlightColor: @Contextual Color = Color(255, 0, 0)
