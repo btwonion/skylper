@@ -14,13 +14,16 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import net.minecraft.core.BlockPos
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.phys.Vec3
 import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.minutes
 
 object ChestHighlighter {
-    private val foundChests = mutableSetOf<BlockPos>()
+    private val foundChests = mutableMapOf<BlockPos, Instant>()
     private val mutex = Mutex()
 
     fun init() {
@@ -28,32 +31,44 @@ object ChestHighlighter {
         listenForLevelChange()
         listenForChestInteraction()
         render()
+
+        independentScope.launch {
+            while (true) {
+                delay(2.minutes)
+                val timeStamp = Clock.System.now()
+                val chestsToRemove = foundChests.filter { (_, instant) -> timeStamp - instant > 2.minutes }.keys
+                chestsToRemove.forEach {
+                    mutex.withLock { foundChests.remove(it) }
+                }
+            }
+        }
     }
 
     private fun listenForChests() = listenEvent<BlockUpdateEvent> {
-        foundChests.remove(it.pos)
-        if ((!HollowsModule.isPlayerInHollows || !config.crystalHollows.highlightChests)) return@listenEvent
-        if (it.state.block != Blocks.CHEST) return@listenEvent
         independentScope.launch {
+            mutex.withLock { foundChests.remove(it.pos) }
+            if ((!HollowsModule.isPlayerInHollows || !config.crystalHollows.highlightChests)) return@launch
+            if (it.state.block != Blocks.CHEST) return@launch
             delay(150.milliseconds)
             val updatedBlockState = minecraft.level?.getBlockState(it.pos)
             if (updatedBlockState?.block == Blocks.CHEST) mutex.withLock {
-                foundChests.add(it.pos)
+                foundChests[it.pos] = Clock.System.now()
             }
         }
     }
 
     private fun listenForChestInteraction() = listenEvent<BlockInteractEvent> {
-        foundChests.remove(it.result.blockPos)
+        if (foundChests.contains(it.result.blockPos)) independentScope.launch { foundChests.remove(it.result.blockPos) }
     }
 
-    private fun listenForLevelChange() = listenEvent<LevelChangeEvent> { foundChests.clear() }
+    private fun listenForLevelChange() =
+        listenEvent<LevelChangeEvent> { independentScope.launch { foundChests.clear() } }
 
     private fun render() = listenEvent<RenderAfterTranslucentEvent> {
         if ((!HollowsModule.isPlayerInHollows || !config.crystalHollows.highlightChests)) return@listenEvent
         val color = config.crystalHollows.chestHighlightColor
         val copiedChests = foundChests
-        copiedChests.forEach { pos ->
+        copiedChests.forEach { (pos) ->
             RenderHelperInvoker.invokeRenderFilled(
                 it.context,
                 Vec3(pos.x - 0.1, pos.y - 0.1, pos.z - 0.1),

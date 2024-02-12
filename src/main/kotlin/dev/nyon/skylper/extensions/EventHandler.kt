@@ -17,7 +17,8 @@ object EventHandler {
         MessageEvent::class,
         RenderAfterTranslucentEvent::class,
         RenderHudEvent::class,
-        BlockUpdateEvent::class
+        BlockUpdateEvent::class,
+        BlockInteractEvent::class
     )
 
     inline fun <reified E : Any> listenEvent(noinline callback: (event: E) -> Unit) {
