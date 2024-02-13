@@ -31,3 +31,4 @@ data class BlockBreakEvent(val pos: BlockPos)
 data class RenderAfterTranslucentEvent(val context: WorldRenderContext)
 data class RenderHudEvent(val context: GuiGraphics)
 data class BlockInteractEvent(val result: BlockHitResult)
+object MinecraftStopEvent

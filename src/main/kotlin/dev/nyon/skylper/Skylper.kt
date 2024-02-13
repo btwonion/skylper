@@ -2,11 +2,14 @@ package dev.nyon.skylper
 
 import dev.nyon.konfig.config.config
 import dev.nyon.konfig.config.loadConfig
+import dev.nyon.konfig.config.saveConfig
 import dev.nyon.skylper.config.Config
 import dev.nyon.skylper.config.configDir
 import dev.nyon.skylper.config.configJsonBuilder
 import dev.nyon.skylper.config.migrate
+import dev.nyon.skylper.extensions.EventHandler
 import dev.nyon.skylper.extensions.FabricEvents
+import dev.nyon.skylper.extensions.MinecraftStopEvent
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.data.skylper.*
 import dev.nyon.skylper.skyblock.hollows.HollowsModule
@@ -29,6 +32,8 @@ object Skylper : ClientModInitializer {
         minecraft = Minecraft.getInstance()
         mcDispatcher = minecraft.asCoroutineDispatcher()
         mcScope = CoroutineScope(SupervisorJob() + mcDispatcher)
+
+        handleStop()
 
         config(
             configDir.resolve("skylper.json"), 1, Config(), configJsonBuilder::invoke
@@ -56,5 +61,12 @@ object Skylper : ClientModInitializer {
         SkylperHud.init()
 
         HollowsModule.init()
+    }
+
+    private fun handleStop() {
+        EventHandler.listenEvent<MinecraftStopEvent> {
+            saveConfig(internalConfig)
+            saveConfig(playerData)
+        }
     }
 }
