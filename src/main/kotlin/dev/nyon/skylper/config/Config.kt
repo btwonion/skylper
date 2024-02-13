@@ -24,6 +24,7 @@ data class Config(val crystalHollows: CrystalHollowsConfig = CrystalHollowsConfi
     data class CrystalHollowsConfig(
         val hollowsWaypoints: HollowsWaypoints = HollowsWaypoints(),
         val parseLocationChats: Boolean = true,
+        val automaticallyAddLocations: Boolean = true,
         val highlightChests: Boolean = true,
         val chestHighlightColor: @Contextual Color = Color(255, 0, 0),
         val crystalOverlay: CrystalOverlay = CrystalOverlay()

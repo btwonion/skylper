@@ -43,24 +43,26 @@ object PlayerChatLocationListener {
     }
 
     private fun handleRawLocation(location: RawLocation, rawMessage: String) {
-        val matchingStructure = HollowsStructure.entries.find { rawMessage.contains(it.displayName, true) }
-        if (HollowsModule.waypoints.containsKey(matchingStructure?.internalWaypointName)) return
-        if (matchingStructure != null) {
-            val pos = Vec3(
-                location.x, location.y ?: matchingStructure.minY.toDouble(), location.z
-            )
-            HollowsModule.waypoints[matchingStructure.internalWaypointName] = HollowsStructureWaypoint(
-                pos,
-                matchingStructure.displayName,
-                if (matchingStructure == HollowsStructure.JUNGLE_TEMPLE) 115 else (matchingStructure.maxY + matchingStructure.minY) / 2,
-                matchingStructure.waypointColor.color
-            )
-            minecraft.player?.sendSystemMessage(
-                Component.translatable(
-                    "chat.skylper.hollows.locations.found", matchingStructure.displayName, pos.x, pos.y, pos.z
+        if (config.crystalHollows.automaticallyAddLocations) {
+            val matchingStructure = HollowsStructure.entries.find { rawMessage.contains(it.displayName, true) }
+            if (HollowsModule.waypoints.containsKey(matchingStructure?.internalWaypointName)) return
+            if (matchingStructure != null) {
+                val pos = Vec3(
+                    location.x, location.y ?: matchingStructure.minY.toDouble(), location.z
                 )
-            )
-            return
+                HollowsModule.waypoints[matchingStructure.internalWaypointName] = HollowsStructureWaypoint(
+                    pos,
+                    matchingStructure.displayName,
+                    if (matchingStructure == HollowsStructure.JUNGLE_TEMPLE) 115 else (matchingStructure.maxY + matchingStructure.minY) / 2,
+                    matchingStructure.waypointColor.color
+                )
+                minecraft.player?.sendSystemMessage(
+                    Component.translatable(
+                        "chat.skylper.hollows.locations.found", matchingStructure.displayName, pos.x, pos.y, pos.z
+                    )
+                )
+                return
+            }
         }
 
         val possibleStructures =
