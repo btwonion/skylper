@@ -1,6 +1,6 @@
 package dev.nyon.skylper.skyblock
 
-import dev.nyon.skylper.config.createYaclScreen
+import dev.nyon.skylper.config.screen.createYaclScreen
 import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.hollows.appendCrystalHollowsSubCommand

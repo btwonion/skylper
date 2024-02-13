@@ -1,9 +1,9 @@
 {
   "menu.skylper.name": "skylper",
   "menu.skylper.config.general.title": "Allgemein",
+  "menu.skylper.config.general.hud.title": "HUD anpassen",
+  "menu.skylper.config.general.hud.description": "Passe deine In-Game HUD an.",
   "menu.skylper.config.hollows.title": "Crystal Hollows",
-  "menu.skylper.config.hollows.hud.title": "HUD anpassen",
-  "menu.skylper.config.hollows.hud.description": "Passe deine In-Game HUD an.",
   "menu.skylper.tabhud.modifier.title": "HUD anpassen",
   "menu.skylper.tabhud.modifier.caption": "Verschiebe die Elemente um sie neu anzuordnen.",
   "menu.skylper.hollows.tabhud.crystals.title": "Kristalle",

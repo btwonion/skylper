@@ -23,29 +23,29 @@ data class Config(val crystalHollows: CrystalHollowsConfig = CrystalHollowsConfi
     @Serializable
     data class CrystalHollowsConfig(
         val hollowsWaypoints: HollowsWaypoints = HollowsWaypoints(),
-        val parseLocationChats: Boolean = true,
-        val automaticallyAddLocations: Boolean = true,
-        val highlightChests: Boolean = true,
-        val chestHighlightColor: @Contextual Color = Color(255, 0, 0),
+        var parseLocationChats: Boolean = true,
+        var automaticallyAddLocations: Boolean = true,
+        var highlightChests: Boolean = true,
+        var chestHighlightColor: @Contextual Color = Color(255, 0, 0, 100),
         val crystalOverlay: CrystalOverlay = CrystalOverlay()
     ) {
         @Serializable
         data class HollowsWaypoints(
-            val goblinKing: Boolean = true,
-            val goblinQueen: Boolean = true,
-            val precursorCity: Boolean = true,
-            val jungleTemple: Boolean = true,
-            val amethystCrystal: Boolean = true,
-            val odawa: Boolean = true,
-            val khazadDum: Boolean = true,
-            val minesOfDivan: Boolean = true,
-            val nucleus: Boolean = true,
-            val fairyGrotto: Boolean = true,
-            val corleone: Boolean = true,
-            val keyGuardian: Boolean = true
+            var goblinKing: Boolean = true,
+            var goblinQueen: Boolean = true,
+            var precursorCity: Boolean = true,
+            var jungleTemple: Boolean = true,
+            var amethystCrystal: Boolean = true,
+            var odawa: Boolean = true,
+            var khazadDum: Boolean = true,
+            var minesOfDivan: Boolean = true,
+            var nucleus: Boolean = true,
+            var fairyGrotto: Boolean = true,
+            var corleone: Boolean = true,
+            var keyGuardian: Boolean = true
         )
 
         @Serializable
-        data class CrystalOverlay(val enabled: Boolean = true, var x: Int = 5, var y: Int = 200)
+        data class CrystalOverlay(var enabled: Boolean = true, var x: Int = 5, var y: Int = 200)
     }
 }

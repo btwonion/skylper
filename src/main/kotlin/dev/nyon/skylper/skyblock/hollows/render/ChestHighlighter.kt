@@ -62,7 +62,7 @@ object ChestHighlighter {
     }
 
     private fun listenForLevelChange() =
-        listenEvent<LevelChangeEvent> { independentScope.launch { foundChests.clear() } }
+        listenEvent<LevelChangeEvent> { independentScope.launch { mutex.withLock { foundChests.clear() } } }
 
     private fun render() = listenEvent<RenderAfterTranslucentEvent> {
         if ((!HollowsModule.isPlayerInHollows || !config.crystalHollows.highlightChests)) return@listenEvent
@@ -74,7 +74,7 @@ object ChestHighlighter {
                 Vec3(pos.x - 0.1, pos.y - 0.1, pos.z - 0.1),
                 Vec3(1.2, 1.15, 1.2),
                 color.getRGBComponents(null),
-                0.3f,
+                color.alpha.toFloat(),
                 false
             )
         }
