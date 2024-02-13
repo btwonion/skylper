@@ -13,7 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ChatListenerMixin {
 
     @Inject(
-        method = "handleSystemMessage", at = @At("TAIL")
+        method = "handleSystemMessage",
+        at = @At("TAIL")
     )
     private void invokeChatEvent(
         Component message,

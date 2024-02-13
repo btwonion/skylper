@@ -46,8 +46,8 @@ fun LiteralCommandBuilder<ClientCommandSourceStack>.appendCrystalHollowsSubComma
                     runsAsync {
                         val name = structureName()
 
-                        val structure = HollowsStructure.entries.find { it.internalWaypointName == name }
-                            ?: return@runsAsync
+                        val structure =
+                            HollowsStructure.entries.find { it.internalWaypointName == name } ?: return@runsAsync
                         HollowsModule.waypoints.remove(name)
                         source.sendSuccess(
                             Component.translatable(

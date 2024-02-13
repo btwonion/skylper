@@ -30,11 +30,12 @@ object ChatStructureListener {
 
         if (HollowsModule.waypoints.containsKey(matchingStructure.internalWaypointName)) return@listenEvent
         val playerLoc = minecraft.player?.position() ?: return@listenEvent
-        if (matchingStructure.isWaypointEnabled()) HollowsModule.waypoints[matchingStructure.internalWaypointName] = HollowsStructureWaypoint(
-            Vec3(playerLoc.x, 0.0, playerLoc.z),
-            matchingStructure.displayName,
-            if (matchingStructure == HollowsStructure.JUNGLE_TEMPLE) 115 else (matchingStructure.maxY + matchingStructure.minY) / 2,
-            matchingStructure.waypointColor.color
-        )
+        if (matchingStructure.isWaypointEnabled()) HollowsModule.waypoints[matchingStructure.internalWaypointName] =
+            HollowsStructureWaypoint(
+                Vec3(playerLoc.x, 0.0, playerLoc.z),
+                matchingStructure.displayName,
+                if (matchingStructure == HollowsStructure.JUNGLE_TEMPLE) 115 else (matchingStructure.maxY + matchingStructure.minY) / 2,
+                matchingStructure.waypointColor.color
+            )
     }
 }

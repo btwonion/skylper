@@ -17,7 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class LevelRendererMixin {
 
     @Inject(
-        method = "addParticle(Lnet/minecraft/core/particles/ParticleOptions;ZZDDDDDD)V", at = @At("TAIL")
+        method = "addParticle(Lnet/minecraft/core/particles/ParticleOptions;ZZDDDDDD)V",
+        at = @At("TAIL")
     )
     private void triggerParticleSpawnEvent(
         ParticleOptions options,
@@ -35,7 +36,8 @@ public class LevelRendererMixin {
     }
 
     @Inject(
-        method = "setLevel", at = @At("TAIL")
+        method = "setLevel",
+        at = @At("TAIL")
     )
     private void invokeLevelChangeEvent(
         ClientLevel level,

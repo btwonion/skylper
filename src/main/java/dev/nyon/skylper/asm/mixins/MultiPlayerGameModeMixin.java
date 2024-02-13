@@ -16,7 +16,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MultiPlayerGameModeMixin {
 
     @Inject(
-        method = "useItemOn", at = @At("HEAD")
+        method = "useItemOn",
+        at = @At("HEAD")
     )
     private void invokeBlockInteractEvent(
         LocalPlayer player,

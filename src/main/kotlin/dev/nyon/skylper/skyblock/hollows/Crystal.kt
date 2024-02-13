@@ -26,7 +26,13 @@ enum class Crystal(val displayName: String) {
 }
 
 enum class CrystalState(val component: Component) {
-    NOT_FOUND(Component.translatable("menu.skylper.hollows.tabhud.crystals.not_found").withColor(ChatFormatting.DARK_RED.color!!)),
+    NOT_FOUND(
+        Component.translatable("menu.skylper.hollows.tabhud.crystals.not_found")
+            .withColor(ChatFormatting.DARK_RED.color!!)
+    ),
     FOUND(Component.translatable("menu.skylper.hollows.tabhud.crystals.found").withColor(ChatFormatting.GOLD.color!!)),
-    PLACED(Component.translatable("menu.skylper.hollows.tabhud.crystals.placed").withColor(ChatFormatting.DARK_GREEN.color!!))
+    PLACED(
+        Component.translatable("menu.skylper.hollows.tabhud.crystals.placed")
+            .withColor(ChatFormatting.DARK_GREEN.color!!)
+    )
 }

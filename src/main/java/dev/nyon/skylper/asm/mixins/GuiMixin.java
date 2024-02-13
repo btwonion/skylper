@@ -19,12 +19,14 @@ public abstract class GuiMixin {
     public abstract DebugScreenOverlay getDebugOverlay();
 
     @Inject(
-        method = "render", at = @At(value = "TAIL"), slice = @Slice(
-        from = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/components/PlayerTabOverlay;render(Lnet/minecraft/client/gui/GuiGraphics;ILnet/minecraft/world/scores/Scoreboard;Lnet/minecraft/world/scores/Objective;)V"
+        method = "render",
+        at = @At(value = "TAIL"),
+        slice = @Slice(
+            from = @At(
+                value = "INVOKE",
+                target = "Lnet/minecraft/client/gui/components/PlayerTabOverlay;render(Lnet/minecraft/client/gui/GuiGraphics;ILnet/minecraft/world/scores/Scoreboard;Lnet/minecraft/world/scores/Objective;)V"
+            )
         )
-    )
     )
     public void render(
         GuiGraphics drawContext,

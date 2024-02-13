@@ -22,7 +22,8 @@ object PlayerDataUpdater {
 
     private fun crystalHollowsChecker() {
         listenEvent<CrystalFoundEvent> { (crystal) ->
-            playerData.currentProfile?.crystalHollows?.crystals?.find { it.crystal == crystal }?.state = CrystalState.FOUND
+            playerData.currentProfile?.crystalHollows?.crystals?.find { it.crystal == crystal }?.state =
+                CrystalState.FOUND
         }
 
         listenEvent<NucleusRunCompleteEvent> {
@@ -30,7 +31,8 @@ object PlayerDataUpdater {
         }
 
         listenEvent<CrystalPlaceEvent> { (crystal) ->
-            playerData.currentProfile?.crystalHollows?.crystals?.find { it.crystal == crystal }?.state = CrystalState.PLACED
+            playerData.currentProfile?.crystalHollows?.crystals?.find { it.crystal == crystal }?.state =
+                CrystalState.PLACED
         }
     }
 }

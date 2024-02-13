@@ -30,7 +30,8 @@ public class LevelMixin {
     }
 
     @Inject(
-        method = "destroyBlock", at = @At("HEAD")
+        method = "destroyBlock",
+        at = @At("HEAD")
     )
     private void invokeBlockBreakEvent(
         BlockPos pos,

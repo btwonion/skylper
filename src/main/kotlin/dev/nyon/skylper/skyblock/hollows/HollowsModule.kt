@@ -48,7 +48,8 @@ object HollowsModule {
 
         listenEvent<LevelChangeEvent> {
             waypoints.clear()
-            if (config.crystalHollows.hollowsWaypoints.nucleus) waypoints[nucleusWaypoint.first] = nucleusWaypoint.second
+            if (config.crystalHollows.hollowsWaypoints.nucleus) waypoints[nucleusWaypoint.first] =
+                nucleusWaypoint.second
         }
         listenEvent<AreaChangeEvent> {
             if (it.next?.contains("Crystal Hollows") == false) waypoints.clear()

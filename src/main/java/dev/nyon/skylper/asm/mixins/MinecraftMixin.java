@@ -1,6 +1,5 @@
 package dev.nyon.skylper.asm.mixins;
 
-import dev.nyon.konfig.config.ConfigKt;
 import dev.nyon.skylper.extensions.EventHandler;
 import dev.nyon.skylper.extensions.MinecraftStopEvent;
 import dev.nyon.skylper.extensions.TickEvent;
@@ -14,14 +13,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MinecraftMixin {
 
     @Inject(
-        method = "tick", at = @At("TAIL")
+        method = "tick",
+        at = @At("TAIL")
     )
     public void dispatchTickEvent(CallbackInfo ci) {
         EventHandler.INSTANCE.invokeEvent(TickEvent.INSTANCE);
     }
 
     @Inject(
-        method = "stop", at = @At("TAIL")
+        method = "stop",
+        at = @At("TAIL")
     )
     private void invokeMinecraftStopEvent(CallbackInfo ci) {
         EventHandler.INSTANCE.invokeEvent(MinecraftStopEvent.INSTANCE);

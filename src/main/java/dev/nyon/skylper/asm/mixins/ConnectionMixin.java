@@ -25,7 +25,8 @@ public class ConnectionMixin {
     private SocketAddress address;
 
     @Inject(
-        method = "doSendPacket", at = @At("TAIL")
+        method = "doSendPacket",
+        at = @At("TAIL")
     )
     private void checkForHypixelConnection(
         Packet<?> packet,
@@ -41,7 +42,8 @@ public class ConnectionMixin {
     }
 
     @Inject(
-        method = "disconnect", at = @At("TAIL")
+        method = "disconnect",
+        at = @At("TAIL")
     )
     private void clearDestinationTargets(
         Component message,

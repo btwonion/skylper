@@ -4,7 +4,6 @@ import de.hysky.skyblocker.skyblock.tabhud.widget.Widget
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.RenderHudEvent
-import dev.nyon.skylper.skyblock.hollows.Crystal
 import dev.nyon.skylper.skyblock.hollows.HollowsModule
 import dev.nyon.skylper.skyblock.hollows.render.tabhud.CrystalCompletionWidget
 import net.minecraft.client.gui.GuiGraphics

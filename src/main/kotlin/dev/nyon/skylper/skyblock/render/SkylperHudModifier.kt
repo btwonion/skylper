@@ -10,7 +10,8 @@ import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
 import kotlin.math.max
 
-class SkylperHudModifier(private val parent: Screen?) : Screen(Component.translatable("menu.skylper.tabhud.modifier.title")) {
+class SkylperHudModifier(private val parent: Screen?) :
+    Screen(Component.translatable("menu.skylper.tabhud.modifier.title")) {
     private val enabledWidgets = buildList<SkylperWidget> {
         if (config.crystalHollows.crystalOverlay.enabled) add(CrystalCompletionWidget)
     }.onEach(Widget::update)
@@ -31,8 +32,9 @@ class SkylperHudModifier(private val parent: Screen?) : Screen(Component.transla
     }
 
     override fun mouseDragged(mouseX: Double, mouseY: Double, button: Int, dragX: Double, dragY: Double): Boolean {
-        val draggedWidget = enabledWidgets.find { widget -> (mouseX >= widget.x && mouseX <= widget.x + widget.width) && (mouseY >= widget.y && mouseY <= widget.y + widget.height) }
-            ?: return false
+        val draggedWidget =
+            enabledWidgets.find { widget -> (mouseX >= widget.x && mouseX <= widget.x + widget.width) && (mouseY >= widget.y && mouseY <= widget.y + widget.height) }
+                ?: return false
         draggedWidget.xD = max(draggedWidget.xD + dragX, 0.0)
         draggedWidget.yD = max(draggedWidget.yD + dragY, 0.0)
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY)
