@@ -1,8 +1,9 @@
 package dev.nyon.skylper.extensions
 
+import de.hysky.skyblocker.utils.Utils
 import net.minecraft.world.entity.LivingEntity
 
-// TODO derpy
 fun LivingEntity.hasMaxHealth(health: Float): Boolean {
-    return maxHealth == health
+    val actualHealth = if (Utils.getMayor() == "Derpy") health * 2 else health
+    return maxHealth == actualHealth
 }
