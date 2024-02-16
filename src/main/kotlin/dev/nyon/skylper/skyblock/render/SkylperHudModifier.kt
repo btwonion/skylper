@@ -1,9 +1,10 @@
 package dev.nyon.skylper.skyblock.render
 
 import de.hysky.skyblocker.skyblock.tabhud.widget.Widget
+import dev.nyon.konfig.config.saveConfig
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.skyblock.hollows.render.tabhud.CrystalCompletionWidget
-import dev.nyon.skylper.skyblock.render.tabhud.SkylperWidget
+import dev.nyon.skylper.skyblock.hollows.render.tabhud.PowderGrindingWidget
 import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
@@ -12,8 +13,9 @@ import kotlin.math.max
 
 class SkylperHudModifier(private val parent: Screen?) :
     Screen(Component.translatable("menu.skylper.tabhud.modifier.title")) {
-    private val enabledWidgets = buildList<SkylperWidget> {
+    private val enabledWidgets = buildList {
         if (config.crystalHollows.crystalOverlay.enabled) add(CrystalCompletionWidget)
+        if (config.crystalHollows.powderGrindingOverlay.enabled) add(PowderGrindingWidget)
     }.onEach(Widget::update)
 
     override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
@@ -41,6 +43,7 @@ class SkylperHudModifier(private val parent: Screen?) :
     }
 
     override fun onClose() {
+        saveConfig(config)
         minecraft?.setScreen(parent)
     }
 }

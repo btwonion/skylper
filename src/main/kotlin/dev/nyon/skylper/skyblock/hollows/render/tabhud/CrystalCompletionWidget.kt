@@ -13,12 +13,12 @@ import dev.nyon.skylper.extensions.NucleusRunCompleteEvent
 import dev.nyon.skylper.skyblock.data.skylper.currentProfile
 import dev.nyon.skylper.skyblock.data.skylper.playerData
 import dev.nyon.skylper.skyblock.render.tabhud.SkylperWidget
+import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 
-private const val COLOR = 0x51D6FF
-
 object CrystalCompletionWidget : SkylperWidget(
-    Component.translatable("menu.skylper.hollows.tabhud.crystals.title").withColor(COLOR), COLOR
+    Component.translatable("menu.skylper.hollows.tabhud.crystals.title")
+        .withStyle { it.withColor(ChatFormatting.DARK_AQUA.color!!).withBold(true) }, ChatFormatting.DARK_AQUA.color!!
 ) {
     override var xD: Double = config.crystalHollows.crystalOverlay.x.toDouble()
         set(value) {
@@ -46,7 +46,7 @@ object CrystalCompletionWidget : SkylperWidget(
     }
 
     override fun updateContent() {
-        val tableComponent = TableComponent(2, 5, COLOR)
+        val tableComponent = TableComponent(2, 5, ChatFormatting.DARK_AQUA.color!!)
 
         playerData.currentProfile?.crystalHollows?.crystals?.forEachIndexed { index, instance ->
             val itemStack = ItemRepository.getItemStack(instance.crystal.internalIconName) ?: return@forEachIndexed

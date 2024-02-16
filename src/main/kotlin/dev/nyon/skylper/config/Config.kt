@@ -27,7 +27,8 @@ data class Config(val crystalHollows: CrystalHollowsConfig = CrystalHollowsConfi
         var automaticallyAddLocations: Boolean = true,
         var highlightChests: Boolean = true,
         var chestHighlightColor: @Contextual Color = Color(255, 0, 0, 100),
-        val crystalOverlay: CrystalOverlay = CrystalOverlay()
+        val crystalOverlay: CrystalOverlay = CrystalOverlay(),
+        val powderGrindingOverlay: GrindingOverlay = GrindingOverlay()
     ) {
         @Serializable
         data class HollowsWaypoints(
@@ -47,5 +48,21 @@ data class Config(val crystalHollows: CrystalHollowsConfig = CrystalHollowsConfi
 
         @Serializable
         data class CrystalOverlay(var enabled: Boolean = true, var x: Int = 5, var y: Int = 200)
+
+        @Serializable
+        data class GrindingOverlay(
+            var enabled: Boolean = true,
+            var x: Int = 5,
+            var y: Int = 200,
+            var openedChests: Boolean = true,
+            var farmedGemstonePowder: Boolean = true,
+            var gemstonePowderPerMinute: Boolean = false,
+            var gemstonePowderPerHour: Boolean = true,
+            var farmedMithrilPowder: Boolean = true,
+            var mithrilPowderPerMinute: Boolean = false,
+            var mithrilPowderPerHour: Boolean = true,
+            var doublePowder: Boolean = true,
+            var sessionTime: Boolean = true
+        )
     }
 }

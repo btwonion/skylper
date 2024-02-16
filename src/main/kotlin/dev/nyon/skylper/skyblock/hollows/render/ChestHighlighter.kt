@@ -8,6 +8,7 @@ import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.LevelChangeEvent
 import dev.nyon.skylper.extensions.RenderAfterTranslucentEvent
 import dev.nyon.skylper.independentScope
+import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.hollows.HollowsModule
 import kotlinx.coroutines.delay
@@ -66,17 +67,21 @@ object ChestHighlighter {
 
     private fun render() = listenEvent<RenderAfterTranslucentEvent> {
         if ((!HollowsModule.isPlayerInHollows || !config.crystalHollows.highlightChests)) return@listenEvent
-        val color = config.crystalHollows.chestHighlightColor
-        val copiedChests = foundChests
-        copiedChests.forEach { (pos) ->
-            RenderHelperInvoker.invokeRenderFilled(
-                it.context,
-                Vec3(pos.x - 0.1, pos.y - 0.1, pos.z - 0.1),
-                Vec3(1.2, 1.15, 1.2),
-                color.getRGBComponents(null),
-                color.alpha.toFloat(),
-                false
-            )
+        mcScope.launch {
+            val color = config.crystalHollows.chestHighlightColor
+            val copiedChests = mutex.withLock {
+                foundChests
+            }
+            copiedChests.forEach { (pos) ->
+                RenderHelperInvoker.invokeRenderFilled(
+                    it.context,
+                    Vec3(pos.x - 0.1, pos.y - 0.1, pos.z - 0.1),
+                    Vec3(1.2, 1.15, 1.2),
+                    color.getRGBComponents(null),
+                    color.alpha.toFloat(),
+                    false
+                )
+            }
         }
     }
 }
