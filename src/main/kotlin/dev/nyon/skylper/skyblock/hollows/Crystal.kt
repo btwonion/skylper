@@ -7,12 +7,12 @@ import net.minecraft.network.chat.Component
 @Serializable
 data class CrystalInstance(val crystal: Crystal, var state: CrystalState)
 
-enum class Crystal(val displayName: String) {
-    AMBER("Amber"),
-    AMETHYST("Amethyst"),
-    JADE("Jade"),
-    SAPPHIRE("Sapphire"),
-    TOPAZ("Topaz");
+enum class Crystal(val displayName: String, val internalIconName: String) {
+    AMBER("Amber", "PERFECT_AMBER_GEM"),
+    AMETHYST("Amethyst", "PERFECT_AMETHYST_GEM"),
+    JADE("Jade", "PERFECT_JADE_GEM"),
+    SAPPHIRE("Sapphire", "PERFECT_SAPPHIRE_GEM"),
+    TOPAZ("Topaz", "PERFECT_TOPAZ_GEM");
 
     fun associatedStructure(): HollowsStructure {
         return when (this) {

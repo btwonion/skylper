@@ -1,5 +1,7 @@
 package dev.nyon.skylper.skyblock.hollows.render.tabhud
 
+import de.hysky.skyblocker.skyblock.itemlist.ItemRepository
+import de.hysky.skyblocker.skyblock.tabhud.widget.component.IcoTextComponent
 import de.hysky.skyblocker.skyblock.tabhud.widget.component.PlainTextComponent
 import de.hysky.skyblocker.skyblock.tabhud.widget.component.TableComponent
 import dev.nyon.skylper.config.config
@@ -47,7 +49,10 @@ object CrystalCompletionWidget : SkylperWidget(
         val tableComponent = TableComponent(2, 5, COLOR)
 
         playerData.currentProfile?.crystalHollows?.crystals?.forEachIndexed { index, instance ->
-            tableComponent.addToCell(0, index, PlainTextComponent(Component.literal(instance.crystal.displayName)))
+            val itemStack = ItemRepository.getItemStack(instance.crystal.internalIconName) ?: return@forEachIndexed
+            tableComponent.addToCell(
+                0, index, IcoTextComponent(itemStack, Component.literal(instance.crystal.displayName))
+            )
             tableComponent.addToCell(1, index, PlainTextComponent(instance.state.component))
         }
 
