@@ -29,7 +29,8 @@ data class Config(val crystalHollows: CrystalHollowsConfig = CrystalHollowsConfi
         var chestHighlightColor: @Contextual Color = Color(255, 0, 0, 100),
         val crystalOverlay: CrystalOverlay = CrystalOverlay(),
         val powderGrindingOverlay: GrindingOverlay = GrindingOverlay(),
-        var autoRenewPass: Boolean = true
+        var autoRenewPass: Boolean = true,
+        var metalDetectorHelper: Boolean = true
     ) {
         @Serializable
         data class HollowsWaypoints(

@@ -59,5 +59,8 @@
   "chat.skylper.hollows.locations.pick": "Click to select %d for this coordinates!",
   "chat.skylper.hollows.command.no_internal_waypoint_name": "No matching waypoint could be found for this key!",
   "chat.skylper.hollows.command.waypoint_created": "Successfully created waypoint for %d!",
-  "chat.skylper.hollows.command.waypoint_deleted": "The waypoint %d was deleted successfully!"
+  "chat.skylper.hollows.command.waypoint_deleted": "The waypoint %d was deleted successfully!",
+  "chat.skylper.hollows.solver.metaldetector.failed": "The metal detector solver has failed! Try another location!",
+  "chat.skylper.hollows.solver.metaldetector.success": "Found treasure location!",
+  "chat.skylper.hollows.solver.metaldetector.invalid": "Solver found %d solutions! Try another location!"
 }
