@@ -16,6 +16,7 @@ import dev.nyon.skylper.skyblock.hollows.render.ChestHighlighter
 import dev.nyon.skylper.skyblock.hollows.render.HollowsStructureWaypoint
 import dev.nyon.skylper.skyblock.hollows.render.tabhud.CrystalCompletionWidget
 import dev.nyon.skylper.skyblock.hollows.render.tabhud.PowderGrindingWidget
+import dev.nyon.skylper.skyblock.hollows.tracker.PassExpiryTracker
 import dev.nyon.skylper.skyblock.hollows.tracker.PowderGrindingTracker
 import net.minecraft.world.phys.AABB
 
@@ -49,6 +50,7 @@ object HollowsModule {
         CrystalRunListener.init()
         CrystalCompletionWidget.init()
         PowderGrindingWidget.init()
+        PassExpiryTracker.init()
 
         listenEvent<LevelChangeEvent> {
             waypoints.clear()
