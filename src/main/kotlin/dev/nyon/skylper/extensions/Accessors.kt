@@ -3,13 +3,10 @@ package dev.nyon.skylper.extensions
 import dev.nyon.skylper.asm.accessors.GuiAccessor
 import dev.nyon.skylper.asm.accessors.LevelRendererAccessor
 import dev.nyon.skylper.asm.accessors.PlayerTabOverlayAccessor
-import dev.nyon.skylper.asm.accessors.WorldCoordinatesAccessor
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.components.PlayerTabOverlay
 import net.minecraft.client.renderer.LevelRenderer
 import net.minecraft.client.renderer.culling.Frustum
-import net.minecraft.commands.arguments.coordinates.WorldCoordinate
-import net.minecraft.commands.arguments.coordinates.WorldCoordinates
 import net.minecraft.network.chat.Component
 import net.minecraft.world.scores.PlayerScoreEntry
 
@@ -26,17 +23,4 @@ val PlayerTabOverlay.footer: Component
 val Gui.orderComparator: Comparator<PlayerScoreEntry>
     get() {
         return (this as GuiAccessor).scoreDisplayOrder
-    }
-
-val WorldCoordinates.x: WorldCoordinate
-    get() {
-        return (this as WorldCoordinatesAccessor).x
-    }
-val WorldCoordinates.y: WorldCoordinate
-    get() {
-        return (this as WorldCoordinatesAccessor).y
-    }
-val WorldCoordinates.z: WorldCoordinate
-    get() {
-        return (this as WorldCoordinatesAccessor).z
     }

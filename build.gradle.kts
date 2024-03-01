@@ -57,8 +57,6 @@ dependencies {
 
     modImplementation("dev.isxander.yacl:yet-another-config-lib-fabric:3.3.2+1.20.4")
     modImplementation("com.terraformersmc:modmenu:9.0.0-pre.1")
-    modImplementation("net.silkmc:silk-core:1.10.3")
-    modImplementation("net.silkmc:silk-commands:1.10.3")
     modCompileOnly("maven.modrinth:y6DuFGwJ:bKu6Hdms") // Skyblocker by Wohlhabend - place the mod for testing in the mods folder (they have weird includes)
 
     runtimeTestMods.forEach { (projectId, versionId) ->

@@ -49,8 +49,12 @@ object PowderGrindingWidget : SkylperWidget(
         val components = buildList<Component> {
             if (grindingConfig.sessionTime && PowderGrindingTracker.miningStart != null) add(
                 Component.translatable("$WIDGET_NAMESPACE.session_time").withStyle(Style.EMPTY.withBold(true)).append(
-                    Component.literal((Clock.System.now() - PowderGrindingTracker.miningStart!!).toString(DurationUnit.MINUTES, decimals = 1))
-                        .withStyle(Style.EMPTY.withBold(false))
+                    Component.literal(
+                        (Clock.System.now() - PowderGrindingTracker.miningStart!!).toString(
+                            DurationUnit.MINUTES,
+                            decimals = 1
+                        )
+                    ).withStyle(Style.EMPTY.withBold(false))
                 )
             )
 
@@ -117,8 +121,7 @@ object PowderGrindingWidget : SkylperWidget(
                     )
                     if (grindingConfig.gemstonePowderPerMinute) componentBuilder.append(" - ").append(
                         Component.translatable(
-                            "$WIDGET_NAMESPACE.gemstone_minute",
-                            PowderGrindingTracker.gemstonePowderPerMinute.withDot()
+                            "$WIDGET_NAMESPACE.gemstone_minute", PowderGrindingTracker.gemstonePowderPerMinute.withDot()
                         )
                     )
                     component.append(componentBuilder)

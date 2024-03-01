@@ -7,8 +7,6 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import net.minecraft.nbt.CompoundTag
-import net.minecraft.nbt.StringTag
-import net.minecraft.nbt.StringTagVisitor
 import net.minecraft.nbt.TagParser
 import net.minecraft.resources.ResourceLocation
 import java.awt.Color

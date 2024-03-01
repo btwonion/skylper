@@ -1,27 +1,33 @@
 package dev.nyon.skylper.skyblock.hollows
 
+import com.mojang.brigadier.arguments.StringArgumentType
+import com.mojang.brigadier.builder.LiteralArgumentBuilder
+import dev.nyon.skylper.extensions.arguments.ClientBlockPosArgument
 import dev.nyon.skylper.extensions.color
-import dev.nyon.skylper.extensions.math.vec3
+import dev.nyon.skylper.extensions.command.arg
+import dev.nyon.skylper.extensions.command.executeAsync
+import dev.nyon.skylper.extensions.command.sub
 import dev.nyon.skylper.skyblock.hollows.render.HollowsStructureWaypoint
-import net.minecraft.commands.arguments.coordinates.BlockPosArgument
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 import net.minecraft.network.chat.Component
-import net.silkmc.silk.commands.*
 
-fun LiteralCommandBuilder<ClientCommandSourceStack>.appendCrystalHollowsSubCommand() {
-    literal("hollows") {
-        literal("waypoints") {
-            literal("set") {
-                argument<String>("internal_name") { structureName ->
-                    suggestList { HollowsStructure.entries.map { it.internalWaypointName } }
-                    argument("location", BlockPosArgument.blockPos()) { location ->
-                        runsAsync {
-                            val name = structureName()
-                            val loc = location().vec3(source.player.position())
+fun LiteralArgumentBuilder<FabricClientCommandSource>.appendCrystalHollowsSubCommand() {
+    sub("hollows") { hollows ->
+        hollows.sub("waypoints") { waypoints ->
+            waypoints.sub("set") { set ->
+                set.arg(
+                    "internal_name",
+                    StringArgumentType.word(),
+                    HollowsStructure.entries.map { it.internalWaypointName }) { nameArg ->
+                    nameArg.arg("location", ClientBlockPosArgument.blockPos()) { locationArg ->
+                        locationArg.executeAsync { context ->
+                            val name = StringArgumentType.getString(context, "internal_name")
+                            val loc = ClientBlockPosArgument.getBlockPos(context, "location").center
 
                             val structure = HollowsStructure.entries.find { it.internalWaypointName == name }
-                            if (structure == null || loc == null) {
-                                source.sendFailure(Component.translatable("chat.skylper.hollows.command.no_internal_waypoint_name"))
-                                return@runsAsync
+                            if (structure == null) {
+                                context.source.sendError(Component.translatable("chat.skylper.hollows.command.no_internal_waypoint_name"))
+                                return@executeAsync
                             }
 
                             HollowsModule.waypoints[structure.internalWaypointName] = HollowsStructureWaypoint(
@@ -30,7 +36,7 @@ fun LiteralCommandBuilder<ClientCommandSourceStack>.appendCrystalHollowsSubComma
                                 if (structure == HollowsStructure.JUNGLE_TEMPLE) 115 else (structure.maxY + structure.minY) / 2,
                                 structure.waypointColor.color
                             )
-                            source.sendSuccess(
+                            context.source.sendFeedback(
                                 Component.translatable(
                                     "chat.skylper.hollows.command.waypoint_created", structure.displayName
                                 )
@@ -40,16 +46,17 @@ fun LiteralCommandBuilder<ClientCommandSourceStack>.appendCrystalHollowsSubComma
                 }
             }
 
-            literal("remove") {
-                argument<String>("internal_name") { structureName ->
-                    suggestList { HollowsStructure.entries.map { it.internalWaypointName } }
-                    runsAsync {
-                        val name = structureName()
-
+            waypoints.sub("remove") { remove ->
+                remove.arg(
+                    "internal_name",
+                    StringArgumentType.word(),
+                    HollowsStructure.entries.map { it.internalWaypointName }) { nameArg ->
+                    nameArg.executeAsync { context ->
+                        val name = StringArgumentType.getString(context, "internal_name")
                         val structure =
-                            HollowsStructure.entries.find { it.internalWaypointName == name } ?: return@runsAsync
+                            HollowsStructure.entries.find { it.internalWaypointName == name } ?: return@executeAsync
                         HollowsModule.waypoints.remove(name)
-                        source.sendSuccess(
+                        context.source.sendFeedback(
                             Component.translatable(
                                 "chat.skylper.hollows.command.waypoint_deleted", structure.displayName
                             )

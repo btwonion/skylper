@@ -3,7 +3,6 @@ package dev.nyon.skylper.skyblock.hollows.render
 import de.hysky.skyblocker.utils.render.RenderHelper
 import de.hysky.skyblocker.utils.waypoint.Waypoint
 import dev.nyon.skylper.extensions.color
-import dev.nyon.skylper.minecraft
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext
 import net.minecraft.ChatFormatting
 import net.minecraft.core.BlockPos
@@ -25,11 +24,7 @@ class MetalDetectorWaypoint(pos: BlockPos) : Waypoint(
         )
         val distance = context!!.camera().position.distanceTo(vec)
         RenderHelper.renderText(
-            context,
-            Component.literal(Math.round(distance).toString() + "m"),
-            vec.add(Vec3(0.0, 0.3, 0.0)),
-            13f,
-            true
+            context, Component.literal(Math.round(distance).toString() + "m"), vec.add(Vec3(0.0, 0.3, 0.0)), 13f, true
         )
     }
 }
