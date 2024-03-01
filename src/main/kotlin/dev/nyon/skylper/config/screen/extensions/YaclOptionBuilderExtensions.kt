@@ -43,8 +43,8 @@ fun <T> ListOption.Builder<T>.title(categoryKey: String, key: String): ListOptio
     return this
 }
 
-fun Option.Builder<*>.description(categoryKey: String, key: String, vararg args: Any) {
-    description(OptionDescription.of(Component.translatable("menu.skylper.config.$categoryKey.$key.description", args)))
+fun Option.Builder<*>.description(categoryKey: String, key: String, vararg args: String) {
+    description(OptionDescription.of(Component.translatable("menu.skylper.config.$categoryKey.$key.description", *args)))
 }
 
 fun Option.Builder<*>.description(

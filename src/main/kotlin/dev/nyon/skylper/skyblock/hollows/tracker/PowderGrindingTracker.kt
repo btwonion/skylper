@@ -21,7 +21,6 @@ object PowderGrindingTracker {
     private const val UNCOVER_CHEST_MESSAGE = "You uncovered a treasure chest!"
     private const val GEMSTONE_PATTERN = "Gemstone Powder: "
     private const val MITHRIL_PATTERN = "Mithril Powder: "
-    private const val RECEIVED_REWARD_MESSAGE = "You received "
 
     private var originalGemstonePowder: Int? = null
     private var originalMithrilPowder: Int? = null

@@ -21,13 +21,14 @@ fun <T> ConfigCategory.Builder.list(categoryKey: String, titleKey: String, block
 }
 
 fun ConfigCategory.Builder.subGroup(categoryKey: String, titleKey: String, block: OptionGroup.Builder.() -> Unit) {
-    group(OptionGroup.createBuilder().title(categoryKey, titleKey).also(block).build())
+    group(OptionGroup.createBuilder().title(categoryKey, titleKey).collapsed(true).also(block).build())
 }
 
 private const val autoKey = "auto"
 private const val overlayEnabledKey = "overlay.enabled"
 private const val overlayXKey = "overlay.x"
 private const val overlayYKey = "overlay.y"
+
 fun ConfigCategory.Builder.overlayConfig(
     categoryKey: String,
     titleKey: String,
@@ -36,7 +37,8 @@ fun ConfigCategory.Builder.overlayConfig(
     xGet: () -> Int,
     xSet: (Int) -> Unit,
     yGet: () -> Int,
-    ySet: (Int) -> Unit
+    ySet: (Int) -> Unit,
+    extra: OptionGroup.Builder.() -> Unit = {}
 ) {
     subGroup(categoryKey, titleKey) {
         description(categoryKey, titleKey)
@@ -57,5 +59,7 @@ fun ConfigCategory.Builder.overlayConfig(
             getSet(yGet, ySet)
             field(0, Int.MAX_VALUE)
         }
+
+        extra()
     }
 }
