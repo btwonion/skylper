@@ -132,7 +132,5 @@ object PowderGrindingWidget : SkylperWidget(
         }
 
         components.forEach { if (it != Component.empty()) addComponent(PlainTextComponent(it)) }
-        y = 200
-        x = 20
     }
 }
