@@ -10,6 +10,7 @@ import dev.nyon.skylper.config.migrate
 import dev.nyon.skylper.extensions.EventHandler
 import dev.nyon.skylper.extensions.FabricEvents
 import dev.nyon.skylper.extensions.MinecraftStopEvent
+import dev.nyon.skylper.skyblock.data.online.SkyblockOnlineData
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.data.skylper.*
 import dev.nyon.skylper.skyblock.hollows.HollowsModule
@@ -50,10 +51,11 @@ object Skylper : ClientModInitializer {
         mcScope.launch { setup() }
     }
 
-    private fun setup() { //NeuDownloader.reloadFiles() Not needed at the moment
+    private suspend fun setup() {
         PlayerSessionData.startUpdaters()
         PlayerDataUpdater.initUpdaters()
         PlayerDataSaver.startSaveTask()
+        SkyblockOnlineData.init()
         registerRootCommand()
 
         FabricEvents.listenForFabricEvents()

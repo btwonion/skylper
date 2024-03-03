@@ -3,7 +3,7 @@ package dev.nyon.skylper.skyblock.data.online
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-object MayorData : SkyblockOnlineData<HypixelApiMayorResponse>() {
+object MayorData : SkyblockOnlineData<HypixelApiMayorResponse>(HypixelApiMayorResponse::class) {
     override val path: String = "election"
 
     var mayor: Mayor? = null
