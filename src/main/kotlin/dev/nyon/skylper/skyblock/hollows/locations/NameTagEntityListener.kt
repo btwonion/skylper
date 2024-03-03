@@ -2,11 +2,12 @@ package dev.nyon.skylper.skyblock.hollows.locations
 
 import dev.nyon.skylper.extensions.EntitySpawnEvent
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
-import dev.nyon.skylper.extensions.color
 import dev.nyon.skylper.extensions.hasMaxHealth
+import dev.nyon.skylper.extensions.render.waypoint.Waypoint
+import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import dev.nyon.skylper.skyblock.hollows.HollowsModule
 import dev.nyon.skylper.skyblock.hollows.HollowsStructure
-import dev.nyon.skylper.skyblock.hollows.render.HollowsStructureWaypoint
+import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.LivingEntity
 
 object NameTagEntityListener {
@@ -22,10 +23,12 @@ object NameTagEntityListener {
                 else -> null
             } ?: return@listenEvent
 
-            if (structure.isWaypointEnabled()) HollowsModule.waypoints[structure.internalWaypointName] =
-                HollowsStructureWaypoint(
-                    entity.position(), structure.displayName, entity.y.toInt(), structure.waypointColor.color
-                )
+            if (structure.isWaypointEnabled()) HollowsModule.waypoints[structure.internalWaypointName] = Waypoint(
+                Component.literal(structure.displayName),
+                entity.position(),
+                WaypointType.OUTLINE_WITH_BEAM,
+                structure.waypointColor
+            )
         }
     }
 }

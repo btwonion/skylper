@@ -3,6 +3,7 @@ package dev.nyon.skylper.extensions
 import dev.nyon.skylper.minecraft
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
+import net.minecraft.world.phys.AABB
 import net.minecraft.world.scores.DisplaySlot
 import net.minecraft.world.scores.PlayerTeam
 
@@ -16,4 +17,8 @@ fun Minecraft.retrieveScoreboardLines(): List<Component> {
             val text = it.ownerName()
             PlayerTeam.formatNameForTeam(team, text)
         }.toMutableList().also { it.add(objective.displayName.copy()) }
+}
+
+fun Minecraft.isVisible(box: AABB): Boolean {
+    return levelRenderer.cullingFrustum.isVisible(box)
 }

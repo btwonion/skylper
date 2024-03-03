@@ -1,10 +1,19 @@
 package dev.nyon.skylper.extensions
 
-import dev.nyon.skylper.asm.invokers.FrustumInvoker
-import net.minecraft.client.renderer.culling.Frustum
+import com.mojang.blaze3d.vertex.PoseStack
+import dev.nyon.skylper.asm.invokers.BeaconRendererInvoker
+import net.minecraft.client.renderer.MultiBufferSource
 
-fun Frustum.isCubeInFrustum(
-    minX: Double, minY: Double, minZ: Double, maxX: Double, maxY: Double, maxZ: Double
-): Boolean {
-    return (this as FrustumInvoker).invokeCubeInFrustum(minX, minY, minZ, maxX, maxY, maxZ)
+fun internalRenderBeaconBeam(
+    poseStack: PoseStack,
+    bufferSource: MultiBufferSource,
+    partialTick: Float,
+    gameTime: Long,
+    color: Int,
+    height: Int,
+    yOffset: Int = 0
+) {
+    BeaconRendererInvoker.renderBeaconBeam(
+        poseStack, bufferSource, partialTick, gameTime, yOffset, height, color.color.getRGBComponents(null)
+    )
 }

@@ -3,11 +3,12 @@ package dev.nyon.skylper.skyblock.hollows
 import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import dev.nyon.skylper.extensions.arguments.ClientBlockPosArgument
-import dev.nyon.skylper.extensions.color
 import dev.nyon.skylper.extensions.command.arg
 import dev.nyon.skylper.extensions.command.executeAsync
 import dev.nyon.skylper.extensions.command.sub
-import dev.nyon.skylper.skyblock.hollows.render.HollowsStructureWaypoint
+import dev.nyon.skylper.extensions.math.blockPos
+import dev.nyon.skylper.extensions.render.waypoint.Waypoint
+import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 import net.minecraft.network.chat.Component
 
@@ -15,8 +16,7 @@ fun LiteralArgumentBuilder<FabricClientCommandSource>.appendCrystalHollowsSubCom
     sub("hollows") { hollows ->
         hollows.sub("waypoints") { waypoints ->
             waypoints.sub("set") { set ->
-                set.arg(
-                    "internal_name",
+                set.arg("internal_name",
                     StringArgumentType.word(),
                     HollowsStructure.entries.map { it.internalWaypointName }) { nameArg ->
                     nameArg.arg("location", ClientBlockPosArgument.blockPos()) { locationArg ->
@@ -30,11 +30,11 @@ fun LiteralArgumentBuilder<FabricClientCommandSource>.appendCrystalHollowsSubCom
                                 return@executeAsync
                             }
 
-                            HollowsModule.waypoints[structure.internalWaypointName] = HollowsStructureWaypoint(
-                                loc,
-                                structure.displayName,
-                                if (structure == HollowsStructure.JUNGLE_TEMPLE) 115 else (structure.maxY + structure.minY) / 2,
-                                structure.waypointColor.color
+                            HollowsModule.waypoints[structure.internalWaypointName] = Waypoint(
+                                Component.literal(structure.displayName),
+                                loc.blockPos.atY(if (structure == HollowsStructure.JUNGLE_TEMPLE) 115 else (structure.maxY + structure.minY) / 2).center,
+                                WaypointType.BEAM,
+                                structure.waypointColor
                             )
                             context.source.sendFeedback(
                                 Component.translatable(
@@ -47,8 +47,7 @@ fun LiteralArgumentBuilder<FabricClientCommandSource>.appendCrystalHollowsSubCom
             }
 
             waypoints.sub("remove") { remove ->
-                remove.arg(
-                    "internal_name",
+                remove.arg("internal_name",
                     StringArgumentType.word(),
                     HollowsStructure.entries.map { it.internalWaypointName }) { nameArg ->
                     nameArg.executeAsync { context ->

@@ -1,12 +1,12 @@
 package dev.nyon.skylper.skyblock.hollows.render
 
-import dev.nyon.skylper.asm.invokers.RenderHelperInvoker
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.BlockInteractEvent
 import dev.nyon.skylper.extensions.BlockUpdateEvent
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.LevelChangeEvent
 import dev.nyon.skylper.extensions.RenderAfterTranslucentEvent
+import dev.nyon.skylper.extensions.render.renderOutline
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft
@@ -19,7 +19,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import net.minecraft.core.BlockPos
 import net.minecraft.world.level.block.Blocks
-import net.minecraft.world.phys.Vec3
+import net.minecraft.world.phys.AABB
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
 
@@ -73,12 +73,10 @@ object ChestHighlighter {
                 foundChests
             }
             copiedChests.forEach { (pos) ->
-                RenderHelperInvoker.invokeRenderFilled(
-                    it.context,
-                    Vec3(pos.x - 0.1, pos.y - 0.1, pos.z - 0.1),
-                    Vec3(1.2, 1.15, 1.2),
-                    color.getRGBComponents(null),
-                    color.alpha.toFloat(),
+                it.context.renderOutline(
+                    AABB(pos.x - 0.1, pos.y - 0.1, pos.z - 0.1, pos.x + 1.1, pos.y + 1.1, pos.z + 1.1),
+                    color.rgb,
+                    15f,
                     false
                 )
             }

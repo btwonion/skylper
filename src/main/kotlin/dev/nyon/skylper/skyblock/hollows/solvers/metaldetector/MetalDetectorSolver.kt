@@ -3,11 +3,11 @@ package dev.nyon.skylper.skyblock.hollows.solvers.metaldetector
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.*
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
-import dev.nyon.skylper.extensions.math.blockPos
+import dev.nyon.skylper.extensions.render.waypoint.Waypoint
+import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.hollows.HollowsModule
-import dev.nyon.skylper.skyblock.hollows.render.MetalDetectorWaypoint
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import net.minecraft.ChatFormatting
@@ -26,7 +26,7 @@ object MetalDetectorSolver {
     private var minesCenter: Vec3? = null
     private var actualChestPositions: List<Vec3>? = null
     private var state: MetalDetectorState = MetalDetectorState.Idle
-    private var successWaypoint: MetalDetectorWaypoint? = null
+    private var successWaypoint: Waypoint? = null
     private var lastChestFound: Instant? = null
 
     fun init() {
@@ -60,7 +60,7 @@ object MetalDetectorSolver {
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
         if (PlayerSessionData.currentZone != "Mines of Divan") return@listenEvent
         if (successWaypoint != null && minecraft.player?.position()
-                ?.distanceTo(successWaypoint!!.pos.center)!! < 1.0
+                ?.distanceTo(successWaypoint!!.pos)!! < 1.0
         ) successWaypoint = null
         if (minesCenter != null) return@listenEvent
 
@@ -105,6 +105,11 @@ object MetalDetectorSolver {
         minecraft.player?.sendSystemMessage(
             Component.translatable("$TRANSLATION_NAMESPACE.success").withColor(ChatFormatting.DARK_GREEN.color!!)
         )
-        successWaypoint = MetalDetectorWaypoint(pos.blockPos)
+        successWaypoint = Waypoint(
+            Component.literal("Treasure").withColor(ChatFormatting.RED.color!!),
+            pos,
+            WaypointType.OUTLINE_WITH_BEAM,
+            ChatFormatting.RED.color!!
+        )
     }
 }
