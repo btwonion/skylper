@@ -2,7 +2,7 @@
 Utility mod for Hypixel Skyblock
 
 ## Features
-You can find a full list of the features in [**features.md**](features.md).
+You can find a full list of the features in [**features.md**](https://github.com/btwonion/skylper/blob/master/readme.md).
 
 ### Other
 ⚠️ The development version is always the latest stable release of Minecraft.
