@@ -1,4 +1,4 @@
-package dev.nyon.skylper.extensions.arguments
+package dev.nyon.skylper.extensions.command.arguments
 
 import com.mojang.brigadier.StringReader
 import com.mojang.brigadier.arguments.ArgumentType
