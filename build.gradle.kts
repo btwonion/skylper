@@ -15,7 +15,8 @@ plugins {
 }
 
 group = "dev.nyon"
-val majorVersion = "1.0.0"
+val beta: Int? = 1
+val majorVersion = "1.0.0${if (beta != null) "-beta$beta" else ""}"
 val mcVersion = "1.20.4"
 version = "$majorVersion-$mcVersion"
 val authors = listOf("btwonion")
@@ -67,7 +68,6 @@ dependencies {
 
     val ktorVersion = "2.3.7"
     include(implementation("io.ktor:ktor-client-core:$ktorVersion")!!)
-    
     include(implementation("io.ktor:ktor-client-cio:$ktorVersion")!!)
     include(implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")!!)
     include(implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")!!)
@@ -117,8 +117,8 @@ tasks {
 }
 
 val changelogText = buildString {
-    append("v${project.version}")
-    file("changelog.md").readText().also { append(it) }
+    append("# v${project.version}")
+    file("${if (beta != null) "beta-" else ""}changelog.md").readText().also { append(it) }
 }
 
 modrinth {
@@ -136,7 +136,7 @@ modrinth {
         optional.project("modmenu")
     }
     changelog.set(changelogText)
-    syncBodyFrom.set(file("README.md").readText())
+    syncBodyFrom.set(file("readme.md").readText())
 }
 
 githubRelease {
@@ -150,6 +150,7 @@ githubRelease {
     overwrite = true
     releaseAssets(tasks["remapJar"].outputs.files)
     targetCommitish = "main"
+    prerelease = beta != null
 }
 
 publishing {
@@ -175,6 +176,7 @@ publishing {
 
 java {
     withSourcesJar()
+    withJavadocJar()
 }
 
 signing {
