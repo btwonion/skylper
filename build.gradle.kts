@@ -117,7 +117,7 @@ tasks {
 }
 
 val changelogText = buildString {
-    append("# v${project.version}")
+    append("# v${project.version}\n")
     file("${if (beta != null) "beta-" else ""}changelog.md").readText().also { append(it) }
 }
 
@@ -149,7 +149,7 @@ githubRelease {
     body = changelogText
     overwrite = true
     releaseAssets(tasks["remapJar"].outputs.files)
-    targetCommitish = "main"
+    targetCommitish = "master"
     prerelease = beta != null
 }
 
