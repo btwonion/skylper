@@ -115,6 +115,12 @@ tasks {
     withType<KotlinCompile> {
         kotlinOptions.jvmTarget = "17"
     }
+
+    withType<Javadoc> {
+        options {
+            (this as CoreJavadocOptions).addStringOption("Xdoclint:none", "-quiet")
+        }
+    }
 }
 
 val changelogText = buildString {
