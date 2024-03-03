@@ -2,11 +2,12 @@ package dev.nyon.skylper.skyblock.hollows.locations
 
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.MessageEvent
-import dev.nyon.skylper.extensions.color
+import dev.nyon.skylper.extensions.render.waypoint.Waypoint
+import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.hollows.HollowsModule
 import dev.nyon.skylper.skyblock.hollows.HollowsStructure
-import dev.nyon.skylper.skyblock.hollows.render.HollowsStructureWaypoint
+import net.minecraft.network.chat.Component
 import net.minecraft.world.phys.Vec3
 
 @Suppress("SpellCheckingInspection")
@@ -31,11 +32,12 @@ object ChatStructureListener {
         if (HollowsModule.waypoints.containsKey(matchingStructure.internalWaypointName)) return@listenEvent
         val playerLoc = minecraft.player?.position() ?: return@listenEvent
         if (matchingStructure.isWaypointEnabled()) HollowsModule.waypoints[matchingStructure.internalWaypointName] =
-            HollowsStructureWaypoint(
-                Vec3(playerLoc.x, 0.0, playerLoc.z),
-                matchingStructure.displayName,
-                if (matchingStructure == HollowsStructure.JUNGLE_TEMPLE) 115 else (matchingStructure.maxY + matchingStructure.minY) / 2,
-                matchingStructure.waypointColor.color
+            Waypoint(
+                Component.literal(matchingStructure.displayName), Vec3(
+                    playerLoc.x,
+                    (if (matchingStructure == HollowsStructure.JUNGLE_TEMPLE) 115 else (matchingStructure.maxY + matchingStructure.minY) / 2).toDouble(),
+                    playerLoc.z
+                ), WaypointType.BEAM, matchingStructure.waypointColor
             )
     }
 }

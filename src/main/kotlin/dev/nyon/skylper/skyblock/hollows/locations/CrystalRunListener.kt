@@ -3,11 +3,13 @@ package dev.nyon.skylper.skyblock.hollows.locations
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.*
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.render.waypoint.Waypoint
+import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.hollows.Crystal
 import dev.nyon.skylper.skyblock.hollows.HollowsModule
 import dev.nyon.skylper.skyblock.hollows.HollowsStructure
-import dev.nyon.skylper.skyblock.hollows.render.HollowsStructureWaypoint
+import net.minecraft.network.chat.Component
 
 object CrystalRunListener {
     private const val CRYSTAL_FOUND = "✦ CRYSTAL FOUND"
@@ -35,11 +37,11 @@ object CrystalRunListener {
 
                 val associatedStructure = foundCrystal.associatedStructure()
                 if (if (associatedStructure == HollowsStructure.JUNGLE_TEMPLE) config.crystalHollows.hollowsWaypoints.amethystCrystal else associatedStructure.isWaypointEnabled()) HollowsModule.waypoints[if (associatedStructure == HollowsStructure.JUNGLE_TEMPLE) AMETHYST_CRYSTAL_INTERNAL_NAME else associatedStructure.internalWaypointName] =
-                    HollowsStructureWaypoint(
+                    Waypoint(
+                        Component.literal(if (associatedStructure == HollowsStructure.JUNGLE_TEMPLE) "Amethyst Crystal" else associatedStructure.displayName),
                         minecraft.player?.position() ?: return,
-                        if (associatedStructure == HollowsStructure.JUNGLE_TEMPLE) "Amethyst Crystal" else associatedStructure.displayName,
-                        minecraft.player?.position()?.y?.toInt() ?: return,
-                        associatedStructure.waypointColor.color
+                        WaypointType.BEAM,
+                        associatedStructure.waypointColor
                     )
             }
         }

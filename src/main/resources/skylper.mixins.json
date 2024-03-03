@@ -4,7 +4,6 @@
   "package": "dev.nyon.skylper.asm",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "invokers.RenderHelperInvoker",
     "mixins.ConnectionMixin",
     "mixins.LevelRendererMixin"
   ],
@@ -12,7 +11,7 @@
     "accessors.GuiAccessor",
     "accessors.LevelRendererAccessor",
     "accessors.PlayerTabOverlayAccessor",
-    "invokers.FrustumInvoker",
+    "invokers.BeaconRendererInvoker",
     "mixins.ChatListenerMixin",
     "mixins.ClientLevelMixin",
     "mixins.GuiMixin",

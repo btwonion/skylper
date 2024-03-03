@@ -42,8 +42,7 @@ fun YetAnotherConfigLib.Builder.appendCrystalHollowsCategory() = category("hollo
     // Chat locations toggles
     val locationGroupKey = "locations"
     subGroup(categoryKey, locationGroupKey) {
-        description(categoryKey, locationGroupKey)
-        // parse locations toggle
+        description(categoryKey, locationGroupKey) // parse locations toggle
         val parseLocationKey = "$locationGroupKey.parse_location"
         primitive(categoryKey, parseLocationKey) {
             description(categoryKey, parseLocationKey)

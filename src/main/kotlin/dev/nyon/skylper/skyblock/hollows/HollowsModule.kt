@@ -5,7 +5,8 @@ import dev.nyon.skylper.extensions.AreaChangeEvent
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.LevelChangeEvent
 import dev.nyon.skylper.extensions.RenderAfterTranslucentEvent
-import dev.nyon.skylper.extensions.color
+import dev.nyon.skylper.extensions.render.waypoint.Waypoint
+import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.hollows.locations.ChatStructureListener
@@ -13,10 +14,10 @@ import dev.nyon.skylper.skyblock.hollows.locations.CrystalRunListener
 import dev.nyon.skylper.skyblock.hollows.locations.NameTagEntityListener
 import dev.nyon.skylper.skyblock.hollows.locations.PlayerChatLocationListener
 import dev.nyon.skylper.skyblock.hollows.render.ChestHighlighter
-import dev.nyon.skylper.skyblock.hollows.render.HollowsStructureWaypoint
 import dev.nyon.skylper.skyblock.hollows.solvers.metaldetector.MetalDetectorSolver
 import dev.nyon.skylper.skyblock.hollows.tracker.PassExpiryTracker
 import dev.nyon.skylper.skyblock.hollows.tracker.PowderGrindingTracker
+import net.minecraft.network.chat.Component
 import net.minecraft.world.phys.AABB
 
 object HollowsModule {
@@ -32,13 +33,13 @@ object HollowsModule {
             return areaMatch && posMatch
         }
 
-    private val nucleusWaypoint = HollowsStructure.CRYSTAL_NUCLEUS.internalWaypointName to HollowsStructureWaypoint(
+    private val nucleusWaypoint = HollowsStructure.CRYSTAL_NUCLEUS.internalWaypointName to Waypoint(
+        Component.literal(HollowsStructure.CRYSTAL_NUCLEUS.displayName),
         HollowsStructure.CRYSTAL_NUCLEUS.box.center,
-        HollowsStructure.CRYSTAL_NUCLEUS.displayName,
-        (HollowsStructure.CRYSTAL_NUCLEUS.maxY + HollowsStructure.CRYSTAL_NUCLEUS.minY) / 2,
-        HollowsStructure.CRYSTAL_NUCLEUS.waypointColor.color
+        WaypointType.BEAM,
+        HollowsStructure.CRYSTAL_NUCLEUS.waypointColor
     )
-    val waypoints: MutableMap<String, HollowsStructureWaypoint> = mutableMapOf()
+    val waypoints: MutableMap<String, Waypoint> = mutableMapOf()
 
     fun init() {
         PlayerChatLocationListener.init()
