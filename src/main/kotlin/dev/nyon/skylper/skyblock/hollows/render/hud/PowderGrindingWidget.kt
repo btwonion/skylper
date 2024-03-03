@@ -1,58 +1,50 @@
-package dev.nyon.skylper.skyblock.hollows.render.tabhud
+package dev.nyon.skylper.skyblock.hollows.render.hud
 
-import de.hysky.skyblocker.skyblock.tabhud.widget.component.PlainTextComponent
 import dev.nyon.skylper.config.Config
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.Symbols
 import dev.nyon.skylper.extensions.math.withDot
+import dev.nyon.skylper.extensions.render.hud.SimpleHudWidget
+import dev.nyon.skylper.extensions.render.hud.components.PlainTextHudComponent
 import dev.nyon.skylper.skyblock.hollows.tracker.PowderGrindingTracker
-import dev.nyon.skylper.skyblock.render.tabhud.SkylperWidget
 import kotlinx.datetime.Clock
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.Style
+import kotlin.reflect.KClass
 import kotlin.time.DurationUnit
 
 private const val WIDGET_NAMESPACE = "menu.skylper.hollows.tabhud.stats"
 
-object PowderGrindingWidget : SkylperWidget(
-    Component.translatable("$WIDGET_NAMESPACE.title")
-        .withStyle { it.withColor(ChatFormatting.DARK_AQUA.color!!).withBold(true) }, ChatFormatting.DARK_AQUA.color!!
-) {
+object PowderGrindingWidget : SimpleHudWidget(Component.translatable("$WIDGET_NAMESPACE.title")
+    .withStyle { it.withColor(ChatFormatting.DARK_AQUA.color!!).withBold(true) }) {
+
     private val grindingConfig: Config.CrystalHollowsConfig.GrindingOverlay
         get() {
             return config.crystalHollows.powderGrindingOverlay
         }
 
-    override var xD: Double = grindingConfig.x.toDouble()
+    override var x: Double = grindingConfig.x.toDouble()
         set(value) {
-            val int = value.toInt()
-            x = int
-            grindingConfig.x = int
+            grindingConfig.x = value.toInt()
             field = value
         }
 
-    override var yD: Double = grindingConfig.y.toDouble()
+    override var y: Double = grindingConfig.y.toDouble()
         set(value) {
-            val int = value.toInt()
-            y = int
-            grindingConfig.y = int
+            grindingConfig.y = value.toInt()
             field = value
         }
+    override val updateTriggerEvents: List<KClass<out Any>> = listOf()
 
-    fun init() {
-        x = grindingConfig.x
-        y = grindingConfig.y
-    }
-
-    override fun updateContent() {
-        val components = buildList<Component> {
+    override fun update() {
+        super.update()
+        buildList<Component> {
             if (grindingConfig.sessionTime && PowderGrindingTracker.miningStart != null) add(
                 Component.translatable("$WIDGET_NAMESPACE.session_time").withStyle(Style.EMPTY.withBold(true)).append(
                     Component.literal(
                         (Clock.System.now() - PowderGrindingTracker.miningStart!!).toString(
-                            DurationUnit.MINUTES,
-                            decimals = 1
+                            DurationUnit.MINUTES, decimals = 1
                         )
                     ).withStyle(Style.EMPTY.withBold(false))
                 )
@@ -129,8 +121,13 @@ object PowderGrindingWidget : SkylperWidget(
 
                 add(component)
             }
+        }.forEach {
+            if (it == Component.empty()) return@forEach
+            components.add(PlainTextHudComponent(it))
         }
+    }
 
-        components.forEach { if (it != Component.empty()) addComponent(PlainTextComponent(it)) }
+    init {
+        init()
     }
 }

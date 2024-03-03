@@ -14,8 +14,6 @@ import dev.nyon.skylper.skyblock.hollows.locations.NameTagEntityListener
 import dev.nyon.skylper.skyblock.hollows.locations.PlayerChatLocationListener
 import dev.nyon.skylper.skyblock.hollows.render.ChestHighlighter
 import dev.nyon.skylper.skyblock.hollows.render.HollowsStructureWaypoint
-import dev.nyon.skylper.skyblock.hollows.render.tabhud.CrystalCompletionWidget
-import dev.nyon.skylper.skyblock.hollows.render.tabhud.PowderGrindingWidget
 import dev.nyon.skylper.skyblock.hollows.solvers.metaldetector.MetalDetectorSolver
 import dev.nyon.skylper.skyblock.hollows.tracker.PassExpiryTracker
 import dev.nyon.skylper.skyblock.hollows.tracker.PowderGrindingTracker
@@ -49,8 +47,6 @@ object HollowsModule {
         ChestHighlighter.init()
         PowderGrindingTracker.init()
         CrystalRunListener.init()
-        CrystalCompletionWidget.init()
-        PowderGrindingWidget.init()
         PassExpiryTracker.init()
         MetalDetectorSolver.init()
 

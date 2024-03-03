@@ -8,7 +8,7 @@ import kotlin.reflect.KClass
 object EventHandler {
     data class EventInstance<E : Any>(val kClass: KClass<E>, val listeners: MutableList<(event: E) -> Unit>)
 
-    val listeners = mutableListOf<EventInstance<*>>()
+    private val listeners = mutableListOf<EventInstance<*>>()
 
     private val debugIgnoredEvents: List<KClass<*>> = listOf(
         TickEvent::class,
@@ -23,12 +23,14 @@ object EventHandler {
 
     inline fun <reified E : Any> listenEvent(noinline callback: (event: E) -> Unit) {
         val eventClass = E::class
-        if (listeners.none { it.kClass == eventClass }) listeners.add(
-            EventInstance(
-                eventClass, mutableListOf(callback)
-            )
+        listenEvent(eventClass, callback)
+    }
+
+    fun <E : Any> listenEvent(kClass: KClass<E>, callback: (E) -> Unit) {
+        if (listeners.none { it.kClass == kClass }) listeners.add(
+            EventInstance(kClass, mutableListOf(callback))
         )
-        else (listeners.first { it.kClass == eventClass } as EventInstance<E>).listeners.add(callback)
+        else (listeners.first { it.kClass == kClass } as EventInstance<E>).listeners.add(callback)
     }
 
     fun <E : Any> invokeEvent(event: E) = mcScope.launch {

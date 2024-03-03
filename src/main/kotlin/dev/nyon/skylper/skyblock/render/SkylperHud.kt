@@ -1,12 +1,12 @@
 package dev.nyon.skylper.skyblock.render
 
-import de.hysky.skyblocker.skyblock.tabhud.widget.Widget
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.RenderHudEvent
+import dev.nyon.skylper.extensions.render.hud.HudWidget
 import dev.nyon.skylper.skyblock.hollows.HollowsModule
-import dev.nyon.skylper.skyblock.hollows.render.tabhud.CrystalCompletionWidget
-import dev.nyon.skylper.skyblock.hollows.render.tabhud.PowderGrindingWidget
+import dev.nyon.skylper.skyblock.hollows.render.hud.CrystalCompletionWidget
+import dev.nyon.skylper.skyblock.hollows.render.hud.PowderGrindingWidget
 import dev.nyon.skylper.skyblock.hollows.tracker.PowderGrindingTracker
 import kotlinx.datetime.Clock
 import net.minecraft.client.gui.GuiGraphics
@@ -26,8 +26,8 @@ object SkylperHud {
         }
     }
 
-    private fun GuiGraphics.renderWidget(widget: Widget, condition: () -> Boolean) {
+    private fun GuiGraphics.renderWidget(widget: HudWidget, condition: () -> Boolean) {
         if (!condition()) return
-        widget.render(this)
+        widget.render(this, 0, 0)
     }
 }

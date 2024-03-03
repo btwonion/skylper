@@ -6,7 +6,7 @@ import dev.nyon.skylper.extensions.MessageEvent
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.hollows.HollowsModule
-import dev.nyon.skylper.skyblock.hollows.render.tabhud.PowderGrindingWidget
+import dev.nyon.skylper.skyblock.hollows.render.hud.PowderGrindingWidget
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
