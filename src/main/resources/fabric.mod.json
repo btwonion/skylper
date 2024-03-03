@@ -3,6 +3,7 @@
   "id": "${id}",
   "name": "${name}",
   "description": "${description}",
+  "icon": "assets/skylper/icon/icon.png",
   "contact": {
     "issues": "https://github.com/btwonion/skylper/issues",
     "sources": "https://github.com/btwonion/skylper"
@@ -20,12 +21,12 @@
   "environment": "client",
   "depends": {
     "fabric-language-kotlin": ">=1.10.17+kotlin.1.9.22",
-    "fabric-api": ">=0.93.1+1.20.4",
-    "yet_another_config_lib_v3": ">=3.3.1+1.20.4",
+    "fabric-api": ">=0.96.4+1.20.4",
+    "yet_another_config_lib_v3": ">=3.3.2+1.20.4",
     "minecraft": ">=1.20.4"
   },
   "suggests": {
-    "modmenu": "7.0.0"
+    "modmenu": "9.0.0"
   },
   "entrypoints": {
     "client": [

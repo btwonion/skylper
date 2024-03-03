@@ -16,7 +16,7 @@ plugins {
 }
 
 group = "dev.nyon"
-val beta: Int? = 1
+val beta: Int? = 2
 val majorVersion = "1.0.0${if (beta != null) "-beta$beta" else ""}"
 val mcVersion = "1.20.4"
 version = "$majorVersion-$mcVersion"
@@ -48,17 +48,17 @@ val runtimeTestMods = mapOf(
 dependencies {
     minecraft("com.mojang:minecraft:$mcVersion")
     mappings(loom.layered {
-        parchment("org.parchmentmc.data:parchment-1.20.3:2023.12.31@zip")
+        parchment("org.parchmentmc.data:parchment-1.20.4:2024.02.25@zip")
         officialMojangMappings()
     })
 
     implementation("org.vineflower:vineflower:1.9.3")
-    modImplementation("net.fabricmc:fabric-loader:0.15.6")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.93.1+$mcVersion")
+    modImplementation("net.fabricmc:fabric-loader:0.15.7")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.96.4+$mcVersion")
     modImplementation("net.fabricmc:fabric-language-kotlin:1.10.17+kotlin.1.9.22")
 
     modImplementation("dev.isxander.yacl:yet-another-config-lib-fabric:3.3.2+1.20.4")
-    modImplementation("com.terraformersmc:modmenu:9.0.0-pre.1")
+    modImplementation("com.terraformersmc:modmenu:9.0.0")
     modCompileOnly("maven.modrinth:y6DuFGwJ:bKu6Hdms") // Skyblocker by Wohlhabend - place the mod for testing in the mods folder (they have weird includes)
 
     runtimeTestMods.forEach { (projectId, versionId) ->
@@ -67,7 +67,7 @@ dependencies {
 
     include(modImplementation("dev.nyon:konfig:2.0.0-1.20.4")!!)
 
-    val ktorVersion = "2.3.7"
+    val ktorVersion = "2.3.8"
     include(implementation("io.ktor:ktor-client-core:$ktorVersion")!!)
     include(implementation("io.ktor:ktor-client-cio:$ktorVersion")!!)
     include(implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")!!)
