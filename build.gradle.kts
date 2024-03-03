@@ -123,7 +123,7 @@ val changelogText = buildString {
 
 modrinth {
     token.set(findProperty("modrinth.token")?.toString())
-    projectId.set("")
+    projectId.set("MXwU9ODv")
     versionNumber.set("${project.version}")
     versionType.set("release")
     uploadFile.set(tasks["remapJar"])
