@@ -1,5 +1,6 @@
 @file:Suppress("SpellCheckingInspection")
 
+import masecla.modrinth4j.model.version.ProjectVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -125,7 +126,7 @@ modrinth {
     token.set(findProperty("modrinth.token")?.toString())
     projectId.set("MXwU9ODv")
     versionNumber.set("${project.version}")
-    versionType.set("release")
+    versionType.set(if (beta != null) ProjectVersion.VersionType.BETA.name else ProjectVersion.VersionType.BETA.name)
     uploadFile.set(tasks["remapJar"])
     gameVersions.set(listOf(mcVersion))
     loaders.set(listOf("fabric", "quilt"))
