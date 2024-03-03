@@ -16,7 +16,7 @@ plugins {
 }
 
 group = "dev.nyon"
-val beta: Int? = 2
+val beta: Int? = 3
 val majorVersion = "1.0.0${if (beta != null) "-beta$beta" else ""}"
 val mcVersion = "1.20.4"
 version = "$majorVersion-$mcVersion"
@@ -59,7 +59,6 @@ dependencies {
 
     modImplementation("dev.isxander.yacl:yet-another-config-lib-fabric:3.3.2+1.20.4")
     modImplementation("com.terraformersmc:modmenu:9.0.0")
-    modCompileOnly("maven.modrinth:y6DuFGwJ:bKu6Hdms") // Skyblocker by Wohlhabend - place the mod for testing in the mods folder (they have weird includes)
 
     runtimeTestMods.forEach { (projectId, versionId) ->
         modRuntimeOnly("maven.modrinth:$projectId:$versionId")
