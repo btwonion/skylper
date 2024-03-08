@@ -17,14 +17,14 @@ object CrystalCompletionWidget : TableHudWidget(
     Component.translatable("menu.skylper.hollows.tabhud.crystals.title")
         .withStyle { it.withColor(ChatFormatting.DARK_AQUA.color!!) }, 5, 2
 ) {
-    override var x: Double = config.crystalHollows.crystalOverlay.x.toDouble()
+    override var x: Double = config.mining.crystalHollows.crystalOverlay.x.toDouble()
         set(value) {
-            config.crystalHollows.crystalOverlay.x = value.toInt()
+            config.mining.crystalHollows.crystalOverlay.x = value.toInt()
             field = value
         }
-    override var y: Double = config.crystalHollows.crystalOverlay.y.toDouble()
+    override var y: Double = config.mining.crystalHollows.crystalOverlay.y.toDouble()
         set(value) {
-            config.crystalHollows.crystalOverlay.y = value.toInt()
+            config.mining.crystalHollows.crystalOverlay.y = value.toInt()
             field = value
         }
     override val updateTriggerEvents: List<KClass<out Any>> = listOf(
@@ -33,7 +33,7 @@ object CrystalCompletionWidget : TableHudWidget(
 
     override fun update() {
         super.update()
-        playerData.currentProfile?.crystalHollows?.crystals?.forEachIndexed { index, instance ->
+        playerData.currentProfile?.mining?.crystalHollows?.crystals?.forEachIndexed { index, instance ->
             addComponent(index, 0, PlainTextHudComponent(Component.literal(instance.crystal.displayName)))
             addComponent(index, 1, PlainTextHudComponent(instance.state.component))
         }

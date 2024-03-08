@@ -89,17 +89,17 @@ enum class HollowsStructure(
 
     fun isWaypointEnabled(): Boolean {
         return when (this) {
-            GOBLIN_QUEEN -> config.crystalHollows.hollowsWaypoints.goblinQueen
-            GOBLIN_KING -> config.crystalHollows.hollowsWaypoints.goblinKing
-            KHAZAD_DUM -> config.crystalHollows.hollowsWaypoints.khazadDum
-            JUNGLE_TEMPLE -> config.crystalHollows.hollowsWaypoints.jungleTemple
-            ODAWA -> config.crystalHollows.hollowsWaypoints.odawa
-            PRECURSOR_CITY -> config.crystalHollows.hollowsWaypoints.precursorCity
-            MINES_OF_DIVAN -> config.crystalHollows.hollowsWaypoints.minesOfDivan
-            CRYSTAL_NUCLEUS -> config.crystalHollows.hollowsWaypoints.nucleus
-            FAIRY_GROTTO -> config.crystalHollows.hollowsWaypoints.fairyGrotto
-            CORLEONE -> config.crystalHollows.hollowsWaypoints.corleone
-            KEY_GUARDIAN -> config.crystalHollows.hollowsWaypoints.keyGuardian
+            GOBLIN_QUEEN -> config.mining.crystalHollows.hollowsWaypoints.goblinQueen
+            GOBLIN_KING -> config.mining.crystalHollows.hollowsWaypoints.goblinKing
+            KHAZAD_DUM -> config.mining.crystalHollows.hollowsWaypoints.khazadDum
+            JUNGLE_TEMPLE -> config.mining.crystalHollows.hollowsWaypoints.jungleTemple
+            ODAWA -> config.mining.crystalHollows.hollowsWaypoints.odawa
+            PRECURSOR_CITY -> config.mining.crystalHollows.hollowsWaypoints.precursorCity
+            MINES_OF_DIVAN -> config.mining.crystalHollows.hollowsWaypoints.minesOfDivan
+            CRYSTAL_NUCLEUS -> config.mining.crystalHollows.hollowsWaypoints.nucleus
+            FAIRY_GROTTO -> config.mining.crystalHollows.hollowsWaypoints.fairyGrotto
+            CORLEONE -> config.mining.crystalHollows.hollowsWaypoints.corleone
+            KEY_GUARDIAN -> config.mining.crystalHollows.hollowsWaypoints.keyGuardian
         }
     }
 }

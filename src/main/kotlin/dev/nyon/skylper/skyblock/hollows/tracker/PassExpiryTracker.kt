@@ -13,7 +13,7 @@ object PassExpiryTracker {
         listenEvent<MessageEvent> {
             if (!HollowsModule.isPlayerInHollows) return@listenEvent
             if (!it.text.string.contains(EXPIRE_MESSAGE)) return@listenEvent
-            if (!config.crystalHollows.autoRenewPass) return@listenEvent
+            if (!config.mining.crystalHollows.autoRenewPass) return@listenEvent
             minecraft.player?.connection?.sendCommand("purchasecrystallhollowspass")
         }
     }

@@ -19,3 +19,12 @@ val ItemStack.internalName: String?
         if (!attributes.contains(key)) return null
         return attributes.getString(key)
     }
+
+val ItemStack.display: CompoundTag?
+    get() {
+        tag ?: return null
+        val compoundTag = tag as CompoundTag
+        val key = "display"
+        if (!compoundTag.contains(key)) return null
+        return compoundTag.getCompound(key)
+    }

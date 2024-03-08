@@ -4,8 +4,8 @@ import masecla.modrinth4j.model.version.ProjectVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.9.22"
-    kotlin("plugin.serialization") version "1.9.22"
+    kotlin("jvm") version "1.9.23"
+    kotlin("plugin.serialization") version "1.9.23"
     id("fabric-loom") version "1.5-SNAPSHOT"
 
     id("com.modrinth.minotaur") version "2.8.7"
@@ -55,7 +55,7 @@ dependencies {
     implementation("org.vineflower:vineflower:1.9.3")
     modImplementation("net.fabricmc:fabric-loader:0.15.7")
     modImplementation("net.fabricmc.fabric-api:fabric-api:0.96.4+$mcVersion")
-    modImplementation("net.fabricmc:fabric-language-kotlin:1.10.17+kotlin.1.9.22")
+    modImplementation("net.fabricmc:fabric-language-kotlin:1.10.19+kotlin.1.9.23")
 
     modImplementation("dev.isxander.yacl:yet-another-config-lib-fabric:3.3.2+1.20.4")
     modImplementation("com.terraformersmc:modmenu:9.0.0")
@@ -119,6 +119,10 @@ tasks {
         options {
             (this as CoreJavadocOptions).addStringOption("Xdoclint:none", "-quiet")
         }
+    }
+
+    loom {
+        accessWidenerPath = file("src/main/resources/skylper.accesswidener")
     }
 }
 

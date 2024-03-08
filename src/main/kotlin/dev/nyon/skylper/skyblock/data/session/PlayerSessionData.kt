@@ -8,6 +8,7 @@ import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.network.chat.Component
 import kotlin.time.Duration.Companion.seconds
 
@@ -25,9 +26,11 @@ object PlayerSessionData {
 
     var profile: String? = null
 
+    var currentScreen: AbstractContainerScreen<*>? = null
     fun startUpdaters() {
         listenHypixelSession()
         startTicker()
+        listenScreenUpdate()
     }
 
     private fun startTicker() {
@@ -116,6 +119,10 @@ object PlayerSessionData {
         }
     }
 
+    private fun listenScreenUpdate() = listenEvent<ScreenOpenEvent> {
+        currentScreen = it.screen
+    }
+
     private fun clearData(withHypixel: Boolean = false) {
         currentArea?.also {
             invokeEvent(AreaChangeEvent(it, null))
@@ -129,5 +136,7 @@ object PlayerSessionData {
 
         scoreboardLines = emptyList()
         footer = Component.empty()
+
+        currentScreen = null
     }
 }

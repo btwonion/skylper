@@ -36,7 +36,7 @@ object CrystalRunListener {
                 EventHandler.invokeEvent(CrystalFoundEvent(foundCrystal))
 
                 val associatedStructure = foundCrystal.associatedStructure()
-                if (if (associatedStructure == HollowsStructure.JUNGLE_TEMPLE) config.crystalHollows.hollowsWaypoints.amethystCrystal else associatedStructure.isWaypointEnabled()) HollowsModule.waypoints[if (associatedStructure == HollowsStructure.JUNGLE_TEMPLE) AMETHYST_CRYSTAL_INTERNAL_NAME else associatedStructure.internalWaypointName] =
+                if (if (associatedStructure == HollowsStructure.JUNGLE_TEMPLE) config.mining.crystalHollows.hollowsWaypoints.amethystCrystal else associatedStructure.isWaypointEnabled()) HollowsModule.waypoints[if (associatedStructure == HollowsStructure.JUNGLE_TEMPLE) AMETHYST_CRYSTAL_INTERNAL_NAME else associatedStructure.internalWaypointName] =
                     Waypoint(
                         Component.literal(if (associatedStructure == HollowsStructure.JUNGLE_TEMPLE) "Amethyst Crystal" else associatedStructure.displayName),
                         minecraft.player?.position() ?: return,

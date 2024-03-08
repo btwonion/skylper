@@ -21,7 +21,7 @@ object PowderGrindingWidget : SimpleHudWidget(Component.translatable("$WIDGET_NA
 
     private val grindingConfig: Config.CrystalHollowsConfig.GrindingOverlay
         get() {
-            return config.crystalHollows.powderGrindingOverlay
+            return config.mining.crystalHollows.powderGrindingOverlay
         }
 
     override var x: Double = grindingConfig.x.toDouble()
