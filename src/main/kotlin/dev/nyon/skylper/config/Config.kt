@@ -19,7 +19,15 @@ val configDir: Path = FabricLoader.getInstance().configDir.resolve("skylper")
 var config: Config = Config()
 
 @Serializable
-data class Config(val crystalHollows: CrystalHollowsConfig = CrystalHollowsConfig()) {
+data class Config(val mining: MiningConfig = MiningConfig()) {
+    @Serializable
+    data class MiningConfig(
+        val crystalHollows: CrystalHollowsConfig = CrystalHollowsConfig(),
+        val availableAbilityNotification: Boolean = true,
+        val availableAbilityNotificationOnMiningIslands: Boolean = true,
+        val miningAbilityIndicator: Boolean = true
+    )
+
     @Serializable
     data class CrystalHollowsConfig(
         val hollowsWaypoints: HollowsWaypoints = HollowsWaypoints(),

@@ -16,12 +16,12 @@ object SkylperHud {
     fun init() {
         listenEvent<RenderHudEvent> {
             it.context.renderWidget(CrystalCompletionWidget) {
-                HollowsModule.isPlayerInHollows && config.crystalHollows.crystalOverlay.enabled
+                HollowsModule.isPlayerInHollows && config.mining.crystalHollows.crystalOverlay.enabled
             }
 
             it.context.renderWidget(PowderGrindingWidget) {
                 val lastChestOpened = PowderGrindingTracker.lastChestOpened ?: return@renderWidget false
-                HollowsModule.isPlayerInHollows && config.crystalHollows.powderGrindingOverlay.enabled && Clock.System.now() - lastChestOpened <= 5.minutes
+                HollowsModule.isPlayerInHollows && config.mining.crystalHollows.powderGrindingOverlay.enabled && Clock.System.now() - lastChestOpened <= 5.minutes
             }
         }
     }

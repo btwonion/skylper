@@ -1,4 +1,7 @@
 # Features
+## Mining
+- mining ability indicator and notification
+
 ## Crystal Hollows
 - waypoints for:
   - goblin king

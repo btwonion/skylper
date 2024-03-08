@@ -21,7 +21,7 @@ object PlayerChatLocationListener {
     data class RawLocation(val x: Double, val y: Double?, val z: Double)
 
     fun init() = listenEvent<MessageEvent> { event ->
-        if (!config.crystalHollows.parseLocationChats) return@listenEvent
+        if (!config.mining.crystalHollows.parseLocationChats) return@listenEvent
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
 
         val rawMessage = event.text.string.dropWhile { it != ':' }
@@ -44,7 +44,7 @@ object PlayerChatLocationListener {
     }
 
     private fun handleRawLocation(location: RawLocation, rawMessage: String) {
-        if (config.crystalHollows.automaticallyAddLocations) {
+        if (config.mining.crystalHollows.automaticallyAddLocations) {
             val matchingStructure = HollowsStructure.entries.find { rawMessage.contains(it.displayName, true) }
             if (HollowsModule.waypoints.containsKey(matchingStructure?.internalWaypointName)) return
             if (matchingStructure != null) {

@@ -14,8 +14,8 @@ import kotlin.math.max
 class SkylperHudModifier(private val parent: Screen?) :
     Screen(Component.translatable("menu.skylper.tabhud.modifier.title")) {
     private val enabledWidgets: List<HudWidget> = buildList {
-        if (config.crystalHollows.crystalOverlay.enabled) add(CrystalCompletionWidget)
-        if (config.crystalHollows.powderGrindingOverlay.enabled) add(PowderGrindingWidget)
+        if (config.mining.crystalHollows.crystalOverlay.enabled) add(CrystalCompletionWidget)
+        if (config.mining.crystalHollows.powderGrindingOverlay.enabled) add(PowderGrindingWidget)
     }.onEach(HudWidget::update)
 
     override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {

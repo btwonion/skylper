@@ -3,11 +3,13 @@ package dev.nyon.skylper.extensions
 import dev.nyon.skylper.skyblock.hollows.Crystal
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext
 import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.core.BlockPos
 import net.minecraft.core.particles.ParticleOptions
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Entity
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.Vec3
@@ -32,3 +34,7 @@ data class RenderAfterTranslucentEvent(val context: WorldRenderContext)
 data class RenderHudEvent(val context: GuiGraphics)
 data class BlockInteractEvent(val result: BlockHitResult)
 object MinecraftStopEvent
+data class ScreenOpenEvent(val screen: AbstractContainerScreen<*>)
+
+data class SetItemEvent(val itemStack: ItemStack)
+data class InventoryInitEvent(val items: List<ItemStack>)

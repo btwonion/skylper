@@ -48,7 +48,7 @@ object ChestHighlighter {
     private fun listenForChests() = listenEvent<BlockUpdateEvent> {
         independentScope.launch {
             mutex.withLock { foundChests.remove(it.pos) }
-            if ((!HollowsModule.isPlayerInHollows || !config.crystalHollows.highlightChests)) return@launch
+            if ((!HollowsModule.isPlayerInHollows || !config.mining.crystalHollows.highlightChests)) return@launch
             if (it.state.block != Blocks.CHEST) return@launch
             delay(150.milliseconds)
             val updatedBlockState = minecraft.level?.getBlockState(it.pos)
@@ -66,9 +66,9 @@ object ChestHighlighter {
         listenEvent<LevelChangeEvent> { independentScope.launch { mutex.withLock { foundChests.clear() } } }
 
     private fun render() = listenEvent<RenderAfterTranslucentEvent> {
-        if ((!HollowsModule.isPlayerInHollows || !config.crystalHollows.highlightChests)) return@listenEvent
+        if ((!HollowsModule.isPlayerInHollows || !config.mining.crystalHollows.highlightChests)) return@listenEvent
         mcScope.launch {
-            val color = config.crystalHollows.chestHighlightColor
+            val color = config.mining.crystalHollows.chestHighlightColor
             val copiedChests = mutex.withLock {
                 foundChests
             }

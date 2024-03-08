@@ -10,10 +10,10 @@ import dev.nyon.skylper.config.migrate
 import dev.nyon.skylper.extensions.EventHandler
 import dev.nyon.skylper.extensions.FabricEvents
 import dev.nyon.skylper.extensions.MinecraftStopEvent
+import dev.nyon.skylper.skyblock.Mining
 import dev.nyon.skylper.skyblock.data.online.SkyblockOnlineData
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.data.skylper.*
-import dev.nyon.skylper.skyblock.hollows.HollowsModule
 import dev.nyon.skylper.skyblock.registerRootCommand
 import dev.nyon.skylper.skyblock.render.SkylperHud
 import kotlinx.coroutines.*
@@ -62,7 +62,7 @@ object Skylper : ClientModInitializer {
 
         SkylperHud.init()
 
-        HollowsModule.init()
+        Mining.init()
     }
 
     private fun handleStop() {

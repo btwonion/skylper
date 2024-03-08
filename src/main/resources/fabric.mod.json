@@ -45,6 +45,7 @@
   "mixins": [
     "skylper.mixins.json"
   ],
+  "accessWidener": "skylper.accesswidener",
   "custom": {
     "modmenu": {
       "links": {

@@ -39,7 +39,7 @@ object MetalDetectorSolver {
     private fun listenChat() = listenEvent<MessageEvent> {
         val playerPos = minecraft.player?.position()
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
-        if (!config.crystalHollows.metalDetectorHelper) return@listenEvent
+        if (!config.mining.crystalHollows.metalDetectorHelper) return@listenEvent
         if (minesCenter == null) return@listenEvent
         val stringMessage = it.text.string
         val now = Clock.System.now()

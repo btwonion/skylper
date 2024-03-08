@@ -1,0 +1,5 @@
+accessWidener v2 named
+
+accessible class net/minecraft/world/item/ItemCooldowns$CooldownInstance
+accessible field net/minecraft/world/item/ItemCooldowns$CooldownInstance endTime I
+accessible field net/minecraft/world/item/ItemCooldowns$CooldownInstance startTime I

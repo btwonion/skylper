@@ -57,7 +57,7 @@ object HollowsModule {
     private fun handleWaypoints() {
         listenEvent<LevelChangeEvent> {
             waypoints.clear()
-            if (config.crystalHollows.hollowsWaypoints.nucleus) waypoints[nucleusWaypoint.first] =
+            if (config.mining.crystalHollows.hollowsWaypoints.nucleus) waypoints[nucleusWaypoint.first] =
                 nucleusWaypoint.second
         }
         listenEvent<AreaChangeEvent> {
