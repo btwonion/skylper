@@ -1,4 +1,4 @@
-package dev.nyon.skylper.skyblock.hollows.locations
+package dev.nyon.skylper.skyblock.mining.hollows.locations
 
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.*
@@ -6,9 +6,9 @@ import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.render.waypoint.Waypoint
 import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import dev.nyon.skylper.minecraft
-import dev.nyon.skylper.skyblock.hollows.Crystal
-import dev.nyon.skylper.skyblock.hollows.HollowsModule
-import dev.nyon.skylper.skyblock.hollows.HollowsStructure
+import dev.nyon.skylper.skyblock.mining.hollows.Crystal
+import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
+import dev.nyon.skylper.skyblock.mining.hollows.HollowsStructure
 import net.minecraft.network.chat.Component
 
 object CrystalRunListener {

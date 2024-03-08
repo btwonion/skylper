@@ -1,4 +1,4 @@
-package dev.nyon.skylper.skyblock.hollows.render
+package dev.nyon.skylper.skyblock.mining.hollows.render
 
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.BlockInteractEvent
@@ -10,7 +10,7 @@ import dev.nyon.skylper.extensions.render.renderOutline
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft
-import dev.nyon.skylper.skyblock.hollows.HollowsModule
+import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex

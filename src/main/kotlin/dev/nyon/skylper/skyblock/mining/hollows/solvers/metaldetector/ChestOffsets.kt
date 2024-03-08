@@ -1,4 +1,4 @@
-package dev.nyon.skylper.skyblock.hollows.solvers.metaldetector
+package dev.nyon.skylper.skyblock.mining.hollows.solvers.metaldetector
 
 import net.minecraft.world.phys.Vec3
 

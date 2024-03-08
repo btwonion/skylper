@@ -1,6 +1,6 @@
 package dev.nyon.skylper.extensions
 
-import dev.nyon.skylper.skyblock.hollows.Crystal
+import dev.nyon.skylper.skyblock.mining.hollows.Crystal
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
@@ -38,3 +38,4 @@ data class ScreenOpenEvent(val screen: AbstractContainerScreen<*>)
 
 data class SetItemEvent(val itemStack: ItemStack)
 data class InventoryInitEvent(val items: List<ItemStack>)
+data class BossBarNameUpdate(val text: Component)

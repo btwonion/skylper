@@ -1,4 +1,4 @@
-package dev.nyon.skylper.skyblock.hollows
+package dev.nyon.skylper.skyblock.mining.hollows
 
 import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.LiteralArgumentBuilder

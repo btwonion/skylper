@@ -1,4 +1,4 @@
-package dev.nyon.skylper.skyblock.hollows
+package dev.nyon.skylper.skyblock.mining.hollows
 
 import kotlinx.serialization.Serializable
 import net.minecraft.ChatFormatting

@@ -21,7 +21,8 @@ object EventHandler {
         BlockInteractEvent::class,
         SetItemEvent::class,
         ScreenOpenEvent::class,
-        InventoryInitEvent::class
+        InventoryInitEvent::class,
+        BossBarNameUpdate::class
     )
 
     inline fun <reified E : Any> listenEvent(noinline callback: (event: E) -> Unit) {

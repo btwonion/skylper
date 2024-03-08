@@ -4,13 +4,11 @@ import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.RenderHudEvent
 import dev.nyon.skylper.extensions.render.hud.HudWidget
-import dev.nyon.skylper.skyblock.hollows.HollowsModule
-import dev.nyon.skylper.skyblock.hollows.render.hud.CrystalCompletionWidget
-import dev.nyon.skylper.skyblock.hollows.render.hud.PowderGrindingWidget
-import dev.nyon.skylper.skyblock.hollows.tracker.PowderGrindingTracker
-import kotlinx.datetime.Clock
+import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
+import dev.nyon.skylper.skyblock.mining.hollows.render.hud.CrystalCompletionWidget
+import dev.nyon.skylper.skyblock.mining.hollows.tracker.powder.PowderGrindingWidget
+import dev.nyon.skylper.skyblock.mining.hollows.tracker.powder.PowderGrindingTracker
 import net.minecraft.client.gui.GuiGraphics
-import kotlin.time.Duration.Companion.minutes
 
 object SkylperHud {
     fun init() {
@@ -20,8 +18,7 @@ object SkylperHud {
             }
 
             it.context.renderWidget(PowderGrindingWidget) {
-                val lastChestOpened = PowderGrindingTracker.lastChestOpened ?: return@renderWidget false
-                HollowsModule.isPlayerInHollows && config.mining.crystalHollows.powderGrindingOverlay.enabled && Clock.System.now() - lastChestOpened <= 5.minutes
+                HollowsModule.isPlayerInHollows && config.mining.crystalHollows.powderGrindingOverlay.enabled && PowderGrindingTracker.isGrinding
             }
         }
     }

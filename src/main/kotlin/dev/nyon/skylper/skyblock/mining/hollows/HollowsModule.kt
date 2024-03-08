@@ -1,4 +1,4 @@
-package dev.nyon.skylper.skyblock.hollows
+package dev.nyon.skylper.skyblock.mining.hollows
 
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.AreaChangeEvent
@@ -9,14 +9,13 @@ import dev.nyon.skylper.extensions.render.waypoint.Waypoint
 import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
-import dev.nyon.skylper.skyblock.hollows.locations.ChatStructureListener
-import dev.nyon.skylper.skyblock.hollows.locations.CrystalRunListener
-import dev.nyon.skylper.skyblock.hollows.locations.NameTagEntityListener
-import dev.nyon.skylper.skyblock.hollows.locations.PlayerChatLocationListener
-import dev.nyon.skylper.skyblock.hollows.render.ChestHighlighter
-import dev.nyon.skylper.skyblock.hollows.solvers.metaldetector.MetalDetectorSolver
-import dev.nyon.skylper.skyblock.hollows.tracker.PassExpiryTracker
-import dev.nyon.skylper.skyblock.hollows.tracker.PowderGrindingTracker
+import dev.nyon.skylper.skyblock.mining.hollows.locations.ChatStructureListener
+import dev.nyon.skylper.skyblock.mining.hollows.locations.CrystalRunListener
+import dev.nyon.skylper.skyblock.mining.hollows.locations.NameTagEntityListener
+import dev.nyon.skylper.skyblock.mining.hollows.locations.PlayerChatLocationListener
+import dev.nyon.skylper.skyblock.mining.hollows.render.ChestHighlighter
+import dev.nyon.skylper.skyblock.mining.hollows.solvers.metaldetector.MetalDetectorSolver
+import dev.nyon.skylper.skyblock.mining.hollows.tracker.PassExpiryTracker
 import net.minecraft.network.chat.Component
 import net.minecraft.world.phys.AABB
 
@@ -46,7 +45,6 @@ object HollowsModule {
         NameTagEntityListener.init()
         ChatStructureListener.init()
         ChestHighlighter.init()
-        PowderGrindingTracker.init()
         CrystalRunListener.init()
         PassExpiryTracker.init()
         MetalDetectorSolver.init()

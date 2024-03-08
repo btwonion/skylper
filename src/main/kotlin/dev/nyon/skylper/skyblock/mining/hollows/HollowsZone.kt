@@ -1,4 +1,4 @@
-package dev.nyon.skylper.skyblock.hollows
+package dev.nyon.skylper.skyblock.mining.hollows
 
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
