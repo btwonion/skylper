@@ -1,8 +1,15 @@
 ## Features
 
 ### General
+
 ```diff
 + add icon
+```
+
+### Mining
+
+```diff
++ mining ability indicator and notification
 ```
 
 ### Crystal Hollows
