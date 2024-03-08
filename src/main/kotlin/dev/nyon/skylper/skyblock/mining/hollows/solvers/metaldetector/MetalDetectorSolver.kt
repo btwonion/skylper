@@ -1,4 +1,4 @@
-package dev.nyon.skylper.skyblock.hollows.solvers.metaldetector
+package dev.nyon.skylper.skyblock.mining.hollows.solvers.metaldetector
 
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.*
@@ -7,7 +7,7 @@ import dev.nyon.skylper.extensions.render.waypoint.Waypoint
 import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
-import dev.nyon.skylper.skyblock.hollows.HollowsModule
+import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import net.minecraft.ChatFormatting

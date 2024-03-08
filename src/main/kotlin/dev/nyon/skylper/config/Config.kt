@@ -64,15 +64,14 @@ data class Config(val mining: MiningConfig = MiningConfig()) {
             var enabled: Boolean = true,
             var x: Int = 5,
             var y: Int = 200,
-            var openedChests: Boolean = true,
-            var farmedGemstonePowder: Boolean = true,
-            var gemstonePowderPerMinute: Boolean = false,
-            var gemstonePowderPerHour: Boolean = true,
-            var farmedMithrilPowder: Boolean = true,
-            var mithrilPowderPerMinute: Boolean = false,
-            var mithrilPowderPerHour: Boolean = true,
+            var chests: ResourceConfig = ResourceConfig(),
+            var gemstone: ResourceConfig = ResourceConfig(),
+            var mithril: ResourceConfig = ResourceConfig(),
             var doublePowder: Boolean = true,
             var sessionTime: Boolean = true
-        )
+        ) {
+            @Serializable
+            data class ResourceConfig(var total: Boolean = true, var perMinute: Boolean = false, var perHour: Boolean = true)
+        }
     }
 }

@@ -5,7 +5,7 @@ import dev.nyon.skylper.config.screen.createYaclScreen
 import dev.nyon.skylper.extensions.command.executeAsync
 import dev.nyon.skylper.extensions.command.sub
 import dev.nyon.skylper.minecraft
-import dev.nyon.skylper.skyblock.hollows.appendCrystalHollowsSubCommand
+import dev.nyon.skylper.skyblock.mining.hollows.appendCrystalHollowsSubCommand
 import kotlinx.coroutines.delay
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource

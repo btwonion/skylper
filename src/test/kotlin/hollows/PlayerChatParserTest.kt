@@ -1,7 +1,7 @@
 package hollows
 
-import dev.nyon.skylper.skyblock.hollows.HollowsStructure
-import dev.nyon.skylper.skyblock.hollows.locations.PlayerChatLocationListener
+import dev.nyon.skylper.skyblock.mining.hollows.HollowsStructure
+import dev.nyon.skylper.skyblock.mining.hollows.locations.PlayerChatLocationListener
 import net.minecraft.world.phys.Vec3
 import kotlin.test.Test
 
