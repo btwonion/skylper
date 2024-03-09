@@ -1,6 +1,9 @@
 package dev.nyon.skylper.extensions.render.hud
 
 import dev.nyon.skylper.extensions.render.hud.components.HudComponent
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
 import kotlin.math.max
@@ -14,11 +17,12 @@ import kotlin.math.max
 abstract class TableHudWidget(override var title: Component, private val rows: Int, private val columns: Int) :
     HudWidget {
     val components: MutableMap<Int, HudComponent> = mutableMapOf()
+    val mutex = Mutex()
     private val rowHeight: Int
-        get() = components.values.maxOfOrNull { it.height } ?: 0
+        get() = runBlocking { mutex.withLock { components.values.maxOfOrNull { it.height } ?: 0 } }
     private val columnWidths: Map<Int, Int>
         get() {
-            val rows = components.values.chunked(columns)
+            val rows = runBlocking { mutex.withLock { components.values.chunked(columns) } }
             return buildMap {
                 rows.forEach { row ->
                     row.forEachIndexed { index, hudComponent ->
@@ -65,7 +69,8 @@ abstract class TableHudWidget(override var title: Component, private val rows: I
         }
 
         // Draw rows
-        components.values.chunked(columns).forEach { rowColumns ->
+        val rows = runBlocking { mutex.withLock { components.values.chunked(columns) } }
+        rows.forEach { rowColumns ->
             var nextX = xInt + HudWidget.W_PADDING
             rowColumns.forEachIndexed { index, component ->
                 component.render(context, nextX, nextY, mouseX, mouseY)
@@ -80,10 +85,14 @@ abstract class TableHudWidget(override var title: Component, private val rows: I
     }
 
     fun addComponent(row: Int, column: Int, component: HudComponent) {
-        components[(row - 1) * columns + column] = component
+        runBlocking { mutex.withLock { components[(row - 1) * columns + column] = component } }
     }
 
     override fun clear() {
-        components.clear()
+        runBlocking {
+            mutex.withLock {
+                components.clear()
+            }
+        }
     }
 }

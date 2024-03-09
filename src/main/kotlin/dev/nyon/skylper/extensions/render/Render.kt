@@ -75,34 +75,49 @@ fun WorldRenderContext.renderBeaconBeam(pos: Vec3, color: Int) {
     matrices.popPose()
 }
 
-fun WorldRenderContext.renderFilled(box: AABB, color: Int, throughWalls: Boolean) {
+fun WorldRenderContext.renderFilled(box: AABB, color: Int) {
     val matrices = matrixStack()
     val cameraPos = camera().position
 
     matrices.pushPose()
     matrices.translate(-cameraPos.x, -cameraPos.y, -cameraPos.z)
 
-    val consumers = consumers()!!
-    val buffer =
-        consumers.getBuffer(if (throughWalls) CustomRenderLayers.filledThroughWall else CustomRenderLayers.filled)
+    val tes = RenderSystem.renderThreadTesselator()
+    val builder = tes.builder
+
+    RenderSystem.setShader(GameRenderer::getPositionColorShader)
+    RenderSystem.setShaderColor(1f, 1f, 1f, 1f)
+    RenderSystem.polygonOffset(-1f, -10f)
+    RenderSystem.enablePolygonOffset()
+    RenderSystem.enableBlend()
+    RenderSystem.defaultBlendFunc()
+    RenderSystem.enableDepthTest()
+    RenderSystem.depthFunc(GL11.GL_LEQUAL)
+    RenderSystem.disableCull()
 
     val javaColor = color.color
+    builder.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_COLOR)
     LevelRenderer.addChainedFilledBoxVertices(
         matrices,
-        buffer,
+        builder,
         box.minX,
         box.minY,
         box.minZ,
         box.maxX,
         box.maxY,
-        box.maxY,
+        box.maxZ,
         javaColor.red.toFloat(),
         javaColor.blue.toFloat(),
         javaColor.green.toFloat(),
-        javaColor.alpha.toFloat()
+        100f
     )
+    tes.end()
 
     matrices.popPose()
+    RenderSystem.polygonOffset(0f, 0f)
+    RenderSystem.disablePolygonOffset()
+    RenderSystem.disableBlend()
+    RenderSystem.enableCull()
 }
 
 fun WorldRenderContext.renderOutline(box: AABB, color: Int, lineWidth: Float, throughWalls: Boolean) {

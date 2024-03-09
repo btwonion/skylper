@@ -38,7 +38,8 @@ data class Config(val mining: MiningConfig = MiningConfig()) {
         val crystalOverlay: CrystalOverlay = CrystalOverlay(),
         val powderGrindingOverlay: GrindingOverlay = GrindingOverlay(),
         var autoRenewPass: Boolean = true,
-        var metalDetectorHelper: Boolean = true
+        var metalDetectorHelper: Boolean = true,
+        var chestLockHighlight: Boolean = true
     ) {
         @Serializable
         data class HollowsWaypoints(

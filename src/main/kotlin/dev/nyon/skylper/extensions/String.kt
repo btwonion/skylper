@@ -11,9 +11,10 @@ private val multipliers = mapOf('k' to 1_000.0, 'm' to 1_000_000.0, 'b' to 1_000
 fun String.doubleOrNull(): Double? {
     val text = lowercase().replace(",", "")
 
-    val multiplier = multipliers[text.last()] ?: 1.0
+    val foundMultiplier = multipliers[text.last()]
+    val multiplier = foundMultiplier ?: 1.0
 
-    return text.dropLast(1).toDoubleOrNull()?.let {
+    return text.dropLast(if (foundMultiplier != null) 1 else 0).toDoubleOrNull()?.let {
         it * multiplier
     }
 }

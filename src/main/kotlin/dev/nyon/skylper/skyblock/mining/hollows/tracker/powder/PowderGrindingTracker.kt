@@ -17,6 +17,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
+import oshi.driver.mac.net.NetStat.IFdata
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 import dev.nyon.skylper.config.config as overallConfig
@@ -75,7 +76,13 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
     private val updater = independentScope.launch {
         while (true) {
             delay(1.seconds)
-            if (!isGrinding) continue
+            if (!isGrinding) {
+                if (startTime != null) {
+                    data.reset()
+                    startTime = null
+                }
+                continue
+            }
             data.chest.update(this@PowderGrindingTracker)
             data.mithril.update(this@PowderGrindingTracker)
             data.gemstone.update(this@PowderGrindingTracker)
@@ -143,7 +150,7 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
             if (config.doublePowder) add(
                 finalComponent("double_powder",
                     Component.literal(if (data.doublePowderActive) Symbols.CHECK_MARK else Symbols.CROSS)
-                        .withStyle { it.withBold(false).withColor(ChatFormatting.WHITE) })
+                        .withStyle { it.withBold(true).withColor(ChatFormatting.WHITE) })
             )
         }
     }

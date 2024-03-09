@@ -25,6 +25,15 @@ fun YetAnotherConfigLib.Builder.appendCrystalHollowsCategory() = category("hollo
         field(true)
     }
 
+    // Chest lock highlight
+    val chestLockHighlight = "chest_lock_highlight"
+    primitive(categoryKey, chestLockHighlight) {
+        description(categoryKey, chestLockHighlight)
+        getSet({ config.mining.crystalHollows.chestLockHighlight },
+            { config.mining.crystalHollows.chestLockHighlight = it })
+        tickBox()
+    }
+
     // Auto Pass Renew toggle
     val autoPassRenewKey = "auto_pass_renew"
     primitive(categoryKey, autoPassRenewKey) {
