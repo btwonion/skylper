@@ -75,6 +75,36 @@ fun WorldRenderContext.renderBeaconBeam(pos: Vec3, color: Int) {
     matrices.popPose()
 }
 
+fun WorldRenderContext.renderFilled(box: AABB, color: Int, throughWalls: Boolean) {
+    val matrices = matrixStack()
+    val cameraPos = camera().position
+
+    matrices.pushPose()
+    matrices.translate(-cameraPos.x, -cameraPos.y, -cameraPos.z)
+
+    val consumers = consumers()!!
+    val buffer =
+        consumers.getBuffer(if (throughWalls) CustomRenderLayers.filledThroughWall else CustomRenderLayers.filled)
+
+    val javaColor = color.color
+    LevelRenderer.addChainedFilledBoxVertices(
+        matrices,
+        buffer,
+        box.minX,
+        box.minY,
+        box.minZ,
+        box.maxX,
+        box.maxY,
+        box.maxY,
+        javaColor.red.toFloat(),
+        javaColor.blue.toFloat(),
+        javaColor.green.toFloat(),
+        javaColor.alpha.toFloat()
+    )
+
+    matrices.popPose()
+}
+
 fun WorldRenderContext.renderOutline(box: AABB, color: Int, lineWidth: Float, throughWalls: Boolean) {
     if (!minecraft.isVisible(box) && !throughWalls) return
     val matrices = matrixStack()

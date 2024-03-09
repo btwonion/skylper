@@ -10,4 +10,5 @@
 ## Technical changes
 
 ```diff
++ add function for filled box rendering
 ```
