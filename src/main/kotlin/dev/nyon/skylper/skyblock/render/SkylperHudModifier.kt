@@ -4,7 +4,7 @@ import dev.nyon.konfig.config.saveConfig
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.render.hud.HudWidget
 import dev.nyon.skylper.skyblock.mining.hollows.render.hud.CrystalCompletionWidget
-import dev.nyon.skylper.skyblock.mining.hollows.tracker.powder.PowderGrindingWidget
+import dev.nyon.skylper.skyblock.mining.hollows.tracker.powder.PowderGrindingTracker
 import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
@@ -15,7 +15,7 @@ class SkylperHudModifier(private val parent: Screen?) :
     Screen(Component.translatable("menu.skylper.tabhud.modifier.title")) {
     private val enabledWidgets: List<HudWidget> = buildList {
         if (config.mining.crystalHollows.crystalOverlay.enabled) add(CrystalCompletionWidget)
-        if (config.mining.crystalHollows.powderGrindingOverlay.enabled) add(PowderGrindingWidget)
+        if (config.mining.crystalHollows.powderGrindingOverlay.enabled) add(PowderGrindingTracker)
     }.onEach(HudWidget::update)
 
     override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {

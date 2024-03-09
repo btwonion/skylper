@@ -20,6 +20,7 @@ fun OptionGroup.Builder.description(
     description(
         OptionDescription.createBuilder()
             .text(Component.translatable("menu.skylper.config.$categoryKey.$key.description"))
-            .image(imageKey, width, height).build()
+            .image(imageKey, width, height)
+            .build()
     )
 }

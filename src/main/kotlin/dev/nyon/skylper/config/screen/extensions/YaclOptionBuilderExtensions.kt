@@ -47,8 +47,7 @@ fun Option.Builder<*>.description(categoryKey: String, key: String, vararg args:
     description(
         OptionDescription.of(
             Component.translatable(
-                "menu.skylper.config.$categoryKey.$key.description",
-                *args
+                "menu.skylper.config.$categoryKey.$key.description", *args
             )
         )
     )
@@ -60,7 +59,8 @@ fun Option.Builder<*>.description(
     description(
         OptionDescription.createBuilder()
             .text(Component.translatable("menu.skylper.config.$categoryKey.$key.description"))
-            .image(imageKey, width, height).build()
+            .image(imageKey, width, height)
+            .build()
     )
 }
 
@@ -78,7 +78,8 @@ fun ButtonOption.Builder.description(
     description(
         OptionDescription.createBuilder()
             .text(Component.translatable("menu.skylper.config.$categoryKey.$key.description"))
-            .image(imageKey, width, height).build()
+            .image(imageKey, width, height)
+            .build()
     )
 }
 
