@@ -11,6 +11,7 @@
 + fix some NPEs
 + fix concurrent modification exception in TableHudWidget
 + fix data resetting of powder grinding tracker
++ now update pickaxe ability level from /hotm screen
 ```
 
 ## Technical changes
