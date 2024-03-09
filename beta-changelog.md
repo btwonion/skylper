@@ -2,6 +2,7 @@
 ```diff
 + add chests per hour and chests per minute to powder grinding overlay
 + add treasure chest lock highlighter
++ change hud overlay title color to gold
 ```
 
 ## Bug Fixes

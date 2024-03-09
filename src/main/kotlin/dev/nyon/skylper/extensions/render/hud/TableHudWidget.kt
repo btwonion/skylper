@@ -17,7 +17,7 @@ import kotlin.math.max
 abstract class TableHudWidget(override var title: Component, private val rows: Int, private val columns: Int) :
     HudWidget {
     val components: MutableMap<Int, HudComponent> = mutableMapOf()
-    val mutex = Mutex()
+    private val mutex = Mutex()
     private val rowHeight: Int
         get() = runBlocking { mutex.withLock { components.values.maxOfOrNull { it.height } ?: 0 } }
     private val columnWidths: Map<Int, Int>

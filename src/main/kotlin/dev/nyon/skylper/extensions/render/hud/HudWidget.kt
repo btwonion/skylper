@@ -2,6 +2,7 @@ package dev.nyon.skylper.extensions.render.hud
 
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.minecraft
+import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
 import kotlin.reflect.KClass
@@ -32,7 +33,9 @@ interface HudWidget {
         context.fill(xInt, yInt, xInt + width, yInt + height, 0x500C0C0C)
 
         context.drawString(
-            minecraft.font, title.copy().withStyle { it.withBold(true) }, xInt + W_PADDING, yInt + H_PADDING, 0xffffff
+            minecraft.font, title.copy().withStyle { it.withBold(true).withColor(ChatFormatting.GOLD) }, xInt + W_PADDING,
+            yInt + H_PADDING,
+            0xffffff
         )
         return yInt + TITLE_HEIGHT
     }

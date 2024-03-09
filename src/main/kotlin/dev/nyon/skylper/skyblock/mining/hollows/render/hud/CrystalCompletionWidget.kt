@@ -12,14 +12,12 @@ import dev.nyon.skylper.skyblock.data.skylper.currentProfile
 import dev.nyon.skylper.skyblock.data.skylper.playerData
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import kotlin.reflect.KClass
 import kotlin.time.Duration.Companion.seconds
 
 object CrystalCompletionWidget : TableHudWidget(
-    Component.translatable("menu.skylper.hollows.tabhud.crystals.title")
-        .withStyle { it.withColor(ChatFormatting.AQUA) }, 5, 2
+    Component.translatable("menu.skylper.hollows.tabhud.crystals.title"), 5, 2
 ) {
     override var x: Double = config.mining.crystalHollows.crystalOverlay.x.toDouble()
         set(value) {
