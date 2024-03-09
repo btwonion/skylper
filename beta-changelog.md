@@ -12,5 +12,6 @@
 ## Technical changes
 
 ```diff
++ add function for filled box rendering
 + create new Tracker Api for future extendibility
 ```
