@@ -2,8 +2,8 @@ package dev.nyon.skylper.skyblock.mining.hollows
 
 import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
-import dev.nyon.skylper.extensions.command.arguments.ClientBlockPosArgument
 import dev.nyon.skylper.extensions.command.arg
+import dev.nyon.skylper.extensions.command.arguments.ClientBlockPosArgument
 import dev.nyon.skylper.extensions.command.executeAsync
 import dev.nyon.skylper.extensions.command.sub
 import dev.nyon.skylper.extensions.math.blockPos

@@ -11,12 +11,18 @@ fun Minecraft.retrieveScoreboardLines(): List<Component> {
     val scoreboard = player?.scoreboard ?: return emptyList()
 
     val objective = scoreboard.getDisplayObjective(DisplaySlot.SIDEBAR) ?: return emptyList()
-    return scoreboard.listPlayerScores(objective).asSequence().filter { !it.isHidden }
-        .sortedWith(minecraft.gui.orderComparator).take(15).map {
+    return scoreboard.listPlayerScores(objective)
+        .asSequence()
+        .filter { !it.isHidden }
+        .sortedWith(minecraft.gui.orderComparator)
+        .take(15)
+        .map {
             val team = scoreboard.getPlayersTeam(it.owner)
             val text = it.ownerName()
             PlayerTeam.formatNameForTeam(team, text)
-        }.toMutableList().also { it.add(objective.displayName.copy()) }
+        }
+        .toMutableList()
+        .also { it.add(objective.displayName.copy()) }
 }
 
 fun Minecraft.isVisible(box: AABB): Boolean {

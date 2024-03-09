@@ -175,8 +175,7 @@ fun YetAnotherConfigLib.Builder.appendCrystalHollowsCategory() = category("hollo
         { config.mining.crystalHollows.crystalOverlay.y = it })
 
     // tracker overlay
-    trackerConfig(
-        PowderGrindingTracker,
+    trackerConfig(PowderGrindingTracker,
         { config.mining.crystalHollows.powderGrindingOverlay.enabled },
         { config.mining.crystalHollows.powderGrindingOverlay.enabled = it },
         { config.mining.crystalHollows.powderGrindingOverlay.x },

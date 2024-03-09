@@ -14,7 +14,8 @@ enum class HollowsStructure(
     val waypointColor: Int
 ) {
     GOBLIN_QUEEN(
-        AABB(0.0, 0.0, 0.0, 108.0, 114.0, 108.0), HollowsZone.GOBLIN_HOLDOUT,
+        AABB(0.0, 0.0, 0.0, 108.0, 114.0, 108.0),
+        HollowsZone.GOBLIN_HOLDOUT,
         125,
         140,
         "Goblin Queen",
@@ -22,7 +23,8 @@ enum class HollowsStructure(
         0x9B5206
     ),
     GOBLIN_KING(
-        AABB(0.0, 0.0, 0.0, 59.0, 53.0, 56.0), HollowsZone.GOBLIN_HOLDOUT,
+        AABB(0.0, 0.0, 0.0, 59.0, 53.0, 56.0),
+        HollowsZone.GOBLIN_HOLDOUT,
         82,
         168,
         "Goblin King",
@@ -30,7 +32,8 @@ enum class HollowsStructure(
         0xC57800
     ),
     KHAZAD_DUM(
-        AABB(0.0, 0.0, 0.0, 110.0, 46.0, 108.0), HollowsZone.MAGMA_FIELDS,
+        AABB(0.0, 0.0, 0.0, 110.0, 46.0, 108.0),
+        HollowsZone.MAGMA_FIELDS,
         0,
         75,
         "Khazad Dûm",
@@ -38,7 +41,8 @@ enum class HollowsStructure(
         0x800D00
     ),
     JUNGLE_TEMPLE(
-        AABB(0.0, 0.0, 0.0, 108.0, 120.0, 108.0), HollowsZone.JUNGLE,
+        AABB(0.0, 0.0, 0.0, 108.0, 120.0, 108.0),
+        HollowsZone.JUNGLE,
         72,
         81,
         "Jungle Temple",
@@ -47,7 +51,8 @@ enum class HollowsStructure(
     ),
     ODAWA(AABB(0.0, 0.0, 0.0, 53.0, 46.0, 54.0), HollowsZone.JUNGLE, 73, 155, "Odawa", "internal_odawa", 0x138012),
     PRECURSOR_CITY(
-        AABB(0.0, 0.0, 0.0, 107.0, 122.0, 107.0), HollowsZone.PRECURSOR_REMNANTS,
+        AABB(0.0, 0.0, 0.0, 107.0, 122.0, 107.0),
+        HollowsZone.PRECURSOR_REMNANTS,
         121,
         130,
         "Precursor City",
@@ -55,7 +60,8 @@ enum class HollowsStructure(
         0xACABAF
     ),
     MINES_OF_DIVAN(
-        AABB(0.0, 0.0, 0.0, 108.0, 125.0, 108.0), HollowsZone.MITHRIL_DEPOSITS,
+        AABB(0.0, 0.0, 0.0, 108.0, 125.0, 108.0),
+        HollowsZone.MITHRIL_DEPOSITS,
         97,
         102,
         "Mines of Divan",
@@ -63,7 +69,8 @@ enum class HollowsStructure(
         0x0E8208
     ),
     CRYSTAL_NUCLEUS(
-        HollowsZone.CRYSTAL_NUCLEUS.box, HollowsZone.CRYSTAL_NUCLEUS,
+        HollowsZone.CRYSTAL_NUCLEUS.box,
+        HollowsZone.CRYSTAL_NUCLEUS,
         0,
         200,
         "Crystal Nucleus",

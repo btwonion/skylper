@@ -15,7 +15,10 @@ import java.util.List;
 @Mixin(AbstractContainerMenu.class)
 public class AbstractContainerMenuMixin {
 
-    @Inject(method = "setItem", at = @At("HEAD"))
+    @Inject(
+        method = "setItem",
+        at = @At("HEAD")
+    )
     private void invokeSetItemEvent(
         int slotId,
         int stateId,
@@ -26,7 +29,8 @@ public class AbstractContainerMenuMixin {
     }
 
     @Inject(
-        method = "initializeContents", at = @At("HEAD")
+        method = "initializeContents",
+        at = @At("HEAD")
     )
     private void invokeInventoryInitEvent(
         int stateId,
@@ -34,6 +38,6 @@ public class AbstractContainerMenuMixin {
         ItemStack carried,
         CallbackInfo ci
     ) {
-       EventHandler.INSTANCE.invokeEvent(new InventoryInitEvent(items));
+        EventHandler.INSTANCE.invokeEvent(new InventoryInitEvent(items));
     }
 }

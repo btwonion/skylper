@@ -12,8 +12,9 @@ import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import kotlin.time.DurationUnit
 
-abstract class Tracker<D : TrackerData>(val nameSpace: String, val data: D) : SimpleHudWidget(
-    Component.translatable("menu.skylper.overlay.${nameSpace}.title").withStyle { it.withColor(ChatFormatting.AQUA) }) {
+abstract class Tracker<D : TrackerData>(val nameSpace: String, val data: D) :
+    SimpleHudWidget(Component.translatable("menu.skylper.overlay.${nameSpace}.title")
+        .withStyle { it.withColor(ChatFormatting.AQUA) }) {
     val overlayNameSpace = "menu.skylper.overlay.$nameSpace"
     var startTime: Instant? = null
 

@@ -4,9 +4,9 @@ import dev.nyon.skylper.extensions.*
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
+import dev.nyon.skylper.skyblock.mining.MiningAbility
 import dev.nyon.skylper.skyblock.mining.hollows.Crystal
 import dev.nyon.skylper.skyblock.mining.hollows.CrystalState
-import dev.nyon.skylper.skyblock.mining.MiningAbility
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 

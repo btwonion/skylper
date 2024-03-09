@@ -72,7 +72,9 @@ data class Config(val mining: MiningConfig = MiningConfig()) {
             var sessionTime: Boolean = true
         ) {
             @Serializable
-            data class ResourceConfig(var total: Boolean = true, var perMinute: Boolean = false, var perHour: Boolean = true)
+            data class ResourceConfig(
+                var total: Boolean = true, var perMinute: Boolean = false, var perHour: Boolean = true
+            )
         }
     }
 }
