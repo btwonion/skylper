@@ -38,6 +38,7 @@
 + automatic crystal hollows pass renew
 + treasure chest highlighting
 + metal detector helper
++ treasure chest particle highlight
 ```
 
 ## Bug Fixes

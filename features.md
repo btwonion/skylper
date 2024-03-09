@@ -26,17 +26,14 @@
 - automatic crystal hollows pass renew
 - treasure chest highlighting
 - metal detector helper
+- treasure chest particle highlighting
 
 ## Planned Features
 ### General
 - customizable mob highlights
-- mining ability cooldown indicator
 - waypoint screen, custom waypoints, waypoint share in chat
 
 ### Crystal Hollows
-- recognize double powder event through the bossbar
 - wishing compass solver
 - nucleus profit tracker
 - needed item overlay based on current zone
-- treasure chest particle highlighting
-- crystal state check through hotm screen
