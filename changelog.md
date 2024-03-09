@@ -39,6 +39,7 @@
 + treasure chest highlighting
 + metal detector helper
 + treasure chest particle highlight
++ total powder overlay
 ```
 
 ## Bug Fixes
