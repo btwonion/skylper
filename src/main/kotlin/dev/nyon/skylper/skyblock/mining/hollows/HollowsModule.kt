@@ -14,6 +14,7 @@ import dev.nyon.skylper.skyblock.mining.hollows.locations.CrystalRunListener
 import dev.nyon.skylper.skyblock.mining.hollows.locations.NameTagEntityListener
 import dev.nyon.skylper.skyblock.mining.hollows.locations.PlayerChatLocationListener
 import dev.nyon.skylper.skyblock.mining.hollows.render.ChestHighlighter
+import dev.nyon.skylper.skyblock.mining.hollows.render.ChestParticleHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.solvers.metaldetector.MetalDetectorSolver
 import dev.nyon.skylper.skyblock.mining.hollows.tracker.PassExpiryTracker
 import net.minecraft.network.chat.Component
@@ -48,6 +49,7 @@ object HollowsModule {
         CrystalRunListener.init()
         PassExpiryTracker.init()
         MetalDetectorSolver.init()
+        ChestParticleHighlighter
 
         handleWaypoints()
     }

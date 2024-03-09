@@ -24,7 +24,16 @@ object HypixelQuitEvent
 data class CrystalFoundEvent(val crystal: Crystal)
 data class CrystalPlaceEvent(val crystal: Crystal)
 object NucleusRunCompleteEvent
-data class ParticleSpawnEvent(val options: ParticleOptions, val pos: Vec3)
+data class ParticleSpawnEvent(
+    val options: ParticleOptions,
+    val pos: Vec3,
+    val xSpeed: Double,
+    val ySpeed: Double,
+    val zSpeed: Double,
+    val force: Boolean,
+    val decreased: Boolean
+)
+
 data class EntitySpawnEvent(val entity: Entity)
 data class LevelChangeEvent(val newLevel: ClientLevel?)
 data class MessageEvent(val text: Component)

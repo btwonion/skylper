@@ -19,6 +19,7 @@ data class PowderGrindingData(
 
     data class ResourceData(var total: Int = 0, var perMinute: Int = 0, var perHour: Int = 0) {
         fun update(tracker: Tracker<PowderGrindingData>) {
+            if (tracker.startTime == null) return
             val timeSpent = Clock.System.now() - tracker.startTime!!
             val spentMinutes = timeSpent.inWholeSeconds.toFloat() / 60f
             perMinute = (total / spentMinutes).toInt()

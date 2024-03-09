@@ -14,6 +14,8 @@
   "menu.skylper.config.hollows.chest_highlight.description": "Decides whether to highlight treasure chests or not.",
   "menu.skylper.config.hollows.chest_highlight.color.title": "Treasure chest highlight color",
   "menu.skylper.config.hollows.chest_highlight.color.description": "Decides the color a treasure chest should be highlighted in.",
+  "menu.skylper.config.hollows.chest_lock_highlight.title": "Chest Lock Highlight",
+  "menu.skylper.config.hollows.chest_lock_highlight.description": "Decides whether to highlight the lock particles of a chests or not.",
   "menu.skylper.config.hollows.auto_pass_renew.title": "Auto renew Crystal Hollows Pass",
   "menu.skylper.config.hollows.auto_pass_renew.description": "Decides whether the pass, which grants access to the Crystal Hollows, should be automatically renewed or not.",
   "menu.skylper.config.hollows.metal_detector.title": "Metal Detector Helper",
