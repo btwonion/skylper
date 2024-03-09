@@ -18,7 +18,7 @@ data class ProfileData(val mining: Mining = Mining())
 
 @Serializable
 data class Mining(
-    val abilityLevel: Int = 1,
+    var abilityLevel: Int = 1,
     var selectedAbility: MiningAbility? = null,
     val crystalHollows: CrystalHollows = CrystalHollows()
 )

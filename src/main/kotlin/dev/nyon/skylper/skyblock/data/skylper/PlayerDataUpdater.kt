@@ -68,6 +68,12 @@ object PlayerDataUpdater {
                         playerData.currentProfile?.mining?.selectedAbility = MiningAbility.byRawName(rawName)
                     }
                 }
+                itemNameString.contains("Peak of the Mountain") -> {
+                    val lore = it.itemStack.getTooltipLines(minecraft.player, TooltipFlag.ADVANCED)
+                    val firstLine = lore.drop(1).first().string
+                    val level = firstLine.drop(6).first().digitToIntOrNull() ?: return@listenEvent
+                    playerData.currentProfile?.mining?.abilityLevel = if (level > 1) 2 else 1
+                }
             }
         }
     }
