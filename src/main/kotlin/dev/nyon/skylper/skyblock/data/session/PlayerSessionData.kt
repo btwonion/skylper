@@ -47,6 +47,7 @@ object PlayerSessionData {
                     it.string.replace("§[^a-f0-9]".toRegex(), "")
                 }
 
+                invokeEvent(SideboardUpdateEvent(scoreboardLines, scoreboardLineStrings))
                 updateFromSideboard()
                 updateFromTabList()
 

@@ -23,9 +23,10 @@ data class Config(val mining: MiningConfig = MiningConfig()) {
     @Serializable
     data class MiningConfig(
         val crystalHollows: CrystalHollowsConfig = CrystalHollowsConfig(),
-        val availableAbilityNotification: Boolean = true,
-        val availableAbilityNotificationOnMiningIslands: Boolean = true,
-        val miningAbilityIndicator: Boolean = true
+        var availableAbilityNotification: Boolean = true,
+        var availableAbilityNotificationOnMiningIslands: Boolean = true,
+        var miningAbilityIndicator: Boolean = true,
+        val totalPowderOverlay: TotalPowderOverlay = TotalPowderOverlay()
     )
 
     @Serializable
@@ -64,7 +65,7 @@ data class Config(val mining: MiningConfig = MiningConfig()) {
         data class GrindingOverlay(
             var enabled: Boolean = true,
             var x: Int = 5,
-            var y: Int = 200,
+            var y: Int = 0,
             var chests: ResourceConfig = ResourceConfig(),
             var gemstone: ResourceConfig = ResourceConfig(),
             var mithril: ResourceConfig = ResourceConfig(),
@@ -77,4 +78,7 @@ data class Config(val mining: MiningConfig = MiningConfig()) {
             )
         }
     }
+
+    @Serializable
+    data class TotalPowderOverlay(var enabled: Boolean = true, var x: Int = 5, var y: Int = 300)
 }

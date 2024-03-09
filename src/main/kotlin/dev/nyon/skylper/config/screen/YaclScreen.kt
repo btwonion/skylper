@@ -7,6 +7,7 @@ import dev.nyon.skylper.config.screen.extensions.action
 import dev.nyon.skylper.config.screen.extensions.category
 import dev.nyon.skylper.config.screen.extensions.description
 import dev.nyon.skylper.minecraft
+import dev.nyon.skylper.skyblock.mining.appendMiningCategory
 import dev.nyon.skylper.skyblock.mining.hollows.appendCrystalHollowsCategory
 import dev.nyon.skylper.skyblock.render.SkylperHudModifier
 import net.minecraft.client.gui.screens.Screen
@@ -18,6 +19,7 @@ internal fun createYaclScreen(parent: Screen?): Screen {
 
     builder.title(Component.translatable("menu.skylper.config.name"))
     builder.appendGeneralCategory()
+    builder.appendMiningCategory()
     builder.appendCrystalHollowsCategory()
 
     builder.save { saveConfig(config) }

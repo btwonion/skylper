@@ -3,6 +3,7 @@
 + add chests per hour and chests per minute to powder grinding overlay
 + add treasure chest lock highlighter
 + change hud overlay title color to gold
++ add total powder overlay
 ```
 
 ## Bug Fixes
@@ -22,4 +23,5 @@
 + change parameters of ParticleSpawnEvent
 + merge TrackerWidget into Tracker
 + refactor code
++ add mithril and gemstone powder to playerdata
 ```

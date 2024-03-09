@@ -4,6 +4,9 @@ import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.RenderHudEvent
 import dev.nyon.skylper.extensions.render.hud.HudWidget
+import dev.nyon.skylper.skyblock.Mining
+import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
+import dev.nyon.skylper.skyblock.mining.TotalPowderWidget
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
 import dev.nyon.skylper.skyblock.mining.hollows.render.hud.CrystalCompletionWidget
 import dev.nyon.skylper.skyblock.mining.hollows.tracker.powder.PowderGrindingTracker
@@ -18,6 +21,10 @@ object SkylperHud {
 
             it.context.renderWidget(PowderGrindingTracker) {
                 HollowsModule.isPlayerInHollows && config.mining.crystalHollows.powderGrindingOverlay.enabled && PowderGrindingTracker.isGrinding
+            }
+
+            it.context.renderWidget(TotalPowderWidget) {
+                Mining.miningIslands.contains(PlayerSessionData.currentArea) && config.mining.totalPowderOverlay.enabled
             }
         }
     }
