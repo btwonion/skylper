@@ -24,7 +24,7 @@ data class PowderGrindingData(
             val spentMinutes = timeSpent.inWholeSeconds.toFloat() / 60f
             perMinute = (total / spentMinutes).toInt()
             perHour = (total / (spentMinutes / 60f)).toInt()
-            PowderGrindingWidget.update()
+            PowderGrindingTracker.update()
         }
 
         fun updateByIncrease(increase: Int, tracker: Tracker<PowderGrindingData>) {

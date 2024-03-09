@@ -17,7 +17,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
-import oshi.driver.mac.net.NetStat.IFdata
+import kotlin.reflect.KClass
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 import dev.nyon.skylper.config.config as overallConfig
@@ -154,6 +154,20 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
             )
         }
     }
+
+    override var x: Double = config.x.toDouble()
+        set(value) {
+            config.x = value.toInt()
+            field = value
+        }
+
+    override var y: Double = config.y.toDouble()
+        set(value) {
+            config.y = value.toInt()
+            field = value
+        }
+
+    override val updateTriggerEvents: List<KClass<out Any>> = listOf(BossBarNameUpdate::class, MessageEvent::class)
 
     init {
         init()

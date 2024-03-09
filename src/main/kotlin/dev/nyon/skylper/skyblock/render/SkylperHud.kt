@@ -6,7 +6,6 @@ import dev.nyon.skylper.extensions.RenderHudEvent
 import dev.nyon.skylper.extensions.render.hud.HudWidget
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
 import dev.nyon.skylper.skyblock.mining.hollows.render.hud.CrystalCompletionWidget
-import dev.nyon.skylper.skyblock.mining.hollows.tracker.powder.PowderGrindingWidget
 import dev.nyon.skylper.skyblock.mining.hollows.tracker.powder.PowderGrindingTracker
 import net.minecraft.client.gui.GuiGraphics
 
@@ -17,7 +16,7 @@ object SkylperHud {
                 HollowsModule.isPlayerInHollows && config.mining.crystalHollows.crystalOverlay.enabled
             }
 
-            it.context.renderWidget(PowderGrindingWidget) {
+            it.context.renderWidget(PowderGrindingTracker) {
                 HollowsModule.isPlayerInHollows && config.mining.crystalHollows.powderGrindingOverlay.enabled && PowderGrindingTracker.isGrinding
             }
         }
