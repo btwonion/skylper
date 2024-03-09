@@ -1,6 +1,9 @@
 package dev.nyon.skylper.config.screen.extensions
 
 import dev.isxander.yacl3.api.*
+import dev.nyon.skylper.extensions.tracker.Tracker
+import dev.nyon.skylper.extensions.tracker.TrackerData
+import dev.nyon.skylper.minecraft
 import net.minecraft.network.chat.Component
 
 fun ConfigCategory.Builder.title(key: String): ConfigCategory.Builder {
@@ -51,15 +54,29 @@ fun ConfigCategory.Builder.overlayConfig(
         primitive(autoKey, overlayXKey) {
             description(autoKey, overlayXKey)
             getSet(xGet, xSet)
-            field(0, Int.MAX_VALUE)
+            field(0, minecraft.window.width)
         }
 
         primitive(autoKey, overlayYKey) {
             description(autoKey, overlayYKey)
             getSet(yGet, ySet)
-            field(0, Int.MAX_VALUE)
+            field(0, minecraft.window.height)
         }
 
         extra()
+    }
+}
+
+fun <D : TrackerData> ConfigCategory.Builder.trackerConfig(
+    tracker: Tracker<D>,
+    enabledGet: () -> Boolean,
+    enabledSet: (Boolean) -> Unit,
+    xGet: () -> Int,
+    xSet: (Int) -> Unit,
+    yGet: () -> Int,
+    ySet: (Int) -> Unit,
+) {
+    overlayConfig(tracker.nameSpace, "tracker", enabledGet, enabledSet, xGet, xSet, yGet, ySet) {
+        tracker.appendConfigOptions(this@overlayConfig, tracker.nameSpace)
     }
 }

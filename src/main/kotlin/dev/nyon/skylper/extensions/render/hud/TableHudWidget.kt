@@ -49,13 +49,15 @@ abstract class TableHudWidget(override var title: Component, private val rows: I
         }
 
     override fun render(context: GuiGraphics, mouseX: Int, mouseY: Int): Int {
+        if (columnWidths.size < columns - 1) return super.render(context, mouseX, mouseY)
         val xInt = x.toInt()
         var nextY = super.render(context, mouseX, mouseY)
 
         // Draw separators
         var separatorX = xInt + HudWidget.W_PADDING
         (0 ..< columns).drop(1).forEach {
-            separatorX += columnWidths[it - 1]!! + HudWidget.W_PADDING
+            val columnWidth = columnWidths[it - 1] ?: 1
+            separatorX += columnWidth + HudWidget.W_PADDING
             context.vLine(
                 separatorX, nextY, nextY + rowHeight * rows + (rows - 1) * HudWidget.H_PADDING, 0x60FFFFFF
             )
@@ -67,7 +69,8 @@ abstract class TableHudWidget(override var title: Component, private val rows: I
             var nextX = xInt + HudWidget.W_PADDING
             rowColumns.forEachIndexed { index, component ->
                 component.render(context, nextX, nextY, mouseX, mouseY)
-                nextX += columnWidths[index]!! + HudWidget.W_PADDING * 2 + 1
+                val columnWidth = columnWidths[index] ?: component.width
+                nextX += columnWidth + HudWidget.W_PADDING * 2 + 1
             }
 
             nextY += rowHeight + HudWidget.H_PADDING

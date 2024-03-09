@@ -1,8 +1,9 @@
-package dev.nyon.skylper.skyblock.hollows
+package dev.nyon.skylper.skyblock.mining.hollows
 
 import dev.isxander.yacl3.api.YetAnotherConfigLib
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.config.screen.extensions.*
+import dev.nyon.skylper.skyblock.mining.hollows.tracker.powder.PowderGrindingTracker
 
 fun YetAnotherConfigLib.Builder.appendCrystalHollowsCategory() = category("hollows") {
     val categoryKey = "hollows"
@@ -165,90 +166,12 @@ fun YetAnotherConfigLib.Builder.appendCrystalHollowsCategory() = category("hollo
         { config.mining.crystalHollows.crystalOverlay.y = it })
 
     // tracker overlay
-    val trackerOverlayKey = "tracker_overlay"
-    overlayConfig(categoryKey,
-        trackerOverlayKey,
+    trackerConfig(
+        PowderGrindingTracker,
         { config.mining.crystalHollows.powderGrindingOverlay.enabled },
         { config.mining.crystalHollows.powderGrindingOverlay.enabled = it },
         { config.mining.crystalHollows.powderGrindingOverlay.x },
         { config.mining.crystalHollows.powderGrindingOverlay.x = it },
         { config.mining.crystalHollows.powderGrindingOverlay.y },
-        { config.mining.crystalHollows.powderGrindingOverlay.y = it }) {
-
-        // opened chests toggle
-        val openedChestsKey = "$trackerOverlayKey.opened_chests"
-        primitive(categoryKey, openedChestsKey) {
-            description(categoryKey, openedChestsKey)
-            getSet({ config.mining.crystalHollows.powderGrindingOverlay.openedChests },
-                { config.mining.crystalHollows.powderGrindingOverlay.openedChests = it })
-            tickBox()
-        }
-
-        // Powder setting toggles
-        val farmedGemstoneKey = "$trackerOverlayKey.farmed_gemstone"
-        primitive(categoryKey, farmedGemstoneKey) {
-            description(categoryKey, farmedGemstoneKey)
-            getSet({ config.mining.crystalHollows.powderGrindingOverlay.farmedGemstonePowder },
-                { config.mining.crystalHollows.powderGrindingOverlay.farmedGemstonePowder = it })
-            tickBox()
-        }
-
-        val farmedGemstoneMinuteKey = "$trackerOverlayKey.farmed_gemstone_minute"
-        primitive(categoryKey, farmedGemstoneMinuteKey) {
-            description(categoryKey, farmedGemstoneMinuteKey)
-            getSet({ config.mining.crystalHollows.powderGrindingOverlay.gemstonePowderPerMinute },
-                { config.mining.crystalHollows.powderGrindingOverlay.gemstonePowderPerMinute = it })
-            tickBox()
-        }
-
-        val farmedGemstoneHourKey = "$trackerOverlayKey.farmed_gemstone_hour"
-        primitive(categoryKey, farmedGemstoneHourKey) {
-            description(categoryKey, farmedGemstoneHourKey)
-            getSet({ config.mining.crystalHollows.powderGrindingOverlay.gemstonePowderPerHour },
-                { config.mining.crystalHollows.powderGrindingOverlay.gemstonePowderPerHour = it })
-            tickBox()
-        }
-
-        val farmedMithrilKey = "$trackerOverlayKey.farmed_mithril"
-        primitive(categoryKey, farmedMithrilKey) {
-            description(categoryKey, farmedMithrilKey)
-            getSet({ config.mining.crystalHollows.powderGrindingOverlay.farmedMithrilPowder },
-                { config.mining.crystalHollows.powderGrindingOverlay.farmedMithrilPowder = it })
-            tickBox()
-        }
-
-        val farmedMithrilMinuteKey = "$trackerOverlayKey.farmed_mithril_minute"
-        primitive(categoryKey, farmedMithrilMinuteKey) {
-            description(categoryKey, farmedMithrilMinuteKey)
-            getSet({ config.mining.crystalHollows.powderGrindingOverlay.mithrilPowderPerMinute },
-                { config.mining.crystalHollows.powderGrindingOverlay.mithrilPowderPerMinute = it })
-            tickBox()
-        }
-
-        val farmedMithrilHourKey = "$trackerOverlayKey.farmed_mithril_hour"
-        primitive(categoryKey, farmedMithrilHourKey) {
-            description(categoryKey, farmedMithrilHourKey)
-            getSet({ config.mining.crystalHollows.powderGrindingOverlay.mithrilPowderPerHour },
-                { config.mining.crystalHollows.powderGrindingOverlay.mithrilPowderPerHour = it })
-            tickBox()
-        }
-
-        // double powder toggle
-        val doublePowderKey = "$trackerOverlayKey.double_powder"
-        primitive(categoryKey, doublePowderKey) {
-            description(categoryKey, doublePowderKey)
-            getSet({ config.mining.crystalHollows.powderGrindingOverlay.doublePowder },
-                { config.mining.crystalHollows.powderGrindingOverlay.doublePowder = it })
-            tickBox()
-        }
-
-        // session time toggle
-        val sessionTimeKey = "$trackerOverlayKey.session_time"
-        primitive(categoryKey, sessionTimeKey) {
-            description(categoryKey, sessionTimeKey)
-            getSet({ config.mining.crystalHollows.powderGrindingOverlay.sessionTime },
-                { config.mining.crystalHollows.powderGrindingOverlay.sessionTime = it })
-            tickBox()
-        }
-    }
+        { config.mining.crystalHollows.powderGrindingOverlay.y = it })
 }

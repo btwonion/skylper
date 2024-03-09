@@ -4,8 +4,8 @@ import dev.nyon.skylper.extensions.*
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
-import dev.nyon.skylper.skyblock.hollows.Crystal
-import dev.nyon.skylper.skyblock.hollows.CrystalState
+import dev.nyon.skylper.skyblock.mining.hollows.Crystal
+import dev.nyon.skylper.skyblock.mining.hollows.CrystalState
 import dev.nyon.skylper.skyblock.mining.MiningAbility
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
@@ -48,7 +48,7 @@ object PlayerDataUpdater {
                 val crystalName = crystalNames.find { c -> it.contains(c) } ?: return@forEach
                 val crystal = Crystal.entries.first { c -> c.displayName == crystalName }
                 playerData.currentProfile?.mining?.crystalHollows?.crystals?.first { instance -> instance.crystal == crystal }?.state =
-                    if (it.contains("Not Found")) CrystalState.NOT_FOUND else if (it.contains("Found")) CrystalState.FOUND else CrystalState.NOT_FOUND
+                    if (it.contains("Not Found")) CrystalState.NOT_FOUND else if (it.contains("Not Placed")) CrystalState.FOUND else CrystalState.PLACED
             }
         }
 

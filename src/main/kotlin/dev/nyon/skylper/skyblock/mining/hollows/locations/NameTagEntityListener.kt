@@ -1,12 +1,12 @@
-package dev.nyon.skylper.skyblock.hollows.locations
+package dev.nyon.skylper.skyblock.mining.hollows.locations
 
 import dev.nyon.skylper.extensions.EntitySpawnEvent
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.hasMaxHealth
 import dev.nyon.skylper.extensions.render.waypoint.Waypoint
 import dev.nyon.skylper.extensions.render.waypoint.WaypointType
-import dev.nyon.skylper.skyblock.hollows.HollowsModule
-import dev.nyon.skylper.skyblock.hollows.HollowsStructure
+import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
+import dev.nyon.skylper.skyblock.mining.hollows.HollowsStructure
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.LivingEntity
 

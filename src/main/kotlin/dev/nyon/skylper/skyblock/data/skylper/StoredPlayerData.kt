@@ -1,8 +1,8 @@
 package dev.nyon.skylper.skyblock.data.skylper
 
-import dev.nyon.skylper.skyblock.hollows.Crystal
-import dev.nyon.skylper.skyblock.hollows.CrystalInstance
-import dev.nyon.skylper.skyblock.hollows.CrystalState
+import dev.nyon.skylper.skyblock.mining.hollows.Crystal
+import dev.nyon.skylper.skyblock.mining.hollows.CrystalInstance
+import dev.nyon.skylper.skyblock.mining.hollows.CrystalState
 import dev.nyon.skylper.skyblock.mining.MiningAbility
 import kotlinx.serialization.Serializable
 
