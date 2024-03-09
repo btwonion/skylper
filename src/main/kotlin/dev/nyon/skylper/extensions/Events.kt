@@ -48,3 +48,11 @@ data class ScreenOpenEvent(val screen: AbstractContainerScreen<*>)
 data class SetItemEvent(val itemStack: ItemStack)
 data class InventoryInitEvent(val items: List<ItemStack>)
 data class BossBarNameUpdate(val text: Component)
+data class PowderGainEvent(val type: PowderType, val amount: Int) {
+    enum class PowderType {
+        GEMSTONE,
+        MITHRIL
+    }
+}
+
+data class SideboardUpdateEvent(val lines: List<Component>, val cleanLines: List<String>)

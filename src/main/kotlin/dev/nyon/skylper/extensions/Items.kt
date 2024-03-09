@@ -1,7 +1,10 @@
 package dev.nyon.skylper.extensions
 
+import dev.nyon.skylper.minecraft
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.TooltipFlag
 
 val ItemStack.extraAttributes: CompoundTag?
     get() {
@@ -27,4 +30,10 @@ val ItemStack.display: CompoundTag?
         val key = "display"
         if (!compoundTag.contains(key)) return null
         return compoundTag.getCompound(key)
+    }
+
+val ItemStack.lore: List<Component>
+    get() {
+        val lines = getTooltipLines(minecraft.player, TooltipFlag.ADVANCED)
+        return lines.drop(1)
     }

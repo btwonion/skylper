@@ -20,6 +20,8 @@ data class ProfileData(val mining: Mining = Mining())
 data class Mining(
     var abilityLevel: Int = 1,
     var selectedAbility: MiningAbility? = null,
+    var mithrilPowder: Int = 0,
+    var gemstonePowder: Int = 0,
     val crystalHollows: CrystalHollows = CrystalHollows()
 )
 
