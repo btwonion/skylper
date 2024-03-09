@@ -18,4 +18,6 @@
 + add function for filled box rendering
 + create new Tracker Api for future extendibility
 + change parameters of ParticleSpawnEvent
++ merge TrackerWidget into Tracker
++ refactor code
 ```
