@@ -29,7 +29,7 @@ object ChestParticleHighlighter {
         if (!config.mining.crystalHollows.chestLockHighlight) return@listenEvent
         if (event.options.type != ParticleTypes.CRIT || event.xSpeed != 0.0 || event.ySpeed != 0.0 || event.zSpeed != 0.0) return@listenEvent
         val distance = minecraft.player?.position()?.distanceTo(event.pos)
-        if (distance == null || distance > 3.0) return@listenEvent
+        if (distance == null || distance > 5.0) return@listenEvent
         independentScope.launch {
             mutex.withLock {
                 particlePositions[event.pos] = Clock.System.now()
