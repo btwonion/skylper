@@ -16,7 +16,7 @@ plugins {
 }
 
 group = "dev.nyon"
-val beta: Int? = 5
+val beta: Int? = 7
 val majorVersion = "1.0.0${if (beta != null) "-beta$beta" else ""}"
 val mcVersion = "1.20.4"
 version = "$majorVersion-$mcVersion"
@@ -45,6 +45,12 @@ val runtimeTestMods = mapOf(
     "sodium" to "mc1.20.4-0.5.8" // Sodium by jellyquid3 for performance
 )
 
+val transitiveInclude: Configuration by configurations.creating {
+    exclude(group = "org.jetbrains.kotlin")
+    exclude(group = "org.jetbrains.kotlinx")
+    exclude(group = "com.mojang")
+}
+
 dependencies {
     minecraft("com.mojang:minecraft:$mcVersion")
     mappings(loom.layered {
@@ -66,13 +72,17 @@ dependencies {
 
     include(modImplementation("dev.nyon:konfig:2.0.0-1.20.4")!!)
 
-    val ktorVersion = "2.3.8"
-    include(implementation("io.ktor:ktor-client-core-jvm:$ktorVersion")!!)
-    include(implementation("io.ktor:ktor-client-cio-jvm:$ktorVersion")!!)
-    include(implementation("io.ktor:ktor-client-content-negotiation-jvm:$ktorVersion")!!)
-    include(implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktorVersion")!!)
+    val ktorVersion = "2.3.9"
+    include(implementation("io.ktor:ktor-client-core:$ktorVersion")!!)
+    transitiveInclude(implementation("io.ktor:ktor-client-cio:$ktorVersion")!!)
+    transitiveInclude(implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")!!)
+    transitiveInclude(implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")!!)
 
     testImplementation(kotlin("test"))
+
+    transitiveInclude.resolvedConfiguration.resolvedArtifacts.forEach {
+        include(it.moduleVersion.id.toString())
+    }
 }
 
 tasks {
