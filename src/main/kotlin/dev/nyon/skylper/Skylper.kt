@@ -14,6 +14,7 @@ import dev.nyon.skylper.skyblock.Mining
 import dev.nyon.skylper.skyblock.data.online.SkyblockOnlineData
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.data.skylper.*
+import dev.nyon.skylper.skyblock.menu.Menu
 import dev.nyon.skylper.skyblock.registerRootCommand
 import dev.nyon.skylper.skyblock.render.SkylperHud
 import kotlinx.coroutines.*
@@ -63,6 +64,7 @@ object Skylper : ClientModInitializer {
         SkylperHud.init()
 
         Mining.init()
+        Menu.init()
     }
 
     private fun handleStop() {

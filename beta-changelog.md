@@ -1,6 +1,7 @@
 ## Features
 ```diff
 + display particle highlight now from 5 blocks away instead of 3
++ add highlighter to non-completed collections in /collections menu
 ```
 
 ## Bug Fixes

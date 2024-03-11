@@ -1,15 +1,16 @@
 ## Features
 
-### General
+### Menu
 
 ```diff
-+ add icon
++ add non-completed collection highlighter
 ```
 
 ### Mining
 
 ```diff
 + mining ability indicator and notification
++ total powder overlay
 ```
 
 ### Crystal Hollows
@@ -39,7 +40,6 @@
 + treasure chest highlighting
 + metal detector helper
 + treasure chest particle highlight
-+ total powder overlay
 ```
 
 ## Bug Fixes

@@ -5,7 +5,7 @@ import kotlin.reflect.KClass
 
 @Suppress("unchecked_cast")
 object EventHandler {
-    data class EventInstance<E : Event<C>, C : Any>(val kClass: KClass<E>, val listeners: MutableList<(event: E) -> C>)
+    data class EventInstance<E : Event<C>, C : Any?>(val kClass: KClass<E>, val listeners: MutableList<(event: E) -> C?>)
 
     private val listeners = mutableListOf<EventInstance<*, *>>()
 
@@ -22,22 +22,23 @@ object EventHandler {
         ScreenOpenEvent::class,
         InventoryInitEvent::class,
         BossBarNameUpdate::class,
-        SideboardUpdateEvent::class
+        SideboardUpdateEvent::class,
+        RenderItemBackgroundEvent::class
     )
 
-    inline fun <reified E : Event<C>, C : Any> listenEvent(noinline callback: (event: E) -> C) {
+    inline fun <reified E : Event<C>, C : Any?> listenEvent(noinline callback: (event: E) -> C) {
         val eventClass = E::class
         listenEvent(eventClass, callback)
     }
 
-    fun <E : Event<C>, C : Any> listenEvent(kClass: KClass<E>, callback: (E) -> C) {
+    fun <E : Event<C>, C : Any?> listenEvent(kClass: KClass<E>, callback: (E) -> C) {
         if (listeners.none { it.kClass == kClass }) listeners.add(
             EventInstance(kClass, mutableListOf(callback))
         )
         else (listeners.first { it.kClass == kClass } as EventInstance<E, C>).listeners.add(callback)
     }
 
-    fun <E : Event<C>, C : Any> invokeEvent(event: E): C? = runBlocking {
+    fun <E : Event<C>, C : Any?> invokeEvent(event: E): C? = runBlocking {
         val eventListeners = listeners.find { it.kClass == event::class } as EventInstance<E, C>?
         val callbacks = eventListeners?.listeners?.map {
             it.invoke(event)

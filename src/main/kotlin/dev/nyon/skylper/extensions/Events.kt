@@ -18,7 +18,7 @@ import net.minecraft.world.phys.Vec3
 /**
  * Interface for events and taking generic C as return type.
  */
-interface Event<C : Any>
+interface Event<C : Any?>
 
 object TickEvent : Event<Unit>
 data class AreaChangeEvent(val previous: String?, val next: String?) : Event<Unit>
@@ -66,4 +66,4 @@ data class SideboardUpdateEvent(val lines: List<Component>, val cleanLines: List
 /**
  * Return type is the color as an [Int]
  */
-data class RenderItemBackgroundEvent(val title: Component, val slot: Slot) : Event<Int>
+data class RenderItemBackgroundEvent(val title: Component, val slot: Slot) : Event<Int?>
