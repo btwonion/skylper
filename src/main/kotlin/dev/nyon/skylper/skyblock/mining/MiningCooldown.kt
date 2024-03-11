@@ -117,7 +117,7 @@ object MiningCooldown : Cooldown {
     }
 
     private fun noAbilitySelectedNotice() {
-        minecraft.player?.sendSystemMessage(Component.literal("No mining ability could be found. If this is an error, please open the /hotm screen!")
+        minecraft.player?.sendSystemMessage(Component.translatable("chat.skylper.hollows.pickaxe_cooldown.not_found")
             .withStyle { it.withColor(ChatFormatting.RED) })
     }
 
