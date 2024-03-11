@@ -2,6 +2,7 @@ package dev.nyon.skylper.extensions.render.waypoint
 
 import dev.nyon.skylper.extensions.math.blockPos
 import dev.nyon.skylper.extensions.render.renderBeaconBeam
+import dev.nyon.skylper.extensions.render.renderFilled
 import dev.nyon.skylper.extensions.render.renderOutline
 import dev.nyon.skylper.extensions.render.renderText
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext
@@ -34,15 +35,20 @@ open class Waypoint(
     }
 
     fun render(context: WorldRenderContext) {
-        val blockBox = AABB(pos.x - 0.5, pos.y - 0.5, pos.z - 0.5, pos.x + 0.5, pos.y + 0.5, pos.z + 0.5)
-        val beaconPos = pos.blockPos.atY(minBeaconBeamY).center
+        val blockBox = AABB(pos.x - 0.5, pos.y, pos.z - 0.5, pos.x + 0.5, pos.y + 1, pos.z + 0.5)
+        val beaconPos = pos.subtract(0.5, pos.y - minBeaconBeamY, 0.5)
         when (type) {
             WaypointType.BEAM -> context.renderBeaconBeam(beaconPos, color)
             WaypointType.OUTLINE -> context.renderOutline(blockBox, color, 5f, true)
             WaypointType.OUTLINE_WITH_BEAM -> {
                 context.renderBeaconBeam(beaconPos, color)
-                context.renderOutline(blockBox, color, 15f, true)
+                context.renderOutline(blockBox, color, 10f, true)
             }
+            WaypointType.FILLED_WITH_BEAM -> {
+                context.renderBeaconBeam(beaconPos, color)
+                context.renderFilled(blockBox, color)
+            }
+            WaypointType.FILLED -> context.renderFilled(blockBox, color)
         }
 
         if (shouldRenderDistance) {

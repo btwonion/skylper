@@ -25,7 +25,6 @@ object MetalDetectorSolver {
 
     private var minesCenter: Vec3? = null
     private var actualChestPositions: List<Vec3>? = null
-    private var state: MetalDetectorState = MetalDetectorState.Idle
     private var successWaypoint: Waypoint? = null
     private var lastChestFound: Instant? = null
 
@@ -52,7 +51,7 @@ object MetalDetectorSolver {
         playerPos ?: return@listenEvent
         val distanceString = stringMessage.replace(TREASURE_DISTANCE_MESSAGE, "").dropLast(1)
         val distance = distanceString.toDoubleOrNull() ?: return@listenEvent
-        if (state == MetalDetectorState.Solving) return@listenEvent
+        if (successWaypoint != null) return@listenEvent
         if (lastChestFound == null || now - lastChestFound!! > 500.milliseconds) solve(distance, playerPos)
     }
 
@@ -60,7 +59,7 @@ object MetalDetectorSolver {
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
         if (PlayerSessionData.currentZone != "Mines of Divan") return@listenEvent
         if (successWaypoint != null && minecraft.player?.position()
-                ?.distanceTo(successWaypoint!!.pos)!! < 1.0
+                ?.distanceTo(successWaypoint!!.pos)!! < 1.5
         ) successWaypoint = null
         if (minesCenter != null) return@listenEvent
 
@@ -85,18 +84,15 @@ object MetalDetectorSolver {
     private fun reset() {
         minesCenter = null
         actualChestPositions = null
-        state = MetalDetectorState.Idle
         successWaypoint = null
     }
 
     private fun solve(distance: Double, playerPos: Vec3) {
-        state = MetalDetectorState.Solving
         val distances = actualChestPositions?.associateWith {
-            it.distanceTo(playerPos) - distance
-        }?.filter { it.value >= -0.3 } ?: return
+            (it.distanceTo(playerPos) - distance)
+        }?.filter { it.value >= -0.4 && it.value <= 0.4 } ?: return
         val sorted = distances.toList().sortedBy { it.second }
-        val pos = sorted.firstOrNull()?.first ?: playerPos.add(Vec3(0.0, -1.0, 0.0))
-        state = MetalDetectorState.Idle
+        val pos = sorted.firstOrNull()?.first ?: return
         success(pos)
         return
     }
@@ -108,7 +104,7 @@ object MetalDetectorSolver {
         successWaypoint = Waypoint(
             Component.literal("Treasure").withColor(ChatFormatting.RED.color!!),
             pos,
-            WaypointType.OUTLINE_WITH_BEAM,
+            WaypointType.FILLED_WITH_BEAM,
             ChatFormatting.RED.color!!
         )
     }

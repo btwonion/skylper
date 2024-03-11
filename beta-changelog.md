@@ -7,6 +7,7 @@
 ## Bug Fixes
 
 ```diff
++ fix metal detector solver showing wrong waypoints
 ```
 
 ## Technical changes
@@ -16,4 +17,6 @@
     = the second generic in listenEvent is now the return type of the event
     = there is a new Event interface, that takes the return type as a generic
 + add RenderItemBackground event, that takes a color as a callback
++ add FILLED_WITH_BEAM and FILLED Waypoint type
++ remove state of metal detector solver and just check for existing successWaypoint
 ```
