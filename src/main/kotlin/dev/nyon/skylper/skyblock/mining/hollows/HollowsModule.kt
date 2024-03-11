@@ -55,16 +55,16 @@ object HollowsModule {
     }
 
     private fun handleWaypoints() {
-        listenEvent<LevelChangeEvent> {
+        listenEvent<LevelChangeEvent, Unit> {
             waypoints.clear()
             if (config.mining.crystalHollows.hollowsWaypoints.nucleus) waypoints[nucleusWaypoint.first] =
                 nucleusWaypoint.second
         }
-        listenEvent<AreaChangeEvent> {
+        listenEvent<AreaChangeEvent, Unit> {
             if (it.next?.contains("Crystal Hollows") == false) waypoints.clear()
             else waypoints[nucleusWaypoint.first] = nucleusWaypoint.second
         }
-        listenEvent<RenderAfterTranslucentEvent> {
+        listenEvent<RenderAfterTranslucentEvent, Unit> {
             if (!isPlayerInHollows) return@listenEvent
             waypoints.values.forEach { waypoint ->
                 waypoint.render(it.context)

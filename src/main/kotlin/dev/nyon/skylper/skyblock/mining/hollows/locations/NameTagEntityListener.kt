@@ -13,7 +13,7 @@ import net.minecraft.world.entity.LivingEntity
 object NameTagEntityListener {
 
     fun init() {
-        listenEvent<EntitySpawnEvent> { (entity) ->
+        listenEvent<EntitySpawnEvent, Unit> { (entity) ->
             if (!HollowsModule.isPlayerInHollows) return@listenEvent
             val livingEntity = entity as? LivingEntity ?: return@listenEvent
             val name = entity.displayName?.string ?: return@listenEvent

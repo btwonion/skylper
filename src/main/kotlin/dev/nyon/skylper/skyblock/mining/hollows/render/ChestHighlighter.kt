@@ -45,7 +45,7 @@ object ChestHighlighter {
         }
     }
 
-    private fun listenForChests() = listenEvent<BlockUpdateEvent> {
+    private fun listenForChests() = listenEvent<BlockUpdateEvent, Unit> {
         independentScope.launch {
             mutex.withLock { foundChests.remove(it.pos) }
             if ((!HollowsModule.isPlayerInHollows || !config.mining.crystalHollows.highlightChests)) return@launch
@@ -58,14 +58,14 @@ object ChestHighlighter {
         }
     }
 
-    private fun listenForChestInteraction() = listenEvent<BlockInteractEvent> {
+    private fun listenForChestInteraction() = listenEvent<BlockInteractEvent, Unit> {
         if (foundChests.contains(it.result.blockPos)) independentScope.launch { foundChests.remove(it.result.blockPos) }
     }
 
     private fun listenForLevelChange() =
-        listenEvent<LevelChangeEvent> { independentScope.launch { mutex.withLock { foundChests.clear() } } }
+        listenEvent<LevelChangeEvent, Unit> { independentScope.launch { mutex.withLock { foundChests.clear() } } }
 
-    private fun render() = listenEvent<RenderAfterTranslucentEvent> {
+    private fun render() = listenEvent<RenderAfterTranslucentEvent, Unit> {
         if ((!HollowsModule.isPlayerInHollows || !config.mining.crystalHollows.highlightChests)) return@listenEvent
         mcScope.launch {
             val color = config.mining.crystalHollows.chestHighlightColor

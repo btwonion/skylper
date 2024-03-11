@@ -24,7 +24,7 @@ object ChestParticleHighlighter {
     private val mutex = Mutex()
 
     @Suppress("unused")
-    private val particleSpawnEvent = listenEvent<ParticleSpawnEvent> { event ->
+    private val particleSpawnEvent = listenEvent<ParticleSpawnEvent, Unit> { event ->
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
         if (!config.mining.crystalHollows.chestLockHighlight) return@listenEvent
         if (event.options.type != ParticleTypes.CRIT || event.xSpeed != 0.0 || event.ySpeed != 0.0 || event.zSpeed != 0.0) return@listenEvent
@@ -38,7 +38,7 @@ object ChestParticleHighlighter {
     }
 
     @Suppress("unused")
-    private val renderEvent = listenEvent<RenderAfterTranslucentEvent> {
+    private val renderEvent = listenEvent<RenderAfterTranslucentEvent, Unit> {
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
         if (!config.mining.crystalHollows.chestLockHighlight) return@listenEvent
         mcScope.launch {

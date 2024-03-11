@@ -19,7 +19,7 @@ object CrystalRunListener {
 
     private var nextIsCrystal = false
 
-    fun init() = listenEvent<MessageEvent> { event ->
+    fun init() = listenEvent<MessageEvent, Unit> { event ->
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
 
         val rawMessage = event.text.string

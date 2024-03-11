@@ -1,6 +1,5 @@
 package dev.nyon.skylper.skyblock.data.skylper
 
-import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.*
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
@@ -17,23 +16,23 @@ object PlayerDataUpdater {
     }
 
     private fun profileUpdateChecker() {
-        listenEvent<ProfileChangeEvent> { (_, nextProfile) ->
+        listenEvent<ProfileChangeEvent, Unit> { (_, nextProfile) ->
             if (playerData.profiles.containsKey(nextProfile)) return@listenEvent
             playerData.profiles[nextProfile ?: return@listenEvent] = ProfileData()
         }
     }
 
     private fun crystalHollowsChecker() {
-        listenEvent<CrystalFoundEvent> { (crystal) ->
+        listenEvent<CrystalFoundEvent, Unit> { (crystal) ->
             playerData.currentProfile?.mining?.crystalHollows?.crystals?.find { it.crystal == crystal }?.state =
                 CrystalState.FOUND
         }
 
-        listenEvent<NucleusRunCompleteEvent> {
+        listenEvent<NucleusRunCompleteEvent, Unit> {
             playerData.currentProfile?.mining?.crystalHollows?.crystals?.forEach { it.state = CrystalState.NOT_FOUND }
         }
 
-        listenEvent<CrystalPlaceEvent> { (crystal) ->
+        listenEvent<CrystalPlaceEvent, Unit> { (crystal) ->
             playerData.currentProfile?.mining?.crystalHollows?.crystals?.find { it.crystal == crystal }?.state =
                 CrystalState.PLACED
         }
@@ -52,7 +51,7 @@ object PlayerDataUpdater {
         }
 
         val validScreenTitle = "Heart of the Mountain"
-        listenEvent<SetItemEvent> {
+        listenEvent<SetItemEvent, Unit> {
             if (PlayerSessionData.currentScreen?.title?.string?.contains(validScreenTitle) == false) return@listenEvent
 
             val itemNameString = it.itemStack.displayName.string
@@ -87,7 +86,7 @@ object PlayerDataUpdater {
     }
 
     @Suppress("unused")
-    private val sideboardUpdateEvent = listenEvent<SideboardUpdateEvent> {
+    private val sideboardUpdateEvent = listenEvent<SideboardUpdateEvent, Unit> {
         it.cleanLines.forEach { line ->
             if (line.contains("Mithril: ")) {
                 val mithril = line.drop(11).doubleOrNull()

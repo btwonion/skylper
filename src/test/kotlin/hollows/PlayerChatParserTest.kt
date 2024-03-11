@@ -7,7 +7,8 @@ import kotlin.test.Test
 
 // Actually was used for debugging - gives no result --> but it works
 class PlayerChatParserTest {
-    private val regex = "^.*?(?<Num>-?\\d{1,3})(?:[,\\s]*(?<Num2>-?\\d{1,3}))?(?:[,\\s]*(?<Num3>-?\\d{1,3}))?.*?\$".toRegex()
+    private val regex =
+        "^.*?(?<Num>-?\\d{1,3})(?:[,\\s]*(?<Num2>-?\\d{1,3}))?(?:[,\\s]*(?<Num3>-?\\d{1,3}))?.*?\$".toRegex()
 
     @Test
     fun testParsePlayerMessages() {

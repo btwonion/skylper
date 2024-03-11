@@ -67,7 +67,7 @@ object MiningCooldown : Cooldown {
     }
 
     @Suppress("unused")
-    private val skyblockJoin = listenEvent<SkyblockEnterEvent> {
+    private val skyblockJoin = listenEvent<SkyblockEnterEvent, Unit> {
         val now = Clock.System.now()
         mcScope.launch {
             delay(3.seconds)
@@ -77,7 +77,7 @@ object MiningCooldown : Cooldown {
     }
 
     @Suppress("unused")
-    private val listenChat = listenEvent<MessageEvent> {
+    private val listenChat = listenEvent<MessageEvent, Unit> {
         val raw = it.text.string
         if (raw.contains("You used your") && raw.contains("Pickaxe Ability!")) {
             abilityUsed()
@@ -101,7 +101,9 @@ object MiningCooldown : Cooldown {
                 .withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) }
                 .append(Component.literal(" Pickaxe Ability available ")
                     .withStyle { it.withObfuscated(false).withColor(ChatFormatting.AQUA).withBold(true) })
-                .append(Component.literal("T").withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) })
+                .append(
+                    Component.literal("T")
+                        .withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) })
             )
         }
     }

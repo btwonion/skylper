@@ -20,7 +20,7 @@ object PlayerChatLocationListener {
 
     data class RawLocation(val x: Double, val y: Double?, val z: Double)
 
-    fun init() = listenEvent<MessageEvent> { event ->
+    fun init() = listenEvent<MessageEvent, Unit> { event ->
         if (!config.mining.crystalHollows.parseLocationChats) return@listenEvent
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
 

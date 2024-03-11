@@ -1,5 +1,6 @@
 package dev.nyon.skylper.extensions.render.hud
 
+import dev.nyon.skylper.extensions.Event
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.minecraft
 import net.minecraft.ChatFormatting
@@ -20,7 +21,7 @@ interface HudWidget {
     val height: Int
     val width: Int
     val title: Component
-    val updateTriggerEvents: List<KClass<out Any>>
+    val updateTriggerEvents: List<KClass<out Event<out Any>>>
 
     /**
      * Renders the widget's background and title
@@ -33,7 +34,9 @@ interface HudWidget {
         context.fill(xInt, yInt, xInt + width, yInt + height, 0x500C0C0C)
 
         context.drawString(
-            minecraft.font, title.copy().withStyle { it.withBold(true).withColor(ChatFormatting.GOLD) }, xInt + W_PADDING,
+            minecraft.font,
+            title.copy().withStyle { it.withBold(true).withColor(ChatFormatting.GOLD) },
+            xInt + W_PADDING,
             yInt + H_PADDING,
             0xffffff
         )
@@ -45,9 +48,10 @@ interface HudWidget {
         clear()
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun init() {
         update()
-        updateTriggerEvents.forEach {
+        updateTriggerEvents.map { it as KClass<out Event<Any>> }.forEach {
             listenEvent(it) { update() }
         }
     }

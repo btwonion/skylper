@@ -16,7 +16,8 @@ fun LiteralArgumentBuilder<FabricClientCommandSource>.appendCrystalHollowsSubCom
     sub("hollows") { hollows ->
         hollows.sub("waypoints") { waypoints ->
             waypoints.sub("set") { set ->
-                set.arg("internal_name",
+                set.arg(
+                    "internal_name",
                     StringArgumentType.word(),
                     HollowsStructure.entries.map { it.internalWaypointName }) { nameArg ->
                     nameArg.arg("location", ClientBlockPosArgument.blockPos()) { locationArg ->
@@ -47,7 +48,8 @@ fun LiteralArgumentBuilder<FabricClientCommandSource>.appendCrystalHollowsSubCom
             }
 
             waypoints.sub("remove") { remove ->
-                remove.arg("internal_name",
+                remove.arg(
+                    "internal_name",
                     StringArgumentType.word(),
                     HollowsStructure.entries.map { it.internalWaypointName }) { nameArg ->
                     nameArg.executeAsync { context ->

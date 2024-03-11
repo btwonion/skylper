@@ -17,7 +17,7 @@ object ChatStructureListener {
     private const val JADE_KEEPERS_MESSAGE = "§e[NPC] §6Keeper of "
     private const val JUNGLE_TEMPLE_GUARDIAN_MESSAGE = "§e[NPC] §bKalhuiki Door Guardian§f"
 
-    fun init() = listenEvent<MessageEvent> { event ->
+    fun init() = listenEvent<MessageEvent, Unit> { event ->
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
 
         val rawMessage = event.text.string
