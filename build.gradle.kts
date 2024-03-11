@@ -67,10 +67,10 @@ dependencies {
     include(modImplementation("dev.nyon:konfig:2.0.0-1.20.4")!!)
 
     val ktorVersion = "2.3.8"
-    include(implementation("io.ktor:ktor-client-core:$ktorVersion")!!)
-    include(implementation("io.ktor:ktor-client-cio:$ktorVersion")!!)
-    include(implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")!!)
-    include(implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")!!)
+    include(implementation("io.ktor:ktor-client-core-jvm:$ktorVersion")!!)
+    include(implementation("io.ktor:ktor-client-cio-jvm:$ktorVersion")!!)
+    include(implementation("io.ktor:ktor-client-content-negotiation-jvm:$ktorVersion")!!)
+    include(implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktorVersion")!!)
 
     testImplementation(kotlin("test"))
 }
