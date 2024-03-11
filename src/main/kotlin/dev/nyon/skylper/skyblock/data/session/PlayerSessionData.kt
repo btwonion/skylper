@@ -111,16 +111,16 @@ object PlayerSessionData {
     }
 
     private fun listenHypixelSession() {
-        listenEvent<HypixelJoinEvent> {
+        listenEvent<HypixelJoinEvent, Unit> {
             isOnHypixel = true
         }
 
-        listenEvent<HypixelQuitEvent> {
+        listenEvent<HypixelQuitEvent, Unit> {
             clearData(true)
         }
     }
 
-    private fun listenScreenUpdate() = listenEvent<ScreenOpenEvent> {
+    private fun listenScreenUpdate() = listenEvent<ScreenOpenEvent, Unit> {
         currentScreen = it.screen
     }
 

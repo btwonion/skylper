@@ -36,7 +36,7 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
         get() = overallConfig.mining.crystalHollows.powderGrindingOverlay
 
     @Suppress("unused")
-    private val chatListener = listenEvent<MessageEvent> {
+    private val chatListener = listenEvent<MessageEvent, Unit> {
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
         val raw = it.text.string
         when {
@@ -58,12 +58,14 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
             when (reward) {
                 ChestReward.MITHRIL_POWDER -> {
                     EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.MITHRIL, fixedAmount))
-                    playerData.currentProfile?.mining?.mithrilPowder = fixedAmount + (playerData.currentProfile?.mining?.mithrilPowder ?: 0)
+                    playerData.currentProfile?.mining?.mithrilPowder =
+                        fixedAmount + (playerData.currentProfile?.mining?.mithrilPowder ?: 0)
                     data.mithril.updateByIncrease(fixedAmount, this@PowderGrindingTracker)
                 }
                 ChestReward.GEMSTONE_POWDER -> {
                     EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.GEMSTONE, fixedAmount))
-                    playerData.currentProfile?.mining?.gemstonePowder = fixedAmount + (playerData.currentProfile?.mining?.gemstonePowder ?: 0)
+                    playerData.currentProfile?.mining?.gemstonePowder =
+                        fixedAmount + (playerData.currentProfile?.mining?.gemstonePowder ?: 0)
                     data.gemstone.updateByIncrease(fixedAmount, this@PowderGrindingTracker)
                 }
                 else -> {}
@@ -72,7 +74,7 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
     }
 
     @Suppress("unused")
-    private val bossBarListener = listenEvent<BossBarNameUpdate> { (text) ->
+    private val bossBarListener = listenEvent<BossBarNameUpdate, Unit> { (text) ->
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
         val raw = text.string
         if (!PowderGrindingPatterns.powderBossBarPattern.matches(raw)) return@listenEvent
@@ -174,7 +176,8 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
             field = value
         }
 
-    override val updateTriggerEvents: List<KClass<out Any>> = listOf(BossBarNameUpdate::class, MessageEvent::class)
+    override val updateTriggerEvents: List<KClass<out Event<out Any>>> =
+        listOf(BossBarNameUpdate::class, MessageEvent::class)
 
     init {
         init()

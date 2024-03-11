@@ -1,6 +1,7 @@
 package dev.nyon.skylper.skyblock.mining.hollows.tracker.powder
 
 import dev.nyon.skylper.config.Config
+import dev.nyon.skylper.extensions.Event
 import dev.nyon.skylper.extensions.LevelChangeEvent
 import dev.nyon.skylper.extensions.format
 import dev.nyon.skylper.extensions.tracker.Tracker
@@ -65,7 +66,7 @@ data class PowderGrindingData(
         }
     }
 
-    override val resetTriggers: List<KClass<out Any>> = listOf(LevelChangeEvent::class)
+    override val resetTriggers: List<KClass<out Event<out Any>>> = listOf(LevelChangeEvent::class)
 
     override fun reset() {
         doublePowderActive = false

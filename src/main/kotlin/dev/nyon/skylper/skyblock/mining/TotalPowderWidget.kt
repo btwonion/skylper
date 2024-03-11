@@ -1,6 +1,7 @@
 package dev.nyon.skylper.skyblock.mining
 
 import dev.nyon.skylper.config.config
+import dev.nyon.skylper.extensions.Event
 import dev.nyon.skylper.extensions.PowderGainEvent
 import dev.nyon.skylper.extensions.format
 import dev.nyon.skylper.extensions.render.hud.TableHudWidget
@@ -27,7 +28,7 @@ object TotalPowderWidget :
             config.mining.totalPowderOverlay.y = value.toInt()
             field = value
         }
-    override val updateTriggerEvents: List<KClass<out Any>> = listOf(PowderGainEvent::class)
+    override val updateTriggerEvents: List<KClass<out Event<out Any>>> = listOf(PowderGainEvent::class)
 
     override fun update() {
         super.update()

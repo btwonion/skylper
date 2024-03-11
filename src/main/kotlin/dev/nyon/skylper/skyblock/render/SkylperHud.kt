@@ -14,7 +14,7 @@ import net.minecraft.client.gui.GuiGraphics
 
 object SkylperHud {
     fun init() {
-        listenEvent<RenderHudEvent> {
+        listenEvent<RenderHudEvent, Unit> {
             it.context.renderWidget(CrystalCompletionWidget) {
                 HollowsModule.isPlayerInHollows && config.mining.crystalHollows.crystalOverlay.enabled
             }

@@ -11,4 +11,8 @@
 ## Technical changes
 
 ```diff
++ add callbacks to events
+    = the second generic in listenEvent is now the return type of the event
+    = there is a new Event interface, that takes the return type as a generic
++ add RenderItemBackground event, that takes a color as a callback
 ```

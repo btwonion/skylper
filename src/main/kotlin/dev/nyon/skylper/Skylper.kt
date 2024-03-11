@@ -66,7 +66,7 @@ object Skylper : ClientModInitializer {
     }
 
     private fun handleStop() {
-        EventHandler.listenEvent<MinecraftStopEvent> {
+        EventHandler.listenEvent<MinecraftStopEvent, Unit> {
             saveConfig(internalConfig)
             saveConfig(playerData)
         }

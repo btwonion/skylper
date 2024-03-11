@@ -36,7 +36,7 @@ object MetalDetectorSolver {
         renderWaypoint()
     }
 
-    private fun listenChat() = listenEvent<MessageEvent> {
+    private fun listenChat() = listenEvent<MessageEvent, Unit> {
         val playerPos = minecraft.player?.position()
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
         if (!config.mining.crystalHollows.metalDetectorHelper) return@listenEvent
@@ -56,7 +56,7 @@ object MetalDetectorSolver {
         if (lastChestFound == null || now - lastChestFound!! > 500.milliseconds) solve(distance, playerPos)
     }
 
-    private fun calculateCenter() = listenEvent<TickEvent> {
+    private fun calculateCenter() = listenEvent<TickEvent, Unit> {
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
         if (PlayerSessionData.currentZone != "Mines of Divan") return@listenEvent
         if (successWaypoint != null && minecraft.player?.position()
@@ -75,9 +75,9 @@ object MetalDetectorSolver {
         actualChestPositions = detectorChestOffsets.getActualPositions(minesCenter ?: return@listenEvent)
     }
 
-    private fun listenWorldChange() = listenEvent<LevelChangeEvent> { reset() }
+    private fun listenWorldChange() = listenEvent<LevelChangeEvent, Unit> { reset() }
 
-    private fun renderWaypoint() = listenEvent<RenderAfterTranslucentEvent> {
+    private fun renderWaypoint() = listenEvent<RenderAfterTranslucentEvent, Unit> {
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
         successWaypoint?.render(it.context)
     }
