@@ -1,6 +1,10 @@
 # Features
+## Menu
+- non-completed collection highlighter
+
 ## Mining
 - mining ability indicator and notification
+- Total Powder overlay
 
 ## Crystal Hollows
 - waypoints for:
