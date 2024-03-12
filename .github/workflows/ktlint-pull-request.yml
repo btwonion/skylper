@@ -16,6 +16,6 @@ jobs:
         uses: ScaCap/action-ktlint@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-review
+          reporter: github-pr-check
           level: info
           filter_mode: file
