@@ -27,8 +27,8 @@ jobs:
             ~/.gradle/caches
             ~/.gradle/loom-cache
             ~/.gradle/wrapper
-            key: ${{ runner.os }}-build-commit-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
-            restore-keys: |
+          key: ${{ runner.os }}-build-commit-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
             ${{ runner.os }}-build-commit-
       - name: Build artifacts
         run: ./gradlew build
