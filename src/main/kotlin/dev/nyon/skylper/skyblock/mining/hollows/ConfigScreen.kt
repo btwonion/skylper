@@ -2,7 +2,15 @@ package dev.nyon.skylper.skyblock.mining.hollows
 
 import dev.isxander.yacl3.api.YetAnotherConfigLib
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.config.screen.extensions.*
+import dev.nyon.skylper.config.screen.extensions.category
+import dev.nyon.skylper.config.screen.extensions.description
+import dev.nyon.skylper.config.screen.extensions.field
+import dev.nyon.skylper.config.screen.extensions.getSet
+import dev.nyon.skylper.config.screen.extensions.overlayConfig
+import dev.nyon.skylper.config.screen.extensions.primitive
+import dev.nyon.skylper.config.screen.extensions.subGroup
+import dev.nyon.skylper.config.screen.extensions.tickBox
+import dev.nyon.skylper.config.screen.extensions.trackerConfig
 import dev.nyon.skylper.skyblock.mining.hollows.tracker.powder.PowderGrindingTracker
 
 fun YetAnotherConfigLib.Builder.appendCrystalHollowsCategory() =

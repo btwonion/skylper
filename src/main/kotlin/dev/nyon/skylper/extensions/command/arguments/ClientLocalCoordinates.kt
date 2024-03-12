@@ -7,7 +7,7 @@ import net.minecraft.commands.arguments.coordinates.WorldCoordinate
 import net.minecraft.util.Mth
 import net.minecraft.world.phys.Vec2
 import net.minecraft.world.phys.Vec3
-import java.util.*
+import java.util.Objects
 
 class ClientLocalCoordinates(private val left: Double, private val up: Double, private val forwards: Double) : ClientCoordinates {
     override fun getPosition(commandSourceStack: FabricClientCommandSource): Vec3 {

@@ -65,10 +65,10 @@ object HollowsModule {
         }
         listenEvent<LocatedHollowsStructureEvent, Unit> { (location) ->
             if (!isPlayerInHollows) return@listenEvent
-            if (location.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO || waypoints.none { it.specific == location.specific }) {
-                waypoints.add(
-                    location
-                )
+            if (location.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO ||
+                waypoints.none { it.specific == location.specific }
+            ) {
+                waypoints.add(location)
             }
         }
     }

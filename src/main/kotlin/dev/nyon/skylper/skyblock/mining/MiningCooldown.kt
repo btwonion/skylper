@@ -143,6 +143,7 @@ object MiningCooldown : Cooldown {
 }
 
 interface AbilityCooldownIdentifier {
+    @Suppress("ktlint:standard:function-naming", "FunctionName")
     fun `skylper$getCooldownPercent`(
         itemStack: ItemStack,
         partialTicks: Float
