@@ -1,8 +1,14 @@
 package dev.nyon.skylper.skyblock.mining.hollows.solvers.metaldetector
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.extensions.*
+import dev.nyon.skylper.extensions.EventHandler
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.LevelChangeEvent
+import dev.nyon.skylper.extensions.LocatedHollowsStructureEvent
+import dev.nyon.skylper.extensions.MessageEvent
+import dev.nyon.skylper.extensions.RenderAfterTranslucentEvent
+import dev.nyon.skylper.extensions.TickEvent
+import dev.nyon.skylper.extensions.findArmorStandsWithName
 import dev.nyon.skylper.extensions.render.waypoint.Waypoint
 import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import dev.nyon.skylper.minecraft
@@ -115,6 +121,7 @@ object MetalDetectorSolver {
         minecraft.player?.sendSystemMessage(
             Component.translatable("$TRANSLATION_NAMESPACE.success").withColor(ChatFormatting.DARK_GREEN.color!!)
         )
+
         successWaypoint =
             Waypoint(
                 Component.literal("Treasure").withColor(ChatFormatting.RED.color!!),

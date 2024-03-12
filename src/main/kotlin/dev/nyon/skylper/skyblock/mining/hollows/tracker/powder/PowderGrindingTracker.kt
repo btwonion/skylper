@@ -6,8 +6,15 @@ import dev.nyon.skylper.config.screen.extensions.description
 import dev.nyon.skylper.config.screen.extensions.getSet
 import dev.nyon.skylper.config.screen.extensions.primitive
 import dev.nyon.skylper.config.screen.extensions.tickBox
-import dev.nyon.skylper.extensions.*
+import dev.nyon.skylper.extensions.BossBarNameUpdate
+import dev.nyon.skylper.extensions.Event
+import dev.nyon.skylper.extensions.EventHandler
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.MessageEvent
+import dev.nyon.skylper.extensions.PowderGainEvent
+import dev.nyon.skylper.extensions.Symbols
+import dev.nyon.skylper.extensions.doubleOrNull
+import dev.nyon.skylper.extensions.matches
 import dev.nyon.skylper.extensions.tracker.Tracker
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.skyblock.data.skylper.currentProfile
@@ -59,7 +66,9 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
                 when (reward) {
                     ChestReward.MITHRIL_POWDER -> {
                         EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.MITHRIL, fixedAmount))
-                        playerData.currentProfile?.mining?.mithrilPowder = fixedAmount + (playerData.currentProfile?.mining?.mithrilPowder ?: 0)
+                        playerData.currentProfile?.mining?.mithrilPowder = fixedAmount + (
+                            playerData.currentProfile?.mining?.mithrilPowder ?: 0
+                        )
                         data.mithril.updateByIncrease(fixedAmount, this@PowderGrindingTracker)
                     }
                     ChestReward.GEMSTONE_POWDER -> {
