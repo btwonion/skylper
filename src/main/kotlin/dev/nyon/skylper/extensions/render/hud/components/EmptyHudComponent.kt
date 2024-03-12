@@ -6,5 +6,11 @@ object EmptyHudComponent : HudComponent {
     override val width: Int = 0
     override val height: Int = 0
 
-    override fun render(context: GuiGraphics, x: Int, y: Int, mouseX: Int, mouseY: Int) {}
+    override fun render(
+        context: GuiGraphics,
+        x: Int,
+        y: Int,
+        mouseX: Int,
+        mouseY: Int
+    ) {}
 }

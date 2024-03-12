@@ -28,7 +28,11 @@ interface HudWidget {
      *
      * @return the next height which should be rendered
      */
-    fun render(context: GuiGraphics, mouseX: Int, mouseY: Int): Int {
+    fun render(
+        context: GuiGraphics,
+        mouseX: Int,
+        mouseY: Int
+    ): Int {
         val xInt = x.toInt()
         val yInt = y.toInt()
         context.fill(xInt, yInt, xInt + width, yInt + height, 0x500C0C0C)
@@ -44,6 +48,7 @@ interface HudWidget {
     }
 
     fun clear()
+
     fun update() {
         clear()
     }

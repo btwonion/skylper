@@ -15,11 +15,15 @@ import kotlin.reflect.KClass
 import kotlin.time.DurationUnit
 
 abstract class Tracker<D : TrackerData>(val nameSpace: String, val data: D) :
-    SimpleHudWidget(Component.translatable("menu.skylper.overlay.${nameSpace}.title")) {
+    SimpleHudWidget(Component.translatable("menu.skylper.overlay.$nameSpace.title")) {
     val overlayNameSpace = "menu.skylper.overlay.$nameSpace"
     var startTime: Instant? = null
 
-    abstract fun appendConfigOptions(builder: OptionGroup.Builder, categoryKey: String): OptionGroup.Builder
+    abstract fun appendConfigOptions(
+        builder: OptionGroup.Builder,
+        categoryKey: String
+    ): OptionGroup.Builder
+
     abstract fun createComponents(data: D): List<Component>
 
     @Suppress("UNCHECKED_CAST")
@@ -40,11 +44,12 @@ abstract class Tracker<D : TrackerData>(val nameSpace: String, val data: D) :
         val trackerDuration = (now - startTime!!).toString(DurationUnit.HOURS, 2)
         runBlocking {
             mutex.withLock {
-                components.add(PlainTextHudComponent(Component.translatable("menu.skylper.overlay.duration")
-                    .withStyle { it.withColor(ChatFormatting.AQUA).withBold(true) }
-                    .append(Component.literal(trackerDuration)
-                        .withStyle { it.withColor(ChatFormatting.WHITE).withBold(false) })
-                )
+                components.add(
+                    PlainTextHudComponent(
+                        Component.translatable("menu.skylper.overlay.duration")
+                            .withStyle { it.withColor(ChatFormatting.AQUA).withBold(true) }
+                            .append(Component.literal(trackerDuration).withStyle { it.withColor(ChatFormatting.WHITE).withBold(false) })
+                    )
                 )
 
                 components.addAll(createComponents(data).map { PlainTextHudComponent(it) })

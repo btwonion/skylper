@@ -7,7 +7,11 @@ import dev.nyon.skylper.extensions.LocatedHollowsStructureEvent
 import dev.nyon.skylper.extensions.RenderAfterTranslucentEvent
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
-import dev.nyon.skylper.skyblock.mining.hollows.locations.*
+import dev.nyon.skylper.skyblock.mining.hollows.locations.CrystalRunListener
+import dev.nyon.skylper.skyblock.mining.hollows.locations.HollowsLocation
+import dev.nyon.skylper.skyblock.mining.hollows.locations.NameTagEntityListener
+import dev.nyon.skylper.skyblock.mining.hollows.locations.PlayerChatLocationListener
+import dev.nyon.skylper.skyblock.mining.hollows.locations.PreDefinedHollowsLocationSpecific
 import dev.nyon.skylper.skyblock.mining.hollows.render.ChestHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.render.ChestParticleHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.solvers.metaldetector.MetalDetectorSolver
@@ -46,8 +50,11 @@ object HollowsModule {
             waypoints.add(nucleusWaypoint)
         }
         listenEvent<AreaChangeEvent, Unit> {
-            if (it.next?.contains("Crystal Hollows") == false) waypoints.clear()
-            else waypoints.add(nucleusWaypoint)
+            if (it.next?.contains("Crystal Hollows") == false) {
+                waypoints.clear()
+            } else {
+                waypoints.add(nucleusWaypoint)
+            }
         }
         listenEvent<RenderAfterTranslucentEvent, Unit> {
             if (!isPlayerInHollows) return@listenEvent
@@ -58,9 +65,11 @@ object HollowsModule {
         }
         listenEvent<LocatedHollowsStructureEvent, Unit> { (location) ->
             if (!isPlayerInHollows) return@listenEvent
-            if (location.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO || waypoints.none { it.specific == location.specific }) waypoints.add(
-                location
-            )
+            if (location.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO ||
+                waypoints.none { it.specific == location.specific }
+            ) {
+                waypoints.add(location)
+            }
         }
     }
 }

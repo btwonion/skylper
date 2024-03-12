@@ -24,32 +24,36 @@ object ChestParticleHighlighter {
     private val mutex = Mutex()
 
     @Suppress("unused")
-    private val particleSpawnEvent = listenEvent<ParticleSpawnEvent, Unit> { event ->
-        if (!HollowsModule.isPlayerInHollows) return@listenEvent
-        if (!config.mining.crystalHollows.chestLockHighlight) return@listenEvent
-        if (event.options.type != ParticleTypes.CRIT || event.xSpeed != 0.0 || event.ySpeed != 0.0 || event.zSpeed != 0.0) return@listenEvent
-        val distance = minecraft.player?.position()?.distanceTo(event.pos)
-        if (distance == null || distance > 5.0) return@listenEvent
-        independentScope.launch {
-            mutex.withLock {
-                particlePositions[event.pos] = Clock.System.now()
+    private val particleSpawnEvent =
+        listenEvent<ParticleSpawnEvent, Unit> { event ->
+            if (!HollowsModule.isPlayerInHollows) return@listenEvent
+            if (!config.mining.crystalHollows.chestLockHighlight) return@listenEvent
+            if (event.options.type != ParticleTypes.CRIT || event.xSpeed != 0.0 || event.ySpeed != 0.0 || event.zSpeed != 0.0) {
+                return@listenEvent
+            }
+            val distance = minecraft.player?.position()?.distanceTo(event.pos)
+            if (distance == null || distance > 5.0) return@listenEvent
+            independentScope.launch {
+                mutex.withLock {
+                    particlePositions[event.pos] = Clock.System.now()
+                }
             }
         }
-    }
 
     @Suppress("unused")
-    private val renderEvent = listenEvent<RenderAfterTranslucentEvent, Unit> {
-        if (!HollowsModule.isPlayerInHollows) return@listenEvent
-        if (!config.mining.crystalHollows.chestLockHighlight) return@listenEvent
-        mcScope.launch {
-            val positions = mutex.withLock { particlePositions.toList() }
+    private val renderEvent =
+        listenEvent<RenderAfterTranslucentEvent, Unit> {
+            if (!HollowsModule.isPlayerInHollows) return@listenEvent
+            if (!config.mining.crystalHollows.chestLockHighlight) return@listenEvent
+            mcScope.launch {
+                val positions = mutex.withLock { particlePositions.toList() }
 
-            val now = Clock.System.now()
-            positions.forEach { (pos, instant) ->
-                if (now - instant > 500.milliseconds) mutex.withLock { particlePositions.remove(pos) }
-                val box = AABB(pos.x - 0.05, pos.y - 0.05, pos.z - 0.05, pos.x + 0.05, pos.y + 0.05, pos.z + 0.05)
-                it.context.renderFilled(box, 0xFFFFFFF)
+                val now = Clock.System.now()
+                positions.forEach { (pos, instant) ->
+                    if (now - instant > 500.milliseconds) mutex.withLock { particlePositions.remove(pos) }
+                    val box = AABB(pos.x - 0.05, pos.y - 0.05, pos.z - 0.05, pos.x + 0.05, pos.y + 0.05, pos.z + 0.05)
+                    it.context.renderFilled(box, 0xFFFFFFF)
+                }
             }
         }
-    }
 }

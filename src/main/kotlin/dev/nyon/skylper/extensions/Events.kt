@@ -22,15 +22,25 @@ import net.minecraft.world.phys.Vec3
 interface Event<C : Any?>
 
 object TickEvent : Event<Unit>
+
 data class AreaChangeEvent(val previous: String?, val next: String?) : Event<Unit>
+
 data class ProfileChangeEvent(val previous: String?, val next: String?) : Event<Unit>
+
 object SkyblockEnterEvent : Event<Unit>
+
 object SkyblockQuitEvent : Event<Unit>
+
 object HypixelJoinEvent : Event<Unit>
+
 object HypixelQuitEvent : Event<Unit>
+
 data class CrystalFoundEvent(val crystal: Crystal) : Event<Unit>
+
 data class CrystalPlaceEvent(val crystal: Crystal) : Event<Unit>
+
 object NucleusRunCompleteEvent : Event<Unit>
+
 data class ParticleSpawnEvent(
     val options: ParticleOptions,
     val pos: Vec3,
@@ -42,19 +52,31 @@ data class ParticleSpawnEvent(
 ) : Event<Unit>
 
 data class EntitySpawnEvent(val entity: Entity) : Event<Unit>
+
 data class LevelChangeEvent(val newLevel: ClientLevel?) : Event<Unit>
+
 data class MessageEvent(val text: Component) : Event<Unit>
+
 data class BlockUpdateEvent(val pos: BlockPos, val state: BlockState) : Event<Unit>
+
 data class BlockBreakEvent(val pos: BlockPos) : Event<Unit>
+
 data class RenderAfterTranslucentEvent(val context: WorldRenderContext) : Event<Unit>
+
 data class RenderHudEvent(val context: GuiGraphics) : Event<Unit>
+
 data class BlockInteractEvent(val result: BlockHitResult) : Event<Unit>
+
 object MinecraftStopEvent : Event<Unit>
+
 data class ScreenOpenEvent(val screen: AbstractContainerScreen<*>) : Event<Unit>
 
 data class SetItemEvent(val itemStack: ItemStack) : Event<Unit>
+
 data class InventoryInitEvent(val items: List<ItemStack>) : Event<Unit>
+
 data class BossBarNameUpdate(val text: Component) : Event<Unit>
+
 data class PowderGainEvent(val type: PowderType, val amount: Int) : Event<Unit> {
     enum class PowderType {
         GEMSTONE,

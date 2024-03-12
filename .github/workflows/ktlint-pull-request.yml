@@ -1,5 +1,7 @@
 name: ktlint-pull-request
-on: [pull_request]
+
+on: [ pull_request ]
+
 jobs:
   ktlint:
     name: Check Code Quality

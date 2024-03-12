@@ -1,7 +1,11 @@
 package dev.nyon.skylper.skyblock.mining.hollows.render.hud
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.extensions.*
+import dev.nyon.skylper.extensions.CrystalFoundEvent
+import dev.nyon.skylper.extensions.CrystalPlaceEvent
+import dev.nyon.skylper.extensions.Event
+import dev.nyon.skylper.extensions.LevelChangeEvent
+import dev.nyon.skylper.extensions.NucleusRunCompleteEvent
 import dev.nyon.skylper.extensions.render.hud.TableHudWidget
 import dev.nyon.skylper.extensions.render.hud.components.PlainTextHudComponent
 import dev.nyon.skylper.independentScope
@@ -14,7 +18,9 @@ import kotlin.reflect.KClass
 import kotlin.time.Duration.Companion.seconds
 
 object CrystalCompletionWidget : TableHudWidget(
-    Component.translatable("menu.skylper.hollows.tabhud.crystals.title"), 5, 2
+    Component.translatable("menu.skylper.hollows.tabhud.crystals.title"),
+    5,
+    2
 ) {
     override var x: Double = config.mining.crystalHollows.crystalOverlay.x.toDouble()
         set(value) {
@@ -26,9 +32,13 @@ object CrystalCompletionWidget : TableHudWidget(
             config.mining.crystalHollows.crystalOverlay.y = value.toInt()
             field = value
         }
-    override val updateTriggerEvents: List<KClass<out Event<out Any>>> = listOf(
-        CrystalFoundEvent::class, CrystalPlaceEvent::class, NucleusRunCompleteEvent::class, LevelChangeEvent::class
-    )
+    override val updateTriggerEvents: List<KClass<out Event<out Any>>> =
+        listOf(
+            CrystalFoundEvent::class,
+            CrystalPlaceEvent::class,
+            NucleusRunCompleteEvent::class,
+            LevelChangeEvent::class
+        )
 
     override fun update() {
         super.update()

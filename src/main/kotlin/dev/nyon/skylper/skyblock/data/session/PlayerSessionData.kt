@@ -1,8 +1,17 @@
 package dev.nyon.skylper.skyblock.data.session
 
-import dev.nyon.skylper.extensions.*
+import dev.nyon.skylper.extensions.AreaChangeEvent
 import dev.nyon.skylper.extensions.EventHandler.invokeEvent
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.HypixelJoinEvent
+import dev.nyon.skylper.extensions.HypixelQuitEvent
+import dev.nyon.skylper.extensions.ProfileChangeEvent
+import dev.nyon.skylper.extensions.ScreenOpenEvent
+import dev.nyon.skylper.extensions.SideboardUpdateEvent
+import dev.nyon.skylper.extensions.SkyblockEnterEvent
+import dev.nyon.skylper.extensions.SkyblockQuitEvent
+import dev.nyon.skylper.extensions.footer
+import dev.nyon.skylper.extensions.retrieveScoreboardLines
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft
@@ -27,6 +36,7 @@ object PlayerSessionData {
     var profile: String? = null
 
     var currentScreen: AbstractContainerScreen<*>? = null
+
     fun startUpdaters() {
         listenHypixelSession()
         startTicker()
@@ -43,9 +53,10 @@ object PlayerSessionData {
 
                 footer = minecraft.gui.tabList.footer
                 scoreboardLines = minecraft.retrieveScoreboardLines()
-                scoreboardLineStrings = scoreboardLines.map {
-                    it.string.replace("§[^a-f0-9]".toRegex(), "")
-                }
+                scoreboardLineStrings =
+                    scoreboardLines.map {
+                        it.string.replace("§[^a-f0-9]".toRegex(), "")
+                    }
 
                 invokeEvent(SideboardUpdateEvent(scoreboardLines, scoreboardLineStrings))
                 updateFromSideboard()
@@ -120,9 +131,10 @@ object PlayerSessionData {
         }
     }
 
-    private fun listenScreenUpdate() = listenEvent<ScreenOpenEvent, Unit> {
-        currentScreen = it.screen
-    }
+    private fun listenScreenUpdate() =
+        listenEvent<ScreenOpenEvent, Unit> {
+            currentScreen = it.screen
+        }
 
     private fun clearData(withHypixel: Boolean = false) {
         currentArea?.also {

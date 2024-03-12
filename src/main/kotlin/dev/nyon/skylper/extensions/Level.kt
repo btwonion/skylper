@@ -11,8 +11,13 @@ fun Level.findArmorStandsWithName(name: String): List<ArmorStand> {
     return entityInRadius(ArmorStand::class, name).map { it as ArmorStand }
 }
 
-fun Level.entityInRadius(clazz: KClass<out Entity>, name: String, radius: Int = 50): List<LivingEntity> {
+fun Level.entityInRadius(
+    clazz: KClass<out Entity>,
+    name: String,
+    radius: Int = 50
+): List<LivingEntity> {
     return getEntitiesOfClass(
-        clazz.java, minecraft.player?.radiusBox(radius) ?: return emptyList()
+        clazz.java,
+        minecraft.player?.radiusBox(radius) ?: return emptyList()
     ).filter { it.isAlive && it.customName?.string?.contains(name) == true }.map { it as LivingEntity }
 }

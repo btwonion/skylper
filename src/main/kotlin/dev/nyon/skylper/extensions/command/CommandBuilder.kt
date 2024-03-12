@@ -13,7 +13,9 @@ val String.commandLiteral: LiteralArgumentBuilder<FabricClientCommandSource>
         return LiteralArgumentBuilder.literal(this)
     }
 
-fun LiteralArgumentBuilder<FabricClientCommandSource>.executeAsync(callback: suspend (context: CommandContext<FabricClientCommandSource>) -> Unit): LiteralArgumentBuilder<FabricClientCommandSource> {
+fun LiteralArgumentBuilder<FabricClientCommandSource>.executeAsync(
+    callback: suspend (context: CommandContext<FabricClientCommandSource>) -> Unit
+): LiteralArgumentBuilder<FabricClientCommandSource> {
     return executes {
         mcScope.launch {
             callback(it)
@@ -22,7 +24,9 @@ fun LiteralArgumentBuilder<FabricClientCommandSource>.executeAsync(callback: sus
     }
 }
 
-fun RequiredArgumentBuilder<FabricClientCommandSource, *>.executeAsync(callback: suspend (context: CommandContext<FabricClientCommandSource>) -> Unit) {
+fun RequiredArgumentBuilder<FabricClientCommandSource, *>.executeAsync(
+    callback: suspend (context: CommandContext<FabricClientCommandSource>) -> Unit
+) {
     executes {
         mcScope.launch {
             callback(it)
@@ -32,7 +36,8 @@ fun RequiredArgumentBuilder<FabricClientCommandSource, *>.executeAsync(callback:
 }
 
 fun LiteralArgumentBuilder<FabricClientCommandSource>.sub(
-    name: String, callback: (LiteralArgumentBuilder<FabricClientCommandSource>) -> Unit = {}
+    name: String,
+    callback: (LiteralArgumentBuilder<FabricClientCommandSource>) -> Unit = {}
 ): LiteralArgumentBuilder<FabricClientCommandSource> {
     return then(name.commandLiteral.apply(callback))
 }
@@ -43,15 +48,19 @@ fun <A> LiteralArgumentBuilder<FabricClientCommandSource>.arg(
     suggestions: List<Any>,
     callback: (RequiredArgumentBuilder<FabricClientCommandSource, A>) -> Unit = {}
 ): LiteralArgumentBuilder<FabricClientCommandSource> {
-    return then(RequiredArgumentBuilder.argument<FabricClientCommandSource, A>(name, type).suggests { _, builder ->
-        val input = builder.input.takeLastWhile { it != ' ' }
-        suggestions.map { it.toString() }.filter { it.contains(input) }.forEach { builder.suggest(it) }
-        builder.buildFuture()
-    }.apply(callback))
+    return then(
+        RequiredArgumentBuilder.argument<FabricClientCommandSource, A>(name, type).suggests { _, builder ->
+            val input = builder.input.takeLastWhile { it != ' ' }
+            suggestions.map { it.toString() }.filter { it.contains(input) }.forEach { builder.suggest(it) }
+            builder.buildFuture()
+        }.apply(callback)
+    )
 }
 
 fun <A> LiteralArgumentBuilder<FabricClientCommandSource>.arg(
-    name: String, type: ArgumentType<A>, callback: (RequiredArgumentBuilder<FabricClientCommandSource, A>) -> Unit = {}
+    name: String,
+    type: ArgumentType<A>,
+    callback: (RequiredArgumentBuilder<FabricClientCommandSource, A>) -> Unit = {}
 ): LiteralArgumentBuilder<FabricClientCommandSource> {
     return then(RequiredArgumentBuilder.argument<FabricClientCommandSource, A>(name, type).apply(callback))
 }
@@ -62,14 +71,18 @@ fun <A> RequiredArgumentBuilder<FabricClientCommandSource, *>.arg(
     suggestions: List<Any>,
     callback: (RequiredArgumentBuilder<FabricClientCommandSource, A>) -> Unit = {}
 ): RequiredArgumentBuilder<FabricClientCommandSource, *> {
-    return then(RequiredArgumentBuilder.argument<FabricClientCommandSource, A>(name, type).suggests { _, builder ->
-        suggestions.map { it.toString() }.filter { it.contains(builder.input) }.forEach { builder.suggest(it) }
-        builder.buildFuture()
-    }.apply(callback))
+    return then(
+        RequiredArgumentBuilder.argument<FabricClientCommandSource, A>(name, type).suggests { _, builder ->
+            suggestions.map { it.toString() }.filter { it.contains(builder.input) }.forEach { builder.suggest(it) }
+            builder.buildFuture()
+        }.apply(callback)
+    )
 }
 
 fun <A> RequiredArgumentBuilder<FabricClientCommandSource, *>.arg(
-    name: String, type: ArgumentType<A>, callback: (RequiredArgumentBuilder<FabricClientCommandSource, A>) -> Unit = {}
+    name: String,
+    type: ArgumentType<A>,
+    callback: (RequiredArgumentBuilder<FabricClientCommandSource, A>) -> Unit = {}
 ): RequiredArgumentBuilder<FabricClientCommandSource, *> {
     return then(RequiredArgumentBuilder.argument<FabricClientCommandSource, A>(name, type).apply(callback))
 }

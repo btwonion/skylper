@@ -3,7 +3,7 @@ package dev.nyon.skylper.skyblock.mining
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.Event
 import dev.nyon.skylper.extensions.PowderGainEvent
-import dev.nyon.skylper.extensions.format
+import dev.nyon.skylper.extensions.math.format
 import dev.nyon.skylper.extensions.render.hud.TableHudWidget
 import dev.nyon.skylper.extensions.render.hud.components.PlainTextHudComponent
 import dev.nyon.skylper.independentScope
@@ -16,8 +16,7 @@ import net.minecraft.network.chat.Component
 import kotlin.reflect.KClass
 import kotlin.time.Duration.Companion.seconds
 
-object TotalPowderWidget :
-    TableHudWidget(Component.translatable("menu.skylper.overlay.hollows.total_powder.title"), 2, 2) {
+object TotalPowderWidget : TableHudWidget(Component.translatable("menu.skylper.overlay.hollows.total_powder.title"), 2, 2) {
     override var x: Double = config.mining.totalPowderOverlay.x.toDouble()
         set(value) {
             config.mining.totalPowderOverlay.x = value.toInt()
@@ -33,11 +32,17 @@ object TotalPowderWidget :
     override fun update() {
         super.update()
         addComponent(
-            0, 0, PlainTextHudComponent(Component.translatable("menu.skylper.overlay.hollows.total_powder.mithril")
-                .withStyle { it.withColor(ChatFormatting.AQUA) })
+            0,
+            0,
+            PlainTextHudComponent(
+                Component.translatable("menu.skylper.overlay.hollows.total_powder.mithril")
+                    .withStyle { it.withColor(ChatFormatting.AQUA) }
+            )
         )
         addComponent(
-            0, 1, PlainTextHudComponent(
+            0,
+            1,
+            PlainTextHudComponent(
                 Component.literal(
                     playerData.currentProfile?.mining?.mithrilPowder?.format() ?: "Open /hotm screen"
                 )
@@ -45,11 +50,17 @@ object TotalPowderWidget :
         )
 
         addComponent(
-            1, 0, PlainTextHudComponent(Component.translatable("menu.skylper.overlay.hollows.total_powder.gemstone")
-                .withStyle { it.withColor(ChatFormatting.AQUA) })
+            1,
+            0,
+            PlainTextHudComponent(
+                Component.translatable("menu.skylper.overlay.hollows.total_powder.gemstone")
+                    .withStyle { it.withColor(ChatFormatting.AQUA) }
+            )
         )
         addComponent(
-            1, 1, PlainTextHudComponent(
+            1,
+            1,
+            PlainTextHudComponent(
                 Component.literal(
                     playerData.currentProfile?.mining?.gemstonePowder?.format() ?: "Open /hotm screen"
                 )

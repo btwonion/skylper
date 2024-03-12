@@ -23,4 +23,5 @@
 + add FILLED_WITH_BEAM and FILLED Waypoint type
 + remove state of metal detector solver and just check for existing successWaypoint
 + add LocatedHollowsStructureEvent
++ add ktlint to workflows and build project after commit
 ```

@@ -8,6 +8,8 @@ interface Cooldown {
     var cooldownEnd: Instant?
 
     fun isEnabled(): Boolean
+
     fun isCorrectItem(stack: ItemStack): Boolean
+
     fun getCooldownTime(): Duration?
 }

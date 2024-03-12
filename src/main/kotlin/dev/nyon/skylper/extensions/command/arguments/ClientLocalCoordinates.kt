@@ -7,10 +7,9 @@ import net.minecraft.commands.arguments.coordinates.WorldCoordinate
 import net.minecraft.util.Mth
 import net.minecraft.world.phys.Vec2
 import net.minecraft.world.phys.Vec3
-import java.util.*
+import java.util.Objects
 
-class ClientLocalCoordinates(private val left: Double, private val up: Double, private val forwards: Double) :
-    ClientCoordinates {
+class ClientLocalCoordinates(private val left: Double, private val up: Double, private val forwards: Double) : ClientCoordinates {
     override fun getPosition(commandSourceStack: FabricClientCommandSource): Vec3 {
         val rotation = commandSourceStack.rotation
         val pos: Vec3 = ClientEntityAnchorArgument.Anchor.FEET.apply(commandSourceStack)
@@ -77,7 +76,10 @@ class ClientLocalCoordinates(private val left: Double, private val up: Double, p
             }
         }
 
-        private fun readDouble(stringReader: StringReader, i: Int): Double {
+        private fun readDouble(
+            stringReader: StringReader,
+            i: Int
+        ): Double {
             if (!stringReader.canRead()) {
                 throw WorldCoordinate.ERROR_EXPECTED_DOUBLE.createWithContext(stringReader)
             } else if (stringReader.peek() != '^') {

@@ -18,18 +18,25 @@ object ColorSerializer : KSerializer<Color> {
         return Color(decoder.decodeInt(), true)
     }
 
-    override fun serialize(encoder: Encoder, value: Color) {
+    override fun serialize(
+        encoder: Encoder,
+        value: Color
+    ) {
         encoder.encodeInt(value.rgb)
     }
 }
 
 object ResourceLocationSerializer : KSerializer<ResourceLocation> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("resource_location", PrimitiveKind.STRING)
+
     override fun deserialize(decoder: Decoder): ResourceLocation {
         return ResourceLocation(decoder.decodeString())
     }
 
-    override fun serialize(encoder: Encoder, value: ResourceLocation) {
+    override fun serialize(
+        encoder: Encoder,
+        value: ResourceLocation
+    ) {
         encoder.encodeString(value.toString())
     }
 }
@@ -41,7 +48,10 @@ object CompoundTagSerializer : KSerializer<CompoundTag> {
         return TagParser.parseTag(decoder.decodeString())
     }
 
-    override fun serialize(encoder: Encoder, value: CompoundTag) {
+    override fun serialize(
+        encoder: Encoder,
+        value: CompoundTag
+    ) {
         encoder.encodeString(value.toString())
     }
 }

@@ -14,32 +14,40 @@ import java.util.concurrent.CompletableFuture
 
 class ClientBlockPosArgument : ArgumentType<ClientCoordinates> {
     override fun parse(stringReader: StringReader): ClientCoordinates {
-        return if (stringReader.canRead() && stringReader.peek() == '^') ClientLocalCoordinates.parse(stringReader) else ClientWorldCoordinates.parseInt(
-            stringReader
-        )
+        return if (stringReader.canRead() && stringReader.peek() == '^') {
+            ClientLocalCoordinates.parse(stringReader)
+        } else {
+            ClientWorldCoordinates.parseInt(
+                stringReader
+            )
+        }
     }
 
     override fun <S> listSuggestions(
-        commandContext: CommandContext<S>, suggestionsBuilder: SuggestionsBuilder
+        commandContext: CommandContext<S>,
+        suggestionsBuilder: SuggestionsBuilder
     ): CompletableFuture<Suggestions> {
         if (commandContext.source !is SharedSuggestionProvider) {
             return Suggestions.empty()
         } else {
             val string = suggestionsBuilder.remaining
-            val collection: Collection<TextCoordinates> = if (string.isNotEmpty() && string[0] == '^') {
-                setOf(TextCoordinates.DEFAULT_LOCAL)
-            } else {
-                (commandContext.source as SharedSuggestionProvider).relevantCoordinates
-            }
+            val collection: Collection<TextCoordinates> =
+                if (string.isNotEmpty() && string[0] == '^') {
+                    setOf(TextCoordinates.DEFAULT_LOCAL)
+                } else {
+                    (commandContext.source as SharedSuggestionProvider).relevantCoordinates
+                }
 
-            return SharedSuggestionProvider.suggestCoordinates(string,
+            return SharedSuggestionProvider.suggestCoordinates(
+                string,
                 collection,
                 suggestionsBuilder,
                 Commands.createValidator { stringReader: StringReader ->
                     this.parse(
                         stringReader
                     )
-                })
+                }
+            )
         }
     }
 
@@ -54,7 +62,10 @@ class ClientBlockPosArgument : ArgumentType<ClientCoordinates> {
             return ClientBlockPosArgument()
         }
 
-        fun getBlockPos(commandContext: CommandContext<FabricClientCommandSource>, string: String): BlockPos {
+        fun getBlockPos(
+            commandContext: CommandContext<FabricClientCommandSource>,
+            string: String
+        ): BlockPos {
             return commandContext.getArgument(string, ClientCoordinates::class.java).getBlockPos(
                 commandContext.source!!
             )

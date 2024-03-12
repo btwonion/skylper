@@ -16,26 +16,28 @@ fun LiteralArgumentBuilder<FabricClientCommandSource>.appendCrystalHollowsSubCom
     sub("hollows") { hollows ->
         hollows.sub("waypoints") { waypoints ->
             waypoints.sub("set") { set ->
-                set.arg(
-                    "key",
-                    StringArgumentType.word(),
-                    PreDefinedHollowsLocationSpecific.entries.map { it.key }) { nameArg ->
+                set.arg("key", StringArgumentType.word(), PreDefinedHollowsLocationSpecific.entries.map { it.key }) { nameArg ->
                     nameArg.arg("location", ClientBlockPosArgument.blockPos()) { locationArg ->
                         locationArg.executeAsync { context ->
                             val key = StringArgumentType.getString(context, "key")
                             val loc = ClientBlockPosArgument.getBlockPos(context, "location").center
 
-                            val specific = PreDefinedHollowsLocationSpecific.entries.find { it.key == key }
-                                ?: CustomHollowsLocationSpecific(key)
+                            val specific =
+                                PreDefinedHollowsLocationSpecific.entries.find { it.key == key } ?: CustomHollowsLocationSpecific(key)
 
                             val location = HollowsLocation(loc, specific)
-                            if (HollowsModule.waypoints.none { it.specific == specific } || specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO) {
+                            if (HollowsModule.waypoints.none { it.specific == specific } ||
+                                specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO
+                            ) {
                                 HollowsModule.waypoints.add(location)
-                            } else HollowsModule.waypoints.find { it.specific == specific }?.pos = loc
+                            } else {
+                                HollowsModule.waypoints.find { it.specific == specific }?.pos = loc
+                            }
 
                             context.source.sendFeedback(
                                 Component.translatable(
-                                    "chat.skylper.hollows.command.waypoint_created", specific.displayName
+                                    "chat.skylper.hollows.command.waypoint_created",
+                                    specific.displayName
                                 )
                             )
                         }
@@ -44,19 +46,17 @@ fun LiteralArgumentBuilder<FabricClientCommandSource>.appendCrystalHollowsSubCom
             }
 
             waypoints.sub("remove") { remove ->
-                remove.arg(
-                    "key",
-                    StringArgumentType.word(),
-                    PreDefinedHollowsLocationSpecific.entries.map { it.key }) { nameArg ->
+                remove.arg("key", StringArgumentType.word(), PreDefinedHollowsLocationSpecific.entries.map { it.key }) { nameArg ->
                     nameArg.executeAsync { context ->
                         val key = StringArgumentType.getString(context, "key")
-                        val specific = PreDefinedHollowsLocationSpecific.entries.find { it.key == key }
-                            ?: CustomHollowsLocationSpecific(key)
+                        val specific =
+                            PreDefinedHollowsLocationSpecific.entries.find { it.key == key } ?: CustomHollowsLocationSpecific(key)
 
                         HollowsModule.waypoints.removeAll { it.specific == specific }
                         context.source.sendFeedback(
                             Component.translatable(
-                                "chat.skylper.hollows.command.waypoint_deleted", specific.displayName
+                                "chat.skylper.hollows.command.waypoint_deleted",
+                                specific.displayName
                             )
                         )
                     }
