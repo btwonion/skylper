@@ -8,6 +8,7 @@ import dev.nyon.skylper.extensions.hasMaxHealth
 import dev.nyon.skylper.extensions.radiusBox
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.phys.Vec3
 
@@ -57,7 +58,7 @@ object NameTagEntityListener {
                                 entityPos,
                                 PreDefinedHollowsLocationSpecific.KEY_GUARDIAN
                             )
-                        customName?.contains("Bal") == true ->
+                        customName?.contains("Bal") == true && entity.type == EntityType.MAGMA_CUBE ->
                             HollowsLocation(
                                 entityPos,
                                 PreDefinedHollowsLocationSpecific.KHAZAD_DUM
