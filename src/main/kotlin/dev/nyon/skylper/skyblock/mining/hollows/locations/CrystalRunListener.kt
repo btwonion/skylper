@@ -13,14 +13,15 @@ object CrystalRunListener {
 
     private var nextIsCrystal = false
 
-    fun init() = listenEvent<MessageEvent, Unit> { event ->
-        if (!HollowsModule.isPlayerInHollows) return@listenEvent
+    fun init() =
+        listenEvent<MessageEvent, Unit> { event ->
+            if (!HollowsModule.isPlayerInHollows) return@listenEvent
 
-        val rawMessage = event.text.string
-        rawMessage.checkFoundCrystal()
-        rawMessage.checkPlacedCrystal()
-        rawMessage.checkRunCompleted()
-    }
+            val rawMessage = event.text.string
+            rawMessage.checkFoundCrystal()
+            rawMessage.checkPlacedCrystal()
+            rawMessage.checkRunCompleted()
+        }
 
     private fun String.checkFoundCrystal() {
         if (nextIsCrystal) {
@@ -33,7 +34,8 @@ object CrystalRunListener {
                 EventHandler.invokeEvent(
                     LocatedHollowsStructureEvent(
                         HollowsLocation(
-                            minecraft.player!!.position(), location
+                            minecraft.player!!.position(),
+                            location
                         )
                     )
                 )

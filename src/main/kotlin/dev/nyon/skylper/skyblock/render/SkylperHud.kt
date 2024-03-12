@@ -29,7 +29,10 @@ object SkylperHud {
         }
     }
 
-    private fun GuiGraphics.renderWidget(widget: HudWidget, condition: () -> Boolean) {
+    private fun GuiGraphics.renderWidget(
+        widget: HudWidget,
+        condition: () -> Boolean
+    ) {
         if (!condition()) return
         widget.render(this, 0, 0)
     }

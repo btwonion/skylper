@@ -46,8 +46,11 @@ object HollowsModule {
             waypoints.add(nucleusWaypoint)
         }
         listenEvent<AreaChangeEvent, Unit> {
-            if (it.next?.contains("Crystal Hollows") == false) waypoints.clear()
-            else waypoints.add(nucleusWaypoint)
+            if (it.next?.contains("Crystal Hollows") == false) {
+                waypoints.clear()
+            } else {
+                waypoints.add(nucleusWaypoint)
+            }
         }
         listenEvent<RenderAfterTranslucentEvent, Unit> {
             if (!isPlayerInHollows) return@listenEvent
@@ -58,9 +61,11 @@ object HollowsModule {
         }
         listenEvent<LocatedHollowsStructureEvent, Unit> { (location) ->
             if (!isPlayerInHollows) return@listenEvent
-            if (location.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO || waypoints.none { it.specific == location.specific }) waypoints.add(
-                location
-            )
+            if (location.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO || waypoints.none { it.specific == location.specific }) {
+                waypoints.add(
+                    location
+                )
+            }
         }
     }
 }

@@ -27,6 +27,7 @@ object PlayerSessionData {
     var profile: String? = null
 
     var currentScreen: AbstractContainerScreen<*>? = null
+
     fun startUpdaters() {
         listenHypixelSession()
         startTicker()
@@ -43,9 +44,10 @@ object PlayerSessionData {
 
                 footer = minecraft.gui.tabList.footer
                 scoreboardLines = minecraft.retrieveScoreboardLines()
-                scoreboardLineStrings = scoreboardLines.map {
-                    it.string.replace("§[^a-f0-9]".toRegex(), "")
-                }
+                scoreboardLineStrings =
+                    scoreboardLines.map {
+                        it.string.replace("§[^a-f0-9]".toRegex(), "")
+                    }
 
                 invokeEvent(SideboardUpdateEvent(scoreboardLines, scoreboardLineStrings))
                 updateFromSideboard()
@@ -120,9 +122,10 @@ object PlayerSessionData {
         }
     }
 
-    private fun listenScreenUpdate() = listenEvent<ScreenOpenEvent, Unit> {
-        currentScreen = it.screen
-    }
+    private fun listenScreenUpdate() =
+        listenEvent<ScreenOpenEvent, Unit> {
+            currentScreen = it.screen
+        }
 
     private fun clearData(withHypixel: Boolean = false) {
         currentArea?.also {

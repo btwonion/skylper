@@ -29,14 +29,15 @@ internal fun createYaclScreen(parent: Screen?): Screen {
     return screen.generateScreen(parent)
 }
 
-private fun YetAnotherConfigLib.Builder.appendGeneralCategory() = category("general") {
-    val categoryKey = "general"
+private fun YetAnotherConfigLib.Builder.appendGeneralCategory() =
+    category("general") {
+        val categoryKey = "general"
 
-    val hudKey = "hud"
-    action(categoryKey, hudKey) {
-        description(categoryKey, hudKey)
-        action { screen, _ ->
-            minecraft.setScreen(SkylperHudModifier(screen))
+        val hudKey = "hud"
+        action(categoryKey, hudKey) {
+            description(categoryKey, hudKey)
+            action { screen, _ ->
+                minecraft.setScreen(SkylperHudModifier(screen))
+            }
         }
     }
-}

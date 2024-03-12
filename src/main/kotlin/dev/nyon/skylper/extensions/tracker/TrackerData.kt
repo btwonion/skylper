@@ -5,5 +5,6 @@ import kotlin.reflect.KClass
 
 interface TrackerData {
     val resetTriggers: List<KClass<out Event<out Any>>>
+
     fun reset()
 }

@@ -61,8 +61,13 @@ open class Waypoint(
             )
         }
 
-        if (shouldRenderName) context.renderText(
-            name.copy().withStyle { it.withBold(true) }, pos, 15f, BACKGROUND_COLOR
-        )
+        if (shouldRenderName) {
+            context.renderText(
+                name.copy().withStyle { it.withBold(true) },
+                pos,
+                15f,
+                BACKGROUND_COLOR
+            )
+        }
     }
 }

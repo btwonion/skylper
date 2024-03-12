@@ -14,6 +14,12 @@ fun internalRenderBeaconBeam(
     yOffset: Int = 0
 ) {
     BeaconRendererInvoker.renderBeaconBeam(
-        poseStack, bufferSource, partialTick, gameTime, yOffset, height, color.color.getRGBComponents(null)
+        poseStack,
+        bufferSource,
+        partialTick,
+        gameTime,
+        yOffset,
+        height,
+        color.color.getRGBComponents(null)
     )
 }

@@ -27,9 +27,11 @@ data class Mining(
 
 @Serializable
 data class CrystalHollows(
-    val crystals: List<CrystalInstance> = Crystal.entries.map {
-        CrystalInstance(
-            it, CrystalState.NOT_FOUND
-        )
-    }
+    val crystals: List<CrystalInstance> =
+        Crystal.entries.map {
+            CrystalInstance(
+                it,
+                CrystalState.NOT_FOUND
+            )
+        }
 )

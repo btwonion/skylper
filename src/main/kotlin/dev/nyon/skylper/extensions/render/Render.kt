@@ -22,7 +22,11 @@ import org.lwjgl.opengl.GL11
 private const val MAX_BUILD_HEIGHT: Double = 319.0
 
 fun WorldRenderContext.renderText(
-    text: Component, pos: Vec3, scale: Float, backgroundColor: Int, throughWalls: Boolean = true
+    text: Component,
+    pos: Vec3,
+    scale: Float,
+    backgroundColor: Int,
+    throughWalls: Boolean = true
 ) {
     val matrices = matrixStack()
     val cameraPos = camera().position
@@ -62,7 +66,10 @@ fun WorldRenderContext.renderText(
     matrices.popPose()
 }
 
-fun WorldRenderContext.renderBeaconBeam(pos: Vec3, color: Int) {
+fun WorldRenderContext.renderBeaconBeam(
+    pos: Vec3,
+    color: Int
+) {
     if (!minecraft.isVisible(AABB(pos.x, pos.y, pos.z, pos.x + 1, MAX_BUILD_HEIGHT, pos.z + 1))) return
     val matrices = matrixStack()
     val cameraPos = camera().position
@@ -75,7 +82,10 @@ fun WorldRenderContext.renderBeaconBeam(pos: Vec3, color: Int) {
     matrices.popPose()
 }
 
-fun WorldRenderContext.renderFilled(box: AABB, color: Int) {
+fun WorldRenderContext.renderFilled(
+    box: AABB,
+    color: Int
+) {
     val matrices = matrixStack()
     val cameraPos = camera().position
 
@@ -120,7 +130,12 @@ fun WorldRenderContext.renderFilled(box: AABB, color: Int) {
     RenderSystem.enableCull()
 }
 
-fun WorldRenderContext.renderOutline(box: AABB, color: Int, lineWidth: Float, throughWalls: Boolean) {
+fun WorldRenderContext.renderOutline(
+    box: AABB,
+    color: Int,
+    lineWidth: Float,
+    throughWalls: Boolean
+) {
     if (!minecraft.isVisible(box) && !throughWalls) return
     val matrices = matrixStack()
     val cameraPos = camera().position

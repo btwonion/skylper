@@ -11,19 +11,35 @@ fun ConfigCategory.Builder.title(key: String): ConfigCategory.Builder {
     return this
 }
 
-fun OptionAddable.action(categoryKey: String, titleKey: String, block: ButtonOption.Builder.() -> Unit) {
+fun OptionAddable.action(
+    categoryKey: String,
+    titleKey: String,
+    block: ButtonOption.Builder.() -> Unit
+) {
     option(ButtonOption.createBuilder().title(categoryKey, titleKey).also(block).build())
 }
 
-fun <T> OptionAddable.primitive(categoryKey: String, titleKey: String, block: Option.Builder<T>.() -> Unit) {
+fun <T> OptionAddable.primitive(
+    categoryKey: String,
+    titleKey: String,
+    block: Option.Builder<T>.() -> Unit
+) {
     option(Option.createBuilder<T>().title(categoryKey, titleKey).also(block).build())
 }
 
-fun <T> ConfigCategory.Builder.list(categoryKey: String, titleKey: String, block: ListOption.Builder<T>.() -> Unit) {
+fun <T> ConfigCategory.Builder.list(
+    categoryKey: String,
+    titleKey: String,
+    block: ListOption.Builder<T>.() -> Unit
+) {
     group(ListOption.createBuilder<T>().title(categoryKey, titleKey).also(block).build())
 }
 
-fun ConfigCategory.Builder.subGroup(categoryKey: String, titleKey: String, block: OptionGroup.Builder.() -> Unit) {
+fun ConfigCategory.Builder.subGroup(
+    categoryKey: String,
+    titleKey: String,
+    block: OptionGroup.Builder.() -> Unit
+) {
     group(OptionGroup.createBuilder().title(categoryKey, titleKey).collapsed(true).also(block).build())
 }
 
@@ -74,7 +90,7 @@ fun <D : TrackerData> ConfigCategory.Builder.trackerConfig(
     xGet: () -> Int,
     xSet: (Int) -> Unit,
     yGet: () -> Int,
-    ySet: (Int) -> Unit,
+    ySet: (Int) -> Unit
 ) {
     overlayConfig(tracker.nameSpace, "tracker", enabledGet, enabledSet, xGet, xSet, yGet, ySet) {
         tracker.appendConfigOptions(this@overlayConfig, tracker.nameSpace)

@@ -7,6 +7,7 @@ object MayorData : SkyblockOnlineData<HypixelApiMayorResponse>(HypixelApiMayorRe
     override val path: String = "election"
 
     var mayor: Mayor? = null
+
     override fun setData(data: HypixelApiMayorResponse?) {
         mayor = data?.mayor?.name
     }

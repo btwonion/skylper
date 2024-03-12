@@ -29,79 +29,88 @@ object MiningCooldown : Cooldown {
         return config.mining.miningAbilityIndicator
     }
 
-    private val internalMiningItemNames = setOf(
-        "WOOD_PICKAXE",
-        "GOLD_PICKAXE",
-        "STONE_PICKAXE",
-        "IRON_PICKAXE",
-        "DIAMOND_PICKAXE",
-        "ZOMBIE_PICKAXE",
-        "ROOKIE_PICKAXE",
-        "PROMISING_PICKAXE",
-        "STONK_PICKAXE",
-        "JUNGLE_PICKAXE",
-        "FRACTURED_MITHRIL_PICKAXE",
-        "BANDAGED_MITHRIL_PICKAXE",
-        "MITHRIL_PICKAXE",
-        "REFINED_MITHRIL_PICKAXE",
-        "TITANIUM_PICKAXE",
-        "REFINED_TITANIUM_PICKAXE",
-        "PICKONIMBUS",
-        "BINGONIMBUS_2000",
-        "MITHRIL_DRILL_1",
-        "MITHRIL_DRILL_2",
-        "TITANIUM_DRILL_1",
-        "TITANIUM_DRILL_2",
-        "TITANIUM_DRILL_3",
-        "TITANIUM_DRILL_4",
-        "DIVAN_DRILL",
-        "GEMSTONE_DRILL_1",
-        "GEMSTONE_DRILL_2",
-        "GEMSTONE_DRILL_3",
-        "GEMSTONE_DRILL_4",
-        "GEMSTONE_GAUNTLET"
-    )
+    private val internalMiningItemNames =
+        setOf(
+            "WOOD_PICKAXE",
+            "GOLD_PICKAXE",
+            "STONE_PICKAXE",
+            "IRON_PICKAXE",
+            "DIAMOND_PICKAXE",
+            "ZOMBIE_PICKAXE",
+            "ROOKIE_PICKAXE",
+            "PROMISING_PICKAXE",
+            "STONK_PICKAXE",
+            "JUNGLE_PICKAXE",
+            "FRACTURED_MITHRIL_PICKAXE",
+            "BANDAGED_MITHRIL_PICKAXE",
+            "MITHRIL_PICKAXE",
+            "REFINED_MITHRIL_PICKAXE",
+            "TITANIUM_PICKAXE",
+            "REFINED_TITANIUM_PICKAXE",
+            "PICKONIMBUS",
+            "BINGONIMBUS_2000",
+            "MITHRIL_DRILL_1",
+            "MITHRIL_DRILL_2",
+            "TITANIUM_DRILL_1",
+            "TITANIUM_DRILL_2",
+            "TITANIUM_DRILL_3",
+            "TITANIUM_DRILL_4",
+            "DIVAN_DRILL",
+            "GEMSTONE_DRILL_1",
+            "GEMSTONE_DRILL_2",
+            "GEMSTONE_DRILL_3",
+            "GEMSTONE_DRILL_4",
+            "GEMSTONE_GAUNTLET"
+        )
 
     override fun isCorrectItem(stack: ItemStack): Boolean {
         return internalMiningItemNames.contains(stack.internalName)
     }
 
     @Suppress("unused")
-    private val skyblockJoin = listenEvent<SkyblockEnterEvent, Unit> {
-        val now = Clock.System.now()
-        mcScope.launch {
-            delay(3.seconds)
-            val cooldown = getCooldownTime() ?: return@launch
-            cooldownEnd = now + (cooldown / 2)
+    private val skyblockJoin =
+        listenEvent<SkyblockEnterEvent, Unit> {
+            val now = Clock.System.now()
+            mcScope.launch {
+                delay(3.seconds)
+                val cooldown = getCooldownTime() ?: return@launch
+                cooldownEnd = now + (cooldown / 2)
+            }
         }
-    }
 
     @Suppress("unused")
-    private val listenChat = listenEvent<MessageEvent, Unit> {
-        val raw = it.text.string
-        if (raw.contains("You used your") && raw.contains("Pickaxe Ability!")) {
-            abilityUsed()
-            return@listenEvent
-        }
+    private val listenChat =
+        listenEvent<MessageEvent, Unit> {
+            val raw = it.text.string
+            if (raw.contains("You used your") && raw.contains("Pickaxe Ability!")) {
+                abilityUsed()
+                return@listenEvent
+            }
 
-        if (raw.contains("is now available!")) {
-            abilityAvailable()
-            return@listenEvent
+            if (raw.contains("is now available!")) {
+                abilityAvailable()
+                return@listenEvent
+            }
         }
-    }
 
     private fun abilityAvailable() {
         cooldownEnd = null
         if (config.mining.availableAbilityNotification) {
-            if (config.mining.availableAbilityNotificationOnMiningIslands && !Mining.miningIslands.contains(
+            if (config.mining.availableAbilityNotificationOnMiningIslands &&
+                !Mining.miningIslands.contains(
                     PlayerSessionData.currentArea
                 )
-            ) return
-            minecraft.gui.setTitle(Component.literal("T")
-                .withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) }
-                .append(Component.literal(" Pickaxe Ability available ")
-                    .withStyle { it.withObfuscated(false).withColor(ChatFormatting.AQUA).withBold(true) })
-                .append(Component.literal("T").withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) })
+            ) {
+                return
+            }
+            minecraft.gui.setTitle(
+                Component.literal("T")
+                    .withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) }
+                    .append(
+                        Component.literal(" Pickaxe Ability available ")
+                            .withStyle { it.withObfuscated(false).withColor(ChatFormatting.AQUA).withBold(true) }
+                    )
+                    .append(Component.literal("T").withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) })
             )
         }
     }
@@ -117,8 +126,10 @@ object MiningCooldown : Cooldown {
     }
 
     private fun noAbilitySelectedNotice() {
-        minecraft.player?.sendSystemMessage(Component.translatable("chat.skylper.hollows.pickaxe_cooldown.not_found")
-            .withStyle { it.withColor(ChatFormatting.RED) })
+        minecraft.player?.sendSystemMessage(
+            Component.translatable("chat.skylper.hollows.pickaxe_cooldown.not_found")
+                .withStyle { it.withColor(ChatFormatting.RED) }
+        )
     }
 
     override fun getCooldownTime(): Duration? {
@@ -132,7 +143,10 @@ object MiningCooldown : Cooldown {
 }
 
 interface AbilityCooldownIdentifier {
-    fun `skylper$getCooldownPercent`(itemStack: ItemStack, partialTicks: Float): Float
+    fun `skylper$getCooldownPercent`(
+        itemStack: ItemStack,
+        partialTicks: Float
+    ): Float
 }
 
 enum class MiningAbility(val levelOne: Int, val levelTwo: Int, val levelThree: Int) {
@@ -143,6 +157,7 @@ enum class MiningAbility(val levelOne: Int, val levelTwo: Int, val levelThree: I
 
     companion object {
         val rawNames = listOf("Mining Speed Boost", "Pickolubus", "Vein Seeker", "Maniac Miner")
+
         fun byRawName(name: String): MiningAbility? {
             return when (name) {
                 "Mining Speed Boost" -> MINING_SPEED_BOOST
