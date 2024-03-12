@@ -1,6 +1,11 @@
 package dev.nyon.skylper.config.screen.extensions
 
-import dev.isxander.yacl3.api.*
+import dev.isxander.yacl3.api.ButtonOption
+import dev.isxander.yacl3.api.ConfigCategory
+import dev.isxander.yacl3.api.ListOption
+import dev.isxander.yacl3.api.Option
+import dev.isxander.yacl3.api.OptionAddable
+import dev.isxander.yacl3.api.OptionGroup
 import dev.nyon.skylper.extensions.tracker.Tracker
 import dev.nyon.skylper.extensions.tracker.TrackerData
 import dev.nyon.skylper.minecraft
@@ -43,10 +48,10 @@ fun ConfigCategory.Builder.subGroup(
     group(OptionGroup.createBuilder().title(categoryKey, titleKey).collapsed(true).also(block).build())
 }
 
-private const val autoKey = "auto"
-private const val overlayEnabledKey = "overlay.enabled"
-private const val overlayXKey = "overlay.x"
-private const val overlayYKey = "overlay.y"
+private const val AUTO_KEY = "auto"
+private const val OVERLAY_ENABLED_KEY = "overlay.enabled"
+private const val OVERLAY_X_KEY = "overlay.x"
+private const val OVERLAY_Y_KEY = "overlay.y"
 
 fun ConfigCategory.Builder.overlayConfig(
     categoryKey: String,
@@ -61,20 +66,20 @@ fun ConfigCategory.Builder.overlayConfig(
 ) {
     subGroup(categoryKey, titleKey) {
         description(categoryKey, titleKey)
-        primitive(autoKey, overlayEnabledKey) {
-            description(autoKey, overlayEnabledKey)
+        primitive(AUTO_KEY, OVERLAY_ENABLED_KEY) {
+            description(AUTO_KEY, OVERLAY_ENABLED_KEY)
             getSet(enabledGet, enabledSet)
             tickBox()
         }
 
-        primitive(autoKey, overlayXKey) {
-            description(autoKey, overlayXKey)
+        primitive(AUTO_KEY, OVERLAY_X_KEY) {
+            description(AUTO_KEY, OVERLAY_X_KEY)
             getSet(xGet, xSet)
             field(0, minecraft.window.width)
         }
 
-        primitive(autoKey, overlayYKey) {
-            description(autoKey, overlayYKey)
+        primitive(AUTO_KEY, OVERLAY_Y_KEY) {
+            description(AUTO_KEY, OVERLAY_Y_KEY)
             getSet(yGet, ySet)
             field(0, minecraft.window.height)
         }

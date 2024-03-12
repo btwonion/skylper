@@ -1,8 +1,17 @@
 package dev.nyon.skylper.skyblock.data.session
 
-import dev.nyon.skylper.extensions.*
+import dev.nyon.skylper.extensions.AreaChangeEvent
 import dev.nyon.skylper.extensions.EventHandler.invokeEvent
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.HypixelJoinEvent
+import dev.nyon.skylper.extensions.HypixelQuitEvent
+import dev.nyon.skylper.extensions.ProfileChangeEvent
+import dev.nyon.skylper.extensions.ScreenOpenEvent
+import dev.nyon.skylper.extensions.SideboardUpdateEvent
+import dev.nyon.skylper.extensions.SkyblockEnterEvent
+import dev.nyon.skylper.extensions.SkyblockQuitEvent
+import dev.nyon.skylper.extensions.footer
+import dev.nyon.skylper.extensions.retrieveScoreboardLines
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft

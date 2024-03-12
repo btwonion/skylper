@@ -7,7 +7,11 @@ import dev.nyon.skylper.extensions.LocatedHollowsStructureEvent
 import dev.nyon.skylper.extensions.RenderAfterTranslucentEvent
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
-import dev.nyon.skylper.skyblock.mining.hollows.locations.*
+import dev.nyon.skylper.skyblock.mining.hollows.locations.CrystalRunListener
+import dev.nyon.skylper.skyblock.mining.hollows.locations.HollowsLocation
+import dev.nyon.skylper.skyblock.mining.hollows.locations.NameTagEntityListener
+import dev.nyon.skylper.skyblock.mining.hollows.locations.PlayerChatLocationListener
+import dev.nyon.skylper.skyblock.mining.hollows.locations.PreDefinedHollowsLocationSpecific
 import dev.nyon.skylper.skyblock.mining.hollows.render.ChestHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.render.ChestParticleHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.solvers.metaldetector.MetalDetectorSolver

@@ -1,7 +1,12 @@
 package dev.nyon.skylper.skyblock.mining.hollows.locations
 
-import dev.nyon.skylper.extensions.*
+import dev.nyon.skylper.extensions.CrystalFoundEvent
+import dev.nyon.skylper.extensions.CrystalPlaceEvent
+import dev.nyon.skylper.extensions.EventHandler
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.LocatedHollowsStructureEvent
+import dev.nyon.skylper.extensions.MessageEvent
+import dev.nyon.skylper.extensions.NucleusRunCompleteEvent
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.mining.hollows.Crystal
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule

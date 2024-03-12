@@ -20,7 +20,8 @@ object SkylperHud {
             }
 
             it.context.renderWidget(PowderGrindingTracker) {
-                HollowsModule.isPlayerInHollows && config.mining.crystalHollows.powderGrindingOverlay.enabled && PowderGrindingTracker.isGrinding
+                HollowsModule.isPlayerInHollows && config.mining.crystalHollows.powderGrindingOverlay.enabled &&
+                    PowderGrindingTracker.isGrinding
             }
 
             it.context.renderWidget(TotalPowderWidget) {
