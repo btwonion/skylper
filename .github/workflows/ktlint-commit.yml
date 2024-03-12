@@ -18,3 +18,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-check
           level: info
+          filter_mode: nofilter
