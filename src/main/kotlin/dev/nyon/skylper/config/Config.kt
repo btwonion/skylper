@@ -48,7 +48,6 @@ data class Config(val mining: MiningConfig = MiningConfig(), val menu: Menu = Me
             var goblinQueen: Boolean = true,
             var precursorCity: Boolean = true,
             var jungleTemple: Boolean = true,
-            var amethystCrystal: Boolean = true,
             var odawa: Boolean = true,
             var khazadDum: Boolean = true,
             var minesOfDivan: Boolean = true,
@@ -85,6 +84,9 @@ data class Config(val mining: MiningConfig = MiningConfig(), val menu: Menu = Me
     @Serializable
     data class Menu(val collections: Collections = Collections()) {
         @Serializable
-        data class Collections(var highlightNonCompletedCollections: Boolean = true, var nonCompletedCollectionHighlightColor: @Contextual Color = Color(130, 50, 0, 70))
+        data class Collections(
+            var highlightNonCompletedCollections: Boolean = true,
+            var nonCompletedCollectionHighlightColor: @Contextual Color = Color(130, 50, 0, 70)
+        )
     }
 }

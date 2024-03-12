@@ -1,6 +1,7 @@
 package dev.nyon.skylper.extensions
 
 import dev.nyon.skylper.skyblock.mining.hollows.Crystal
+import dev.nyon.skylper.skyblock.mining.hollows.locations.HollowsLocation
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
@@ -67,3 +68,5 @@ data class SideboardUpdateEvent(val lines: List<Component>, val cleanLines: List
  * Return type is the color as an [Int]
  */
 data class RenderItemBackgroundEvent(val title: Component, val slot: Slot) : Event<Int?>
+
+data class LocatedHollowsStructureEvent(val location: HollowsLocation) : Event<Unit>

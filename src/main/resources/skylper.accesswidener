@@ -11,3 +11,6 @@ accessible class net/minecraft/client/renderer/RenderStateShard$ShaderStateShard
 accessible class net/minecraft/client/renderer/RenderStateShard$CullStateShard
 accessible class net/minecraft/client/renderer/RenderStateShard$LayeringStateShard
 accessible class net/minecraft/client/renderer/RenderStateShard$DepthTestStateShard
+
+accessible method net/minecraft/world/level/Level getEntities ()Lnet/minecraft/world/level/entity/LevelEntityGetter;
+accessible method net/minecraft/client/multiplayer/ClientLevel getEntities ()Lnet/minecraft/world/level/entity/LevelEntityGetter;

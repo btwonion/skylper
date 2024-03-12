@@ -1,19 +1,13 @@
 package dev.nyon.skylper.skyblock.mining.hollows.locations
 
-import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.*
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
-import dev.nyon.skylper.extensions.render.waypoint.Waypoint
-import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.mining.hollows.Crystal
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
-import dev.nyon.skylper.skyblock.mining.hollows.HollowsStructure
-import net.minecraft.network.chat.Component
 
 object CrystalRunListener {
     private const val CRYSTAL_FOUND = "✦ CRYSTAL FOUND"
-    private const val AMETHYST_CRYSTAL_INTERNAL_NAME = "internal_amethyst_crystal"
     private const val RUN_COMPLETED_MESSAGE = "You've earned a Crystal Loot Bundle!"
     private const val CRYSTAL_PLACED = "✦ You placed the "
 
@@ -35,14 +29,14 @@ object CrystalRunListener {
             if (foundCrystal != null) {
                 EventHandler.invokeEvent(CrystalFoundEvent(foundCrystal))
 
-                val associatedStructure = foundCrystal.associatedStructure()
-                if (if (associatedStructure == HollowsStructure.JUNGLE_TEMPLE) config.mining.crystalHollows.hollowsWaypoints.amethystCrystal else associatedStructure.isWaypointEnabled()) HollowsModule.waypoints[if (associatedStructure == HollowsStructure.JUNGLE_TEMPLE) AMETHYST_CRYSTAL_INTERNAL_NAME else associatedStructure.internalWaypointName] =
-                    Waypoint(
-                        Component.literal(if (associatedStructure == HollowsStructure.JUNGLE_TEMPLE) "Amethyst Crystal" else associatedStructure.displayName),
-                        minecraft.player?.position() ?: return,
-                        WaypointType.BEAM,
-                        associatedStructure.waypointColor
+                val location = foundCrystal.associatedLocationSpecific()
+                EventHandler.invokeEvent(
+                    LocatedHollowsStructureEvent(
+                        HollowsLocation(
+                            minecraft.player!!.position(), location
+                        )
                     )
+                )
             }
         }
         if (contains(CRYSTAL_FOUND)) nextIsCrystal = true
