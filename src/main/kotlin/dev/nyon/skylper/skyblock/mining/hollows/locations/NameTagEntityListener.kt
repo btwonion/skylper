@@ -1,34 +1,59 @@
 package dev.nyon.skylper.skyblock.mining.hollows.locations
 
-import dev.nyon.skylper.extensions.EntitySpawnEvent
+import dev.nyon.skylper.extensions.*
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
-import dev.nyon.skylper.extensions.hasMaxHealth
-import dev.nyon.skylper.extensions.render.waypoint.Waypoint
-import dev.nyon.skylper.extensions.render.waypoint.WaypointType
+import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
-import dev.nyon.skylper.skyblock.mining.hollows.HollowsStructure
-import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.phys.Vec3
 
 object NameTagEntityListener {
 
-    fun init() {
-        listenEvent<EntitySpawnEvent, Unit> { (entity) ->
-            if (!HollowsModule.isPlayerInHollows) return@listenEvent
-            val livingEntity = entity as? LivingEntity ?: return@listenEvent
-            val name = entity.displayName?.string ?: return@listenEvent
-            val structure = when {
-                name.contains("Team Treasurite") && livingEntity.hasMaxHealth(1000000f) -> HollowsStructure.CORLEONE
-                name.contains("Key Guardian") -> HollowsStructure.KEY_GUARDIAN
-                else -> null
-            } ?: return@listenEvent
+    @Suppress("unused")
+    val tickEvent = listenEvent<TickEvent, Unit> { _ ->
+        if (!HollowsModule.isPlayerInHollows) return@listenEvent
+        var firstGuardianLocation: Vec3? = null
 
-            if (structure.isWaypointEnabled()) HollowsModule.waypoints[structure.internalWaypointName] = Waypoint(
-                Component.literal(structure.displayName),
-                entity.position(),
-                WaypointType.OUTLINE_WITH_BEAM,
-                structure.waypointColor
-            )
+        minecraft.level?.entities?.get(minecraft.player!!.radiusBox(50)) { entity ->
+            if (entity as? LivingEntity == null) return@get
+            val name = entity.displayName?.string
+            val customName = entity.customName?.string
+            val entityPos = entity.position()
+
+            val location: HollowsLocation? = when {
+                name?.contains("King Yolkar") == true -> HollowsLocation(
+                    entityPos, PreDefinedHollowsLocationSpecific.GOBLIN_KING
+                )
+                name?.contains("Professor Robot") == true -> HollowsLocation(
+                    entityPos.add(-16.0, 5.0, 21.0), PreDefinedHollowsLocationSpecific.PRECURSOR_CITY
+                )
+                name?.contains("Kalhuiki Door Guardian") == true -> {
+                    if (firstGuardianLocation == null) {
+                        firstGuardianLocation = entityPos
+                        null
+                    } else {
+                        val leftGuardian = listOf(firstGuardianLocation!!, entityPos).minByOrNull { it.x }!!
+                        val crystalPos = leftGuardian.add(61.0, -44.0, 18.0)
+                        HollowsLocation(crystalPos, PreDefinedHollowsLocationSpecific.JUNGLE_TEMPLE)
+                    }
+                }
+                name?.contains("Odawa") == true -> HollowsLocation(entityPos, PreDefinedHollowsLocationSpecific.ODAWA)
+                customName?.contains("Team Treasurite") == true && entity.hasMaxHealth(1_000_000f) -> HollowsLocation(
+                    entityPos, PreDefinedHollowsLocationSpecific.CORLEONE
+                )
+                customName?.contains("Key Guardian") == true -> HollowsLocation(
+                    entityPos, PreDefinedHollowsLocationSpecific.KEY_GUARDIAN
+                )
+                customName?.contains("Bal") == true -> HollowsLocation(
+                    entityPos,
+                    PreDefinedHollowsLocationSpecific.KHAZAD_DUM
+                )
+
+                else -> null
+            }
+
+            if (location != null) EventHandler.invokeEvent(LocatedHollowsStructureEvent(location))
         }
+
     }
 }

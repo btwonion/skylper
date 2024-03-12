@@ -6,9 +6,9 @@ import dev.nyon.skylper.extensions.command.arg
 import dev.nyon.skylper.extensions.command.arguments.ClientBlockPosArgument
 import dev.nyon.skylper.extensions.command.executeAsync
 import dev.nyon.skylper.extensions.command.sub
-import dev.nyon.skylper.extensions.math.blockPos
-import dev.nyon.skylper.extensions.render.waypoint.Waypoint
-import dev.nyon.skylper.extensions.render.waypoint.WaypointType
+import dev.nyon.skylper.skyblock.mining.hollows.locations.CustomHollowsLocationSpecific
+import dev.nyon.skylper.skyblock.mining.hollows.locations.HollowsLocation
+import dev.nyon.skylper.skyblock.mining.hollows.locations.PreDefinedHollowsLocationSpecific
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 import net.minecraft.network.chat.Component
 
@@ -17,29 +17,25 @@ fun LiteralArgumentBuilder<FabricClientCommandSource>.appendCrystalHollowsSubCom
         hollows.sub("waypoints") { waypoints ->
             waypoints.sub("set") { set ->
                 set.arg(
-                    "internal_name",
+                    "key",
                     StringArgumentType.word(),
-                    HollowsStructure.entries.map { it.internalWaypointName }) { nameArg ->
+                    PreDefinedHollowsLocationSpecific.entries.map { it.key }) { nameArg ->
                     nameArg.arg("location", ClientBlockPosArgument.blockPos()) { locationArg ->
                         locationArg.executeAsync { context ->
-                            val name = StringArgumentType.getString(context, "internal_name")
+                            val key = StringArgumentType.getString(context, "key")
                             val loc = ClientBlockPosArgument.getBlockPos(context, "location").center
 
-                            val structure = HollowsStructure.entries.find { it.internalWaypointName == name }
-                            if (structure == null) {
-                                context.source.sendError(Component.translatable("chat.skylper.hollows.command.no_internal_waypoint_name"))
-                                return@executeAsync
-                            }
+                            val specific = PreDefinedHollowsLocationSpecific.entries.find { it.key == key }
+                                ?: CustomHollowsLocationSpecific(key)
 
-                            HollowsModule.waypoints[structure.internalWaypointName] = Waypoint(
-                                Component.literal(structure.displayName),
-                                loc.blockPos.atY(if (structure == HollowsStructure.JUNGLE_TEMPLE) 115 else (structure.maxY + structure.minY) / 2).center,
-                                WaypointType.BEAM,
-                                structure.waypointColor
-                            )
+                            val location = HollowsLocation(loc, specific)
+                            if (HollowsModule.waypoints.none { it.specific == specific } || specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO) {
+                                HollowsModule.waypoints.add(location)
+                            } else HollowsModule.waypoints.find { it.specific == specific }?.pos = loc
+
                             context.source.sendFeedback(
                                 Component.translatable(
-                                    "chat.skylper.hollows.command.waypoint_created", structure.displayName
+                                    "chat.skylper.hollows.command.waypoint_created", specific.displayName
                                 )
                             )
                         }
@@ -49,17 +45,18 @@ fun LiteralArgumentBuilder<FabricClientCommandSource>.appendCrystalHollowsSubCom
 
             waypoints.sub("remove") { remove ->
                 remove.arg(
-                    "internal_name",
+                    "key",
                     StringArgumentType.word(),
-                    HollowsStructure.entries.map { it.internalWaypointName }) { nameArg ->
+                    PreDefinedHollowsLocationSpecific.entries.map { it.key }) { nameArg ->
                     nameArg.executeAsync { context ->
-                        val name = StringArgumentType.getString(context, "internal_name")
-                        val structure =
-                            HollowsStructure.entries.find { it.internalWaypointName == name } ?: return@executeAsync
-                        HollowsModule.waypoints.remove(name)
+                        val key = StringArgumentType.getString(context, "key")
+                        val specific = PreDefinedHollowsLocationSpecific.entries.find { it.key == key }
+                            ?: CustomHollowsLocationSpecific(key)
+
+                        HollowsModule.waypoints.removeAll { it.specific == specific }
                         context.source.sendFeedback(
                             Component.translatable(
-                                "chat.skylper.hollows.command.waypoint_deleted", structure.displayName
+                                "chat.skylper.hollows.command.waypoint_deleted", specific.displayName
                             )
                         )
                     }

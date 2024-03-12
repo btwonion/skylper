@@ -1,6 +1,5 @@
 package dev.nyon.skylper.extensions.render.waypoint
 
-import dev.nyon.skylper.extensions.math.blockPos
 import dev.nyon.skylper.extensions.render.renderBeaconBeam
 import dev.nyon.skylper.extensions.render.renderFilled
 import dev.nyon.skylper.extensions.render.renderOutline

@@ -1,14 +1,12 @@
 package dev.nyon.skylper.skyblock.mining.hollows.locations
 
 import dev.nyon.skylper.config.config
+import dev.nyon.skylper.extensions.EventHandler
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.LocatedHollowsStructureEvent
 import dev.nyon.skylper.extensions.MessageEvent
-import dev.nyon.skylper.extensions.math.blockPos
-import dev.nyon.skylper.extensions.render.waypoint.Waypoint
-import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
-import dev.nyon.skylper.skyblock.mining.hollows.HollowsStructure
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
@@ -20,7 +18,8 @@ object PlayerChatLocationListener {
 
     data class RawLocation(val x: Double, val y: Double?, val z: Double)
 
-    fun init() = listenEvent<MessageEvent, Unit> { event ->
+    @Suppress("unused")
+    private val messageEvent = listenEvent<MessageEvent, Unit> { event ->
         if (!config.mining.crystalHollows.parseLocationChats) return@listenEvent
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
 
@@ -35,51 +34,40 @@ object PlayerChatLocationListener {
             }
         } ?: return@listenEvent
 
-        if (!HollowsModule.hollowsBox.contains(
-                loc.x, loc.y ?: 30.0, loc.z
-            )
-        ) return@listenEvent
+        if (!HollowsModule.hollowsBox.contains(loc.x, loc.y ?: 35.0, loc.z)) return@listenEvent
 
         handleRawLocation(loc, rawMessage)
     }
 
     private fun handleRawLocation(location: RawLocation, rawMessage: String) {
         if (config.mining.crystalHollows.automaticallyAddLocations) {
-            val matchingStructure = HollowsStructure.entries.find { rawMessage.contains(it.displayName, true) }
-            if (HollowsModule.waypoints.containsKey(matchingStructure?.internalWaypointName)) return
-            if (matchingStructure != null) {
-                val pos = Vec3(
-                    location.x, location.y ?: matchingStructure.minY.toDouble(), location.z
+            val matchingSpecific = PreDefinedHollowsLocationSpecific.entries.find {
+                rawMessage.contains(it.name, true) || rawMessage.contains(
+                    it.key, true
                 )
-                HollowsModule.waypoints[matchingStructure.internalWaypointName] = Waypoint(
-                    Component.literal(matchingStructure.displayName),
-                    pos.blockPos.atY(if (matchingStructure == HollowsStructure.JUNGLE_TEMPLE) 115 else (matchingStructure.maxY + matchingStructure.minY) / 2).center,
-                    WaypointType.BEAM,
-                    matchingStructure.waypointColor
-                )
+            }
+
+            if (matchingSpecific != null) {
+                val pos = Vec3(location.x, location.y ?: 80.0, location.z)
+                val hollowsLocation = HollowsLocation(pos, matchingSpecific)
+                EventHandler.invokeEvent(LocatedHollowsStructureEvent(hollowsLocation))
+
                 minecraft.player?.sendSystemMessage(
                     Component.translatable(
-                        "chat.skylper.hollows.locations.found", matchingStructure.displayName, pos.x, pos.y, pos.z
+                        "chat.skylper.hollows.locations.found", matchingSpecific.displayName.string, pos.x, pos.y, pos.z
                     )
                 )
                 return
             }
         }
 
-        val possibleStructures =
-            HollowsStructure.entries.filterNot { HollowsModule.waypoints.containsKey(it.internalWaypointName) }
-        possibleStructures.forEach { structure ->
+        PreDefinedHollowsLocationSpecific.entries.forEach { specific ->
             minecraft.player?.sendSystemMessage(Component.translatable(
-                "chat.skylper.hollows.locations.pick",
-                Component.literal(structure.displayName).withStyle(ChatFormatting.RED)
+                "chat.skylper.hollows.locations.pick", specific.displayName.copy().withStyle(ChatFormatting.RED)
             ).withStyle {
                 val command =
-                    "/skylper hollows waypoints set ${structure.internalWaypointName} ${location.x.toInt()} ${location.y?.toInt() ?: structure.minY} ${location.z.toInt()}"
-                it.withClickEvent(
-                    ClickEvent(
-                        ClickEvent.Action.SUGGEST_COMMAND, command
-                    )
-                )
+                    "/skylper hollows waypoints set ${specific.key} ${location.x.toInt()} ${location.y?.toInt() ?: 80} ${location.z.toInt()}"
+                it.withClickEvent(ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command))
             })
         }
     }

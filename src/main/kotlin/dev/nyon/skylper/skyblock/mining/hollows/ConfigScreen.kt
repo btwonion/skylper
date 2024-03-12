@@ -106,13 +106,6 @@ fun YetAnotherConfigLib.Builder.appendCrystalHollowsCategory() = category("hollo
             tickBox()
         }
 
-        primitive(categoryKey, "$generalWaypointKey.amethyst_crystal") {
-            description(categoryKey, generalWaypointKey, "Amethyst Crystal")
-            getSet({ config.mining.crystalHollows.hollowsWaypoints.amethystCrystal },
-                { config.mining.crystalHollows.hollowsWaypoints.amethystCrystal = it })
-            tickBox()
-        }
-
         primitive(categoryKey, "$generalWaypointKey.odawa") {
             description(categoryKey, generalWaypointKey, "Odawa")
             getSet({ config.mining.crystalHollows.hollowsWaypoints.odawa },

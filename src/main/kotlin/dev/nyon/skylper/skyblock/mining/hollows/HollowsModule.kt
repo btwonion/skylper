@@ -1,23 +1,17 @@
 package dev.nyon.skylper.skyblock.mining.hollows
 
-import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.AreaChangeEvent
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.LevelChangeEvent
+import dev.nyon.skylper.extensions.LocatedHollowsStructureEvent
 import dev.nyon.skylper.extensions.RenderAfterTranslucentEvent
-import dev.nyon.skylper.extensions.render.waypoint.Waypoint
-import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
-import dev.nyon.skylper.skyblock.mining.hollows.locations.ChatStructureListener
-import dev.nyon.skylper.skyblock.mining.hollows.locations.CrystalRunListener
-import dev.nyon.skylper.skyblock.mining.hollows.locations.NameTagEntityListener
-import dev.nyon.skylper.skyblock.mining.hollows.locations.PlayerChatLocationListener
+import dev.nyon.skylper.skyblock.mining.hollows.locations.*
 import dev.nyon.skylper.skyblock.mining.hollows.render.ChestHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.render.ChestParticleHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.solvers.metaldetector.MetalDetectorSolver
 import dev.nyon.skylper.skyblock.mining.hollows.tracker.PassExpiryTracker
-import net.minecraft.network.chat.Component
 import net.minecraft.world.phys.AABB
 
 object HollowsModule {
@@ -26,29 +20,21 @@ object HollowsModule {
     val isPlayerInHollows: Boolean
         get() {
             val areaMatch = PlayerSessionData.currentArea?.contains("Crystal Hollows") == true
-            val posMatch = hollowsBox.contains(
-                minecraft.player?.position() ?: return false
-            )
+            val posMatch = hollowsBox.contains(minecraft.player?.position() ?: return false)
 
             return areaMatch && posMatch
         }
 
-    private val nucleusWaypoint = HollowsStructure.CRYSTAL_NUCLEUS.internalWaypointName to Waypoint(
-        Component.literal(HollowsStructure.CRYSTAL_NUCLEUS.displayName),
-        HollowsStructure.CRYSTAL_NUCLEUS.box.center,
-        WaypointType.BEAM,
-        HollowsStructure.CRYSTAL_NUCLEUS.waypointColor
-    )
-    val waypoints: MutableMap<String, Waypoint> = mutableMapOf()
+    private val nucleusWaypoint = HollowsLocation(hollowsBox.center, PreDefinedHollowsLocationSpecific.CRYSTAL_NUCLEUS)
+    val waypoints: MutableSet<HollowsLocation> = mutableSetOf()
 
     fun init() {
-        PlayerChatLocationListener.init()
-        NameTagEntityListener.init()
-        ChatStructureListener.init()
+        PlayerChatLocationListener
+        NameTagEntityListener
         ChestHighlighter.init()
         CrystalRunListener.init()
         PassExpiryTracker.init()
-        MetalDetectorSolver.init()
+        MetalDetectorSolver
         ChestParticleHighlighter
 
         handleWaypoints()
@@ -57,18 +43,24 @@ object HollowsModule {
     private fun handleWaypoints() {
         listenEvent<LevelChangeEvent, Unit> {
             waypoints.clear()
-            if (config.mining.crystalHollows.hollowsWaypoints.nucleus) waypoints[nucleusWaypoint.first] =
-                nucleusWaypoint.second
+            waypoints.add(nucleusWaypoint)
         }
         listenEvent<AreaChangeEvent, Unit> {
             if (it.next?.contains("Crystal Hollows") == false) waypoints.clear()
-            else waypoints[nucleusWaypoint.first] = nucleusWaypoint.second
+            else waypoints.add(nucleusWaypoint)
         }
         listenEvent<RenderAfterTranslucentEvent, Unit> {
             if (!isPlayerInHollows) return@listenEvent
-            waypoints.values.forEach { waypoint ->
-                waypoint.render(it.context)
+            waypoints.forEach { location ->
+                if (!location.isEnabled) return@forEach
+                location.waypoint.render(it.context)
             }
+        }
+        listenEvent<LocatedHollowsStructureEvent, Unit> { (location) ->
+            if (!isPlayerInHollows) return@listenEvent
+            if (location.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO || waypoints.none { it.specific == location.specific }) waypoints.add(
+                location
+            )
         }
     }
 }

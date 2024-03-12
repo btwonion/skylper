@@ -101,9 +101,7 @@ object MiningCooldown : Cooldown {
                 .withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) }
                 .append(Component.literal(" Pickaxe Ability available ")
                     .withStyle { it.withObfuscated(false).withColor(ChatFormatting.AQUA).withBold(true) })
-                .append(
-                    Component.literal("T")
-                        .withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) })
+                .append(Component.literal("T").withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) })
             )
         }
     }

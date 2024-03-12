@@ -8,11 +8,12 @@ import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
+import dev.nyon.skylper.skyblock.mining.hollows.locations.HollowsLocation
+import dev.nyon.skylper.skyblock.mining.hollows.locations.PreDefinedHollowsLocationSpecific
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
-import net.minecraft.world.entity.decoration.ArmorStand
 import net.minecraft.world.phys.Vec3
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -28,55 +29,63 @@ object MetalDetectorSolver {
     private var successWaypoint: Waypoint? = null
     private var lastChestFound: Instant? = null
 
-    fun init() {
-        listenChat()
-        listenWorldChange()
-        calculateCenter()
-        renderWaypoint()
-    }
-
-    private fun listenChat() = listenEvent<MessageEvent, Unit> {
-        val playerPos = minecraft.player?.position()
-        if (!HollowsModule.isPlayerInHollows) return@listenEvent
+    @Suppress("unused")
+    private val chatEvent = listenEvent<MessageEvent, Unit> {
+        val playerPos = minecraft.player?.position() ?: return@listenEvent
         if (!config.mining.crystalHollows.metalDetectorHelper) return@listenEvent
+        if (!divanCheck()) return@listenEvent
         if (minesCenter == null) return@listenEvent
+
         val stringMessage = it.text.string
-        val now = Clock.System.now()
+        val now = Clock.System.now() // Handle found treasure
         if (stringMessage.contains(FOUND_TREASURE_MESSAGE_START) && stringMessage.contains(FOUND_TREASURE_MESSAGE_END)) {
             successWaypoint = null
             lastChestFound = now
         }
+
         if (successWaypoint != null) return@listenEvent
+
+        // Calculate distance to treasure from action bar
         if (!stringMessage.contains(TREASURE_DISTANCE_MESSAGE)) return@listenEvent
-        playerPos ?: return@listenEvent
         val distanceString = stringMessage.replace(TREASURE_DISTANCE_MESSAGE, "").dropLast(1)
         val distance = distanceString.toDoubleOrNull() ?: return@listenEvent
-        if (successWaypoint != null) return@listenEvent
+
         if (lastChestFound == null || now - lastChestFound!! > 500.milliseconds) solve(distance, playerPos)
     }
 
-    private fun calculateCenter() = listenEvent<TickEvent, Unit> {
-        if (!HollowsModule.isPlayerInHollows) return@listenEvent
-        if (PlayerSessionData.currentZone != "Mines of Divan") return@listenEvent
+    @Suppress("unused")
+    private val tickEvent = listenEvent<TickEvent, Unit> {
+        if (!divanCheck()) return@listenEvent
         if (successWaypoint != null && minecraft.player?.position()
                 ?.distanceTo(successWaypoint!!.pos)!! < 1.5
         ) successWaypoint = null
         if (minesCenter != null) return@listenEvent
 
-        val armorStands = minecraft.level?.getEntitiesOfClass(
-            ArmorStand::class.java, minecraft.player?.radiusBox(50) ?: return@listenEvent
-        )?.filter { it.customName?.string?.contains(KEEPER_OF_NAME) == true } ?: return@listenEvent
+        // Find keeper
+        val armorStands = minecraft.level?.findArmorStandsWithName(KEEPER_OF_NAME) ?: return@listenEvent
         if (armorStands.isEmpty()) return@listenEvent
         val keeperStand = armorStands.first()
         val keeperIdentifier = keeperStand.customName!!.string.replace(KEEPER_OF_NAME, "")
         val keeper = DivanMinesKeeper.entries.find { it.identifier == keeperIdentifier } ?: return@listenEvent
-        minesCenter = keeperStand.position().add(keeper.offset)
+
+        // set mines center
+        val crystalCoords = keeperStand.position().add(keeper.offset)
+        minesCenter = crystalCoords
+        EventHandler.invokeEvent(
+            LocatedHollowsStructureEvent(
+                HollowsLocation(crystalCoords.add(0.0, 2.0, 0.0), PreDefinedHollowsLocationSpecific.MINES_OF_DIVAN)
+            )
+        )
+
+        // Init possible chest locations
         actualChestPositions = detectorChestOffsets.getActualPositions(minesCenter ?: return@listenEvent)
     }
 
-    private fun listenWorldChange() = listenEvent<LevelChangeEvent, Unit> { reset() }
+    @Suppress("unused")
+    private val levelChangeEvent = listenEvent<LevelChangeEvent, Unit> { reset() }
 
-    private fun renderWaypoint() = listenEvent<RenderAfterTranslucentEvent, Unit> {
+    @Suppress("unused")
+    private val renderEvent = listenEvent<RenderAfterTranslucentEvent, Unit> {
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
         successWaypoint?.render(it.context)
     }
@@ -107,5 +116,9 @@ object MetalDetectorSolver {
             WaypointType.FILLED_WITH_BEAM,
             ChatFormatting.RED.color!!
         )
+    }
+
+    private fun divanCheck(): Boolean {
+        return HollowsModule.isPlayerInHollows && PlayerSessionData.currentZone == "Mines of Divan"
     }
 }
