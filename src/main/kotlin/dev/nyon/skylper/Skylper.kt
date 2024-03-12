@@ -13,11 +13,20 @@ import dev.nyon.skylper.extensions.MinecraftStopEvent
 import dev.nyon.skylper.skyblock.Mining
 import dev.nyon.skylper.skyblock.data.online.SkyblockOnlineData
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
-import dev.nyon.skylper.skyblock.data.skylper.*
+import dev.nyon.skylper.skyblock.data.skylper.PlayerDataSaver
+import dev.nyon.skylper.skyblock.data.skylper.PlayerDataUpdater
+import dev.nyon.skylper.skyblock.data.skylper.StoredPlayerData
+import dev.nyon.skylper.skyblock.data.skylper.migrateStoredPlayerData
+import dev.nyon.skylper.skyblock.data.skylper.playerData
 import dev.nyon.skylper.skyblock.menu.Menu
 import dev.nyon.skylper.skyblock.registerRootCommand
 import dev.nyon.skylper.skyblock.render.SkylperHud
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.launch
 import net.fabricmc.api.ClientModInitializer
 import net.minecraft.client.Minecraft
 import dev.nyon.skylper.config.config as internalConfig
@@ -28,7 +37,6 @@ lateinit var minecraft: Minecraft
 val independentScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
 object Skylper : ClientModInitializer {
-
     @Suppress("SpellCheckingInspection")
     override fun onInitializeClient() {
         minecraft = Minecraft.getInstance()
@@ -38,12 +46,18 @@ object Skylper : ClientModInitializer {
         handleStop()
 
         config(
-            configDir.resolve("skylper.json"), 1, Config(), configJsonBuilder::invoke
+            configDir.resolve("skylper.json"),
+            1,
+            Config(),
+            configJsonBuilder::invoke
         ) { jsonTree, version -> migrate(jsonTree, version) }
         internalConfig = loadConfig<Config>() ?: error("No config settings provided to load config!")
 
         config(
-            configDir.resolve("playerdata.json"), 1, StoredPlayerData(), configJsonBuilder::invoke
+            configDir.resolve("playerdata.json"),
+            1,
+            StoredPlayerData(),
+            configJsonBuilder::invoke
         ) { jsonTree, version ->
             migrateStoredPlayerData(jsonTree, version)
         }
