@@ -3,7 +3,7 @@ package dev.nyon.skylper.skyblock.mining.hollows.tracker.powder
 import dev.nyon.skylper.config.Config
 import dev.nyon.skylper.extensions.Event
 import dev.nyon.skylper.extensions.LevelChangeEvent
-import dev.nyon.skylper.extensions.format
+import dev.nyon.skylper.extensions.math.format
 import dev.nyon.skylper.extensions.tracker.Tracker
 import dev.nyon.skylper.extensions.tracker.TrackerData
 import kotlinx.datetime.Clock
