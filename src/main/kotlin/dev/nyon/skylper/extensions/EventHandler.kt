@@ -12,25 +12,6 @@ object EventHandler {
 
     private val listeners = mutableListOf<EventInstance<*, *>>()
 
-    private val debugIgnoredEvents: List<KClass<out Event<*>>> =
-        listOf(
-            TickEvent::class,
-            EntitySpawnEvent::class,
-            ParticleSpawnEvent::class,
-            MessageEvent::class,
-            RenderAfterTranslucentEvent::class,
-            RenderHudEvent::class,
-            BlockUpdateEvent::class,
-            BlockInteractEvent::class,
-            SetItemEvent::class,
-            ScreenOpenEvent::class,
-            InventoryInitEvent::class,
-            BossBarNameUpdate::class,
-            SideboardUpdateEvent::class,
-            RenderItemBackgroundEvent::class,
-            LocatedHollowsStructureEvent::class
-        )
-
     inline fun <reified E : Event<C>, C : Any?> listenEvent(noinline callback: (event: E) -> C) {
         val eventClass = E::class
         listenEvent(eventClass, callback)
@@ -57,7 +38,6 @@ object EventHandler {
                     it.invoke(event)
                 } ?: return@runBlocking null
 
-            if (!debugIgnoredEvents.contains(event::class)) debug("Invoked event $event for ${eventListeners.listeners.size} listeners.")
             return@runBlocking callbacks.firstOrNull()
         }
 }
