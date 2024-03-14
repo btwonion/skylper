@@ -1,12 +1,15 @@
 # Features
-## Menu
+### Menu
+
 - non-completed collection highlighter
 
-## Mining
+### Mining
+
 - mining ability indicator and notification
 - Total Powder overlay
 
-## Crystal Hollows
+#### Crystal Hollows
+
 - waypoints for:
   - goblin king
   - goblin queen
@@ -32,12 +35,16 @@
 - metal detector helper
 - treasure chest particle highlighting
 
-## Planned Features
-### General
-- customizable mob highlights
-- waypoint screen, custom waypoints, waypoint share in chat
+### Planned Features
 
-### Crystal Hollows
+#### General
+
+- customizable mob highlights
+- waypoint screen, waypoint share in chat
+- general profit tracker
+
+#### Crystal Hollows
+
 - wishing compass solver
 - nucleus profit tracker
 - needed item overlay based on current zone

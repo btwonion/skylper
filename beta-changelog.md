@@ -1,4 +1,5 @@
 ## Features
+
 ```diff
 + add highlighter for non-completed bestiaries
 ```
@@ -13,4 +14,7 @@
 ## Technical changes
 
 ```diff
++ parse profile from messages on level change instead of tablist to be independent from custom tablists
++ parse powder update now also from sideboard
++ remove debugging
 ```
