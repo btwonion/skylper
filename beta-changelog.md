@@ -1,5 +1,6 @@
 ## Features
 ```diff
++ add highlighter for non-completed bestiaries
 ```
 
 ## Bug Fixes

@@ -53,11 +53,11 @@ object EventHandler {
         runBlocking {
             val eventListeners = listeners.find { it.kClass == event::class } as EventInstance<E, C>?
             val callbacks =
-                eventListeners?.listeners?.map {
+                eventListeners?.listeners?.mapNotNull {
                     it.invoke(event)
                 } ?: return@runBlocking null
 
             if (!debugIgnoredEvents.contains(event::class)) debug("Invoked event $event for ${eventListeners.listeners.size} listeners.")
-            return@runBlocking callbacks.first()
+            return@runBlocking callbacks.firstOrNull()
         }
 }

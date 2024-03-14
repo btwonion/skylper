@@ -7,7 +7,7 @@ import dev.nyon.skylper.config.screen.extensions.action
 import dev.nyon.skylper.config.screen.extensions.category
 import dev.nyon.skylper.config.screen.extensions.description
 import dev.nyon.skylper.minecraft
-import dev.nyon.skylper.skyblock.menu.collections.appendMenuCategory
+import dev.nyon.skylper.skyblock.menu.appendMenuCategory
 import dev.nyon.skylper.skyblock.mining.appendMiningCategory
 import dev.nyon.skylper.skyblock.mining.hollows.appendCrystalHollowsCategory
 import dev.nyon.skylper.skyblock.render.SkylperHudModifier
