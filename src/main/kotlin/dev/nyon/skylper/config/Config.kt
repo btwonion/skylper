@@ -85,11 +85,17 @@ data class Config(val mining: MiningConfig = MiningConfig(), val menu: Menu = Me
     data class TotalPowderOverlay(var enabled: Boolean = true, var x: Int = 5, var y: Int = 300)
 
     @Serializable
-    data class Menu(val collections: Collections = Collections()) {
+    data class Menu(val collections: Collections = Collections(), val bestiary: Bestiary = Bestiary()) {
         @Serializable
         data class Collections(
             var highlightNonCompletedCollections: Boolean = true,
-            var nonCompletedCollectionHighlightColor: @Contextual Color = Color(130, 50, 0, 70)
+            var nonCompletedCollectionHighlightColor: @Contextual Color = Color(255, 0, 0, 255)
+        )
+
+        @Serializable
+        data class Bestiary(
+            var highlightNonCompletedBestiary: Boolean = true,
+            var nonCompletedBestiaryHighlightColor: @Contextual Color = Color(255, 0, 0, 255)
         )
     }
 }
