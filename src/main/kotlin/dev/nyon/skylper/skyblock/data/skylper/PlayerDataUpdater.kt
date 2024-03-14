@@ -2,8 +2,10 @@ package dev.nyon.skylper.skyblock.data.skylper
 
 import dev.nyon.skylper.extensions.CrystalFoundEvent
 import dev.nyon.skylper.extensions.CrystalPlaceEvent
+import dev.nyon.skylper.extensions.EventHandler
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.NucleusRunCompleteEvent
+import dev.nyon.skylper.extensions.PowderGainEvent
 import dev.nyon.skylper.extensions.ProfileChangeEvent
 import dev.nyon.skylper.extensions.SetItemEvent
 import dev.nyon.skylper.extensions.SideboardUpdateEvent
@@ -97,13 +99,19 @@ object PlayerDataUpdater {
         listenEvent<SideboardUpdateEvent, Unit> {
             it.cleanLines.forEach { line ->
                 if (line.contains("Mithril: ")) {
-                    val mithril = line.drop(11).doubleOrNull()
-                    if (mithril != null) playerData.currentProfile?.mining?.mithrilPowder = mithril.toInt()
+                    val mithril = line.drop(11).doubleOrNull()?.toInt()
+                    if (mithril != null) {
+                        playerData.currentProfile?.mining?.mithrilPowder = mithril
+                        EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.MITHRIL, mithril))
+                    }
                 }
 
                 if (line.contains("Gemstone: ")) {
-                    val gemstone = line.drop(12).doubleOrNull()
-                    if (gemstone != null) playerData.currentProfile?.mining?.gemstonePowder = gemstone.toInt()
+                    val gemstone = line.drop(12).doubleOrNull()?.toInt()
+                    if (gemstone != null) {
+                        playerData.currentProfile?.mining?.gemstonePowder = gemstone
+                        EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.GEMSTONE, gemstone))
+                    }
                 }
             }
         }

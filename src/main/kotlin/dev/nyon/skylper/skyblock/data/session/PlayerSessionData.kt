@@ -5,7 +5,7 @@ import dev.nyon.skylper.extensions.EventHandler.invokeEvent
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.HypixelJoinEvent
 import dev.nyon.skylper.extensions.HypixelQuitEvent
-import dev.nyon.skylper.extensions.ProfileChangeEvent
+import dev.nyon.skylper.extensions.MessageEvent
 import dev.nyon.skylper.extensions.ScreenOpenEvent
 import dev.nyon.skylper.extensions.SideboardUpdateEvent
 import dev.nyon.skylper.extensions.SkyblockEnterEvent
@@ -38,9 +38,7 @@ object PlayerSessionData {
     var currentScreen: AbstractContainerScreen<*>? = null
 
     fun startUpdaters() {
-        listenHypixelSession()
         startTicker()
-        listenScreenUpdate()
     }
 
     private fun startTicker() {
@@ -73,14 +71,6 @@ object PlayerSessionData {
             onlinePlayers.forEach { entry ->
                 val displayName = entry.tabListDisplayName?.string ?: return@forEach
                 when {
-                    displayName.startsWith("Profile: ") -> {
-                        val newProfile = displayName.drop(9)
-                        if (newProfile != profile) {
-                            invokeEvent(ProfileChangeEvent(profile, newProfile))
-                            profile = newProfile
-                        }
-                    }
-
                     displayName.startsWith("Area: ") -> {
                         val newArea = displayName.drop(6)
                         if (newArea != currentArea) {
@@ -121,19 +111,29 @@ object PlayerSessionData {
         }
     }
 
-    private fun listenHypixelSession() {
+    @Suppress("unused")
+    private val hypixelJoinEvent =
         listenEvent<HypixelJoinEvent, Unit> {
             isOnHypixel = true
         }
 
+    @Suppress("unused")
+    private val hypixelQuitEvent =
         listenEvent<HypixelQuitEvent, Unit> {
             clearData(true)
         }
-    }
 
-    private fun listenScreenUpdate() =
+    @Suppress("unused")
+    private val screenUpdateEvent =
         listenEvent<ScreenOpenEvent, Unit> {
             currentScreen = it.screen
+        }
+
+    @Suppress("unused")
+    private val messageEvent =
+        listenEvent<MessageEvent, Unit> {
+            val raw = it.text.string
+            if (raw.startsWith("§aYou are playing on profile: §e")) profile = raw.drop(32)
         }
 
     private fun clearData(withHypixel: Boolean = false) {
