@@ -12,6 +12,7 @@ in [features.md](https://github.com/btwonion/skylper/blob/master/features.md).
 ### Menu
 
 - non-completed collection highlighter
+- non-completed bestiary highlighter
 
 ### Mining
 

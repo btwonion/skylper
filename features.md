@@ -2,6 +2,7 @@
 ### Menu
 
 - non-completed collection highlighter
+- non-completed bestiary highlighter
 
 ### Mining
 
