@@ -6,7 +6,6 @@ import dev.nyon.konfig.config.saveConfig
 import dev.nyon.skylper.config.Config
 import dev.nyon.skylper.config.configDir
 import dev.nyon.skylper.config.configJsonBuilder
-import dev.nyon.skylper.config.migrate
 import dev.nyon.skylper.extensions.EventHandler
 import dev.nyon.skylper.extensions.FabricEvents
 import dev.nyon.skylper.extensions.MinecraftStopEvent
@@ -16,7 +15,6 @@ import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.data.skylper.PlayerDataSaver
 import dev.nyon.skylper.skyblock.data.skylper.PlayerDataUpdater
 import dev.nyon.skylper.skyblock.data.skylper.StoredPlayerData
-import dev.nyon.skylper.skyblock.data.skylper.migrateStoredPlayerData
 import dev.nyon.skylper.skyblock.data.skylper.playerData
 import dev.nyon.skylper.skyblock.menu.Menu
 import dev.nyon.skylper.skyblock.registerRootCommand
@@ -50,7 +48,7 @@ object Skylper : ClientModInitializer {
             1,
             Config(),
             configJsonBuilder::invoke
-        ) { jsonTree, version -> migrate(jsonTree, version) }
+        ) { _, _ -> null }
         internalConfig = loadConfig<Config>() ?: error("No config settings provided to load config!")
 
         config(
@@ -58,9 +56,7 @@ object Skylper : ClientModInitializer {
             1,
             StoredPlayerData(),
             configJsonBuilder::invoke
-        ) { jsonTree, version ->
-            migrateStoredPlayerData(jsonTree, version)
-        }
+        ) { _, _ -> null }
         playerData = loadConfig<StoredPlayerData>() ?: error("No config settings provided to load player data!")
 
         mcScope.launch { setup() }
