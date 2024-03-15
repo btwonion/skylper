@@ -86,6 +86,7 @@ object PlayerSessionData {
     @Suppress("SpellCheckingInspection")
     private fun updateFromSideboard() {
         var containsSkyblockTitle = false
+        if (scoreboardLineStrings.isEmpty()) return
 
         scoreboardLineStrings.forEach { s ->
             when {
