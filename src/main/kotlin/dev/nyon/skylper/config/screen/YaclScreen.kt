@@ -10,6 +10,7 @@ import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.menu.appendMenuCategory
 import dev.nyon.skylper.skyblock.mining.appendMiningCategory
 import dev.nyon.skylper.skyblock.mining.hollows.appendCrystalHollowsCategory
+import dev.nyon.skylper.skyblock.misc.appendMiscCategory
 import dev.nyon.skylper.skyblock.render.SkylperHudModifier
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
@@ -23,6 +24,7 @@ internal fun createYaclScreen(parent: Screen?): Screen {
     builder.appendMenuCategory()
     builder.appendMiningCategory()
     builder.appendCrystalHollowsCategory()
+    builder.appendMiscCategory()
 
     builder.save { saveConfig(config) }
     val screen = builder.build()

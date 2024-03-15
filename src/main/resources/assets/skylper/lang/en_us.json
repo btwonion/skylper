@@ -82,6 +82,9 @@
   "menu.skylper.config.hollows.powder_grinding.mithril.hour_stat.description": "Decides whether the amount of Mithril Powder per hour should be displayed in the widget.",
   "menu.skylper.config.hollows.powder_grinding.double_powder.title": "Double Powder Event state",
   "menu.skylper.config.hollows.powder_grinding.double_powder.description": "Toggles whether the state of the Double Powder event of the Crystal Hollows should be visible in the widget.",
+  "menu.skylper.config.misc.title": "Misc",
+  "menu.skylper.config.misc.lobby_recognition.title": "Recognized lobbies",
+  "menu.skylper.config.misc.lobby_recognition.description": "Send a message if you already joined the lobby in the session.",
   "menu.skylper.tabhud.modifier.title": "Modify HUD",
   "menu.skylper.tabhud.modifier.caption": "Drag the widgets to reorder them.",
   "menu.skylper.overlay.duration": "Time spent: ",
@@ -118,5 +121,6 @@
   "chat.skylper.hollows.solver.metaldetector.failed": "The metal detector solver has failed! Try another location!",
   "chat.skylper.hollows.solver.metaldetector.success": "Found treasure location!",
   "chat.skylper.hollows.solver.metaldetector.invalid": "Solver found %d solutions! Try another location!",
-  "chat.skylper.hollows.pickaxe_cooldown.not_found": "No Pickaxe Ability could be found. If this is an error, please open the /hotm screen!"
+  "chat.skylper.hollows.pickaxe_cooldown.not_found": "No Pickaxe Ability could be found. If this is an error, please open the /hotm screen!",
+  "chat.skylper.misc.lobby_recognition": "You've been in this lobby!"
 }
