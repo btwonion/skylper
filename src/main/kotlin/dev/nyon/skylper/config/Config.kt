@@ -20,7 +20,7 @@ val configDir: Path = FabricLoader.getInstance().configDir.resolve("skylper")
 var config: Config = Config()
 
 @Serializable
-data class Config(val mining: MiningConfig = MiningConfig(), val menu: Menu = Menu()) {
+data class Config(val mining: MiningConfig = MiningConfig(), val menu: Menu = Menu(), val misc: Misc = Misc()) {
     @Serializable
     data class MiningConfig(
         val crystalHollows: CrystalHollowsConfig = CrystalHollowsConfig(),
@@ -98,4 +98,7 @@ data class Config(val mining: MiningConfig = MiningConfig(), val menu: Menu = Me
             var nonCompletedBestiaryHighlightColor: @Contextual Color = Color(255, 0, 0, 255)
         )
     }
+
+    @Serializable
+    data class Misc(var recognizeLobbies: Boolean = true)
 }

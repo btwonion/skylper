@@ -17,6 +17,7 @@ import dev.nyon.skylper.skyblock.data.skylper.PlayerDataUpdater
 import dev.nyon.skylper.skyblock.data.skylper.StoredPlayerData
 import dev.nyon.skylper.skyblock.data.skylper.playerData
 import dev.nyon.skylper.skyblock.menu.Menu
+import dev.nyon.skylper.skyblock.misc.Misc
 import dev.nyon.skylper.skyblock.registerRootCommand
 import dev.nyon.skylper.skyblock.render.SkylperHud
 import kotlinx.coroutines.CoroutineDispatcher
@@ -75,6 +76,7 @@ object Skylper : ClientModInitializer {
 
         Mining.init()
         Menu.init()
+        Misc.init()
     }
 
     private fun handleStop() {
