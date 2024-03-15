@@ -1,4 +1,5 @@
 # Features
+
 ### Menu
 
 - non-completed collection highlighter
@@ -35,6 +36,10 @@
 - treasure chest highlighting
 - metal detector helper
 - treasure chest particle highlighting
+
+### Misc
+
+- notification for lobby you already joined
 
 ### Planned Features
 

@@ -43,6 +43,10 @@
 + treasure chest particle highlighting
 ```
 
+### Misc
+
++ notification for lobby you already joined
+
 ## Bug Fixes
 
 ```diff
