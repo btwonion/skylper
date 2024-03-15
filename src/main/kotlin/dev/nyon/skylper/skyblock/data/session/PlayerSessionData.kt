@@ -6,6 +6,7 @@ import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.HypixelJoinEvent
 import dev.nyon.skylper.extensions.HypixelQuitEvent
 import dev.nyon.skylper.extensions.MessageEvent
+import dev.nyon.skylper.extensions.ProfileChangeEvent
 import dev.nyon.skylper.extensions.ScreenOpenEvent
 import dev.nyon.skylper.extensions.SideboardUpdateEvent
 import dev.nyon.skylper.extensions.SkyblockEnterEvent
@@ -134,7 +135,10 @@ object PlayerSessionData {
     private val messageEvent =
         listenEvent<MessageEvent, Unit> {
             val raw = it.text.string
-            if (raw.startsWith("§aYou are playing on profile: §e")) profile = raw.drop(32)
+            if (raw.startsWith("§aYou are playing on profile: §e")) {
+                profile = raw.drop(32)
+                invokeEvent(ProfileChangeEvent(null, profile))
+            }
         }
 
     private fun clearData(withHypixel: Boolean = false) {
@@ -146,6 +150,7 @@ object PlayerSessionData {
         isOnSkyblock = false
         currentArea = null
         currentZone = null
+        invokeEvent(ProfileChangeEvent(profile, null))
         profile = null
 
         scoreboardLines = emptyList()
