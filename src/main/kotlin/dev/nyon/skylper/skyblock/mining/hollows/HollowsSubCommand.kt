@@ -26,9 +26,7 @@ fun LiteralArgumentBuilder<FabricClientCommandSource>.appendCrystalHollowsSubCom
                                 PreDefinedHollowsLocationSpecific.entries.find { it.key == key } ?: CustomHollowsLocationSpecific(key)
 
                             val location = HollowsLocation(loc, specific)
-                            if (HollowsModule.waypoints.none { it.specific == specific } ||
-                                specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO
-                            ) {
+                            if (HollowsModule.waypoints.none { it.specific == specific } || specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO) {
                                 HollowsModule.waypoints.add(location)
                             } else {
                                 HollowsModule.waypoints.find { it.specific == specific }?.pos = loc

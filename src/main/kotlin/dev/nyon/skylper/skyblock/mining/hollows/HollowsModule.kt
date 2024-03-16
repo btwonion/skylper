@@ -13,6 +13,7 @@ import dev.nyon.skylper.skyblock.mining.hollows.locations.NameTagEntityListener
 import dev.nyon.skylper.skyblock.mining.hollows.locations.PlayerChatLocationListener
 import dev.nyon.skylper.skyblock.mining.hollows.locations.PreDefinedHollowsLocationSpecific
 import dev.nyon.skylper.skyblock.mining.hollows.locations.SideboardLocationListener
+import dev.nyon.skylper.skyblock.mining.hollows.locations.registerHollowsLocationHotkey
 import dev.nyon.skylper.skyblock.mining.hollows.render.ChestHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.render.ChestParticleHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.solvers.metaldetector.MetalDetectorSolver
@@ -42,6 +43,7 @@ object HollowsModule {
         PassExpiryTracker.init()
         MetalDetectorSolver
         ChestParticleHighlighter
+        registerHollowsLocationHotkey()
 
         handleWaypoints()
     }
@@ -67,9 +69,8 @@ object HollowsModule {
         }
         listenEvent<LocatedHollowsStructureEvent, Unit> { (location) ->
             if (!isPlayerInHollows) return@listenEvent
-            if (location.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO ||
-                waypoints.none { it.specific == location.specific }
-            ) {
+            val isFairyGrotto = location.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO
+            if (isFairyGrotto || waypoints.none { it.specific == location.specific }) {
                 waypoints.add(location)
             }
         }
