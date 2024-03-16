@@ -66,7 +66,9 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
                 when (reward) {
                     ChestReward.MITHRIL_POWDER -> {
                         EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.MITHRIL, fixedAmount))
-                        playerData.currentProfile?.mining?.mithrilPowder = fixedAmount + (playerData.currentProfile?.mining?.mithrilPowder ?: 0)
+                        playerData.currentProfile?.mining?.mithrilPowder = fixedAmount + (
+                            playerData.currentProfile?.mining?.mithrilPowder ?: 0
+                        )
                         data.mithril.updateByIncrease(fixedAmount, this@PowderGrindingTracker)
                     }
                     ChestReward.GEMSTONE_POWDER -> {
