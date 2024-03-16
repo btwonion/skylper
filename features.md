@@ -47,7 +47,6 @@
 #### General
 
 - customizable mob highlights
-- waypoint screen, waypoint share in chat
 - general profit tracker
 
 #### Crystal Hollows
