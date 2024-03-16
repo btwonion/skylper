@@ -26,6 +26,7 @@
   - corleone
   - key guardian
 - auto waypoint recognition through public chat
+- waypoints manage screen via hotkey `p` or the config screen
 - crystal completion overlay
 - powder grinding overlay
   - session time
