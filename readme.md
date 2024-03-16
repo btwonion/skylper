@@ -35,6 +35,7 @@ in [features.md](https://github.com/btwonion/skylper/blob/master/features.md).
   - corleone
   - key guardian
 - auto waypoint recognition through public chat
+- waypoints manage screen via hotkey `p` or the config screen
 - crystal completion overlay
 - powder grinding overlay
   - session time
