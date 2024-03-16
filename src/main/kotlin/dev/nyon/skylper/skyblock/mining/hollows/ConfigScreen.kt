@@ -11,6 +11,7 @@ import dev.nyon.skylper.config.screen.extensions.primitive
 import dev.nyon.skylper.config.screen.extensions.subGroup
 import dev.nyon.skylper.config.screen.extensions.tickBox
 import dev.nyon.skylper.config.screen.extensions.trackerConfig
+import dev.nyon.skylper.skyblock.mining.hollows.locations.appendHollowsLocationScreen
 import dev.nyon.skylper.skyblock.mining.hollows.tracker.powder.PowderGrindingTracker
 
 fun YetAnotherConfigLib.Builder.appendCrystalHollowsCategory() =
@@ -79,6 +80,8 @@ fun YetAnotherConfigLib.Builder.appendCrystalHollowsCategory() =
                 tickBox()
             }
         }
+
+        appendHollowsLocationScreen(categoryKey)
 
         // structure waypoint toggles
         val waypointsGroupKey = "waypoints"

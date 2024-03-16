@@ -50,11 +50,9 @@ class SkylperHudModifier(private val parent: Screen?) : Screen(Component.transla
         dragY: Double
     ): Boolean {
         val draggedWidget =
-            enabledWidgets.find {
-                    widget ->
+            enabledWidgets.find { widget ->
                 (mouseX >= widget.x && mouseX <= widget.x + widget.width) && (mouseY >= widget.y && mouseY <= widget.y + widget.height)
-            }
-                ?: return false
+            } ?: return false
         draggedWidget.x = max(draggedWidget.x + dragX, 0.0)
         draggedWidget.y = max(draggedWidget.y + dragY, 0.0)
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY)
