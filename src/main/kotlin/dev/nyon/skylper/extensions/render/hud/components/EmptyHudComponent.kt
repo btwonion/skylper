@@ -12,6 +12,5 @@ object EmptyHudComponent : HudComponent {
         y: Int,
         mouseX: Int,
         mouseY: Int
-    ) {
-    }
+    ) {}
 }
