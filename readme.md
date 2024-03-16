@@ -47,12 +47,14 @@ in [features.md](https://github.com/btwonion/skylper/blob/master/features.md).
 - metal detector helper
 - treasure chest particle highlighting
 
+### Misc
+- lobby recognition
+
 ### Planned Features
 
 #### General
 
 - customizable mob highlights
-- waypoint screen, waypoint share in chat
 - general profit tracker
 
 #### Crystal Hollows
