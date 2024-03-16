@@ -48,7 +48,7 @@ in [features.md](https://github.com/btwonion/skylper/blob/master/features.md).
 - treasure chest particle highlighting
 
 ### Misc
-- lobby recognition
+- notification for lobby you already joined
 
 ### Planned Features
 
