@@ -1,12 +1,13 @@
 ## Features
 
 ```diff
-+ waypoints screen to view, share and delete your waypoints in the Crystal Hollows
 ```
 
 ## Bug Fixes
 
 ```diff
++ also display powder grinding tracker for players with maxed great explorer
++ do not indefinitely create fairy grotto waypoints
 ```
 
 ## Technical changes
