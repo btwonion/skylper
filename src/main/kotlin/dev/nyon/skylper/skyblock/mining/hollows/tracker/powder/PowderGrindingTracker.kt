@@ -46,12 +46,12 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
     private val chatListener =
         listenEvent<MessageEvent, Unit> {
             if (!HollowsModule.isPlayerInHollows) return@listenEvent
+            val now = Clock.System.now()
             val raw = it.text.string
             when {
                 PowderGrindingPatterns.powderStartedPattern.matches(raw) -> data.doublePowderActive = true
                 PowderGrindingPatterns.powderEndedPattern.matches(raw) -> data.doublePowderActive = false
                 PowderGrindingPatterns.pickedLockPattern.matches(raw) -> {
-                    val now = Clock.System.now()
                     if (startTime == null) startTime = now
                     lastChestOpened = now
                     data.chest.updateByIncrease(1, this@PowderGrindingTracker)
@@ -62,6 +62,7 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
                 val matcher = reward.pattern.matcher(raw)
                 if (!matcher.matches()) return@forEach
                 val amount = matcher.group("amount").doubleOrNull()?.toInt() ?: return@forEach
+                lastChestOpened = now
                 val fixedAmount = amount * if (data.doublePowderActive) 2 else 1
                 when (reward) {
                     ChestReward.MITHRIL_POWDER -> {
