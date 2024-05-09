@@ -40,7 +40,7 @@ in [features.md](https://github.com/btwonion/skylper/blob/master/features.md).
 - powder grinding overlay
   - session time
   - opened chests
-  - farmed mithril and gemstone powder in total/per hour/per minute
+  - farmed mithril, gemstone and glacite powder in total/per hour/per minute
   - active double powder event
 - automatic crystal hollows pass renew
 - treasure chest highlighting
