@@ -16,7 +16,7 @@ import net.minecraft.network.chat.Component
 import kotlin.reflect.KClass
 import kotlin.time.Duration.Companion.seconds
 
-object TotalPowderWidget : TableHudWidget(Component.translatable("menu.skylper.overlay.hollows.total_powder.title"), 2, 2) {
+object TotalPowderWidget : TableHudWidget(Component.translatable("menu.skylper.overlay.hollows.total_powder.title"), 3, 2) {
     override var x: Double = config.mining.totalPowderOverlay.x.toDouble()
         set(value) {
             config.mining.totalPowderOverlay.x = value.toInt()
@@ -63,6 +63,24 @@ object TotalPowderWidget : TableHudWidget(Component.translatable("menu.skylper.o
             PlainTextHudComponent(
                 Component.literal(
                     playerData.currentProfile?.mining?.gemstonePowder?.format() ?: "Open /hotm screen"
+                )
+            )
+        )
+
+        addComponent(
+            2,
+            0,
+            PlainTextHudComponent(
+                Component.translatable("menu.skylper.overlay.hollows.total_powder.glacite")
+                    .withStyle { it.withColor(ChatFormatting.AQUA) }
+            )
+        )
+        addComponent(
+            2,
+            1,
+            PlainTextHudComponent(
+                Component.literal(
+                    playerData.currentProfile?.mining?.glacitePowder?.format() ?: "Open /hotm screen"
                 )
             )
         )

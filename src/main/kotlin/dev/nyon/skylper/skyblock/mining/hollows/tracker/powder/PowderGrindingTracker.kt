@@ -78,6 +78,12 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
                             fixedAmount + (playerData.currentProfile?.mining?.gemstonePowder ?: 0)
                         data.gemstone.updateByIncrease(fixedAmount, this@PowderGrindingTracker)
                     }
+                    ChestReward.GLACITE_POWDER -> {
+                        EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.GLACITE, fixedAmount))
+                        playerData.currentProfile?.mining?.glacitePowder =
+                            fixedAmount + (playerData.currentProfile?.mining?.glacitePowder ?: 0)
+                        data.glacite.updateByIncrease(fixedAmount, this@PowderGrindingTracker)
+                    }
                     else -> {}
                 }
             }
@@ -149,6 +155,9 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
 
         val mithrilKey = "mithril"
         resourceConfig(mithrilKey, config.mithril)
+
+        val glaciteKey = "glacite"
+        resourceConfig(glaciteKey, config.glacite)
 
         // double powder toggle
         val doublePowderKey = "double_powder"

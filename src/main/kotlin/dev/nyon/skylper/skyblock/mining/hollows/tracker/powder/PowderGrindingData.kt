@@ -15,6 +15,7 @@ data class PowderGrindingData(
     var doublePowderActive: Boolean = false,
     var gemstone: ResourceData = ResourceData(),
     var mithril: ResourceData = ResourceData(),
+    var glacite: ResourceData = ResourceData(),
     var chest: ResourceData = ResourceData()
 ) : TrackerData {
     data class ResourceData(var total: Int = 0, var perMinute: Int = 0, var perHour: Int = 0) {

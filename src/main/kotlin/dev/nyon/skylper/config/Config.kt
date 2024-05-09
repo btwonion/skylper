@@ -69,6 +69,7 @@ data class Config(val mining: MiningConfig = MiningConfig(), val menu: Menu = Me
             var chests: ResourceConfig = ResourceConfig(),
             var gemstone: ResourceConfig = ResourceConfig(),
             var mithril: ResourceConfig = ResourceConfig(),
+            var glacite: ResourceConfig = ResourceConfig(total = false, perHour = false),
             var doublePowder: Boolean = true,
             var sessionTime: Boolean = true
         ) {

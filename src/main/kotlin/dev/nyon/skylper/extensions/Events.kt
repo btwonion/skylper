@@ -80,7 +80,8 @@ data class BossBarNameUpdate(val text: Component) : Event<Unit>
 data class PowderGainEvent(val type: PowderType, val amount: Int) : Event<Unit> {
     enum class PowderType {
         GEMSTONE,
-        MITHRIL
+        MITHRIL,
+        GLACITE
     }
 }
 

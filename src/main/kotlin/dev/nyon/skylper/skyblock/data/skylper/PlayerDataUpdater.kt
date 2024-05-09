@@ -89,6 +89,8 @@ object PlayerDataUpdater {
                     if (mithrilPowder != null) playerData.currentProfile?.mining?.mithrilPowder = mithrilPowder.toInt()
                     val gemstonePowder = lore.find { line -> line.contains("Gemstone Powder: ") }?.drop(17)?.doubleOrNull()
                     if (gemstonePowder != null) playerData.currentProfile?.mining?.gemstonePowder = gemstonePowder.toInt()
+                    val glacitePowder = lore.find { line -> line.contains("Glacite Powder: ") }?.drop(17)?.doubleOrNull()
+                    if (glacitePowder != null) playerData.currentProfile?.mining?.glacitePowder = glacitePowder.toInt()
                 }
             }
         }
@@ -113,6 +115,15 @@ object PlayerDataUpdater {
                         EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.GEMSTONE, gemstone))
                     }
                 }
+
+                if (line.contains("Glacite: "))
+                    {
+                        val glacite = line.drop(9).doubleOrNull()?.toInt()
+                        if (glacite != null) {
+                            playerData.currentProfile?.mining?.glacitePowder = glacite
+                            EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.GLACITE, glacite))
+                        }
+                    }
             }
         }
 }

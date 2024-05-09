@@ -22,6 +22,7 @@ data class Mining(
     var selectedAbility: MiningAbility? = null,
     var mithrilPowder: Int = 0,
     var gemstonePowder: Int = 0,
+    var glacitePowder: Int = 0,
     val crystalHollows: CrystalHollows = CrystalHollows()
 )
 

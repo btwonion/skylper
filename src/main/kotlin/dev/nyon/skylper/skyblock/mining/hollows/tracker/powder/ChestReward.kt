@@ -5,6 +5,7 @@ import java.util.regex.Pattern
 enum class ChestReward(val displayName: String, val pattern: Pattern) {
     MITHRIL_POWDER("Mithril Powder", "You received (?<amount>.*) Mithril Powder.".toPattern()),
     GEMSTONE_POWDER("Gemstone Powder", "You received (?<amount>.*) Gemstone Powder.".toPattern()),
+    GLACITE_POWDER("Glacite Powder", "You received (?<amount>.*) Glacite Powder.".toPattern()),
 
     ROUGH_RUBY_GEMSTONE(
         "Rough Ruby Gemstone",
