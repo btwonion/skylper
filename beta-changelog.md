@@ -9,6 +9,7 @@
 
 ```diff
 + fix waypoints translating correctly
++ fix outline and filled block coloring
 ```
 
 ## Technical changes

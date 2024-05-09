@@ -80,7 +80,6 @@ fun WorldRenderContext.renderBeaconBeam(
     matrices.popPose()
 }
 
-// Does still not work correctly... custom shader will work, but i dont really see through this atm
 fun WorldRenderContext.renderFilled(
     box: AABB,
     color: Int
@@ -118,7 +117,7 @@ fun WorldRenderContext.renderFilled(
         javaColor.red.toFloat() / 255,
         javaColor.blue.toFloat() / 255,
         javaColor.green.toFloat() / 255,
-        100f
+        0.2f
     )
     tes.end()
 
