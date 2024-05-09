@@ -28,7 +28,7 @@ fun WorldRenderContext.renderText(
     backgroundColor: Int,
     throughWalls: Boolean = true
 ) {
-    val matrices = matrixStack()
+    val matrices = matrixStack()!!
     val cameraPos = camera().position
     val font = minecraft.font
 
@@ -71,7 +71,7 @@ fun WorldRenderContext.renderBeaconBeam(
     color: Int
 ) {
     if (!minecraft.isVisible(AABB(pos.x, pos.y, pos.z, pos.x + 1, MAX_BUILD_HEIGHT, pos.z + 1))) return
-    val matrices = matrixStack()
+    val matrices = matrixStack()!!
     val cameraPos = camera().position
 
     matrices.pushPose()
@@ -86,7 +86,7 @@ fun WorldRenderContext.renderFilled(
     box: AABB,
     color: Int
 ) {
-    val matrices = matrixStack()
+    val matrices = matrixStack()!!
     val cameraPos = camera().position
 
     matrices.pushPose()
@@ -137,7 +137,7 @@ fun WorldRenderContext.renderOutline(
     throughWalls: Boolean
 ) {
     if (!minecraft.isVisible(box) && !throughWalls) return
-    val matrices = matrixStack()
+    val matrices = matrixStack()!!
     val cameraPos = camera().position
     val tes = RenderSystem.renderThreadTesselator()
     val builder = tes.builder

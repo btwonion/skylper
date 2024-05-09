@@ -65,7 +65,7 @@ object Skylper : ClientModInitializer {
             Config(),
             configJsonBuilder::invoke
         ) { _, _ -> null }
-        internalConfig = loadConfig<Config>() ?: error("No config settings provided to load config!")
+        internalConfig = loadConfig<Config>()
 
         config(
             configDir.resolve("playerdata.json"),
@@ -73,7 +73,7 @@ object Skylper : ClientModInitializer {
             StoredPlayerData(),
             configJsonBuilder::invoke
         ) { _, _ -> null }
-        playerData = loadConfig<StoredPlayerData>() ?: error("No config settings provided to load player data!")
+        playerData = loadConfig<StoredPlayerData>()
 
         mcScope.launch { setup() }
     }

@@ -1,18 +1,19 @@
 package dev.nyon.skylper.extensions
 
 import dev.nyon.skylper.minecraft
+import net.minecraft.core.component.DataComponents
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
+import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 
 val ItemStack.extraAttributes: CompoundTag?
     get() {
-        tag ?: return null
-        val compoundTag = tag as CompoundTag
+        val tag = get(DataComponents.CUSTOM_DATA)?.copyTag() ?: return null
         val key = "ExtraAttributes"
-        if (!compoundTag.contains(key)) return null
-        return compoundTag.getCompound(key)
+        if (!tag.contains(key)) return null
+        return tag.getCompound(key)
     }
 
 val ItemStack.internalName: String?
@@ -25,15 +26,14 @@ val ItemStack.internalName: String?
 
 val ItemStack.display: CompoundTag?
     get() {
-        tag ?: return null
-        val compoundTag = tag as CompoundTag
+        val tag = get(DataComponents.CUSTOM_DATA)?.copyTag() ?: return null
         val key = "display"
-        if (!compoundTag.contains(key)) return null
-        return compoundTag.getCompound(key)
+        if (!tag.contains(key)) return null
+        return tag.getCompound(key)
     }
 
 val ItemStack.lore: List<Component>
     get() {
-        val lines = getTooltipLines(minecraft.player, TooltipFlag.ADVANCED)
+        val lines = getTooltipLines(Item.TooltipContext.EMPTY, minecraft.player!!, TooltipFlag.ADVANCED)
         return lines.drop(1)
     }

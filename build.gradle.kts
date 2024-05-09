@@ -4,9 +4,9 @@ import masecla.modrinth4j.model.version.ProjectVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.9.23"
-    kotlin("plugin.serialization") version "1.9.23"
-    id("fabric-loom") version "1.5-SNAPSHOT"
+    kotlin("jvm") version "1.9.24"
+    kotlin("plugin.serialization") version "1.9.24"
+    id("fabric-loom") version "1.6-SNAPSHOT"
 
     id("com.modrinth.minotaur") version "2.8.7"
     id("com.github.breadmoirai.github-release") version "2.5.2"
@@ -16,9 +16,9 @@ plugins {
 }
 
 group = "dev.nyon"
-val beta: Int? = 12
+val beta: Int? = 13
 val majorVersion = "1.0.0${if (beta != null) "-beta$beta" else ""}"
-val mcVersion = "1.20.4"
+val mcVersion = "1.20.6"
 version = "$majorVersion-$mcVersion"
 val authors = listOf("btwonion")
 val githubRepo = "btwonion/skylper"
@@ -29,6 +29,7 @@ repositories {
     maven("https://maven.parchmentmc.org")
     maven("https://repo.nyon.dev/releases")
     maven("https://maven.isxander.dev/releases")
+    maven("https://maven.isxander.dev/snapshots")
     exclusiveContent {
         forRepository {
             maven("https://api.modrinth.com/maven")
@@ -41,9 +42,9 @@ repositories {
 
 val runtimeTestMods =
     mapOf(
-        "auth-me" to "8.0.0+1.20.4", // AuthMe by axieum for authentication in dev environment
-        "cloth-config" to "13.0.121+fabric", // ClothConfig by shedaniel as dependency for AuthMe
-        "sodium" to "mc1.20.4-0.5.8" // Sodium by jellyquid3 for performance
+        "auth-me" to "8.0.0+1.20.5", // AuthMe by axieum for authentication in dev environment
+        "cloth-config" to "14.0.126+fabric", // ClothConfig by shedaniel as dependency for AuthMe
+        "sodium" to "mc1.20.6-0.5.8" // Sodium by jellyquid3 for performance
     )
 
 val transitiveInclude: Configuration by configurations.creating {
@@ -56,26 +57,26 @@ dependencies {
     minecraft("com.mojang:minecraft:$mcVersion")
     mappings(
         loom.layered {
-            parchment("org.parchmentmc.data:parchment-1.20.4:2024.02.25@zip")
+            parchment("org.parchmentmc.data:parchment-1.20.6:2024.05.01@zip")
             officialMojangMappings()
         }
     )
 
-    implementation("org.vineflower:vineflower:1.9.3")
-    modImplementation("net.fabricmc:fabric-loader:0.15.7")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.96.4+$mcVersion")
-    modImplementation("net.fabricmc:fabric-language-kotlin:1.10.19+kotlin.1.9.23")
+    implementation("org.vineflower:vineflower:1.10.1")
+    modImplementation("net.fabricmc:fabric-loader:0.15.11")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.97.8+$mcVersion")
+    modImplementation("net.fabricmc:fabric-language-kotlin:1.10.20+kotlin.1.9.24")
 
-    modImplementation("dev.isxander.yacl:yet-another-config-lib-fabric:3.3.2+1.20.4")
-    modImplementation("com.terraformersmc:modmenu:9.0.0")
+    modImplementation("dev.isxander:yet-another-config-lib:3.4.2+1.20.5-fabric")
+    modImplementation("com.terraformersmc:modmenu:10.0.0-beta.1")
 
     runtimeTestMods.forEach { (projectId, versionId) ->
         modRuntimeOnly("maven.modrinth:$projectId:$versionId")
     }
 
-    include(modImplementation("dev.nyon:konfig:2.0.0-1.20.4")!!)
+    include(modImplementation("dev.nyon:konfig:2.0.1-1.20.4")!!)
 
-    val ktorVersion = "2.3.9"
+    val ktorVersion = "2.3.11"
     include(implementation("io.ktor:ktor-client-core:$ktorVersion")!!)
     transitiveInclude(implementation("io.ktor:ktor-client-cio:$ktorVersion")!!)
     transitiveInclude(implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")!!)
@@ -121,11 +122,11 @@ tasks {
     }
 
     withType<JavaCompile> {
-        options.release.set(17)
+        options.release.set(21)
     }
 
     withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
+        kotlinOptions.jvmTarget = "21"
     }
 
     withType<Javadoc> {

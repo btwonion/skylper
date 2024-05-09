@@ -2,9 +2,13 @@ package dev.nyon.skylper.asm.mixins;
 
 import dev.nyon.skylper.extensions.EventHandler;
 import dev.nyon.skylper.extensions.RenderHudEvent;
+import dev.nyon.skylper.extensions.render.CustomRenderLayer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.gui.components.DebugScreenOverlay;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,24 +20,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class GuiMixin {
 
     @Shadow
-    public abstract DebugScreenOverlay getDebugOverlay();
+    @Final
+    private LayeredDraw layers;
 
     @Inject(
-        method = "render",
-        at = @At(value = "TAIL"),
-        slice = @Slice(
-            from = @At(
-                value = "INVOKE",
-                target = "Lnet/minecraft/client/gui/components/PlayerTabOverlay;render(Lnet/minecraft/client/gui/GuiGraphics;ILnet/minecraft/world/scores/Scoreboard;Lnet/minecraft/world/scores/Objective;)V"
-            )
-        )
+        method = "<init>(Lnet/minecraft/client/Minecraft;)V",
+        at = @At("TAIL")
     )
-    public void render(
-        GuiGraphics drawContext,
-        float tickDelta,
-        CallbackInfo callbackInfo
+    public void onInit(
+        Minecraft minecraft,
+        CallbackInfo ci
     ) {
-        if (getDebugOverlay().showDebugScreen()) return;
-        EventHandler.INSTANCE.invokeEvent(new RenderHudEvent(drawContext));
+        layers.add(CustomRenderLayer.INSTANCE);
     }
 }
