@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.network.chat.Component
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
+import org.joml.Matrix4f
 import org.lwjgl.opengl.GL11
 
 private const val MAX_BUILD_HEIGHT: Double = 319.0
@@ -28,18 +29,16 @@ fun WorldRenderContext.renderText(
     backgroundColor: Int,
     throughWalls: Boolean = true
 ) {
-    val matrices = matrixStack()!!
-    val cameraPos = camera().position
+    val posMatrix = Matrix4f()
+    val camera = camera()
+    val cameraPos = camera.position
     val font = minecraft.font
 
     val correctedScale = scale * 0.025f
-    matrices.pushPose()
-    matrices.translate(pos.x - cameraPos.x, pos.y - cameraPos.y, pos.z - cameraPos.z)
-    matrices.last().pose().mul(RenderSystem.getModelViewMatrix())
-    matrices.mulPose(camera().rotation())
-    matrices.scale(-correctedScale, -correctedScale, -correctedScale)
+    posMatrix.translate((pos.x - cameraPos.x).toFloat(), (pos.y - cameraPos.y).toFloat(), (pos.z - cameraPos.z).toFloat())
+    posMatrix.rotate(camera.rotation())
+    posMatrix.scale(-correctedScale, -correctedScale, correctedScale)
 
-    val posMatrix = matrices.last().pose()
     val xOffset = -font.width(text) / 2f
 
     val tes = RenderSystem.renderThreadTesselator()
@@ -63,7 +62,6 @@ fun WorldRenderContext.renderText(
     consumers.endBatch()
 
     RenderSystem.depthFunc(GL11.GL_LEQUAL)
-    matrices.popPose()
 }
 
 fun WorldRenderContext.renderBeaconBeam(
