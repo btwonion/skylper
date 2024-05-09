@@ -80,6 +80,7 @@ fun WorldRenderContext.renderBeaconBeam(
     matrices.popPose()
 }
 
+// Does still not work correctly... custom shader will work, but i dont really see through this atm
 fun WorldRenderContext.renderFilled(
     box: AABB,
     color: Int
@@ -114,9 +115,9 @@ fun WorldRenderContext.renderFilled(
         box.maxX,
         box.maxY,
         box.maxZ,
-        javaColor.red.toFloat(),
-        javaColor.blue.toFloat(),
-        javaColor.green.toFloat(),
+        javaColor.red.toFloat() / 255,
+        javaColor.blue.toFloat() / 255,
+        javaColor.green.toFloat() / 255,
         100f
     )
     tes.end()
@@ -134,7 +135,7 @@ fun WorldRenderContext.renderOutline(
     lineWidth: Float,
     throughWalls: Boolean
 ) {
-    if (!minecraft.isVisible(box) && !throughWalls) return
+    if (!minecraft.isVisible(box)) return
     val matrices = matrixStack()!!
     val cameraPos = camera().position
     val tes = RenderSystem.renderThreadTesselator()
@@ -156,10 +157,10 @@ fun WorldRenderContext.renderOutline(
         matrices,
         builder,
         box,
-        javaColor.red.toFloat(),
-        javaColor.green.toFloat(),
-        javaColor.blue.toFloat(),
-        javaColor.alpha.toFloat()
+        javaColor.red.toFloat() / 255,
+        javaColor.green.toFloat() / 255,
+        javaColor.blue.toFloat() / 255,
+        1f
     )
     tes.end()
 

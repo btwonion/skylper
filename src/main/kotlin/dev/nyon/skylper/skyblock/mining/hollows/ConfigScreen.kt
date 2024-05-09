@@ -31,7 +31,7 @@ fun YetAnotherConfigLib.Builder.appendCrystalHollowsCategory() =
         primitive(categoryKey, chestHighlightColor) {
             description(categoryKey, chestHighlightColor)
             getSet({ config.mining.crystalHollows.chestHighlightColor }, { config.mining.crystalHollows.chestHighlightColor = it })
-            field(true)
+            field(false)
         }
 
         // Chest lock highlight
