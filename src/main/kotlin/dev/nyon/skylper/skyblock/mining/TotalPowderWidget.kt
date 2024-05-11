@@ -32,10 +32,12 @@ object TotalPowderWidget :
 
     override fun update() {
         super.update()
-        addComponent(0,
+        addComponent(
+            0,
             0,
             PlainTextHudComponent(Component.translatable("menu.skylper.overlay.hollows.total_powder.mithril")
-                .withStyle { it.withColor(ChatFormatting.AQUA) }))
+                .withStyle { it.withColor(ChatFormatting.AQUA) })
+        )
         addComponent(
             0, 1, PlainTextHudComponent(
                 Component.literal(
@@ -44,10 +46,12 @@ object TotalPowderWidget :
             )
         )
 
-        addComponent(1,
+        addComponent(
+            1,
             0,
             PlainTextHudComponent(Component.translatable("menu.skylper.overlay.hollows.total_powder.gemstone")
-                .withStyle { it.withColor(ChatFormatting.AQUA) }))
+                .withStyle { it.withColor(ChatFormatting.AQUA) })
+        )
         addComponent(
             1, 1, PlainTextHudComponent(
                 Component.literal(
@@ -56,10 +60,12 @@ object TotalPowderWidget :
             )
         )
 
-        addComponent(2,
+        addComponent(
+            2,
             0,
             PlainTextHudComponent(Component.translatable("menu.skylper.overlay.hollows.total_powder.glacite")
-                .withStyle { it.withColor(ChatFormatting.AQUA) }))
+                .withStyle { it.withColor(ChatFormatting.AQUA) })
+        )
         addComponent(
             2, 1, PlainTextHudComponent(
                 Component.literal(

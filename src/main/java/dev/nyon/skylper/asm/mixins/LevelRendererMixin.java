@@ -32,8 +32,7 @@ public class LevelRendererMixin {
         double zSpeed,
         CallbackInfo ci
     ) {
-        EventHandler.INSTANCE.invokeEvent(new ParticleSpawnEvent(
-            options,
+        EventHandler.INSTANCE.invokeEvent(new ParticleSpawnEvent(options,
             new Vec3(x, y, z),
             xSpeed,
             ySpeed,

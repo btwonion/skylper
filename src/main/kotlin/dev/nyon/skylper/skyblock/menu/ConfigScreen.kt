@@ -26,8 +26,7 @@ fun YetAnotherConfigLib.Builder.appendMenuCategory() = category("menu") {
     val highlightNonCompletedBestiaryKey = "highlight_non_completed_bestiary"
     primitive(categoryKey, highlightNonCompletedBestiaryKey) {
         description(categoryKey, highlightNonCompletedBestiaryKey)
-        getSet(
-            { config.menu.bestiary.highlightNonCompletedBestiary },
+        getSet({ config.menu.bestiary.highlightNonCompletedBestiary },
             { config.menu.bestiary.highlightNonCompletedBestiary = it })
         tickBox()
     }

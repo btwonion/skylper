@@ -21,8 +21,7 @@ fun YetAnotherConfigLib.Builder.appendCrystalHollowsCategory() = category("hollo
     val chestHighlightColor = "$highlightChestsKey.color"
     primitive(categoryKey, chestHighlightColor) {
         description(categoryKey, chestHighlightColor)
-        getSet(
-            { config.mining.crystalHollows.chestHighlightColor },
+        getSet({ config.mining.crystalHollows.chestHighlightColor },
             { config.mining.crystalHollows.chestHighlightColor = it })
         field(false)
     }
@@ -31,8 +30,7 @@ fun YetAnotherConfigLib.Builder.appendCrystalHollowsCategory() = category("hollo
     val chestLockHighlight = "chest_lock_highlight"
     primitive(categoryKey, chestLockHighlight) {
         description(categoryKey, chestLockHighlight)
-        getSet(
-            { config.mining.crystalHollows.chestLockHighlight },
+        getSet({ config.mining.crystalHollows.chestLockHighlight },
             { config.mining.crystalHollows.chestLockHighlight = it })
         tickBox()
     }
@@ -49,8 +47,7 @@ fun YetAnotherConfigLib.Builder.appendCrystalHollowsCategory() = category("hollo
     val metalDetectorKey = "metal_detector"
     primitive(categoryKey, metalDetectorKey) {
         description(categoryKey, metalDetectorKey)
-        getSet(
-            { config.mining.crystalHollows.metalDetectorHelper },
+        getSet({ config.mining.crystalHollows.metalDetectorHelper },
             { config.mining.crystalHollows.metalDetectorHelper = it })
         tickBox()
     }
@@ -62,8 +59,7 @@ fun YetAnotherConfigLib.Builder.appendCrystalHollowsCategory() = category("hollo
         val parseLocationKey = "$locationGroupKey.parse_location"
         primitive(categoryKey, parseLocationKey) {
             description(categoryKey, parseLocationKey)
-            getSet(
-                { config.mining.crystalHollows.parseLocationChats },
+            getSet({ config.mining.crystalHollows.parseLocationChats },
                 { config.mining.crystalHollows.parseLocationChats = it })
             tickBox()
         }

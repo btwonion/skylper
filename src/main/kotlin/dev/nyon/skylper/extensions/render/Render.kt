@@ -32,9 +32,7 @@ fun WorldRenderContext.renderText(
 
     val correctedScale = scale * 0.025f
     posMatrix.translate(
-        (pos.x - cameraPos.x).toFloat(),
-        (pos.y - cameraPos.y).toFloat(),
-        (pos.z - cameraPos.z).toFloat()
+        (pos.x - cameraPos.x).toFloat(), (pos.y - cameraPos.y).toFloat(), (pos.z - cameraPos.z).toFloat()
     )
     posMatrix.rotate(camera.rotation())
     posMatrix.scale(-correctedScale, -correctedScale, correctedScale)

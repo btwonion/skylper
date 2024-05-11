@@ -171,9 +171,11 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
                 ?.let { add(finalComponent("mithril", it)) }
 
             if (config.doublePowder) {
-                add(finalComponent("double_powder",
-                    Component.literal(if (data.doublePowderActive) Symbols.CHECK_MARK else Symbols.CROSS)
-                        .withStyle { it.withBold(true).withColor(ChatFormatting.WHITE) }))
+                add(
+                    finalComponent("double_powder",
+                        Component.literal(if (data.doublePowderActive) Symbols.CHECK_MARK else Symbols.CROSS)
+                            .withStyle { it.withBold(true).withColor(ChatFormatting.WHITE) })
+                )
             }
         }
     }
