@@ -13,13 +13,28 @@ plugins {
     signing
 }
 
-group = "dev.nyon"
 val beta: Int? = 14
-val majorVersion = "1.0.0${if (beta != null) "-beta$beta" else ""}"
-val mcVersion = "1.20.6"
-version = "$majorVersion-$mcVersion"
+val featureVersion = "1.0.0${if (beta != null) "-beta$beta" else ""}"
+val mcVersion = property("mcVersion")!!.toString()
+val mcVersionRange = property("mcVersionRange")!!.toString()
+version = "$featureVersion-$mcVersion"
+
+group = "dev.nyon"
 val authors = listOf("btwonion")
 val githubRepo = "btwonion/skylper"
+
+loom {
+    if (stonecutter.current.isActive) {
+        runConfigs.all {
+            ideConfigGenerated(true)
+            runDir("../../run")
+        }
+    }
+
+    mixin { useLegacyMixinAp = false }
+
+    accessWidenerPath = file("../../src/main/resources/skylper.accesswidener")
+}
 
 repositories {
     mavenCentral()
@@ -27,7 +42,6 @@ repositories {
     maven("https://maven.parchmentmc.org")
     maven("https://repo.nyon.dev/releases")
     maven("https://maven.isxander.dev/releases")
-    maven("https://maven.isxander.dev/snapshots")
     exclusiveContent {
         forRepository {
             maven("https://api.modrinth.com/maven")
@@ -38,12 +52,6 @@ repositories {
     }
 }
 
-val runtimeTestMods = mapOf(
-    "auth-me" to "8.0.0+1.20.5", // AuthMe by axieum for authentication in dev environment
-    "cloth-config" to "14.0.126+fabric", // ClothConfig by shedaniel as dependency for AuthMe
-    "sodium" to "mc1.20.6-0.5.8" // Sodium by jellyquid3 for performance
-)
-
 val transitiveInclude: Configuration by configurations.creating {
     exclude(group = "org.jetbrains.kotlin")
     exclude(group = "org.jetbrains.kotlinx")
@@ -53,18 +61,19 @@ val transitiveInclude: Configuration by configurations.creating {
 dependencies {
     minecraft("com.mojang:minecraft:$mcVersion")
     mappings(loom.layered {
-        parchment("org.parchmentmc.data:parchment-1.20.6:2024.05.01@zip")
+        parchment("org.parchmentmc.data:parchment-${property("deps.parchment")}@zip")
         officialMojangMappings()
     })
 
     implementation("org.vineflower:vineflower:1.10.1")
     modImplementation("net.fabricmc:fabric-loader:0.15.11")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.97.8+$mcVersion")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fapi")!!}")
     modImplementation("net.fabricmc:fabric-language-kotlin:1.10.20+kotlin.1.9.24")
 
-    modImplementation("dev.isxander:yet-another-config-lib:3.4.2+1.20.5-fabric")
-    modImplementation("com.terraformersmc:modmenu:10.0.0-beta.1")
+    modImplementation("dev.isxander:yet-another-config-lib:${property("deps.yacl")!!}")
+    modImplementation("com.terraformersmc:modmenu:${property("deps.modMenu")!!}")
 
+    val runtimeTestMods = property("runtimeTestMods")!!.toString().split(',').map { it.split(':') }
     runtimeTestMods.forEach { (projectId, versionId) ->
         modRuntimeOnly("maven.modrinth:$projectId:$versionId")
     }
@@ -84,28 +93,30 @@ dependencies {
     }
 }
 
+val javaVersion = property("javaVer")!!.toString()
 tasks {
-    processResources {
-        val modId = rootProject.name
-        val modName = rootProject.name
+        processResources {
+        val modId = "skylper"
+        val modName = "skylper"
         val modDescription = "Utility mod for Hypixel Skyblock"
 
-        inputs.property("id", modId)
-        inputs.property("name", modName)
-        inputs.property("description", modDescription)
-        inputs.property("version", project.version)
-        inputs.property("github", githubRepo)
-
-        filesMatching("fabric.mod.json") {
-            expand(
+        val props =
+            mapOf(
                 "id" to modId,
                 "name" to modName,
                 "description" to modDescription,
                 "version" to project.version,
-                "github" to githubRepo
+                "github" to githubRepo,
+                "mc" to mcVersionRange
             )
+
+        props.forEach(inputs::property)
+
+        filesMatching("fabric.mod.json") {
+            expand(props)
         }
     }
+
 
     register("releaseMod") {
         group = "publishing"
@@ -115,29 +126,20 @@ tasks {
     }
 
     withType<JavaCompile> {
-        options.release.set(21)
+        options.release = javaVersion.toInt()
     }
 
     withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "21"
-    }
-
-    withType<Javadoc> {
-        options {
-            (this as CoreJavadocOptions).addStringOption("Xdoclint:none", "-quiet")
-        }
-    }
-
-    loom {
-        accessWidenerPath = file("src/main/resources/skylper.accesswidener")
+        kotlinOptions.jvmTarget = javaVersion
     }
 }
 
 val changelogText = buildString {
     append("# v${project.version}\n")
-    file("${if (beta != null) "beta-" else ""}changelog.md").readText().also { append(it) }
+    file("../../${if (beta != null) "beta-" else ""}changelog.md").readText().also { append(it) }
 }
 
+val supportedMcVersions: List<String> = property("supportedMcVersions")!!.toString().split(',').map(String::trim).filter(String::isNotEmpty)
 publishMods {
     displayName = "v${project.version}"
     file = tasks.remapJar.get().archiveFile
@@ -148,7 +150,7 @@ publishMods {
     modrinth {
         projectId = "MXwU9ODv"
         accessToken = providers.environmentVariable("MODRINTH_API_KEY")
-        minecraftVersions.add(mcVersion)
+        minecraftVersions.addAll(supportedMcVersions)
 
         requires { slug = "fabric-api" }
         requires { slug = "yacl" }
@@ -193,7 +195,13 @@ publishing {
 
 java {
     withSourcesJar()
-    withJavadocJar()
+
+    javaVersion.toInt()
+        .let { JavaVersion.values()[it - 1] }
+        .let {
+            sourceCompatibility = it
+            targetCompatibility = it
+        }
 }
 
 /*
