@@ -23,7 +23,7 @@ jobs:
       - name: Release with Gradle
         uses: Wandalen/wretry.action@master
         with:
-          command: ./gradlew releaseMod --stacktrace
+          command: ./gradlew releaseAllVersions --stacktrace
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MODRINTH_API_KEY: ${{ secrets.MODRINTH_API_KEY }}

@@ -1,18 +1,8 @@
 ## Features
-
-```diff
-```
+- support 1.20.4 and 1.20.6 from now on
 
 ## Bug Fixes
-
-```diff
-+ fix glacite powder parsing
-+ add note for metal detector helper conflicting with Skyblocker's metal detector helper
-+ fix wrongly creating waypoints
-+ fix Corleone waypoint creation
-```
+- improve powder widget config translation
 
 ## Technical changes
-
-```diff
-```
+none
