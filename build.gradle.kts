@@ -146,7 +146,7 @@ publishMods {
     modLoaders.addAll("fabric", "quilt")
 
     modrinth {
-        projectId = "wTfH1dkt"
+        projectId = "MXwU9ODv"
         accessToken = providers.environmentVariable("MODRINTH_API_KEY")
         minecraftVersions.add(mcVersion)
 
