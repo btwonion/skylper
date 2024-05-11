@@ -61,7 +61,7 @@ object HollowsModule {
                 location.waypoint.render(it.context)
             }
         }
-        listenEvent<LocatedHollowsStructureEvent, Unit> { (location) ->
+        listenEvent<LocatedHollowsStructureEvent, Unit> { (location, override) ->
             if (!isPlayerInHollows) return@listenEvent
             val isFairyGrotto = location.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO
             val currentPos = minecraft.player?.position() ?: return@listenEvent
@@ -72,9 +72,13 @@ object HollowsModule {
                 }) {
                 return@listenEvent
             }
-            if (isFairyGrotto || waypoints.none { it.specific == location.specific }) {
-                waypoints.add(location)
+            val alreadyExists = waypoints.any { it.specific == location.specific }
+            if (alreadyExists) {
+                if (override) waypoints.first { it.specific == location.specific }.pos = location.pos
+                return@listenEvent
             }
+
+            waypoints.add(location)
         }
     }
 }

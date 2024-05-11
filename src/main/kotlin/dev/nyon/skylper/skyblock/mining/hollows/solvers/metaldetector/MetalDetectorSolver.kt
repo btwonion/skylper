@@ -73,7 +73,8 @@ object MetalDetectorSolver {
         minesCenter = crystalCoords
         EventHandler.invokeEvent(
             LocatedHollowsStructureEvent(
-                HollowsLocation(crystalCoords.add(0.0, 2.0, 0.0), PreDefinedHollowsLocationSpecific.MINES_OF_DIVAN)
+                HollowsLocation(crystalCoords.add(0.0, 2.0, 0.0), PreDefinedHollowsLocationSpecific.MINES_OF_DIVAN),
+                true
             )
         )
 

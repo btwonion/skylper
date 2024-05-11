@@ -92,4 +92,4 @@ data class SideboardUpdateEvent(val lines: List<Component>, val cleanLines: List
  */
 data class RenderItemBackgroundEvent(val title: Component, val slot: Slot) : Event<Int?>
 
-data class LocatedHollowsStructureEvent(val location: HollowsLocation) : Event<Unit>
+data class LocatedHollowsStructureEvent(val location: HollowsLocation, val override: Boolean = false) : Event<Unit>

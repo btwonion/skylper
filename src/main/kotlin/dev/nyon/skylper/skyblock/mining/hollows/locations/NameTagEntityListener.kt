@@ -20,6 +20,7 @@ object NameTagEntityListener {
             val customName = entity.customName?.string
             val entityPos = entity.position()
 
+            var override = false
             val location: HollowsLocation? = when {
                 name?.contains("King Yolkar") == true -> HollowsLocation(
                     entityPos, PreDefinedHollowsLocationSpecific.GOBLIN_KING
@@ -38,12 +39,14 @@ object NameTagEntityListener {
                     }
                 }
                 name?.contains("Odawa") == true -> HollowsLocation(entityPos, PreDefinedHollowsLocationSpecific.ODAWA)
-                customName?.contains("Team Treasurite") == true && entity.hasMaxHealth(1_000_000f) -> HollowsLocation(
-                    entityPos, PreDefinedHollowsLocationSpecific.CORLEONE
-                )
-                customName?.contains("Key Guardian") == true -> HollowsLocation(
-                    entityPos, PreDefinedHollowsLocationSpecific.KEY_GUARDIAN
-                )
+                customName?.contains("Boss Corleone") == true && entity.hasMaxHealth(1_000_000f) -> {
+                    override = true
+                    HollowsLocation(entityPos, PreDefinedHollowsLocationSpecific.CORLEONE)
+                }
+                customName?.contains("Key Guardian") == true -> {
+                    override = true
+                    HollowsLocation(entityPos, PreDefinedHollowsLocationSpecific.KEY_GUARDIAN)
+                }
                 customName?.contains("Bal") == true && entity.type == EntityType.MAGMA_CUBE -> HollowsLocation(
                     entityPos, PreDefinedHollowsLocationSpecific.KHAZAD_DUM
                 )
@@ -51,7 +54,7 @@ object NameTagEntityListener {
                 else -> null
             }
 
-            if (location != null) EventHandler.invokeEvent(LocatedHollowsStructureEvent(location))
+            if (location != null) EventHandler.invokeEvent(LocatedHollowsStructureEvent(location, override))
         }
     }
 }
