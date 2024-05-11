@@ -12,20 +12,16 @@ import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 import kotlin.time.Duration.Companion.milliseconds
 
 fun registerRootCommand() {
-    ClientCommandRegistrationCallback.EVENT.register(
-        ClientCommandRegistrationCallback { dispatcher, _ ->
-            dispatcher.register(
-                LiteralArgumentBuilder.literal<FabricClientCommandSource>("skylper").also { root ->
-                    root.openConfigGui()
-                    root.appendCrystalHollowsSubCommand()
+    ClientCommandRegistrationCallback.EVENT.register(ClientCommandRegistrationCallback { dispatcher, _ ->
+        dispatcher.register(LiteralArgumentBuilder.literal<FabricClientCommandSource>("skylper").also { root ->
+            root.openConfigGui()
+            root.appendCrystalHollowsSubCommand()
 
-                    root.sub("gui") { gui ->
-                        gui.openConfigGui()
-                    }
-                }
-            )
-        }
-    )
+            root.sub("gui") { gui ->
+                gui.openConfigGui()
+            }
+        })
+    })
 }
 
 private fun LiteralArgumentBuilder<FabricClientCommandSource>.openConfigGui() {

@@ -30,7 +30,8 @@ public class ConnectionMixin {
     )
     private void checkForHypixelConnection(
         Packet<?> packet,
-        @Nullable PacketSendListener sendListener,
+        @Nullable
+        PacketSendListener sendListener,
         boolean flush,
         CallbackInfo ci
     ) {

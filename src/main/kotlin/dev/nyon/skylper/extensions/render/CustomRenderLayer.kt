@@ -8,8 +8,7 @@ import net.minecraft.client.gui.LayeredDraw
 
 object CustomRenderLayer : LayeredDraw.Layer {
     override fun render(
-        guiGraphics: GuiGraphics,
-        f: Float
+        guiGraphics: GuiGraphics, f: Float
     ) {
         if (minecraft.gui.debugOverlay.showDebugScreen()) return
         EventHandler.invokeEvent(RenderHudEvent(guiGraphics))

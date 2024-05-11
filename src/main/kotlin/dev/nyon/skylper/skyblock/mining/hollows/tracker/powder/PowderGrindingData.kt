@@ -29,8 +29,7 @@ data class PowderGrindingData(
         }
 
         fun updateByIncrease(
-            increase: Int,
-            tracker: Tracker<PowderGrindingData>
+            increase: Int, tracker: Tracker<PowderGrindingData>
         ) {
             total += increase
             update(tracker)
@@ -41,33 +40,29 @@ data class PowderGrindingData(
             tracker: Tracker<PowderGrindingData>
         ): Component? {
             if (!resourceConfig.total && !resourceConfig.perMinute && !resourceConfig.perHour) return null
-            val list =
-                buildList<Component> {
-                    if (resourceConfig.total) {
-                        add(
-                            Component.translatable(
-                                "${tracker.overlayNameSpace}.total_stat",
-                                total.format()
-                            )
+            val list = buildList<Component> {
+                if (resourceConfig.total) {
+                    add(
+                        Component.translatable(
+                            "${tracker.overlayNameSpace}.total_stat", total.format()
                         )
-                    }
-                    if (resourceConfig.perMinute) {
-                        add(
-                            Component.translatable(
-                                "${tracker.overlayNameSpace}.per_minute_stat",
-                                perMinute.format()
-                            )
-                        )
-                    }
-                    if (resourceConfig.perHour) {
-                        add(
-                            Component.translatable(
-                                "${tracker.overlayNameSpace}.per_hour_stat",
-                                perHour.format()
-                            )
-                        )
-                    }
+                    )
                 }
+                if (resourceConfig.perMinute) {
+                    add(
+                        Component.translatable(
+                            "${tracker.overlayNameSpace}.per_minute_stat", perMinute.format()
+                        )
+                    )
+                }
+                if (resourceConfig.perHour) {
+                    add(
+                        Component.translatable(
+                            "${tracker.overlayNameSpace}.per_hour_stat", perHour.format()
+                        )
+                    )
+                }
+            }
 
             if (list.isEmpty()) return null
             val builder = Component.empty()

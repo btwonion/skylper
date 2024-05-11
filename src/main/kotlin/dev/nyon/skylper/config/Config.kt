@@ -11,10 +11,9 @@ import java.awt.Color
 import java.nio.file.Path
 
 val configJsonBuilder: JsonBuilder.() -> Unit = {
-    serializersModule =
-        SerializersModule {
-            contextual(ColorSerializer)
-        }
+    serializersModule = SerializersModule {
+        contextual(ColorSerializer)
+    }
 }
 val configDir: Path = FabricLoader.getInstance().configDir.resolve("skylper")
 var config: Config = Config()
@@ -75,9 +74,7 @@ data class Config(val mining: MiningConfig = MiningConfig(), val menu: Menu = Me
         ) {
             @Serializable
             data class ResourceConfig(
-                var total: Boolean = true,
-                var perMinute: Boolean = false,
-                var perHour: Boolean = true
+                var total: Boolean = true, var perMinute: Boolean = false, var perHour: Boolean = true
             )
         }
     }

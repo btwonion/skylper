@@ -9,11 +9,7 @@ class PlainTextHudComponent(val text: Component) : HudComponent {
     override val height: Int = minecraft.font.lineHeight
 
     override fun render(
-        context: GuiGraphics,
-        x: Int,
-        y: Int,
-        mouseX: Int,
-        mouseY: Int
+        context: GuiGraphics, x: Int, y: Int, mouseX: Int, mouseY: Int
     ) {
         context.drawString(minecraft.font, text, x, y, 0xffffff, false)
     }

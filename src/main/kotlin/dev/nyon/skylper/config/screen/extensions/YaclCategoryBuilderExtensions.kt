@@ -1,11 +1,6 @@
 package dev.nyon.skylper.config.screen.extensions
 
-import dev.isxander.yacl3.api.ButtonOption
-import dev.isxander.yacl3.api.ConfigCategory
-import dev.isxander.yacl3.api.ListOption
-import dev.isxander.yacl3.api.Option
-import dev.isxander.yacl3.api.OptionAddable
-import dev.isxander.yacl3.api.OptionGroup
+import dev.isxander.yacl3.api.*
 import dev.nyon.skylper.extensions.tracker.Tracker
 import dev.nyon.skylper.extensions.tracker.TrackerData
 import dev.nyon.skylper.minecraft
@@ -17,33 +12,25 @@ fun ConfigCategory.Builder.title(key: String): ConfigCategory.Builder {
 }
 
 fun OptionAddable.action(
-    categoryKey: String,
-    titleKey: String,
-    block: ButtonOption.Builder.() -> Unit
+    categoryKey: String, titleKey: String, block: ButtonOption.Builder.() -> Unit
 ) {
     option(ButtonOption.createBuilder().title(categoryKey, titleKey).also(block).build())
 }
 
 fun <T> OptionAddable.primitive(
-    categoryKey: String,
-    titleKey: String,
-    block: Option.Builder<T>.() -> Unit
+    categoryKey: String, titleKey: String, block: Option.Builder<T>.() -> Unit
 ) {
     option(Option.createBuilder<T>().title(categoryKey, titleKey).also(block).build())
 }
 
 fun <T> ConfigCategory.Builder.list(
-    categoryKey: String,
-    titleKey: String,
-    block: ListOption.Builder<T>.() -> Unit
+    categoryKey: String, titleKey: String, block: ListOption.Builder<T>.() -> Unit
 ) {
     group(ListOption.createBuilder<T>().title(categoryKey, titleKey).also(block).build())
 }
 
 fun ConfigCategory.Builder.subGroup(
-    categoryKey: String,
-    titleKey: String,
-    block: OptionGroup.Builder.() -> Unit
+    categoryKey: String, titleKey: String, block: OptionGroup.Builder.() -> Unit
 ) {
     group(OptionGroup.createBuilder().title(categoryKey, titleKey).collapsed(true).also(block).build())
 }

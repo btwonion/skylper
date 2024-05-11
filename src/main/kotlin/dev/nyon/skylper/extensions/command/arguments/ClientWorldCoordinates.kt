@@ -8,9 +8,7 @@ import net.minecraft.world.phys.Vec2
 import net.minecraft.world.phys.Vec3
 
 class ClientWorldCoordinates(
-    private val x: WorldCoordinate,
-    private val y: WorldCoordinate,
-    private val z: WorldCoordinate
+    private val x: WorldCoordinate, private val y: WorldCoordinate, private val z: WorldCoordinate
 ) : ClientCoordinates {
     override fun getPosition(commandSourceStack: FabricClientCommandSource): Vec3 {
         val vec3 = commandSourceStack.position

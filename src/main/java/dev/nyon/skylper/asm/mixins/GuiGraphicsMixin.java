@@ -36,7 +36,8 @@ public class GuiGraphicsMixin {
         ItemStack stack,
         int x,
         int y,
-        @Nullable String text
+        @Nullable
+        String text
     ) {
         return ((AbilityCooldownIdentifier) instance).skylper$getCooldownPercent(stack, minecraft.getFrameTime());
     }

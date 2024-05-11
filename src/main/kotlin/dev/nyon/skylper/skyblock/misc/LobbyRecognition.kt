@@ -13,28 +13,25 @@ object LobbyRecognition {
     private var nextServer: String? = null
 
     @Suppress("unused")
-    val messageEvent =
-        listenEvent<MessageEvent, Unit> {
-            val raw = it.text.string
-            if (!(raw.startsWith("Sending to server ") && raw.endsWith("..."))) return@listenEvent
-            nextServer = raw.drop(18).dropLast(3)
-        }
+    val messageEvent = listenEvent<MessageEvent, Unit> {
+        val raw = it.text.string
+        if (!(raw.startsWith("Sending to server ") && raw.endsWith("..."))) return@listenEvent
+        nextServer = raw.drop(18).dropLast(3)
+    }
 
     @Suppress("unused")
-    val skyblockQuitEvent =
-        listenEvent<SkyblockQuitEvent, Unit> {
-            nextServer = null
-        }
+    val skyblockQuitEvent = listenEvent<SkyblockQuitEvent, Unit> {
+        nextServer = null
+    }
 
     @Suppress("unused")
-    val levelChangeEvent =
-        listenEvent<LevelChangeEvent, Unit> {
-            val server = nextServer ?: return@listenEvent
-            val containsServerAlready = !joinedLobbies.add(server)
-            nextServer = null
+    val levelChangeEvent = listenEvent<LevelChangeEvent, Unit> {
+        val server = nextServer ?: return@listenEvent
+        val containsServerAlready = !joinedLobbies.add(server)
+        nextServer = null
 
-            if (!config.misc.recognizeLobbies) return@listenEvent
-            if (!containsServerAlready) return@listenEvent
-            minecraft.player?.sendSystemMessage(Component.translatable("chat.skylper.misc.lobby_recognition"))
-        }
+        if (!config.misc.recognizeLobbies) return@listenEvent
+        if (!containsServerAlready) return@listenEvent
+        minecraft.player?.sendSystemMessage(Component.translatable("chat.skylper.misc.lobby_recognition"))
+    }
 }

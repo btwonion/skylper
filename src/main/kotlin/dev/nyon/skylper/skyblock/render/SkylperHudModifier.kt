@@ -12,19 +12,16 @@ import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
 import kotlin.math.max
 
-class SkylperHudModifier(private val parent: Screen?) : Screen(Component.translatable("menu.skylper.tabhud.modifier.title")) {
-    private val enabledWidgets: List<HudWidget> =
-        buildList {
-            if (config.mining.crystalHollows.crystalOverlay.enabled) add(CrystalCompletionWidget)
-            if (config.mining.crystalHollows.powderGrindingOverlay.enabled) add(PowderGrindingTracker)
-            if (config.mining.totalPowderOverlay.enabled) add(TotalPowderWidget)
-        }.onEach(HudWidget::update)
+class SkylperHudModifier(private val parent: Screen?) :
+    Screen(Component.translatable("menu.skylper.tabhud.modifier.title")) {
+    private val enabledWidgets: List<HudWidget> = buildList {
+        if (config.mining.crystalHollows.crystalOverlay.enabled) add(CrystalCompletionWidget)
+        if (config.mining.crystalHollows.powderGrindingOverlay.enabled) add(PowderGrindingTracker)
+        if (config.mining.totalPowderOverlay.enabled) add(TotalPowderWidget)
+    }.onEach(HudWidget::update)
 
     override fun render(
-        guiGraphics: GuiGraphics,
-        mouseX: Int,
-        mouseY: Int,
-        partialTick: Float
+        guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float
     ) {
         super.render(guiGraphics, mouseX, mouseY, partialTick)
         renderBackground(guiGraphics, mouseX, mouseY, partialTick)
@@ -43,16 +40,11 @@ class SkylperHudModifier(private val parent: Screen?) : Screen(Component.transla
     }
 
     override fun mouseDragged(
-        mouseX: Double,
-        mouseY: Double,
-        button: Int,
-        dragX: Double,
-        dragY: Double
+        mouseX: Double, mouseY: Double, button: Int, dragX: Double, dragY: Double
     ): Boolean {
-        val draggedWidget =
-            enabledWidgets.find { widget ->
-                (mouseX >= widget.x && mouseX <= widget.x + widget.width) && (mouseY >= widget.y && mouseY <= widget.y + widget.height)
-            } ?: return false
+        val draggedWidget = enabledWidgets.find { widget ->
+            (mouseX >= widget.x && mouseX <= widget.x + widget.width) && (mouseY >= widget.y && mouseY <= widget.y + widget.height)
+        } ?: return false
         draggedWidget.x = max(draggedWidget.x + dragX, 0.0)
         draggedWidget.y = max(draggedWidget.y + dragY, 0.0)
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY)

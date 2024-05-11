@@ -63,7 +63,6 @@ private fun createLocationScreen(parent: Screen?): Screen {
     return builder.build().generateScreen(parent)
 }
 
-fun registerHollowsLocationHotkey() =
-    listenEvent<TickEvent, Unit> {
-        if (Skylper.crystalHollowsLocationKeybinding.consumeClick()) minecraft.setScreen(createLocationScreen(null))
-    }
+fun registerHollowsLocationHotkey() = listenEvent<TickEvent, Unit> {
+    if (Skylper.crystalHollowsLocationKeybinding.consumeClick()) minecraft.setScreen(createLocationScreen(null))
+}

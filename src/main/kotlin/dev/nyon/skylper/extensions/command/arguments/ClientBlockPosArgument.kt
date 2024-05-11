@@ -24,30 +24,26 @@ class ClientBlockPosArgument : ArgumentType<ClientCoordinates> {
     }
 
     override fun <S> listSuggestions(
-        commandContext: CommandContext<S>,
-        suggestionsBuilder: SuggestionsBuilder
+        commandContext: CommandContext<S>, suggestionsBuilder: SuggestionsBuilder
     ): CompletableFuture<Suggestions> {
         if (commandContext.source !is SharedSuggestionProvider) {
             return Suggestions.empty()
         } else {
             val string = suggestionsBuilder.remaining
-            val collection: Collection<TextCoordinates> =
-                if (string.isNotEmpty() && string[0] == '^') {
-                    setOf(TextCoordinates.DEFAULT_LOCAL)
-                } else {
-                    (commandContext.source as SharedSuggestionProvider).relevantCoordinates
-                }
+            val collection: Collection<TextCoordinates> = if (string.isNotEmpty() && string[0] == '^') {
+                setOf(TextCoordinates.DEFAULT_LOCAL)
+            } else {
+                (commandContext.source as SharedSuggestionProvider).relevantCoordinates
+            }
 
-            return SharedSuggestionProvider.suggestCoordinates(
-                string,
+            return SharedSuggestionProvider.suggestCoordinates(string,
                 collection,
                 suggestionsBuilder,
                 Commands.createValidator { stringReader: StringReader ->
                     this.parse(
                         stringReader
                     )
-                }
-            )
+                })
         }
     }
 
@@ -63,8 +59,7 @@ class ClientBlockPosArgument : ArgumentType<ClientCoordinates> {
         }
 
         fun getBlockPos(
-            commandContext: CommandContext<FabricClientCommandSource>,
-            string: String
+            commandContext: CommandContext<FabricClientCommandSource>, string: String
         ): BlockPos {
             return commandContext.getArgument(string, ClientCoordinates::class.java).getBlockPos(
                 commandContext.source!!

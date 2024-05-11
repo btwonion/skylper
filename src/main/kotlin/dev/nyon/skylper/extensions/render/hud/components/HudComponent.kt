@@ -7,10 +7,6 @@ interface HudComponent {
     val height: Int
 
     fun render(
-        context: GuiGraphics,
-        x: Int,
-        y: Int,
-        mouseX: Int,
-        mouseY: Int
+        context: GuiGraphics, x: Int, y: Int, mouseX: Int, mouseY: Int
     )
 }

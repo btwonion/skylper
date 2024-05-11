@@ -27,8 +27,7 @@ class ClientEntityAnchorArgument : ArgumentType<ClientEntityAnchorArgument.Ancho
     }
 
     override fun <S> listSuggestions(
-        commandContext: CommandContext<S>,
-        suggestionsBuilder: SuggestionsBuilder
+        commandContext: CommandContext<S>, suggestionsBuilder: SuggestionsBuilder
     ): CompletableFuture<Suggestions> {
         return SharedSuggestionProvider.suggest(Anchor.entries.map { it.identifier }, suggestionsBuilder)
     }
@@ -54,12 +53,10 @@ class ClientEntityAnchorArgument : ArgumentType<ClientEntityAnchorArgument.Ancho
 
     companion object {
         private val EXAMPLES: Collection<String> = mutableListOf("eyes", "feet")
-        private val ERROR_INVALID =
-            DynamicCommandExceptionType { `object`: Any? ->
-                Component.translatableEscape(
-                    "argument.anchor.invalid",
-                    `object`
-                )
-            }
+        private val ERROR_INVALID = DynamicCommandExceptionType { `object`: Any? ->
+            Component.translatableEscape(
+                "argument.anchor.invalid", `object`
+            )
+        }
     }
 }

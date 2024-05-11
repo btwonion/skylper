@@ -1,12 +1,7 @@
 package dev.nyon.skylper.skyblock.mining.hollows.locations
 
-import dev.nyon.skylper.extensions.CrystalFoundEvent
-import dev.nyon.skylper.extensions.CrystalPlaceEvent
-import dev.nyon.skylper.extensions.EventHandler
+import dev.nyon.skylper.extensions.*
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
-import dev.nyon.skylper.extensions.LocatedHollowsStructureEvent
-import dev.nyon.skylper.extensions.MessageEvent
-import dev.nyon.skylper.extensions.NucleusRunCompleteEvent
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.mining.hollows.Crystal
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
@@ -18,15 +13,14 @@ object CrystalRunListener {
 
     private var nextIsCrystal = false
 
-    fun init() =
-        listenEvent<MessageEvent, Unit> { event ->
-            if (!HollowsModule.isPlayerInHollows) return@listenEvent
+    fun init() = listenEvent<MessageEvent, Unit> { event ->
+        if (!HollowsModule.isPlayerInHollows) return@listenEvent
 
-            val rawMessage = event.text.string
-            rawMessage.checkFoundCrystal()
-            rawMessage.checkPlacedCrystal()
-            rawMessage.checkRunCompleted()
-        }
+        val rawMessage = event.text.string
+        rawMessage.checkFoundCrystal()
+        rawMessage.checkPlacedCrystal()
+        rawMessage.checkRunCompleted()
+    }
 
     private fun String.checkFoundCrystal() {
         if (nextIsCrystal) {
@@ -39,8 +33,7 @@ object CrystalRunListener {
                 EventHandler.invokeEvent(
                     LocatedHollowsStructureEvent(
                         HollowsLocation(
-                            minecraft.player!!.position(),
-                            location
+                            minecraft.player!!.position(), location
                         )
                     )
                 )

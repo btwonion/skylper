@@ -19,8 +19,7 @@ object ColorSerializer : KSerializer<Color> {
     }
 
     override fun serialize(
-        encoder: Encoder,
-        value: Color
+        encoder: Encoder, value: Color
     ) {
         encoder.encodeInt(value.rgb)
     }
@@ -34,8 +33,7 @@ object ResourceLocationSerializer : KSerializer<ResourceLocation> {
     }
 
     override fun serialize(
-        encoder: Encoder,
-        value: ResourceLocation
+        encoder: Encoder, value: ResourceLocation
     ) {
         encoder.encodeString(value.toString())
     }
@@ -49,8 +47,7 @@ object CompoundTagSerializer : KSerializer<CompoundTag> {
     }
 
     override fun serialize(
-        encoder: Encoder,
-        value: CompoundTag
+        encoder: Encoder, value: CompoundTag
     ) {
         encoder.encodeString(value.toString())
     }

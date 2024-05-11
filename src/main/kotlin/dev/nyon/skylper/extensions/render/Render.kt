@@ -23,11 +23,7 @@ import org.lwjgl.opengl.GL11
 private const val MAX_BUILD_HEIGHT: Double = 319.0
 
 fun WorldRenderContext.renderText(
-    text: Component,
-    pos: Vec3,
-    scale: Float,
-    backgroundColor: Int,
-    throughWalls: Boolean = true
+    text: Component, pos: Vec3, scale: Float, backgroundColor: Int, throughWalls: Boolean = true
 ) {
     val posMatrix = Matrix4f()
     val camera = camera()
@@ -35,7 +31,11 @@ fun WorldRenderContext.renderText(
     val font = minecraft.font
 
     val correctedScale = scale * 0.025f
-    posMatrix.translate((pos.x - cameraPos.x).toFloat(), (pos.y - cameraPos.y).toFloat(), (pos.z - cameraPos.z).toFloat())
+    posMatrix.translate(
+        (pos.x - cameraPos.x).toFloat(),
+        (pos.y - cameraPos.y).toFloat(),
+        (pos.z - cameraPos.z).toFloat()
+    )
     posMatrix.rotate(camera.rotation())
     posMatrix.scale(-correctedScale, -correctedScale, correctedScale)
 
@@ -65,8 +65,7 @@ fun WorldRenderContext.renderText(
 }
 
 fun WorldRenderContext.renderBeaconBeam(
-    pos: Vec3,
-    color: Int
+    pos: Vec3, color: Int
 ) {
     if (!minecraft.isVisible(AABB(pos.x, pos.y, pos.z, pos.x + 1, MAX_BUILD_HEIGHT, pos.z + 1))) return
     val matrices = matrixStack()!!
@@ -81,8 +80,7 @@ fun WorldRenderContext.renderBeaconBeam(
 }
 
 fun WorldRenderContext.renderFilled(
-    box: AABB,
-    color: Int
+    box: AABB, color: Int
 ) {
     val matrices = matrixStack()!!
     val cameraPos = camera().position
@@ -129,10 +127,7 @@ fun WorldRenderContext.renderFilled(
 }
 
 fun WorldRenderContext.renderOutline(
-    box: AABB,
-    color: Int,
-    lineWidth: Float,
-    throughWalls: Boolean
+    box: AABB, color: Int, lineWidth: Float, throughWalls: Boolean
 ) {
     if (!minecraft.isVisible(box)) return
     val matrices = matrixStack()!!

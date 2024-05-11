@@ -8,115 +8,89 @@ enum class ChestReward(val displayName: String, val pattern: Pattern) {
     GLACITE_POWDER("Glacite Powder", "You received (?<amount>.*) Glacite Powder.".toPattern()),
 
     ROUGH_RUBY_GEMSTONE(
-        "Rough Ruby Gemstone",
-        "You received (?<amount>.*) ❤ Rough Ruby Gemstone.".toPattern()
+        "Rough Ruby Gemstone", "You received (?<amount>.*) ❤ Rough Ruby Gemstone.".toPattern()
     ),
     FLAWED_RUBY_GEMSTONE(
-        "Flawed Sapphire Gemstone",
-        "You received (?<amount>.*) ❤ Flawed Ruby Gemstone.".toPattern()
+        "Flawed Sapphire Gemstone", "You received (?<amount>.*) ❤ Flawed Ruby Gemstone.".toPattern()
     ),
     FINE_RUBY_GEMSTONE(
-        "Fine Ruby Gemstone",
-        "You received (?<amount>.*) ❤ Fine Ruby Gemstone.".toPattern()
+        "Fine Ruby Gemstone", "You received (?<amount>.*) ❤ Fine Ruby Gemstone.".toPattern()
     ),
     FLAWLESS_RUBY_GEMSTONE(
-        "Flawless Ruby Gemstone",
-        "You received (?<amount>.*) ❤ Flawless Ruby Gemstone.".toPattern()
+        "Flawless Ruby Gemstone", "You received (?<amount>.*) ❤ Flawless Ruby Gemstone.".toPattern()
     ),
 
     ROUGH_SAPPHIRE_GEMSTONE(
-        "Rough Sapphire Gemstone",
-        "You received (?<amount>.*) ✎ Rough Sapphire Gemstone.".toPattern()
+        "Rough Sapphire Gemstone", "You received (?<amount>.*) ✎ Rough Sapphire Gemstone.".toPattern()
     ),
     FLAWED_SAPPHIRE_GEMSTONE(
-        "Flawed Sapphire Gemstone",
-        "You received (?<amount>.*) ✎ Flawed Sapphire Gemstone.".toPattern()
+        "Flawed Sapphire Gemstone", "You received (?<amount>.*) ✎ Flawed Sapphire Gemstone.".toPattern()
     ),
     FINE_SAPPHIRE_GEMSTONE(
-        "Fine Sapphire Gemstone",
-        "You received (?<amount>.*) ✎ Fine Sapphire Gemstone.".toPattern()
+        "Fine Sapphire Gemstone", "You received (?<amount>.*) ✎ Fine Sapphire Gemstone.".toPattern()
     ),
     FLAWLESS_SAPPHIRE_GEMSTONE(
-        "Flawless Sapphire Gemstone",
-        "You received (?<amount>.*) ✎ Flawless Sapphire Gemstone.".toPattern()
+        "Flawless Sapphire Gemstone", "You received (?<amount>.*) ✎ Flawless Sapphire Gemstone.".toPattern()
     ),
 
     ROUGH_AMBER_GEMSTONE(
-        "Rough Amber Gemstone",
-        "You received (?<amount>.*) ⸕ Rough Amber Gemstone.".toPattern()
+        "Rough Amber Gemstone", "You received (?<amount>.*) ⸕ Rough Amber Gemstone.".toPattern()
     ),
     FLAWED_AMBER_GEMSTONE(
-        "Flawed Amber Gemstone",
-        "You received (?<amount>.*) ⸕ Flawed Amber Gemstone.".toPattern()
+        "Flawed Amber Gemstone", "You received (?<amount>.*) ⸕ Flawed Amber Gemstone.".toPattern()
     ),
     FINE_AMBER_GEMSTONE(
-        "Fine Amber Gemstone",
-        "You received (?<amount>.*) ⸕ Fine Amber Gemstone.".toPattern()
+        "Fine Amber Gemstone", "You received (?<amount>.*) ⸕ Fine Amber Gemstone.".toPattern()
     ),
     FLAWLESS_AMBER_GEMSTONE(
-        "Flawless Amber Gemstone",
-        "You received (?<amount>.*) ⸕ Flawless Amber Gemstone.".toPattern()
+        "Flawless Amber Gemstone", "You received (?<amount>.*) ⸕ Flawless Amber Gemstone.".toPattern()
     ),
 
     ROUGH_AMETHYST_GEMSTONE(
-        "Rough Amethyst Gemstone",
-        "You received (?<amount>.*) ❈ Rough Amethyst Gemstone.".toPattern()
+        "Rough Amethyst Gemstone", "You received (?<amount>.*) ❈ Rough Amethyst Gemstone.".toPattern()
     ),
     FLAWED_AMETHYST_GEMSTONE(
-        "Flawed Amethyst Gemstone",
-        "You received (?<amount>.*) ❈ Flawed Amethyst Gemstone.".toPattern()
+        "Flawed Amethyst Gemstone", "You received (?<amount>.*) ❈ Flawed Amethyst Gemstone.".toPattern()
     ),
     FINE_AMETHYST_GEMSTONE(
-        "Fine Amethyst Gemstone",
-        "You received (?<amount>.*) ❈ Fine Amethyst Gemstone.".toPattern()
+        "Fine Amethyst Gemstone", "You received (?<amount>.*) ❈ Fine Amethyst Gemstone.".toPattern()
     ),
     FLAWLESS_AMETHYST_GEMSTONE(
-        "Flawless Amethyst Gemstone",
-        "You received (?<amount>.*) ❈ Flawless Amethyst Gemstone.".toPattern()
+        "Flawless Amethyst Gemstone", "You received (?<amount>.*) ❈ Flawless Amethyst Gemstone.".toPattern()
     ),
 
     ROUGH_JADE_GEMSTONE(
-        "Rough Jade Gemstone",
-        "You received (?<amount>.*) ☘ Rough Jade Gemstone.".toPattern()
+        "Rough Jade Gemstone", "You received (?<amount>.*) ☘ Rough Jade Gemstone.".toPattern()
     ),
     FLAWED_JADE_GEMSTONE(
-        "Flawed Jade Gemstone",
-        "You received (?<amount>.*) ☘ Flawed Jade Gemstone.".toPattern()
+        "Flawed Jade Gemstone", "You received (?<amount>.*) ☘ Flawed Jade Gemstone.".toPattern()
     ),
     FINE_JADE_GEMSTONE(
-        "Fine Jade Gemstone",
-        "You received (?<amount>.*) ☘ Fine Jade Gemstone.".toPattern()
+        "Fine Jade Gemstone", "You received (?<amount>.*) ☘ Fine Jade Gemstone.".toPattern()
     ),
     FLAWLESS_JADE_GEMSTONE(
-        "Flawless Jade Gemstone",
-        "You received (?<amount>.*) ☘ §5Flawless Jade Gemstone.".toPattern()
+        "Flawless Jade Gemstone", "You received (?<amount>.*) ☘ §5Flawless Jade Gemstone.".toPattern()
     ),
 
     ROUGH_TOPAZ_GEMSTONE(
-        "Rough Topaz Gemstone",
-        "You received (?<amount>.*) ✧ Rough Topaz Gemstone.".toPattern()
+        "Rough Topaz Gemstone", "You received (?<amount>.*) ✧ Rough Topaz Gemstone.".toPattern()
     ),
     FLAWED_TOPAZ_GEMSTONE(
-        "Flawed Topaz Gemstone",
-        "You received (?<amount>.*) ✧ Flawed Topaz Gemstone.".toPattern()
+        "Flawed Topaz Gemstone", "You received (?<amount>.*) ✧ Flawed Topaz Gemstone.".toPattern()
     ),
     FINE_TOPAZ_GEMSTONE(
-        "Fine Topaz Gemstone",
-        "You received (?<amount>.*) ✧ Fine Topaz Gemstone.".toPattern()
+        "Fine Topaz Gemstone", "You received (?<amount>.*) ✧ Fine Topaz Gemstone.".toPattern()
     ),
     FLAWLESS_TOPAZ_GEMSTONE(
-        "Flawless Topaz Gemstone",
-        "You received (?<amount>.*) ✧ Flawless Topaz Gemstone.".toPattern()
+        "Flawless Topaz Gemstone", "You received (?<amount>.*) ✧ Flawless Topaz Gemstone.".toPattern()
     ),
 
     FTX_3070("FTX 3070", "You received (?<amount>.*) FTX 3070.".toPattern()),
     ELECTRON_TRANSIMTTER(
-        "Electron Transmitter",
-        "You received (?<amount>.*) Electron Transmitter.".toPattern()
+        "Electron Transmitter", "You received (?<amount>.*) Electron Transmitter.".toPattern()
     ),
     ROBOTRON_REFLECTOR(
-        "Robotron Reflector",
-        "You received (?<amount>.*) Robotron Reflector.".toPattern()
+        "Robotron Reflector", "You received (?<amount>.*) Robotron Reflector.".toPattern()
     ),
     SUPERLITE_MOTOR("Superlite Motor", "You received (?<amount>.*) Superlite Motor.".toPattern()),
     CONTROL_SWITCH("Control Switch", "You received (?<amount>.*) Control Switch.".toPattern()),
@@ -124,13 +98,11 @@ enum class ChestReward(val displayName: String, val pattern: Pattern) {
 
     GOBLIN_EGG("Goblin Egg", "You received (?<amount>.*) Goblin Egg.".toPattern()),
     GREEN_GOBLIN_EGG(
-        "Green Goblin Egg",
-        "You received (?<amount>.*) Green Goblin Egg.".toPattern()
+        "Green Goblin Egg", "You received (?<amount>.*) Green Goblin Egg.".toPattern()
     ),
     RED_GOBLIN_EGG("Red Goblin Egg", "You received (?<amount>.*) Red Goblin Egg.".toPattern()),
     YELLOW_GOBLIN_EGG(
-        "Yellow Goblin Egg",
-        "You received (?<amount>.*) Yellow Goblin Egg.".toPattern()
+        "Yellow Goblin Egg", "You received (?<amount>.*) Yellow Goblin Egg.".toPattern()
     ),
     BLUE_GOBLIN_EGG("Blue Goblin Egg", "You received (?<amount>.*) Blue Goblin Egg.".toPattern()),
 

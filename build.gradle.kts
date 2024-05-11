@@ -40,12 +40,11 @@ repositories {
     }
 }
 
-val runtimeTestMods =
-    mapOf(
-        "auth-me" to "8.0.0+1.20.5", // AuthMe by axieum for authentication in dev environment
-        "cloth-config" to "14.0.126+fabric", // ClothConfig by shedaniel as dependency for AuthMe
-        "sodium" to "mc1.20.6-0.5.8" // Sodium by jellyquid3 for performance
-    )
+val runtimeTestMods = mapOf(
+    "auth-me" to "8.0.0+1.20.5", // AuthMe by axieum for authentication in dev environment
+    "cloth-config" to "14.0.126+fabric", // ClothConfig by shedaniel as dependency for AuthMe
+    "sodium" to "mc1.20.6-0.5.8" // Sodium by jellyquid3 for performance
+)
 
 val transitiveInclude: Configuration by configurations.creating {
     exclude(group = "org.jetbrains.kotlin")
@@ -55,12 +54,10 @@ val transitiveInclude: Configuration by configurations.creating {
 
 dependencies {
     minecraft("com.mojang:minecraft:$mcVersion")
-    mappings(
-        loom.layered {
-            parchment("org.parchmentmc.data:parchment-1.20.6:2024.05.01@zip")
-            officialMojangMappings()
-        }
-    )
+    mappings(loom.layered {
+        parchment("org.parchmentmc.data:parchment-1.20.6:2024.05.01@zip")
+        officialMojangMappings()
+    })
 
     implementation("org.vineflower:vineflower:1.10.1")
     modImplementation("net.fabricmc:fabric-loader:0.15.11")
@@ -140,11 +137,10 @@ tasks {
     }
 }
 
-val changelogText =
-    buildString {
-        append("# v${project.version}\n")
-        file("${if (beta != null) "beta-" else ""}changelog.md").readText().also { append(it) }
-    }
+val changelogText = buildString {
+    append("# v${project.version}\n")
+    file("${if (beta != null) "beta-" else ""}changelog.md").readText().also { append(it) }
+}
 
 modrinth {
     token.set(findProperty("modrinth.token")?.toString())

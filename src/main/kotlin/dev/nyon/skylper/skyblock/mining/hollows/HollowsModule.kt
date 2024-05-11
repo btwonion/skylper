@@ -7,13 +7,7 @@ import dev.nyon.skylper.extensions.LocatedHollowsStructureEvent
 import dev.nyon.skylper.extensions.RenderAfterTranslucentEvent
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
-import dev.nyon.skylper.skyblock.mining.hollows.locations.CrystalRunListener
-import dev.nyon.skylper.skyblock.mining.hollows.locations.HollowsLocation
-import dev.nyon.skylper.skyblock.mining.hollows.locations.NameTagEntityListener
-import dev.nyon.skylper.skyblock.mining.hollows.locations.PlayerChatLocationListener
-import dev.nyon.skylper.skyblock.mining.hollows.locations.PreDefinedHollowsLocationSpecific
-import dev.nyon.skylper.skyblock.mining.hollows.locations.SideboardLocationListener
-import dev.nyon.skylper.skyblock.mining.hollows.locations.registerHollowsLocationHotkey
+import dev.nyon.skylper.skyblock.mining.hollows.locations.*
 import dev.nyon.skylper.skyblock.mining.hollows.render.ChestHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.render.ChestParticleHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.solvers.metaldetector.MetalDetectorSolver
@@ -71,16 +65,11 @@ object HollowsModule {
             if (!isPlayerInHollows) return@listenEvent
             val isFairyGrotto = location.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO
             val currentPos = minecraft.player?.position() ?: return@listenEvent
-            if (isFairyGrotto &&
-                waypoints.any {
-                    it.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO &&
-                        it.pos.closerThan(
-                            currentPos,
-                            25.0,
-                            100.0
-                        )
-                }
-            ) {
+            if (isFairyGrotto && waypoints.any {
+                    it.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO && it.pos.closerThan(
+                        currentPos, 25.0, 100.0
+                    )
+                }) {
                 return@listenEvent
             }
             if (isFairyGrotto || waypoints.none { it.specific == location.specific }) {

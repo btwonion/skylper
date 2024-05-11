@@ -15,21 +15,20 @@ data class HollowsLocation(var pos: Vec3, val specific: HollowsLocationSpecific)
             return config.mining.crystalHollows.hollowsWaypoints
         }
 
-    val isEnabled: Boolean =
-        when (specific) {
-            PreDefinedHollowsLocationSpecific.CRYSTAL_NUCLEUS -> locationConfig.nucleus
-            PreDefinedHollowsLocationSpecific.PRECURSOR_CITY -> locationConfig.precursorCity
-            PreDefinedHollowsLocationSpecific.JUNGLE_TEMPLE -> locationConfig.jungleTemple
-            PreDefinedHollowsLocationSpecific.ODAWA -> locationConfig.odawa
-            PreDefinedHollowsLocationSpecific.KEY_GUARDIAN -> locationConfig.keyGuardian
-            PreDefinedHollowsLocationSpecific.MINES_OF_DIVAN -> locationConfig.minesOfDivan
-            PreDefinedHollowsLocationSpecific.CORLEONE -> locationConfig.corleone
-            PreDefinedHollowsLocationSpecific.FAIRY_GROTTO -> locationConfig.fairyGrotto
-            PreDefinedHollowsLocationSpecific.GOBLIN_KING -> locationConfig.goblinKing
-            PreDefinedHollowsLocationSpecific.GOBLIN_QUEEN -> locationConfig.goblinQueen
-            PreDefinedHollowsLocationSpecific.KHAZAD_DUM -> locationConfig.khazadDum
-            else -> true
-        }
+    val isEnabled: Boolean = when (specific) {
+        PreDefinedHollowsLocationSpecific.CRYSTAL_NUCLEUS -> locationConfig.nucleus
+        PreDefinedHollowsLocationSpecific.PRECURSOR_CITY -> locationConfig.precursorCity
+        PreDefinedHollowsLocationSpecific.JUNGLE_TEMPLE -> locationConfig.jungleTemple
+        PreDefinedHollowsLocationSpecific.ODAWA -> locationConfig.odawa
+        PreDefinedHollowsLocationSpecific.KEY_GUARDIAN -> locationConfig.keyGuardian
+        PreDefinedHollowsLocationSpecific.MINES_OF_DIVAN -> locationConfig.minesOfDivan
+        PreDefinedHollowsLocationSpecific.CORLEONE -> locationConfig.corleone
+        PreDefinedHollowsLocationSpecific.FAIRY_GROTTO -> locationConfig.fairyGrotto
+        PreDefinedHollowsLocationSpecific.GOBLIN_KING -> locationConfig.goblinKing
+        PreDefinedHollowsLocationSpecific.GOBLIN_QUEEN -> locationConfig.goblinQueen
+        PreDefinedHollowsLocationSpecific.KHAZAD_DUM -> locationConfig.khazadDum
+        else -> true
+    }
 }
 
 interface HollowsLocationSpecific {
@@ -44,7 +43,8 @@ data class CustomHollowsLocationSpecific(
     override val displayName: Component = Component.literal(key)
 ) : HollowsLocationSpecific
 
-enum class PreDefinedHollowsLocationSpecific(override val key: String, override val color: Int) : HollowsLocationSpecific {
+enum class PreDefinedHollowsLocationSpecific(override val key: String, override val color: Int) :
+    HollowsLocationSpecific {
     CRYSTAL_NUCLEUS("nucleus", 0x7E0B7F),
     PRECURSOR_CITY("precursor_city", 0xACABAF),
     JUNGLE_TEMPLE("jungle_temple", 0x138012),

@@ -21,12 +21,7 @@ import dev.nyon.skylper.skyblock.menu.Menu
 import dev.nyon.skylper.skyblock.misc.Misc
 import dev.nyon.skylper.skyblock.registerRootCommand
 import dev.nyon.skylper.skyblock.render.SkylperHud
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.asCoroutineDispatcher
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper
 import net.minecraft.client.KeyMapping
@@ -41,15 +36,14 @@ lateinit var minecraft: Minecraft
 val independentScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
 object Skylper : ClientModInitializer {
-    val crystalHollowsLocationKeybinding: KeyMapping =
-        KeyBindingHelper.registerKeyBinding(
-            KeyMapping(
-                Component.translatable("menu.skylper.keybinding.location_screen").string,
-                InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_P,
-                "skylper"
-            )
+    val crystalHollowsLocationKeybinding: KeyMapping = KeyBindingHelper.registerKeyBinding(
+        KeyMapping(
+            Component.translatable("menu.skylper.keybinding.location_screen").string,
+            InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_P,
+            "skylper"
         )
+    )
 
     @Suppress("SpellCheckingInspection")
     override fun onInitializeClient() {
@@ -60,18 +54,12 @@ object Skylper : ClientModInitializer {
         handleStop()
 
         config(
-            configDir.resolve("skylper.json"),
-            1,
-            Config(),
-            configJsonBuilder::invoke
+            configDir.resolve("skylper.json"), 1, Config(), configJsonBuilder::invoke
         ) { _, _ -> null }
         internalConfig = loadConfig<Config>()
 
         config(
-            configDir.resolve("playerdata.json"),
-            1,
-            StoredPlayerData(),
-            configJsonBuilder::invoke
+            configDir.resolve("playerdata.json"), 1, StoredPlayerData(), configJsonBuilder::invoke
         ) { _, _ -> null }
         playerData = loadConfig<StoredPlayerData>()
 

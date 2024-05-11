@@ -6,8 +6,7 @@ import kotlin.reflect.KClass
 @Suppress("unchecked_cast")
 object EventHandler {
     data class EventInstance<E : Event<C>, C : Any?>(
-        val kClass: KClass<E>,
-        val listeners: MutableList<(event: E) -> C?>
+        val kClass: KClass<E>, val listeners: MutableList<(event: E) -> C?>
     )
 
     private val listeners = mutableListOf<EventInstance<*, *>>()
@@ -18,8 +17,7 @@ object EventHandler {
     }
 
     fun <E : Event<C>, C : Any?> listenEvent(
-        kClass: KClass<E>,
-        callback: (E) -> C
+        kClass: KClass<E>, callback: (E) -> C
     ) {
         if (listeners.none { it.kClass == kClass }) {
             listeners.add(
@@ -30,14 +28,12 @@ object EventHandler {
         }
     }
 
-    fun <E : Event<C>, C : Any?> invokeEvent(event: E): C? =
-        runBlocking {
-            val eventListeners = listeners.find { it.kClass == event::class } as EventInstance<E, C>?
-            val callbacks =
-                eventListeners?.listeners?.mapNotNull {
-                    it.invoke(event)
-                } ?: return@runBlocking null
+    fun <E : Event<C>, C : Any?> invokeEvent(event: E): C? = runBlocking {
+        val eventListeners = listeners.find { it.kClass == event::class } as EventInstance<E, C>?
+        val callbacks = eventListeners?.listeners?.mapNotNull {
+            it.invoke(event)
+        } ?: return@runBlocking null
 
-            return@runBlocking callbacks.firstOrNull()
-        }
+        return@runBlocking callbacks.firstOrNull()
+    }
 }

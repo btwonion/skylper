@@ -22,32 +22,33 @@ in [features.md](https://github.com/btwonion/skylper/blob/master/features.md).
 #### Crystal Hollows
 
 - waypoints for:
-  - goblin king
-  - goblin queen
-  - precursor city
-  - jungle temple
-  - amethyst crystal (explicitly as the jungle temple entrance differs from the crystal)
-  - odawa
-  - khazad dum
-  - mines of divan
-  - crystal nucleus
-  - fairy grotto
-  - corleone
-  - key guardian
+    - goblin king
+    - goblin queen
+    - precursor city
+    - jungle temple
+    - amethyst crystal (explicitly as the jungle temple entrance differs from the crystal)
+    - odawa
+    - khazad dum
+    - mines of divan
+    - crystal nucleus
+    - fairy grotto
+    - corleone
+    - key guardian
 - auto waypoint recognition through public chat
 - waypoints manage screen via hotkey `p` or the config screen
 - crystal completion overlay
 - powder grinding overlay
-  - session time
-  - opened chests
-  - farmed mithril, gemstone and glacite powder in total/per hour/per minute
-  - active double powder event
+    - session time
+    - opened chests
+    - farmed mithril, gemstone and glacite powder in total/per hour/per minute
+    - active double powder event
 - automatic crystal hollows pass renew
 - treasure chest highlighting
 - metal detector helper
 - treasure chest particle highlighting
 
 ### Misc
+
 - notification for lobby you already joined
 
 ### Planned Features
@@ -71,8 +72,10 @@ Config migrations are only applied to major version updates. You therefore can e
 if you use a beta version.
 
 ## Note
+
 Before beta-version 5 most of the features did not work, cause of a bug. <br>
 Before beta-version 8 you are required to use the Profile tablist widget to work. <br>
+
 ##### Just use the latest available beta or stable version to have the best experience possible.
 
 A stable version will release, when all the planned features listed above are implemented.

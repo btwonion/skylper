@@ -14,7 +14,8 @@ import kotlin.math.max
  * @param rows The rows the table should have.
  * @param columns The columns the table should have.
  */
-abstract class TableHudWidget(override var title: Component, private val rows: Int, private val columns: Int) : HudWidget {
+abstract class TableHudWidget(override var title: Component, private val rows: Int, private val columns: Int) :
+    HudWidget {
     val components: MutableMap<Int, HudComponent> = mutableMapOf()
     private val mutex = Mutex()
     private val rowHeight: Int
@@ -52,9 +53,7 @@ abstract class TableHudWidget(override var title: Component, private val rows: I
         }
 
     override fun render(
-        context: GuiGraphics,
-        mouseX: Int,
-        mouseY: Int
+        context: GuiGraphics, mouseX: Int, mouseY: Int
     ): Int {
         if (columnWidths.size < columns - 1) return super.render(context, mouseX, mouseY)
         val xInt = x.toInt()
@@ -62,14 +61,11 @@ abstract class TableHudWidget(override var title: Component, private val rows: I
 
         // Draw separators
         var separatorX = xInt + HudWidget.W_PADDING
-        (0..<columns).drop(1).forEach {
+        (0 ..< columns).drop(1).forEach {
             val columnWidth = columnWidths[it - 1] ?: 1
             separatorX += columnWidth + HudWidget.W_PADDING
             context.vLine(
-                separatorX,
-                nextY,
-                nextY + rowHeight * rows + (rows - 1) * HudWidget.H_PADDING,
-                0x60FFFFFF
+                separatorX, nextY, nextY + rowHeight * rows + (rows - 1) * HudWidget.H_PADDING, 0x60FFFFFF
             )
             separatorX += HudWidget.W_PADDING
         }
@@ -91,9 +87,7 @@ abstract class TableHudWidget(override var title: Component, private val rows: I
     }
 
     fun addComponent(
-        row: Int,
-        column: Int,
-        component: HudComponent
+        row: Int, column: Int, component: HudComponent
     ) {
         runBlocking { mutex.withLock { components[(row - 1) * columns + column] = component } }
     }

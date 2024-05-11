@@ -36,8 +36,7 @@ fun RequiredArgumentBuilder<FabricClientCommandSource, *>.executeAsync(
 }
 
 fun LiteralArgumentBuilder<FabricClientCommandSource>.sub(
-    name: String,
-    callback: (LiteralArgumentBuilder<FabricClientCommandSource>) -> Unit = {}
+    name: String, callback: (LiteralArgumentBuilder<FabricClientCommandSource>) -> Unit = {}
 ): LiteralArgumentBuilder<FabricClientCommandSource> {
     return then(name.commandLiteral.apply(callback))
 }
@@ -58,9 +57,7 @@ fun <A> LiteralArgumentBuilder<FabricClientCommandSource>.arg(
 }
 
 fun <A> LiteralArgumentBuilder<FabricClientCommandSource>.arg(
-    name: String,
-    type: ArgumentType<A>,
-    callback: (RequiredArgumentBuilder<FabricClientCommandSource, A>) -> Unit = {}
+    name: String, type: ArgumentType<A>, callback: (RequiredArgumentBuilder<FabricClientCommandSource, A>) -> Unit = {}
 ): LiteralArgumentBuilder<FabricClientCommandSource> {
     return then(RequiredArgumentBuilder.argument<FabricClientCommandSource, A>(name, type).apply(callback))
 }
@@ -80,9 +77,7 @@ fun <A> RequiredArgumentBuilder<FabricClientCommandSource, *>.arg(
 }
 
 fun <A> RequiredArgumentBuilder<FabricClientCommandSource, *>.arg(
-    name: String,
-    type: ArgumentType<A>,
-    callback: (RequiredArgumentBuilder<FabricClientCommandSource, A>) -> Unit = {}
+    name: String, type: ArgumentType<A>, callback: (RequiredArgumentBuilder<FabricClientCommandSource, A>) -> Unit = {}
 ): RequiredArgumentBuilder<FabricClientCommandSource, *> {
     return then(RequiredArgumentBuilder.argument<FabricClientCommandSource, A>(name, type).apply(callback))
 }

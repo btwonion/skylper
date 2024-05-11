@@ -1,16 +1,7 @@
 package dev.nyon.skylper.skyblock.data.skylper
 
-import dev.nyon.skylper.extensions.CrystalFoundEvent
-import dev.nyon.skylper.extensions.CrystalPlaceEvent
-import dev.nyon.skylper.extensions.EventHandler
+import dev.nyon.skylper.extensions.*
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
-import dev.nyon.skylper.extensions.NucleusRunCompleteEvent
-import dev.nyon.skylper.extensions.PowderGainEvent
-import dev.nyon.skylper.extensions.ProfileChangeEvent
-import dev.nyon.skylper.extensions.SetItemEvent
-import dev.nyon.skylper.extensions.SideboardUpdateEvent
-import dev.nyon.skylper.extensions.doubleOrNull
-import dev.nyon.skylper.extensions.lore
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.mining.MiningAbility
 import dev.nyon.skylper.skyblock.mining.hollows.Crystal
@@ -33,7 +24,8 @@ object PlayerDataUpdater {
 
     private fun crystalHollowsChecker() {
         listenEvent<CrystalFoundEvent, Unit> { (crystal) ->
-            playerData.currentProfile?.mining?.crystalHollows?.crystals?.find { it.crystal == crystal }?.state = CrystalState.FOUND
+            playerData.currentProfile?.mining?.crystalHollows?.crystals?.find { it.crystal == crystal }?.state =
+                CrystalState.FOUND
         }
 
         listenEvent<NucleusRunCompleteEvent, Unit> {
@@ -41,7 +33,8 @@ object PlayerDataUpdater {
         }
 
         listenEvent<CrystalPlaceEvent, Unit> { (crystal) ->
-            playerData.currentProfile?.mining?.crystalHollows?.crystals?.find { it.crystal == crystal }?.state = CrystalState.PLACED
+            playerData.currentProfile?.mining?.crystalHollows?.crystals?.find { it.crystal == crystal }?.state =
+                CrystalState.PLACED
         }
     }
 
@@ -73,7 +66,8 @@ object PlayerDataUpdater {
                 MiningAbility.rawNames.any { name -> itemNameString.contains(name) } -> {
                     val selected = it.itemStack.lore.any { lore -> lore.string.contains("SELECTED") }
                     if (selected) {
-                        val rawName = MiningAbility.rawNames.find { name -> itemNameString.contains(name) } ?: return@listenEvent
+                        val rawName =
+                            MiningAbility.rawNames.find { name -> itemNameString.contains(name) } ?: return@listenEvent
                         playerData.currentProfile?.mining?.selectedAbility = MiningAbility.byRawName(rawName)
                     }
                 }
@@ -85,11 +79,15 @@ object PlayerDataUpdater {
                 }
                 itemNameString.contains("Heart of the Mountain") -> {
                     val lore = it.itemStack.lore.map { line -> line.string }
-                    val mithrilPowder = lore.find { line -> line.contains("Mithril Powder: ") }?.drop(16)?.doubleOrNull()
+                    val mithrilPowder =
+                        lore.find { line -> line.contains("Mithril Powder: ") }?.drop(16)?.doubleOrNull()
                     if (mithrilPowder != null) playerData.currentProfile?.mining?.mithrilPowder = mithrilPowder.toInt()
-                    val gemstonePowder = lore.find { line -> line.contains("Gemstone Powder: ") }?.drop(17)?.doubleOrNull()
-                    if (gemstonePowder != null) playerData.currentProfile?.mining?.gemstonePowder = gemstonePowder.toInt()
-                    val glacitePowder = lore.find { line -> line.contains("Glacite Powder: ") }?.drop(17)?.doubleOrNull()
+                    val gemstonePowder =
+                        lore.find { line -> line.contains("Gemstone Powder: ") }?.drop(17)?.doubleOrNull()
+                    if (gemstonePowder != null) playerData.currentProfile?.mining?.gemstonePowder =
+                        gemstonePowder.toInt()
+                    val glacitePowder =
+                        lore.find { line -> line.contains("Glacite Powder: ") }?.drop(17)?.doubleOrNull()
                     if (glacitePowder != null) playerData.currentProfile?.mining?.glacitePowder = glacitePowder.toInt()
                 }
             }
@@ -97,33 +95,31 @@ object PlayerDataUpdater {
     }
 
     @Suppress("unused")
-    private val sideboardUpdateEvent =
-        listenEvent<SideboardUpdateEvent, Unit> {
-            it.cleanLines.forEach { line ->
-                if (line.contains("Mithril: ")) {
-                    val mithril = line.drop(11).doubleOrNull()?.toInt()
-                    if (mithril != null) {
-                        playerData.currentProfile?.mining?.mithrilPowder = mithril
-                        EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.MITHRIL, mithril))
-                    }
+    private val sideboardUpdateEvent = listenEvent<SideboardUpdateEvent, Unit> {
+        it.cleanLines.forEach { line ->
+            if (line.contains("Mithril: ")) {
+                val mithril = line.drop(11).doubleOrNull()?.toInt()
+                if (mithril != null) {
+                    playerData.currentProfile?.mining?.mithrilPowder = mithril
+                    EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.MITHRIL, mithril))
                 }
+            }
 
-                if (line.contains("Gemstone: ")) {
-                    val gemstone = line.drop(12).doubleOrNull()?.toInt()
-                    if (gemstone != null) {
-                        playerData.currentProfile?.mining?.gemstonePowder = gemstone
-                        EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.GEMSTONE, gemstone))
-                    }
+            if (line.contains("Gemstone: ")) {
+                val gemstone = line.drop(12).doubleOrNull()?.toInt()
+                if (gemstone != null) {
+                    playerData.currentProfile?.mining?.gemstonePowder = gemstone
+                    EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.GEMSTONE, gemstone))
                 }
+            }
 
-                if (line.contains("Glacite: "))
-                    {
-                        val glacite = line.drop(9).doubleOrNull()?.toInt()
-                        if (glacite != null) {
-                            playerData.currentProfile?.mining?.glacitePowder = glacite
-                            EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.GLACITE, glacite))
-                        }
-                    }
+            if (line.contains("Glacite: ")) {
+                val glacite = line.drop(9).doubleOrNull()?.toInt()
+                if (glacite != null) {
+                    playerData.currentProfile?.mining?.glacitePowder = glacite
+                    EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.GLACITE, glacite))
+                }
             }
         }
+    }
 }

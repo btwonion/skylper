@@ -29,56 +29,45 @@ import net.minecraft.world.item.Item
 import java.awt.Color
 
 fun <T> Option.Builder<T>.title(
-    categoryKey: String,
-    key: String
+    categoryKey: String, key: String
 ): Option.Builder<T> {
     name(Component.translatable("menu.skylper.config.$categoryKey.$key.title"))
     return this
 }
 
 fun ButtonOption.Builder.title(
-    categoryKey: String,
-    key: String
+    categoryKey: String, key: String
 ): ButtonOption.Builder {
     name(Component.translatable("menu.skylper.config.$categoryKey.$key.title"))
     return this
 }
 
 fun <T> ListOption.Builder<T>.title(
-    categoryKey: String,
-    key: String
+    categoryKey: String, key: String
 ): ListOption.Builder<T> {
     name(Component.translatable("menu.skylper.config.$categoryKey.$key.title"))
     return this
 }
 
 fun Option.Builder<*>.description(
-    categoryKey: String,
-    key: String,
-    vararg args: String
+    categoryKey: String, key: String, vararg args: String
 ) {
     description(
         OptionDescription.of(
             Component.translatable(
-                "menu.skylper.config.$categoryKey.$key.description",
-                *args
+                "menu.skylper.config.$categoryKey.$key.description", *args
             )
         )
     )
 }
 
 fun Option.Builder<*>.description(
-    categoryKey: String,
-    key: String,
-    imageKey: ResourceLocation,
-    width: Int,
-    height: Int
+    categoryKey: String, key: String, imageKey: ResourceLocation, width: Int, height: Int
 ) {
     description(
         OptionDescription.createBuilder()
             .text(Component.translatable("menu.skylper.config.$categoryKey.$key.description"))
-            .image(imageKey, width, height)
-            .build()
+            .image(imageKey, width, height).build()
     )
 }
 
@@ -87,24 +76,18 @@ fun Option.Builder<*>.description(block: OptionDescription.Builder.() -> Unit) {
 }
 
 fun ButtonOption.Builder.description(
-    categoryKey: String,
-    key: String
+    categoryKey: String, key: String
 ) {
     description(OptionDescription.of(Component.translatable("menu.skylper.config.$categoryKey.$key.description")))
 }
 
 fun ButtonOption.Builder.description(
-    categoryKey: String,
-    key: String,
-    imageKey: ResourceLocation,
-    width: Int,
-    height: Int
+    categoryKey: String, key: String, imageKey: ResourceLocation, width: Int, height: Int
 ) {
     description(
         OptionDescription.createBuilder()
             .text(Component.translatable("menu.skylper.config.$categoryKey.$key.description"))
-            .image(imageKey, width, height)
-            .build()
+            .image(imageKey, width, height).build()
     )
 }
 
@@ -113,16 +96,13 @@ fun ButtonOption.Builder.description(block: OptionDescription.Builder.() -> Unit
 }
 
 fun <T : Any> Option.Builder<T>.getSet(
-    get: () -> T,
-    set: (T) -> Unit
+    get: () -> T, set: (T) -> Unit
 ) {
     binding(get(), get, set)
 }
 
 fun Option.Builder<Int>.slider(
-    min: Int,
-    max: Int,
-    interval: Int
+    min: Int, max: Int, interval: Int
 ) {
     customController {
         return@customController IntegerSliderController(it, min, max, interval)
@@ -130,8 +110,7 @@ fun Option.Builder<Int>.slider(
 }
 
 fun Option.Builder<Int>.field(
-    min: Int,
-    max: Int
+    min: Int, max: Int
 ) {
     customController {
         IntegerFieldController(it, min, max)
@@ -139,9 +118,7 @@ fun Option.Builder<Int>.field(
 }
 
 fun Option.Builder<Double>.slider(
-    min: Double,
-    max: Double,
-    interval: Double
+    min: Double, max: Double, interval: Double
 ) {
     customController {
         return@customController DoubleSliderController(it, min, max, interval)
@@ -149,8 +126,7 @@ fun Option.Builder<Double>.slider(
 }
 
 fun Option.Builder<Double>.field(
-    min: Double,
-    max: Double
+    min: Double, max: Double
 ) {
     customController {
         DoubleFieldController(it, min, max)
@@ -158,9 +134,7 @@ fun Option.Builder<Double>.field(
 }
 
 fun Option.Builder<Float>.slider(
-    min: Float,
-    max: Float,
-    interval: Float
+    min: Float, max: Float, interval: Float
 ) {
     customController {
         return@customController FloatSliderController(it, min, max, interval)
@@ -168,8 +142,7 @@ fun Option.Builder<Float>.slider(
 }
 
 fun Option.Builder<Float>.field(
-    min: Float,
-    max: Float
+    min: Float, max: Float
 ) {
     customController {
         FloatFieldController(it, min, max)
@@ -177,9 +150,7 @@ fun Option.Builder<Float>.field(
 }
 
 fun Option.Builder<Long>.slider(
-    min: Long,
-    max: Long,
-    interval: Long
+    min: Long, max: Long, interval: Long
 ) {
     customController {
         return@customController LongSliderController(it, min, max, interval)
@@ -187,8 +158,7 @@ fun Option.Builder<Long>.slider(
 }
 
 fun Option.Builder<Long>.field(
-    min: Long,
-    max: Long
+    min: Long, max: Long
 ) {
     customController {
         LongFieldController(it, min, max)
@@ -202,9 +172,7 @@ fun Option.Builder<String>.field() {
 }
 
 fun Option.Builder<String>.dropdown(
-    allowedValues: List<String>,
-    emptyAllowed: Boolean = false,
-    allowAny: Boolean = false
+    allowedValues: List<String>, emptyAllowed: Boolean = false, allowAny: Boolean = false
 ) {
     customController {
         return@customController DropdownStringController(it, allowedValues, emptyAllowed, allowAny)
@@ -224,8 +192,7 @@ fun <T : Enum<T>> Option.Builder<T>.dropdown(formatter: ValueFormatter<T>) {
 }
 
 inline fun <reified T : Enum<T>> Option.Builder<T>.cycling(
-    noinline formatter: (T) -> Component,
-    allowedValues: List<T>
+    noinline formatter: (T) -> Component, allowedValues: List<T>
 ) {
     customController {
         return@customController EnumController(it, formatter, allowedValues.toTypedArray())
@@ -233,8 +200,7 @@ inline fun <reified T : Enum<T>> Option.Builder<T>.cycling(
 }
 
 fun <T> Option.Builder<T>.cycling(
-    values: List<T>,
-    formatter: (T) -> Component
+    values: List<T>, formatter: (T) -> Component
 ) {
     customController {
         return@customController CyclingListController(it, values, formatter)
@@ -254,8 +220,7 @@ fun Option.Builder<Boolean>.default() {
 }
 
 fun Option.Builder<Boolean>.field(
-    formatter: (Boolean) -> Component,
-    colored: Boolean = true
+    formatter: (Boolean) -> Component, colored: Boolean = true
 ) {
     customController {
         return@customController BooleanController(it, formatter, colored)

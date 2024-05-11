@@ -20,7 +20,8 @@ public abstract class ItemCooldownsMixin implements AbilityCooldownIdentifier {
 
     @Override
     public float skylper$getCooldownPercent(
-        @NotNull ItemStack itemStack,
+        @NotNull
+        ItemStack itemStack,
         float partialTicks
     ) {
         var skylperPercentage = CooldownHandler.INSTANCE.getPercentage(itemStack);
