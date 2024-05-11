@@ -1,5 +1,6 @@
 package dev.nyon.skylper.extensions.render
 
+/*? if >1.20.5 {*/
 import dev.nyon.skylper.extensions.EventHandler
 import dev.nyon.skylper.extensions.RenderHudEvent
 import dev.nyon.skylper.minecraft
@@ -14,3 +15,4 @@ object CustomRenderLayer : LayeredDraw.Layer {
         EventHandler.invokeEvent(RenderHudEvent(guiGraphics))
     }
 }
+/*?} */
