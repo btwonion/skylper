@@ -82,7 +82,4 @@ A stable version will release, when all the planned features listed above are im
 
 ### Other
 
-⚠️ The development version is always the latest stable release of Minecraft.
-Therefore, new features will only be available for the current and following Minecraft versions.
-
 If you need help with any of my mods just join my [discord server](https://nyon.dev/discord).
