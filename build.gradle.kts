@@ -143,7 +143,7 @@ publishMods {
     displayName = "v${project.version}"
     file = tasks.remapJar.get().archiveFile
     changelog = changelogText
-    type = STABLE
+    type = if (beta != null) BETA else STABLE
     modLoaders.addAll("fabric", "quilt")
 
     modrinth {
@@ -153,7 +153,7 @@ publishMods {
 
         requires { slug = "fabric-api" }
         requires { slug = "yacl" }
-        requires { slug  = "fabric-language-kotlin" }
+        requires { slug = "fabric-language-kotlin" }
         optional { slug = "modmenu" }
     }
 
