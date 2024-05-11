@@ -37,7 +37,7 @@
     "menu.skylper.config.hollows.auto_pass_renew.title": "Auto renew Crystal Hollows Pass",
     "menu.skylper.config.hollows.auto_pass_renew.description": "Decides whether the pass, which grants access to the Crystal Hollows, should be automatically renewed or not.",
     "menu.skylper.config.hollows.metal_detector.title": "Metal Detector Helper",
-    "menu.skylper.config.hollows.metal_detector.description": "Toggles the metal detector helper in Mines of Divan.",
+    "menu.skylper.config.hollows.metal_detector.description": "Toggles the metal detector helper in Mines of Divan.\nNOTE: The solver does conflict with Skyblocker's metal detector helper. To use the helper, disable Skyblocker's implementation of it.",
     "menu.skylper.config.hollows.locations.title": "Chat locations",
     "menu.skylper.config.hollows.locations.description": "Settings about the structure location recognition in public chats.",
     "menu.skylper.config.hollows.locations.parse_location.title": "Recognize locations",
