@@ -1,6 +1,5 @@
 @file:Suppress("SpellCheckingInspection")
 
-import masecla.modrinth4j.model.version.ProjectVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -8,8 +7,7 @@ plugins {
     kotlin("plugin.serialization") version "1.9.24"
     id("fabric-loom") version "1.6-SNAPSHOT"
 
-    id("com.modrinth.minotaur") version "2.8.7"
-    id("com.github.breadmoirai.github-release") version "2.5.2"
+    id("me.modmuss50.mod-publish-plugin") version "0.5.+"
 
     `maven-publish`
     signing
@@ -113,8 +111,7 @@ tasks {
         group = "publishing"
 
         dependsOn("modrinthSyncBody")
-        dependsOn("modrinth")
-        dependsOn("githubRelease")
+        dependsOn("publishMods")
         dependsOn("publish")
     }
 
@@ -142,36 +139,36 @@ val changelogText = buildString {
     file("${if (beta != null) "beta-" else ""}changelog.md").readText().also { append(it) }
 }
 
-modrinth {
-    token = providers.environmentVariable("MODRINTH_API_KEY").orNull
-    projectId = "MXwU9ODv"
-    versionNumber = project.version.toString()
-    versionType = if (beta != null) ProjectVersion.VersionType.BETA.name else ProjectVersion.VersionType.RELEASE.name
-    uploadFile = tasks["remapJar"]
-    gameVersions = listOf(mcVersion)
-    loaders = listOf("fabric", "quilt")
-    dependencies {
-        required.project("fabric-api")
-        required.project("fabric-language-kotlin")
-        required.project("yacl")
-        optional.project("modmenu")
-    }
+publishMods {
+    displayName = "v${project.version}"
+    file = tasks.remapJar.get().archiveFile
     changelog = changelogText
-    syncBodyFrom = file("readme.md").readText()
-}
+    type = STABLE
+    modLoaders.addAll("fabric", "quilt")
 
-githubRelease {
-    token(providers.environmentVariable("GITHUB_TOKEN").orNull)
+    modrinth {
+        projectId = "wTfH1dkt"
+        accessToken = providers.environmentVariable("MODRINTH_API_KEY")
+        minecraftVersions.add(mcVersion)
 
-    val split = githubRepo.split("/")
-    owner = split[0]
-    repo = split[1]
-    tagName = "v${project.version}"
-    body = changelogText
-    overwrite = true
-    releaseAssets(tasks["remapJar"].outputs.files)
-    targetCommitish = "master"
-    prerelease = beta != null
+        requires { slug = "fabric-api" }
+        requires { slug = "yacl" }
+        requires { slug  = "fabric-language-kotlin" }
+        optional { slug = "modmenu" }
+    }
+
+    github {
+        repository = githubRepo
+        accessToken = providers.environmentVariable("GITHUB_TOKEN")
+        commitish = "master"
+    }
+
+    discord {
+        webhookUrl = providers.environmentVariable("DISCORD_WEBHOOK")
+        username = "Release Notifier"
+        avatarUrl = "https://www.svgrepo.com/show/521999/bell.svg"
+        content = "# A new version of Skylper released!\n$changelogText"
+    }
 }
 
 publishing {
