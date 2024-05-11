@@ -29,6 +29,12 @@ loom {
             ideConfigGenerated(true)
             runDir("../../run")
         }
+
+        rootProject.tasks.register("runActive") {
+            group = "mod"
+
+            dependsOn(tasks.named("runClient"))
+        }
     }
 
     mixin { useLegacyMixinAp = false }
