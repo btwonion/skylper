@@ -16,7 +16,7 @@ plugins {
 }
 
 group = "dev.nyon"
-val beta: Int? = 13
+val beta: Int? = 14
 val majorVersion = "1.0.0${if (beta != null) "-beta$beta" else ""}"
 val mcVersion = "1.20.6"
 version = "$majorVersion-$mcVersion"
