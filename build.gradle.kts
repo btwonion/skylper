@@ -196,6 +196,8 @@ java {
     withJavadocJar()
 }
 
+/*
 signing {
     sign(publishing.publications)
 }
+ */
