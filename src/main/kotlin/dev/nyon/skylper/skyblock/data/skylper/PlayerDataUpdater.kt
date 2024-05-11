@@ -87,7 +87,7 @@ object PlayerDataUpdater {
                     if (gemstonePowder != null) playerData.currentProfile?.mining?.gemstonePowder =
                         gemstonePowder.toInt()
                     val glacitePowder =
-                        lore.find { line -> line.contains("Glacite Powder: ") }?.drop(17)?.doubleOrNull()
+                        lore.find { line -> line.contains("Glacite Powder: ") }?.drop(16)?.doubleOrNull()
                     if (glacitePowder != null) playerData.currentProfile?.mining?.glacitePowder = glacitePowder.toInt()
                 }
             }
