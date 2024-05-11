@@ -143,25 +143,25 @@ val changelogText = buildString {
 }
 
 modrinth {
-    token.set(findProperty("modrinth.token")?.toString())
-    projectId.set("MXwU9ODv")
-    versionNumber.set("${project.version}")
-    versionType.set(if (beta != null) ProjectVersion.VersionType.BETA.name else ProjectVersion.VersionType.BETA.name)
-    uploadFile.set(tasks["remapJar"])
-    gameVersions.set(listOf(mcVersion))
-    loaders.set(listOf("fabric", "quilt"))
+    token = providers.environmentVariable("MODRINTH_API_KEY").orNull
+    projectId = "MXwU9ODv"
+    versionNumber = project.version.toString()
+    versionType = if (beta != null) ProjectVersion.VersionType.BETA.name else ProjectVersion.VersionType.RELEASE.name
+    uploadFile = tasks["remapJar"]
+    gameVersions = listOf(mcVersion)
+    loaders = listOf("fabric", "quilt")
     dependencies {
         required.project("fabric-api")
         required.project("fabric-language-kotlin")
         required.project("yacl")
         optional.project("modmenu")
     }
-    changelog.set(changelogText)
-    syncBodyFrom.set(file("readme.md").readText())
+    changelog = changelogText
+    syncBodyFrom = file("readme.md").readText()
 }
 
 githubRelease {
-    token(findProperty("github.token")?.toString())
+    token(providers.environmentVariable("GITHUB_TOKEN").orNull)
 
     val split = githubRepo.split("/")
     owner = split[0]
@@ -179,9 +179,9 @@ publishing {
         maven {
             name = "nyon"
             url = uri("https://repo.nyon.dev/releases")
-            credentials(PasswordCredentials::class)
-            authentication {
-                create<BasicAuthentication>("basic")
+            credentials {
+                username = providers.environmentVariable("NYON_USERNAME").orNull
+                password = providers.environmentVariable("NYON_PASSWORD").orNull
             }
         }
     }
