@@ -173,7 +173,6 @@ publishMods {
     discord {
         webhookUrl = providers.environmentVariable("DISCORD_WEBHOOK")
         username = "Release Notifier"
-        avatarUrl = "https://www.svgrepo.com/show/521999/bell.svg"
         content = "# A new version of Skylper released!\n$changelogText"
     }
 }

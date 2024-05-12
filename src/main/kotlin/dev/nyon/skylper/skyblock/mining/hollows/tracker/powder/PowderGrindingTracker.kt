@@ -20,6 +20,7 @@ import kotlinx.datetime.Instant
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import kotlin.reflect.KClass
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 import dev.nyon.skylper.config.config as overallConfig
@@ -54,6 +55,7 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
             val matcher = reward.pattern.matcher(raw)
             if (!matcher.matches()) return@forEach
             val amount = matcher.group("amount").doubleOrNull()?.toInt() ?: return@forEach
+            if (lastChestOpened != null && now - lastChestOpened!! > 500.milliseconds) data.chest.updateByIncrease(1, this@PowderGrindingTracker)
             lastChestOpened = now
             val fixedAmount = amount * if (data.doublePowderActive) 2 else 1
             when (reward) {

@@ -1,8 +1,8 @@
 ## Features
-- support 1.20.4 and 1.20.6 from now on
+none
 
 ## Bug Fixes
-- improve powder widget config translation
+- fix #18 when chest did not track correctly with great explorer maxed
 
 ## Technical changes
 none
