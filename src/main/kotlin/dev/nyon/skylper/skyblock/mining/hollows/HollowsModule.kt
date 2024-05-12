@@ -25,7 +25,8 @@ object HollowsModule {
             return areaMatch && posMatch
         }
 
-    private val nucleusWaypoint = HollowsLocation(hollowsBox.center, PreDefinedHollowsLocationSpecific.CRYSTAL_NUCLEUS)
+    private val nucleusWaypoint =
+        HollowsLocation(hollowsBox.center.add(0.0, 5.0, 0.0), PreDefinedHollowsLocationSpecific.CRYSTAL_NUCLEUS)
     val waypoints: MutableSet<HollowsLocation> = mutableSetOf()
 
     fun init() {

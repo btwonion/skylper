@@ -17,7 +17,6 @@ import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.network.chat.Component
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
-import org.joml.Matrix4f
 import org.lwjgl.opengl.GL11
 
 private const val MAX_BUILD_HEIGHT: Double = 319.0
@@ -25,18 +24,24 @@ private const val MAX_BUILD_HEIGHT: Double = 319.0
 fun WorldRenderContext.renderText(
     text: Component, pos: Vec3, scale: Float, backgroundColor: Int, throughWalls: Boolean = true
 ) {
-    val posMatrix = Matrix4f()
+    val matrices = matrixStack()!!
     val camera = camera()
     val cameraPos = camera.position
     val font = minecraft.font
 
     val correctedScale = scale * 0.025f
-    posMatrix.translate(
-        (pos.x - cameraPos.x).toFloat(), (pos.y - cameraPos.y).toFloat(), (pos.z - cameraPos.z).toFloat()
-    )
-    posMatrix.rotate(camera.rotation())
-    posMatrix.scale(-correctedScale, -correctedScale, correctedScale)
 
+    matrices.pushPose()
+    matrices.translate(
+        (pos.x - cameraPos.x).toFloat(),
+        (pos.y - cameraPos.y).toFloat(),
+        (pos.z - cameraPos.z).toFloat()
+    )
+    matrices.last().pose().mul(RenderSystem.getModelViewMatrix())
+    matrices.mulPose(camera.rotation())
+    matrices.scale(-correctedScale, -correctedScale, correctedScale)
+
+    val positionMatrix = matrices.last().pose()
     val xOffset = -font.width(text) / 2f
 
     val tes = RenderSystem.renderThreadTesselator()
@@ -51,7 +56,7 @@ fun WorldRenderContext.renderText(
         0f,
         0xFFFFFF,
         false,
-        posMatrix,
+        positionMatrix,
         consumers,
         Font.DisplayMode.SEE_THROUGH,
         backgroundColor,
@@ -60,6 +65,7 @@ fun WorldRenderContext.renderText(
     consumers.endBatch()
 
     RenderSystem.depthFunc(GL11.GL_LEQUAL)
+    matrices.popPose()
 }
 
 fun WorldRenderContext.renderBeaconBeam(

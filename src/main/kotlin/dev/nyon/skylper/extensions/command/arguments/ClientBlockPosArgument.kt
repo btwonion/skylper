@@ -36,8 +36,7 @@ class ClientBlockPosArgument : ArgumentType<ClientCoordinates> {
                 (commandContext.source as SharedSuggestionProvider).relevantCoordinates
             }
 
-            return SharedSuggestionProvider.suggestCoordinates(
-                string,
+            return SharedSuggestionProvider.suggestCoordinates(string,
                 collection,
                 suggestionsBuilder,
                 Commands.createValidator { stringReader: StringReader ->

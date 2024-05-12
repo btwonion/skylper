@@ -14,5 +14,4 @@ object CustomRenderLayer : LayeredDraw.Layer {
         if (minecraft.gui.debugOverlay.showDebugScreen()) return
         EventHandler.invokeEvent(RenderHudEvent(guiGraphics))
     }
-}
-/*?} */
+}/*?} */
