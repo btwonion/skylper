@@ -43,4 +43,4 @@ jobs:
           command: ./gradlew buildAllVersions --stacktrace
       - uses: actions/upload-artifact@v4
         with:
-          path: build/libs/*.jar
+          path: versions/**/build/libs/*.jar

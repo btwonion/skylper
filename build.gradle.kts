@@ -23,6 +23,10 @@ group = "dev.nyon"
 val authors = listOf("btwonion")
 val githubRepo = "btwonion/skylper"
 
+base {
+    archivesName.set("skylper")
+}
+
 loom {
     if (stonecutter.current.isActive) {
         runConfigs.all {
@@ -101,20 +105,19 @@ dependencies {
 
 val javaVersion = property("javaVer")!!.toString()
 tasks {
-        processResources {
+    processResources {
         val modId = "skylper"
         val modName = "skylper"
         val modDescription = "Utility mod for Hypixel Skyblock"
 
-        val props =
-            mapOf(
-                "id" to modId,
-                "name" to modName,
-                "description" to modDescription,
-                "version" to project.version,
-                "github" to githubRepo,
-                "mc" to mcVersionRange
-            )
+        val props = mapOf(
+            "id" to modId,
+            "name" to modName,
+            "description" to modDescription,
+            "version" to project.version,
+            "github" to githubRepo,
+            "mc" to mcVersionRange
+        )
 
         props.forEach(inputs::property)
 
@@ -145,7 +148,8 @@ val changelogText = buildString {
     file("../../${if (beta != null) "beta-" else ""}changelog.md").readText().also { append(it) }
 }
 
-val supportedMcVersions: List<String> = property("supportedMcVersions")!!.toString().split(',').map(String::trim).filter(String::isNotEmpty)
+val supportedMcVersions: List<String> =
+    property("supportedMcVersions")!!.toString().split(',').map(String::trim).filter(String::isNotEmpty)
 publishMods {
     displayName = "v${project.version}"
     file = tasks.remapJar.get().archiveFile
@@ -201,9 +205,7 @@ publishing {
 java {
     withSourcesJar()
 
-    javaVersion.toInt()
-        .let { JavaVersion.values()[it - 1] }
-        .let {
+    javaVersion.toInt().let { JavaVersion.values()[it - 1] }.let {
             sourceCompatibility = it
             targetCompatibility = it
         }
