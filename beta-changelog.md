@@ -2,7 +2,7 @@
 none
 
 ## Bug Fixes
-- fix #19, where powder tracking overlay did not show up
+- fix chest counting in powder grinding tracker
 
 ## Technical changes
 none

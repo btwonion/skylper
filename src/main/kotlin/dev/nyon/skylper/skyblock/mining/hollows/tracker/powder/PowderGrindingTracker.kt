@@ -56,7 +56,7 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
             if (!matcher.matches()) return@forEach
             if (startTime == null) startTime = now
             val amount = matcher.group("amount").doubleOrNull()?.toInt() ?: return@forEach
-            if (lastChestOpened != null && now - lastChestOpened!! > 500.milliseconds) data.chest.updateByIncrease(
+            if (lastChestOpened == null || now - lastChestOpened!! > 100.milliseconds) data.chest.updateByIncrease(
                 1,
                 this@PowderGrindingTracker
             )
