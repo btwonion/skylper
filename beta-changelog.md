@@ -1,9 +1,8 @@
 ## Features
-- moved nucleus waypoint 5 blocks up to align it the floor of the nucleus
+none
 
 ## Bug Fixes
-- fix #18 when chest did not track correctly with great explorer maxed
-- fix #17, where waypoint where rendered incorrectly
+- fix #19, where powder tracking overlay did not show up
 
 ## Technical changes
 none
