@@ -19,6 +19,8 @@ abstract class Tracker<D : TrackerData>(val nameSpace: String, val data: D) :
     val overlayNameSpace = "menu.skylper.overlay.$nameSpace"
     var startTime: Instant? = null
 
+    abstract val resetTriggers: List<KClass<out Event<out Any>>>
+
     abstract fun appendConfigOptions(
         builder: OptionGroup.Builder, categoryKey: String
     ): OptionGroup.Builder
@@ -30,6 +32,13 @@ abstract class Tracker<D : TrackerData>(val nameSpace: String, val data: D) :
         super.init()
         data.resetTriggers.map { it as KClass<out Event<Any>> }.forEach {
             EventHandler.listenEvent(it) {
+                data.reset()
+            }
+        }
+
+        resetTriggers.map { it as KClass<out Event<Any>> }.forEach {
+            EventHandler.listenEvent(it) {
+                startTime = null
                 data.reset()
             }
         }

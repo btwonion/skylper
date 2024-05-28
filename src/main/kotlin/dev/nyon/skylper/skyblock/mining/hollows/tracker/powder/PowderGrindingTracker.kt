@@ -110,6 +110,7 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
             data.gemstone.update(this@PowderGrindingTracker)
         }
     }
+    override val resetTriggers: List<KClass<out Event<out Any>>> = listOf(LevelChangeEvent::class)
 
     override fun appendConfigOptions(
         builder: OptionGroup.Builder, categoryKey: String
