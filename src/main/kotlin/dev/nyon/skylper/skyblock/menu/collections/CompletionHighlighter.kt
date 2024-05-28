@@ -13,7 +13,7 @@ object CompletionHighlighter {
         if (screenName.contains("Collections")) {
             val lore = slot.item.lore.map { it.string }
             if (lore.none { it.contains("Click to view!") }) return@listenEvent null
-            if (lore.any { it.contains("COLLECTION MAXED OUT") }) return@listenEvent null
+            if (lore.any { it.contains("Collections Maxed Out:") }) return@listenEvent null
             return@listenEvent config.menu.collections.nonCompletedCollectionHighlightColor.rgb
         }
 
