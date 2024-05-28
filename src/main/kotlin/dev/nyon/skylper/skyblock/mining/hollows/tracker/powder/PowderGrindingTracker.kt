@@ -98,11 +98,10 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
     private val updater = independentScope.launch {
         while (true) {
             delay(1.seconds)
+            if (startTime == null) continue
             if (!isGrinding) {
-                if (startTime != null) {
-                    data.reset()
-                    startTime = null
-                }
+                data.reset()
+                startTime = null
                 continue
             }
             data.chest.update(this@PowderGrindingTracker)
