@@ -3,8 +3,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.9.24"
-    kotlin("plugin.serialization") version "1.9.24"
+    kotlin("jvm") version "2.0.0"
+    kotlin("plugin.serialization") version "2.0.0"
     id("fabric-loom") version "1.6-SNAPSHOT"
 
     id("me.modmuss50.mod-publish-plugin") version "0.5.+"
@@ -43,7 +43,7 @@ loom {
 
     mixin { useLegacyMixinAp = false }
 
-    accessWidenerPath = file("../../src/main/resources/skylper.accesswidener")
+    accessWidenerPath = rootProject.file("src/main/resources/skylper.accesswidener")
 }
 
 repositories {
@@ -78,7 +78,7 @@ dependencies {
     implementation("org.vineflower:vineflower:1.10.1")
     modImplementation("net.fabricmc:fabric-loader:0.15.11")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fapi")!!}")
-    modImplementation("net.fabricmc:fabric-language-kotlin:1.10.20+kotlin.1.9.24")
+    modImplementation("net.fabricmc:fabric-language-kotlin:1.11.0+kotlin.2.0.0")
 
     modImplementation("dev.isxander:yet-another-config-lib:${property("deps.yacl")!!}")
     modImplementation("com.terraformersmc:modmenu:${property("deps.modMenu")!!}")
@@ -145,7 +145,7 @@ tasks {
 
 val changelogText = buildString {
     append("# v${project.version}\n")
-    file("../../${if (beta != null) "beta-" else ""}changelog.md").readText().also { append(it) }
+    rootProject.file("${if (beta != null) "beta-" else ""}changelog.md").readText().also { append(it) }
 }
 
 val supportedMcVersions: List<String> =
