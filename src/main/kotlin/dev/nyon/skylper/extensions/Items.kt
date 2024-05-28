@@ -1,4 +1,4 @@
-package dev.nyon.skylper.extensions/*? if >1.20.5 {*/
+package dev.nyon.skylper.extensions/*? if >1.20.5 {*//*
 import dev.nyon.skylper.minecraft
 import net.minecraft.core.component.DataComponents
 import net.minecraft.nbt.CompoundTag
@@ -35,7 +35,7 @@ val ItemStack.lore: List<Component>
     get() {
         val lines = getTooltipLines(Item.TooltipContext.EMPTY, minecraft.player!!, TooltipFlag.ADVANCED)
         return lines.drop(1)
-    }/*?} else {*//*
+    }*//*?} else {*/
 import dev.nyon.skylper.minecraft
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
@@ -73,4 +73,4 @@ val ItemStack.lore: List<Component>
         val lines = getTooltipLines(minecraft.player, TooltipFlag.ADVANCED)
         return lines.drop(1)
     }
-*//*?} */
+/*?} */
