@@ -2,12 +2,6 @@ package dev.nyon.skylper.extensions.math
 
 import java.util.*
 
-fun Number.withDot(): String {
-    val numString = this.toString()
-    val chunks = numString.reversed().chunked(3).map { it.reversed() }.reversed()
-    return chunks.joinToString(".")
-}
-
 private val suffixes = TreeMap<Long, String>().apply {
     this[1000L] = "k"
     this[1000000L] = "M"
@@ -29,12 +23,16 @@ fun Number.format(preciseBillions: Boolean = false): String {
 
     val truncated = value / (divideBy / 10)
 
-    val truncatedAt = if (suffix == "M") {
-        1000
-    } else if (suffix == "B") {
-        1000000
-    } else {
-        100
+    val truncatedAt = when (suffix) {
+        "M" -> {
+            1000
+        }
+        "B" -> {
+            1000000
+        }
+        else -> {
+            100
+        }
     }
 
     val hasDecimal = truncated < truncatedAt && truncated / 10.0 != (truncated / 10).toDouble()

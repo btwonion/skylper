@@ -6,7 +6,7 @@ import dev.nyon.skylper.extensions.BlockUpdateEvent
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.LevelChangeEvent
 import dev.nyon.skylper.extensions.RenderAfterTranslucentEvent
-import dev.nyon.skylper.extensions.render.renderOutline
+import dev.nyon.skylper.extensions.render.renderFilled
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft
@@ -75,11 +75,8 @@ object ChestHighlighter {
                 foundChests
             }
             copiedChests.forEach { (pos) ->
-                it.context.renderOutline(
-                    AABB(pos.x - 0.1, pos.y - 0.1, pos.z - 0.1, pos.x + 1.1, pos.y + 1.1, pos.z + 1.1),
-                    color.rgb,
-                    15f,
-                    false
+                it.context.renderFilled(
+                    AABB(pos.x - 0.1, pos.y - 0.1, pos.z - 0.1, pos.x + 1.1, pos.y + 1.1, pos.z + 1.1), color.rgb, false
                 )
             }
         }

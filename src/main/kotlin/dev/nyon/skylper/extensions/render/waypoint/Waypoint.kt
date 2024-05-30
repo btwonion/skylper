@@ -29,19 +29,15 @@ open class Waypoint(
     private val shouldRenderName: Boolean = true,
     private val minBeaconBeamY: Int = 0
 ) {
-    companion object {
-        private const val BACKGROUND_COLOR = 0x383838
-    }
-
     fun render(context: WorldRenderContext) {
-        val blockBox = AABB(pos.x - 0.5, pos.y, pos.z - 0.5, pos.x + 0.5, pos.y + 1, pos.z + 0.5)
+        val blockBox = AABB(pos.x - 0.5, pos.y, pos.z - 0.5, pos.x + 0.5, pos.y - 1, pos.z + 0.5)
         val beaconPos = pos.subtract(0.5, pos.y - minBeaconBeamY, 0.5)
         when (type) {
             WaypointType.BEAM -> context.renderBeaconBeam(beaconPos, color)
-            WaypointType.OUTLINE -> context.renderOutline(blockBox, color, 5f, true)
+            WaypointType.OUTLINE -> context.renderOutline(blockBox, color, true)
             WaypointType.OUTLINE_WITH_BEAM -> {
                 context.renderBeaconBeam(beaconPos, color)
-                context.renderOutline(blockBox, color, 10f, true)
+                context.renderOutline(blockBox, color, true)
             }
             WaypointType.FILLED_WITH_BEAM -> {
                 context.renderBeaconBeam(beaconPos, color)
@@ -54,16 +50,13 @@ open class Waypoint(
             val distance = context.camera().position.distanceTo(pos)
 
             context.renderText(
-                Component.literal(Math.round(distance).toString() + "m"),
-                pos.subtract(0.0, 4.0, 0.0),
-                10f,
-                BACKGROUND_COLOR
+                Component.literal(Math.round(distance).toString() + "m"), pos.subtract(0.0, 3.0, 0.0), 10f
             )
         }
 
         if (shouldRenderName) {
             context.renderText(
-                name.copy().withStyle { it.withBold(true) }, pos, 15f, BACKGROUND_COLOR
+                name.copy().withStyle { it.withBold(true) }, pos, 15f
             )
         }
     }
