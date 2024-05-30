@@ -3,6 +3,7 @@ package dev.nyon.skylper.extensions.tracker
 import dev.isxander.yacl3.api.OptionGroup
 import dev.nyon.skylper.extensions.Event
 import dev.nyon.skylper.extensions.EventHandler
+import dev.nyon.skylper.extensions.math.toPrettyString
 import dev.nyon.skylper.extensions.render.hud.SimpleHudWidget
 import dev.nyon.skylper.extensions.render.hud.components.PlainTextHudComponent
 import kotlinx.coroutines.runBlocking
@@ -12,14 +13,11 @@ import kotlinx.datetime.Instant
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import kotlin.reflect.KClass
-import kotlin.time.DurationUnit
 
 abstract class Tracker<D : TrackerData>(val nameSpace: String, val data: D) :
     SimpleHudWidget(Component.translatable("menu.skylper.overlay.$nameSpace.title")) {
     val overlayNameSpace = "menu.skylper.overlay.$nameSpace"
     var startTime: Instant? = null
-
-    abstract val resetTriggers: List<KClass<out Event<out Any>>>
 
     abstract fun appendConfigOptions(
         builder: OptionGroup.Builder, categoryKey: String
@@ -32,12 +30,6 @@ abstract class Tracker<D : TrackerData>(val nameSpace: String, val data: D) :
         super.init()
         data.resetTriggers.map { it as KClass<out Event<Any>> }.forEach {
             EventHandler.listenEvent(it) {
-                data.reset()
-            }
-        }
-
-        resetTriggers.map { it as KClass<out Event<Any>> }.forEach {
-            EventHandler.listenEvent(it) {
                 startTime = null
                 data.reset()
             }
@@ -49,7 +41,7 @@ abstract class Tracker<D : TrackerData>(val nameSpace: String, val data: D) :
         if (startTime == null) return
 
         val now = Clock.System.now()
-        val trackerDuration = (now - startTime!!).toString(DurationUnit.HOURS, 2)
+        val trackerDuration = (now - startTime!!).toPrettyString()
         runBlocking {
             mutex.withLock {
                 components.add(PlainTextHudComponent(Component.translatable("menu.skylper.overlay.duration")
