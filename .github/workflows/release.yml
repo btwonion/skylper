@@ -40,5 +40,5 @@ jobs:
       - uses: funnyboy-roks/modrinth-auto-desc@v1.6
         with:
           auth-token: ${{ secrets.MODRINTH_API_KEY }}
-          readme: "readme.me"
+          readme: "https://raw.githubusercontent.com/btwonion/skylper/master/readme.md"
           slug: 'skylper'
