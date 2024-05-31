@@ -15,6 +15,13 @@ plugins {
     id("dev.kikugie.stonecutter") version "0.3.8"
 }
 
+buildscript {
+    repositories { mavenCentral() }
+    dependencies {
+        classpath("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.0-RC")
+    }
+}
+
 extensions.configure<StonecutterSettings> {
     kotlinController = true
     centralScript = "build.gradle.kts"
