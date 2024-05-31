@@ -1,4 +1,4 @@
-# Skylper
+# skylper
 
 Utility mod for Hypixel Skyblock
 
@@ -71,15 +71,12 @@ in [features.md](https://github.com/btwonion/skylper/blob/master/features.md).
 Config migrations are only applied to major version updates. You therefore can experience issues while loading configs,
 if you use a beta version.
 
-## Note
-
-Before beta-version 5 most of the features did not work, cause of a bug. <br>
-Before beta-version 8 you are required to use the Profile tablist widget to work. <br>
-
 ##### Just use the latest available beta or stable version to have the best experience possible.
 
 A stable version will release, when all the planned features listed above are implemented.
 
 ### Other
+
+Currently supported versions are: 1.20.4, 1.20.6. This can change in the future!
 
 If you need help with any of my mods just join my [discord server](https://nyon.dev/discord).
