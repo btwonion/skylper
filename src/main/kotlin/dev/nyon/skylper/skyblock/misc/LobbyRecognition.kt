@@ -6,6 +6,7 @@ import dev.nyon.skylper.extensions.LevelChangeEvent
 import dev.nyon.skylper.extensions.MessageEvent
 import dev.nyon.skylper.extensions.SkyblockQuitEvent
 import dev.nyon.skylper.minecraft
+import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 
 object LobbyRecognition {
@@ -32,6 +33,6 @@ object LobbyRecognition {
 
         if (!config.misc.recognizeLobbies) return@listenEvent
         if (!containsServerAlready) return@listenEvent
-        minecraft.player?.sendSystemMessage(Component.translatable("chat.skylper.misc.lobby_recognition"))
+        minecraft.player?.sendSystemMessage(Component.translatable("chat.skylper.misc.lobby_recognition").withStyle(ChatFormatting.GRAY))
     }
 }
