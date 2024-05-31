@@ -13,6 +13,7 @@ import dev.nyon.skylper.skyblock.mining.hollows.render.ChestParticleHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.solvers.metaldetector.MetalDetectorSolver
 import dev.nyon.skylper.skyblock.mining.hollows.tracker.PassExpiryTracker
 import net.minecraft.world.phys.AABB
+import net.minecraft.world.phys.Vec3
 
 object HollowsModule {
     val hollowsBox = AABB(201.0, 30.0, 201.0, 824.0, 189.0, 824.0)
@@ -26,7 +27,7 @@ object HollowsModule {
         }
 
     private val nucleusWaypoint =
-        HollowsLocation(hollowsBox.center.add(0.0, 5.0, 0.0), PreDefinedHollowsLocationSpecific.CRYSTAL_NUCLEUS)
+        HollowsLocation(Vec3(513.5, 115.0, 513.5), PreDefinedHollowsLocationSpecific.CRYSTAL_NUCLEUS)
     val waypoints: MutableSet<HollowsLocation> = mutableSetOf()
 
     fun init() {
