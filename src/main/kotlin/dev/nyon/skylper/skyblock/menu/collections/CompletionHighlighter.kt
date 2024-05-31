@@ -4,7 +4,6 @@ import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.RenderItemBackgroundEvent
 import dev.nyon.skylper.extensions.lore
-import net.minecraft.world.item.Items
 
 object CompletionHighlighter {
     @Suppress("unused")
@@ -13,8 +12,8 @@ object CompletionHighlighter {
         val screenName = title.string
         if (screenName.contains("Collections")) {
             val lore = slot.item.lore.map { it.string }
-            if (lore.none { it.contains("Click to view!") } || slot.item.`is`(Items.PLAYER_HEAD)) return@listenEvent null
-            if (lore.any { it.contains("Collections Maxed Out: 100%") }) return@listenEvent null
+            if (lore.none { it.contains("Click to view!") } || slot.item.displayName.string.contains("Crafted Minions")) return@listenEvent null
+            if (lore.any { it.contains("Collections Maxed Out") }) return@listenEvent null
             return@listenEvent config.menu.collections.nonCompletedCollectionHighlightColor.rgb
         }
 

@@ -2,7 +2,7 @@
 none
 
 ## Bug Fixes
-none
+- fix collection highlighting
 
 ## Technical changes
 none
