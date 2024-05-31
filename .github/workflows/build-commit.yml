@@ -5,7 +5,7 @@ name: build-commit
 on:
   push:
     paths-ignore:
-      - "readme.md"
+      - "README.md"
       - "LICENSE"
       - ".gitignore"
       - "changelog.md"
@@ -13,7 +13,7 @@ on:
       - "src/*/resources/lang/*"
   pull_request:
     paths-ignore:
-      - "readme.md"
+      - "README.md"
       - "LICENSE"
       - ".gitignore"
       - "changelog.md"
@@ -51,5 +51,4 @@ jobs:
       - uses: funnyboy-roks/modrinth-auto-desc@v1.6
         with:
           auth-token: ${{ secrets.MODRINTH_API_KEY }}
-          readme: "https://raw.githubusercontent.com/btwonion/skylper/master/readme.md"
           slug: 'skylper'
