@@ -87,7 +87,8 @@ data class Config(val mining: MiningConfig = MiningConfig(), val menu: Menu = Me
         @Serializable
         data class Collections(
             var highlightNonCompletedCollections: Boolean = true,
-            var nonCompletedCollectionHighlightColor: @Contextual Color = Color(255, 0, 0, 255)
+            var nonCompletedCollectionHighlightColor: @Contextual Color = Color(255, 0, 0, 255),
+            var barelyCompletedCollectionHighlightColor: @Contextual Color = Color(255, 200, 0, 255)
         )
 
         @Serializable

@@ -23,6 +23,14 @@ fun YetAnotherConfigLib.Builder.appendMenuCategory() = category("menu") {
         field(true)
     }
 
+    val barelyCompletedHighlightCollectionColorKey = "barely_completed_collection_highlight_color"
+    primitive(categoryKey, barelyCompletedHighlightCollectionColorKey) {
+        description(categoryKey, barelyCompletedHighlightCollectionColorKey)
+        getSet({ config.menu.collections.barelyCompletedCollectionHighlightColor },
+            { config.menu.collections.barelyCompletedCollectionHighlightColor = it })
+        field(true)
+    }
+
     val highlightNonCompletedBestiaryKey = "highlight_non_completed_bestiary"
     primitive(categoryKey, highlightNonCompletedBestiaryKey) {
         description(categoryKey, highlightNonCompletedBestiaryKey)
