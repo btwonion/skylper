@@ -3,7 +3,6 @@ package dev.nyon.skylper.extensions.render
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.DefaultVertexFormat
 import com.mojang.blaze3d.vertex.PoseStack
-import com.mojang.blaze3d.vertex.Tesselator
 import com.mojang.blaze3d.vertex.VertexFormat
 import dev.nyon.skylper.extensions.color
 import dev.nyon.skylper.extensions.internalRenderBeaconBeam
@@ -11,11 +10,15 @@ import dev.nyon.skylper.extensions.isVisible
 import dev.nyon.skylper.minecraft
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext
 import net.minecraft.client.gui.Font
-import net.minecraft.client.renderer.*
+import net.minecraft.client.renderer.GameRenderer
+import net.minecraft.client.renderer.LevelRenderer
+import net.minecraft.client.renderer.LightTexture
+import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.network.chat.Component
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
 import org.lwjgl.opengl.GL11
+import kotlin.math.pow
 
 private const val MAX_BUILD_HEIGHT: Double = 319.0
 
@@ -24,23 +27,19 @@ fun WorldRenderContext.renderText(
 ) {
     val matrices = matrixStack()!!
     val camera = camera()
-    val cameraPos = camera.position
+    val correctedPos = pos.subtract(camera.position)
     val font = minecraft.font
 
-    val correctedScale = scale * 0.025f
-
     matrices.pushPose()
-    matrices.translate(
-        (pos.x - cameraPos.x).toFloat(), (pos.y - cameraPos.y).toFloat(), (pos.z - cameraPos.z).toFloat()
-    )
+    matrices.translate(correctedPos.x, correctedPos.y, correctedPos.z)
     matrices.mulPose(camera.rotation())
-    matrices.scale(-correctedScale, -correctedScale, correctedScale)
+    matrices.scale(-(scale * 0.025F), -(scale * 0.025F), -1F)
 
     val positionMatrix = matrices.last().pose()
     val xOffset = -font.width(text) / 2f
     val yOffset = -font.lineHeight / 2f
 
-    val tes = Tesselator.getInstance()
+    val tes = RenderSystem.renderThreadTesselator()
     val builder = tes.builder
     val consumers = MultiBufferSource.immediate(builder)
 
@@ -106,7 +105,12 @@ fun WorldRenderContext.renderFilled(
 fun WorldRenderContext.renderOutline(
     box: AABB, color: Int, throughWalls: Boolean
 ) = renderCustomWithBox(box, throughWalls) { matrices ->
-    val builder = consumers()!!.getBuffer(RenderType.LINES)
+    RenderSystem.setShader(GameRenderer::getRendertypeLinesShader)
+    RenderSystem.lineWidth(10f / camera().position.distanceToSqr(box.center).pow(0.25).toFloat())
+
+    val tes = RenderSystem.renderThreadTesselator()
+    val builder = tes.builder
+    builder.begin(VertexFormat.Mode.LINES, DefaultVertexFormat.POSITION_COLOR_NORMAL)
 
     val javaColor = color.color
     LevelRenderer.renderLineBox(
@@ -123,6 +127,7 @@ fun WorldRenderContext.renderOutline(
         javaColor.blue.toFloat() / 255,
         0.2f
     )
+    tes.end()
 }
 
 fun WorldRenderContext.renderCustomWithBox(box: AABB, throughWalls: Boolean, block: (matrices: PoseStack) -> Unit) {
