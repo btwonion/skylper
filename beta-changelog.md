@@ -1,8 +1,8 @@
 ## Features
-none
+- update to 1.21
 
 ## Bug Fixes
-- fix collection highlighting
+none
 
 ## Technical changes
-none
+- remove unused code

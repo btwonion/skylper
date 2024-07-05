@@ -14,11 +14,11 @@ plugins {
     signing
 }
 
-val beta: Int = 21
-// Pattern is '1.0.0-beta1-1.20.6-pre.2'
+val beta: Int = 22 // Pattern is '1.0.0-beta1-1.20.6-pre.2'
 val featureVersion = "1.0.0${if (beta != null) "-beta$beta" else ""}"
 val mcVersion = property("mcVersion")!!.toString()
 val mcVersionRange = property("mcVersionRange")!!.toString()
+val awVersion = if (stonecutter.compare(mcVersion, "1.21") >= 0) "1.21" else "1.20"
 version = "$featureVersion-$mcVersion"
 
 group = "dev.nyon"
@@ -143,6 +143,7 @@ tasks {
 
 val changelogText = buildString {
     append("# v${project.version}\n")
+    if (beta != null) append("### As this is still a beta version, this version can contain bugs. Feel free to report ANY misbehaviours and errors!")
     rootProject.file("${if (beta != null) "beta-" else ""}changelog.md").readText().also { append(it) }
 }
 
