@@ -39,7 +39,7 @@ loom {
 
     mixin { useLegacyMixinAp = false }
 
-    accessWidenerPath = rootProject.file("src/main/resources/skylper.accesswidener")
+    accessWidenerPath = rootProject.file("src/main/resources/aw/$awVersion.accesswidener")
 }
 
 repositories {
@@ -112,7 +112,8 @@ tasks {
             "description" to modDescription,
             "version" to project.version,
             "github" to githubRepo,
-            "mc" to mcVersionRange
+            "mc" to mcVersionRange,
+            "aw" to awVersion
         )
 
         props.forEach(inputs::property)

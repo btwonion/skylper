@@ -1,4 +1,4 @@
-import dev.kikugie.stonecutter.gradle.StonecutterSettings
+import dev.kikugie.stonecutter.StonecutterSettings
 
 rootProject.name = "skylper"
 
@@ -12,7 +12,7 @@ pluginManagement {
 }
 
 plugins {
-    id("dev.kikugie.stonecutter") version "0.3.8"
+    id("dev.kikugie.stonecutter") version "0.4+"
 }
 
 buildscript {
@@ -26,8 +26,8 @@ extensions.configure<StonecutterSettings> {
     kotlinController = true
     centralScript = "build.gradle.kts"
     shared {
-        versions("1.20.4", "1.20.6")
-        vcsVersion = "1.20.6"
+        versions("1.21", "1.20.4", "1.20.6")
+        vcsVersion = "1.21"
     }
     create(rootProject)
 }

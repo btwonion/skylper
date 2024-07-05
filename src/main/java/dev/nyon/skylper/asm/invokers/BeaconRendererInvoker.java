@@ -17,7 +17,7 @@ public interface BeaconRendererInvoker {
         long gameTime,
         int yOffset,
         int height,
-        float[] colors
+        /*? if >=1.21 {*/ int color /*?} else {*//* float[] colors *//*?}*/
     ) {
     }
 }

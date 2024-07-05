@@ -70,4 +70,4 @@ public abstract class GuiMixin {
         EventHandler.INSTANCE.invokeEvent(new RenderHudEvent(drawContext));
     }
 }
-*//*?} */
+*//*?}*/
