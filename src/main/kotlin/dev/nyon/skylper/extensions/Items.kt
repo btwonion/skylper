@@ -73,4 +73,4 @@ val ItemStack.lore: List<Component>
         val lines = getTooltipLines(minecraft.player, TooltipFlag.ADVANCED)
         return lines.drop(1)
     }
-*//*?} */
+*//*?}*/

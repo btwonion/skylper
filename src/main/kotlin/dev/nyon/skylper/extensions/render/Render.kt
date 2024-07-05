@@ -40,7 +40,7 @@ fun WorldRenderContext.renderText(
     val yOffset = -font.lineHeight / 2f
 
     val tes = RenderSystem.renderThreadTesselator()
-    val builder = tes.builder
+    val builder = /*? if >=1.21 {*/ tes.buffer /*?} else {*/ /*tes.builder *//*?}*/
     val consumers = MultiBufferSource.immediate(builder)
 
     RenderSystem.depthFunc(if (throughWalls) GL11.GL_ALWAYS else GL11.GL_LEQUAL)
@@ -73,7 +73,7 @@ fun WorldRenderContext.renderBeaconBeam(
     matrices.pushPose()
     matrices.translate(pos.x - cameraPos.x, pos.y - cameraPos.y, pos.z - cameraPos.z)
 
-    internalRenderBeaconBeam(matrices, consumers()!!, tickDelta(), world().gameTime, color, MAX_BUILD_HEIGHT.toInt())
+    internalRenderBeaconBeam(matrices, consumers()!!, /*? if >=1.21 {*/ tickCounter().getGameTimeDeltaPartialTick(true) /*?} else {*/ /*tickDelta() *//*?}*/ , world().gameTime, color, MAX_BUILD_HEIGHT.toInt())
 
     matrices.popPose()
 }
@@ -82,9 +82,10 @@ fun WorldRenderContext.renderFilled(
     box: AABB, color: Int, throughWalls: Boolean = false
 ) = renderCustomWithBox(box, throughWalls) { matrices ->
     val tes = RenderSystem.renderThreadTesselator()
-    val builder = tes.builder
+    //? if <1.21
+    /*val builder = tes.builder*/
     val javaColor = color.color
-    builder.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_COLOR)
+    /*? if >=1.21 {*/ val builder = tes.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_COLOR)/*?} else {*//*builder.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_COLOR)*//*?}*/
     LevelRenderer.addChainedFilledBoxVertices(
         matrices,
         builder,
@@ -99,7 +100,7 @@ fun WorldRenderContext.renderFilled(
         javaColor.blue.toFloat() / 255,
         0.2f
     )
-    tes.end()
+    /*? if >=1.21 {*/ tes.clear() /*?} else {*/ /*tes.end() *//*?}*/
 }
 
 fun WorldRenderContext.renderOutline(
@@ -109,10 +110,10 @@ fun WorldRenderContext.renderOutline(
     RenderSystem.lineWidth(10f / camera().position.distanceToSqr(box.center).pow(0.25).toFloat())
 
     val tes = RenderSystem.renderThreadTesselator()
-    val builder = tes.builder
-    builder.begin(VertexFormat.Mode.LINES, DefaultVertexFormat.POSITION_COLOR_NORMAL)
-
+    //? if <1.21
+    /*val builder = tes.builder*/
     val javaColor = color.color
+    /*? if >=1.21 {*/ val builder = tes.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_COLOR)/*?} else {*//*builder.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_COLOR)*//*?}*/
     LevelRenderer.renderLineBox(
         matrices,
         builder,
@@ -127,7 +128,7 @@ fun WorldRenderContext.renderOutline(
         javaColor.blue.toFloat() / 255,
         0.2f
     )
-    tes.end()
+    /*? if >=1.21 {*/ tes.clear() /*?} else {*/ /*tes.end() *//*?}*/
 }
 
 fun WorldRenderContext.renderCustomWithBox(box: AABB, throughWalls: Boolean, block: (matrices: PoseStack) -> Unit) {
