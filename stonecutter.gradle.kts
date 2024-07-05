@@ -53,6 +53,7 @@ tasks.register("postUpdate") {
     }
 
     val url = providers.environmentVariable("DISCORD_WEBHOOK").orNull ?: return@register
+    val roleId = providers.environmentVariable("DISCORD_ROLE_ID").orNull ?: return@register
     val changelogText = rootProject.file("${if (featureVersion.contains("beta")) "beta-" else ""}changelog.md").readText()
     val webhook = DiscordWebhook(
         username = "${rootProject.name} Release Notifier",
@@ -98,6 +99,7 @@ tasks.register("postUpdate") {
     val json = buildJsonObject {
         put("username", webhook.username)
         put("avatar_url", webhook.avatarUrl)
+        put("content", "<@&$roleId>")
         put("embeds", embedsJson)
     }
 
@@ -107,6 +109,4 @@ tasks.register("postUpdate") {
         HttpRequest.newBuilder(URI.create(url)).header("Content-Type", "application/json")
             .POST(BodyPublishers.ofString(jsonString)).build(), BodyHandlers.ofString()
     )
-
-    println(response.body())
 }
