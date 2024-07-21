@@ -7,7 +7,7 @@ import dev.nyon.skylper.extensions.lore
 
 object CompletionHighlighter {
     @Suppress("unused")
-    val renderItemBackgroundEvent = EventHandler.listenEvent<RenderItemBackgroundEvent, Int?> { (title, slot) ->
+    val renderItemBackgroundEvent = EventHandler.listenEvent<RenderItemBackgroundEvent, Int?> {
         if (!config.menu.bestiary.highlightNonCompletedBestiary) return@listenEvent null
         val screenName = title.string
         if (screenName.contains("Bestiary")) {

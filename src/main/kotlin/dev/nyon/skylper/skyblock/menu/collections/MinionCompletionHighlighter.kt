@@ -7,7 +7,7 @@ import dev.nyon.skylper.extensions.lore
 
 object MinionCompletionHighlighter {
     @Suppress("unused")
-    val renderItemBackgroundEvent = listenEvent<RenderItemBackgroundEvent, Int?> { (title, slot) ->
+    val renderItemBackgroundEvent = listenEvent<RenderItemBackgroundEvent, Int?> {
         if (!config.menu.collections.highlightNonCompletedCollections) return@listenEvent null
         val screenName = title.string
         if (screenName.contains("Crafted Minions")) {

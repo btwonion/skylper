@@ -24,17 +24,17 @@ object ChestParticleHighlighter {
     private val mutex = Mutex()
 
     @Suppress("unused")
-    private val particleSpawnEvent = listenEvent<ParticleSpawnEvent, Unit> { event ->
+    private val particleSpawnEvent = listenEvent<ParticleSpawnEvent, Unit> {
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
         if (!config.mining.crystalHollows.chestLockHighlight) return@listenEvent
-        if (event.options.type != ParticleTypes.CRIT || event.xSpeed != 0.0 || event.ySpeed != 0.0 || event.zSpeed != 0.0) {
+        if (options.type != ParticleTypes.CRIT || xSpeed != 0.0 || ySpeed != 0.0 || zSpeed != 0.0) {
             return@listenEvent
         }
-        val distance = minecraft.player?.position()?.distanceTo(event.pos)
+        val distance = minecraft.player?.position()?.distanceTo(pos)
         if (distance == null || distance > 5.0) return@listenEvent
         independentScope.launch {
             mutex.withLock {
-                particlePositions[event.pos] = Clock.System.now()
+                particlePositions[pos] = Clock.System.now()
             }
         }
     }
@@ -50,7 +50,7 @@ object ChestParticleHighlighter {
             positions.forEach { (pos, instant) ->
                 if (now - instant > 500.milliseconds) mutex.withLock { particlePositions.remove(pos) }
                 val box = AABB(pos.x - 0.05, pos.y - 0.05, pos.z - 0.05, pos.x + 0.05, pos.y + 0.05, pos.z + 0.05)
-                it.context.renderFilled(box, 0xFFFFFFF)
+                context.renderFilled(box, 0xFFFFFFF)
             }
         }
     }
