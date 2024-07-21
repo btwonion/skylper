@@ -6,6 +6,7 @@ import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.render.waypoint.Waypoint
 import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import dev.nyon.skylper.minecraft
+import dev.nyon.skylper.skyblock.data.online.Locations
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
 import dev.nyon.skylper.skyblock.mining.hollows.locations.HollowsLocation
@@ -18,11 +19,9 @@ import net.minecraft.world.phys.Vec3
 import kotlin.time.Duration.Companion.milliseconds
 
 object MetalDetectorSolver {
-    private const val TREASURE_DISTANCE_MESSAGE = "§3§lTREASURE: §b"
-    private const val FOUND_TREASURE_MESSAGE_START = "You found "
-    private const val FOUND_TREASURE_MESSAGE_END = "with your Metal Detector"
-    private const val KEEPER_OF_NAME = "Keeper of "
-    private const val TRANSLATION_NAMESPACE = "chat.skylper.hollows.solver.metaldetector"
+    private val treasureDistanceRegex = regex("chat.hollows.metaldetector.distance")
+    private val foundTreasureRegex = regex("chat.hollows.metaldetector.found")
+    private val keeperRegex = regex("chat.hollows.metaldetector.keeper")
 
     private var minesCenter: Vec3? = null
     private var actualChestPositions: List<Vec3>? = null
@@ -36,19 +35,16 @@ object MetalDetectorSolver {
         if (!divanCheck()) return@listenEvent
         if (minesCenter == null) return@listenEvent
 
-        val stringMessage = it.text.string
-        val now = Clock.System.now() // Handle found treasure
-        if (stringMessage.contains(FOUND_TREASURE_MESSAGE_START) && stringMessage.contains(FOUND_TREASURE_MESSAGE_END)) {
+        val now = Clock.System.now()
+        if (foundTreasureRegex.matches(rawText)) {
             successWaypoint = null
             lastChestFound = now
         }
 
         if (successWaypoint != null) return@listenEvent
 
-        // Calculate distance to treasure from action bar
-        if (!stringMessage.contains(TREASURE_DISTANCE_MESSAGE)) return@listenEvent
-        val distanceString = stringMessage.replace(TREASURE_DISTANCE_MESSAGE, "").dropLast(1)
-        val distance = distanceString.toDoubleOrNull() ?: return@listenEvent
+        if (!treasureDistanceRegex.matches(rawText)) return@listenEvent
+        val distance = treasureDistanceRegex.singleGroup(rawText)?.toDoubleOrNull() ?: return@listenEvent
 
         if (lastChestFound == null || now - lastChestFound!! > 500.milliseconds) solve(distance, playerPos)
     }
@@ -62,10 +58,10 @@ object MetalDetectorSolver {
         if (minesCenter != null) return@listenEvent
 
         // Find keeper
-        val armorStands = minecraft.level?.findArmorStandsWithName(KEEPER_OF_NAME) ?: return@listenEvent
+        val armorStands = minecraft.level?.findArmorStandsWithName("Keeper of") ?: return@listenEvent
         if (armorStands.isEmpty()) return@listenEvent
         val keeperStand = armorStands.first()
-        val keeperIdentifier = keeperStand.customName!!.string.replace(KEEPER_OF_NAME, "")
+        val keeperIdentifier = keeperRegex.singleGroup(keeperStand.customName!!.string)
         val keeper = DivanMinesKeeper.entries.find { it.identifier == keeperIdentifier } ?: return@listenEvent
 
         // set mines center
@@ -79,7 +75,7 @@ object MetalDetectorSolver {
         )
 
         // Init possible chest locations
-        actualChestPositions = detectorChestOffsets.getActualPositions(minesCenter ?: return@listenEvent)
+        actualChestPositions = Locations.locations.metalDetectorChestOffsets.map { crystalCoords.add(it) }
     }
 
     @Suppress("unused")
@@ -88,7 +84,7 @@ object MetalDetectorSolver {
     @Suppress("unused")
     private val renderEvent = listenEvent<RenderAfterTranslucentEvent, Unit> {
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
-        successWaypoint?.render(it.context)
+        successWaypoint?.render(context)
     }
 
     private fun reset() {
@@ -111,7 +107,7 @@ object MetalDetectorSolver {
 
     private fun success(pos: Vec3) {
         minecraft.player?.sendSystemMessage(
-            Component.translatable("$TRANSLATION_NAMESPACE.success").withColor(ChatFormatting.DARK_GREEN.color!!)
+            Component.translatable("chat.skylper.hollows.solver.metaldetector.success").withColor(ChatFormatting.DARK_GREEN.color!!)
         )
 
         successWaypoint = Waypoint(

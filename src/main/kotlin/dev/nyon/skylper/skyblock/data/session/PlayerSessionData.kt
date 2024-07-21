@@ -114,14 +114,14 @@ object PlayerSessionData {
 
     @Suppress("unused")
     private val screenUpdateEvent = listenEvent<ScreenOpenEvent, Unit> {
-        currentScreen = it.screen
+        currentScreen = screen
     }
 
+    private val profileRegex = regex("chat.general.profile")
     @Suppress("unused")
     private val messageEvent = listenEvent<MessageEvent, Unit> {
-        val raw = it.text.string
-        if (raw.startsWith("§aYou are playing on profile: §e")) {
-            profile = raw.drop(32)
+        if (profileRegex.matches(rawText)) {
+            profile = profileRegex.singleGroup(rawText)
             invokeEvent(ProfileChangeEvent(null, profile))
         }
     }

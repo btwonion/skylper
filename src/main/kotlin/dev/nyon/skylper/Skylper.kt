@@ -11,7 +11,7 @@ import dev.nyon.skylper.extensions.EventHandler
 import dev.nyon.skylper.extensions.FabricEvents
 import dev.nyon.skylper.extensions.MinecraftStopEvent
 import dev.nyon.skylper.skyblock.Mining
-import dev.nyon.skylper.skyblock.data.online.SkyblockOnlineData
+import dev.nyon.skylper.skyblock.data.online.OnlineData
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.data.skylper.PlayerDataSaver
 import dev.nyon.skylper.skyblock.data.skylper.PlayerDataUpdater
@@ -70,7 +70,7 @@ object Skylper : ClientModInitializer {
         PlayerSessionData.startUpdaters()
         PlayerDataUpdater.initUpdaters()
         PlayerDataSaver.startSaveTask()
-        SkyblockOnlineData.init()
+        OnlineData.init()
         registerRootCommand()
 
         FabricEvents.listenForFabricEvents()

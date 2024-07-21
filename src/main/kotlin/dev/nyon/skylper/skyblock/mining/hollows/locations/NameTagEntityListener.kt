@@ -10,7 +10,7 @@ import net.minecraft.world.phys.Vec3
 
 object NameTagEntityListener {
     @Suppress("unused")
-    val tickEvent = listenEvent<TickEvent, Unit> { _ ->
+    val tickEvent = listenEvent<TickEvent, Unit> {
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
         var firstGuardianLocation: Vec3? = null
 

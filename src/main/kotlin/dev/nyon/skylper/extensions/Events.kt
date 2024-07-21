@@ -55,7 +55,7 @@ data class EntitySpawnEvent(val entity: Entity) : Event<Unit>
 
 data class LevelChangeEvent(val newLevel: ClientLevel?) : Event<Unit>
 
-data class MessageEvent(val text: Component) : Event<Unit>
+data class MessageEvent(val text: Component, val rawText: String) : Event<Unit>
 
 data class BlockUpdateEvent(val pos: BlockPos, val state: BlockState) : Event<Unit>
 
@@ -75,7 +75,7 @@ data class SetItemEvent(val itemStack: ItemStack) : Event<Unit>
 
 data class InventoryInitEvent(val items: List<ItemStack>) : Event<Unit>
 
-data class BossBarNameUpdate(val text: Component) : Event<Unit>
+data class BossBarNameUpdate(val text: Component, val rawText: String) : Event<Unit>
 
 data class PowderGainEvent(val type: PowderType, val amount: Int) : Event<Unit> {
     enum class PowderType {

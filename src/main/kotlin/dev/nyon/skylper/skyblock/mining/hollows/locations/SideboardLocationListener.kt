@@ -9,9 +9,9 @@ import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
 
 object SideboardLocationListener {
     @Suppress("unused")
-    private val sideboardUpdateEvent = listenEvent<SideboardUpdateEvent, Unit> { event ->
+    private val sideboardUpdateEvent = listenEvent<SideboardUpdateEvent, Unit> {
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
-        event.cleanLines.forEach {
+        cleanLines.forEach {
             val specific = when {
                 it.contains("Goblin Queen's Den") -> PreDefinedHollowsLocationSpecific.GOBLIN_QUEEN
                 it.contains("Fairy Grotto") -> PreDefinedHollowsLocationSpecific.FAIRY_GROTTO

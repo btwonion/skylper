@@ -7,19 +7,18 @@ import dev.nyon.skylper.skyblock.mining.hollows.Crystal
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
 
 object CrystalRunListener {
-    private const val CRYSTAL_FOUND = "✦ CRYSTAL FOUND"
-    private const val RUN_COMPLETED_MESSAGE = "You've earned a Crystal Loot Bundle!"
-    private const val CRYSTAL_PLACED = "✦ You placed the "
+    private val crystalFoundRegex = regex("chat.hollows.run.crystalFound")
+    private val crystalPlacedRegex = regex("")  // todo
+    private val runCompletedRegex = regex("chat.hollows.run.completed")
 
     private var nextIsCrystal = false
 
-    fun init() = listenEvent<MessageEvent, Unit> { event ->
+    fun init() = listenEvent<MessageEvent, Unit> {
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
 
-        val rawMessage = event.text.string
-        rawMessage.checkFoundCrystal()
-        rawMessage.checkPlacedCrystal()
-        rawMessage.checkRunCompleted()
+        rawText.checkFoundCrystal()
+        rawText.checkPlacedCrystal()
+        rawText.checkRunCompleted()
     }
 
     private fun String.checkFoundCrystal() {
@@ -39,17 +38,17 @@ object CrystalRunListener {
                 )
             }
         }
-        if (contains(CRYSTAL_FOUND)) nextIsCrystal = true
+        if (crystalFoundRegex.matches(this)) nextIsCrystal = true
     }
 
     private fun String.checkPlacedCrystal() {
-        if (!contains(CRYSTAL_PLACED)) return
+        if (crystalPlacedRegex.matches(this)) return
         val crystal = drop(17).dropLast(9).run s@{ Crystal.entries.find { it.displayName == this@s } } ?: return
         EventHandler.invokeEvent(CrystalPlaceEvent(crystal))
     }
 
     private fun String.checkRunCompleted() {
-        if (!contains(RUN_COMPLETED_MESSAGE)) return
+        if (!runCompletedRegex.matches(this)) return
         EventHandler.invokeEvent(NucleusRunCompleteEvent)
     }
 }

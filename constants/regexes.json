@@ -1,0 +1,15 @@
+{
+    "chat.hollows.location": "(\\D+)?\\s?+(-?\\d+)(?:\\s+(-?\\d+))?\\s+(-?\\d+)\\s?+(\\D+)?",
+    "chat.hollows.tracker.picked": "CHEST LOCKPICKED",
+    "chat.hollows.metaldetector.found": "You found .+ with your Metal Detector!",
+    "chat.hollows.metaldetector.distance": "TREASURE: (\\d+.\\d)m",
+    "chat.hollows.metaldetector.keeper": "Keeper of (\\w+)",
+    "chat.hollows.passExpire": "Your pass to the Crystal Hollows will expire in 1 minute",
+    "chat.hollows.run.completed": "You've earned a Crystal Loot Bundle!",
+    "chat.hollows.run.crystalFound": "✦ CRYSTAL FOUND \\(\\d\\/5\\)",
+    "chat.hollows.run.crystalPlaced": "✦ You placed the \\w+ Crystal!",
+    "chat.general.server_send": "Sending to server (\\w{8})...",
+    "chat.general.profile": "You are playing on profile: (\\w+)",
+    "chat.mining.abilityUsed": "You used your (\\D+) Pickaxe Ability!",
+    "chat.mining.abilityAvailable": "(\\D+) is now available!"
+}

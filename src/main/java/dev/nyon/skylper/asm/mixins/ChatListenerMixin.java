@@ -21,6 +21,6 @@ public class ChatListenerMixin {
         boolean isOverlay,
         CallbackInfo ci
     ) {
-        EventHandler.INSTANCE.invokeEvent(new MessageEvent(message));
+        EventHandler.INSTANCE.invokeEvent(new MessageEvent(message, message.getString()));
     }
 }

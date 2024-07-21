@@ -1,6 +1,8 @@
 package dev.nyon.skylper.config
 
 import dev.nyon.skylper.extensions.ColorSerializer
+import dev.nyon.skylper.extensions.RegexSerializer
+import dev.nyon.skylper.extensions.Vec3Serializer
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonBuilder
@@ -13,6 +15,8 @@ import java.nio.file.Path
 val configJsonBuilder: JsonBuilder.() -> Unit = {
     serializersModule = SerializersModule {
         contextual(ColorSerializer)
+        contextual(RegexSerializer)
+        contextual(Vec3Serializer)
     }
 }
 val configDir: Path = FabricLoader.getInstance().configDir.resolve("skylper")

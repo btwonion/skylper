@@ -16,14 +16,14 @@ object PlayerDataUpdater {
     }
 
     private fun profileUpdateChecker() {
-        listenEvent<ProfileChangeEvent, Unit> { (_, nextProfile) ->
-            if (playerData.profiles.containsKey(nextProfile)) return@listenEvent
-            playerData.profiles[nextProfile ?: return@listenEvent] = ProfileData()
+        listenEvent<ProfileChangeEvent, Unit> {
+            if (playerData.profiles.containsKey(next)) return@listenEvent
+            playerData.profiles[next ?: return@listenEvent] = ProfileData()
         }
     }
 
     private fun crystalHollowsChecker() {
-        listenEvent<CrystalFoundEvent, Unit> { (crystal) ->
+        listenEvent<CrystalFoundEvent, Unit> {
             playerData.currentProfile?.mining?.crystalHollows?.crystals?.find { it.crystal == crystal }?.state =
                 CrystalState.FOUND
         }
@@ -32,7 +32,7 @@ object PlayerDataUpdater {
             playerData.currentProfile?.mining?.crystalHollows?.crystals?.forEach { it.state = CrystalState.NOT_FOUND }
         }
 
-        listenEvent<CrystalPlaceEvent, Unit> { (crystal) ->
+        listenEvent<CrystalPlaceEvent, Unit> {
             playerData.currentProfile?.mining?.crystalHollows?.crystals?.find { it.crystal == crystal }?.state =
                 CrystalState.PLACED
         }
@@ -60,11 +60,11 @@ object PlayerDataUpdater {
         listenEvent<SetItemEvent, Unit> {
             if (PlayerSessionData.currentScreen?.title?.string?.contains(validScreenTitle) == false) return@listenEvent
 
-            val itemNameString = it.itemStack.displayName.string
+            val itemNameString = itemStack.displayName.string
             when {
-                itemNameString.contains("Crystal Hollows Crystals") -> updateCrystalState(it.itemStack)
+                itemNameString.contains("Crystal Hollows Crystals") -> updateCrystalState(itemStack)
                 MiningAbility.rawNames.any { name -> itemNameString.contains(name) } -> {
-                    val selected = it.itemStack.lore.any { lore -> lore.string.contains("SELECTED") }
+                    val selected = itemStack.lore.any { lore -> lore.string.contains("SELECTED") }
                     if (selected) {
                         val rawName =
                             MiningAbility.rawNames.find { name -> itemNameString.contains(name) } ?: return@listenEvent
@@ -72,13 +72,13 @@ object PlayerDataUpdater {
                     }
                 }
                 itemNameString.contains("Peak of the Mountain") -> {
-                    val lore = it.itemStack.lore
+                    val lore = itemStack.lore
                     val firstLine = lore.first().string
                     val level = firstLine.drop(6).first().digitToIntOrNull() ?: return@listenEvent
                     playerData.currentProfile?.mining?.abilityLevel = if (level > 1) 2 else 1
                 }
                 itemNameString.contains("Heart of the Mountain") -> {
-                    val lore = it.itemStack.lore.map { line -> line.string }
+                    val lore = itemStack.lore.map { line -> line.string }
                     val mithrilPowder =
                         lore.find { line -> line.contains("Mithril Powder: ") }?.drop(16)?.doubleOrNull()
                     if (mithrilPowder != null) playerData.currentProfile?.mining?.mithrilPowder = mithrilPowder.toInt()
@@ -96,7 +96,7 @@ object PlayerDataUpdater {
 
     @Suppress("unused")
     private val sideboardUpdateEvent = listenEvent<SideboardUpdateEvent, Unit> {
-        it.cleanLines.forEach { line ->
+        cleanLines.forEach { line ->
             if (line.contains("Mithril: ")) {
                 val mithril = line.drop(11).doubleOrNull()?.toInt()
                 if (mithril != null) {
