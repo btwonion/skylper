@@ -9,7 +9,7 @@
         "chat.hollows.run.completed": "You've earned a Crystal Loot Bundle!",
         "chat.hollows.run.crystalFound": "✦ CRYSTAL FOUND \\(\\d\\/5\\)",
         "chat.hollows.run.crystalPlaced": "✦ You placed the \\w+ Crystal!",
-        "chat.general.server_send": "Sending to server (\\w{8})...",
+        "chat.general.server_send": "Sending to server (\\w{7,8})...",
         "chat.general.profile": "You are playing on profile: (\\w+)",
         "chat.mining.abilityUsed": "You used your (\\D+) Pickaxe Ability!",
         "chat.mining.abilityAvailable": "(\\D+) is now available!"
