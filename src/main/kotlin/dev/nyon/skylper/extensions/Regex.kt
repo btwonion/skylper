@@ -4,15 +4,14 @@ import dev.nyon.skylper.skyblock.data.online.Regexes
 
 fun regex(key: String): Regex {
     val regex = Regexes.regexes[key]
-    println("No regex found for key $key.")
-    return regex ?: "".toRegex()
+    if (regex == null) println("No regex found for key $key.")
+    return regex ?: "\\A(?!x)x".toRegex()
 }
 
 fun Regex.singleGroup(text: String): String? {
-    return groups(text).firstOrNull()
+    return groups(text).getOrNull(1)
 }
 
 fun Regex.groups(text: String): List<String> {
-    val results = findAll(text)
-    return results.map { it.value }.toList()
+    return find(text)?.groupValues ?: emptyList()
 }

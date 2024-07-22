@@ -8,7 +8,7 @@ import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
 
 object CrystalRunListener {
     private val crystalFoundRegex = regex("chat.hollows.run.crystalFound")
-    private val crystalPlacedRegex = regex("")  // todo
+    private val crystalPlacedRegex = regex("chat.hollows.run.crystalPlaced")  // todo
     private val runCompletedRegex = regex("chat.hollows.run.completed")
 
     private var nextIsCrystal = false
@@ -42,8 +42,7 @@ object CrystalRunListener {
     }
 
     private fun String.checkPlacedCrystal() {
-        if (crystalPlacedRegex.matches(this)) return
-        val crystal = drop(17).dropLast(9).run s@{ Crystal.entries.find { it.displayName == this@s } } ?: return
+        val crystal = crystalPlacedRegex.singleGroup(this).run { Crystal.entries.find { it.displayName == this } } ?: return
         EventHandler.invokeEvent(CrystalPlaceEvent(crystal))
     }
 

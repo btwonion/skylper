@@ -67,10 +67,10 @@ object Skylper : ClientModInitializer {
     }
 
     private suspend fun setup() {
+        OnlineData.data.forEach { it.refresh() }
         PlayerSessionData.startUpdaters()
         PlayerDataUpdater.initUpdaters()
         PlayerDataSaver.startSaveTask()
-        OnlineData.init()
         registerRootCommand()
 
         FabricEvents.listenForFabricEvents()

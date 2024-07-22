@@ -70,7 +70,7 @@ tasks.register("postUpdate") {
                     ),
                     Field("Modrinth", "https://modrinth.com/mod/skylper", true),
                     Field("GitHub", "https://github.com/btwonion/skylper", true)
-                ),
+                )
             )
         )
     )
@@ -104,7 +104,6 @@ tasks.register("postUpdate") {
     }
 
     val jsonString = Json.encodeToString(json)
-    println(jsonString)
     val response = HttpClient.newHttpClient().send(
         HttpRequest.newBuilder(URI.create(url)).header("Content-Type", "application/json")
             .POST(BodyPublishers.ofString(jsonString)).build(), BodyHandlers.ofString()

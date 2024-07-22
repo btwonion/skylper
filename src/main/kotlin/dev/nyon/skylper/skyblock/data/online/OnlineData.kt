@@ -12,15 +12,9 @@ abstract class OnlineData<T : Any>(val kClass: KClass<T>) {
     companion object {
         const val SKYBLOCK_API_URL = "https://api.hypixel.net/v2/resources/skyblock/"
         const val SKYHANNI_REPO_URL = "https://raw.githubusercontent.com/hannibal002/SkyHanni-REPO/main/constants/"
-        const val SKYLPER_REPO_URL = "https://raw.githubusercontent.com/btwonion/skylper/master/constants/"
+        const val SKYLPER_REPO_URL = "https://raw.githubusercontent.com/btwonion/skylper/regexes/constants/" // TODO: change this back to master
 
         val data: List<OnlineData<*>> = listOf(MayorData, Regexes, AdditionalRegexes, ToolGroups, IslandGroups, Locations)
-
-        suspend fun init() {
-            data.forEach {
-                it.refresh()
-            }
-        }
     }
 
     abstract val url: String
@@ -29,7 +23,7 @@ abstract class OnlineData<T : Any>(val kClass: KClass<T>) {
     @OptIn(InternalSerializationApi::class)
     suspend inline fun refresh() {
         val result = runCatching {
-            val result = httpClient.get("$SKYBLOCK_API_URL$path").bodyAsText()
+            val result = httpClient.get("$url$path").bodyAsText()
             json.decodeFromString(kClass.serializer(), result)
         }
         setData(result.getOrNull())

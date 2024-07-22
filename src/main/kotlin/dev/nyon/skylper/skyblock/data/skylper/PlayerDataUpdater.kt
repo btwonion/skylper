@@ -39,6 +39,8 @@ object PlayerDataUpdater {
     }
 
     private fun hotmChecker() {
+        val crystalNotFoundRegex = regex("menu.hotm.crystal.notfound")
+        val crystalNotPlacedRegex = regex("menu.hotm.crystal.notplaced")
         fun updateCrystalState(item: ItemStack) {
             val lore = item.lore
             val crystalNames = Crystal.entries.map { it.displayName }
@@ -46,9 +48,9 @@ object PlayerDataUpdater {
                 val crystalName = crystalNames.find { c -> it.contains(c) } ?: return@forEach
                 val crystal = Crystal.entries.first { c -> c.displayName == crystalName }
                 playerData.currentProfile?.mining?.crystalHollows?.crystals?.first { instance -> instance.crystal == crystal }?.state =
-                    if (it.contains("Not Found")) {
+                    if (crystalNotFoundRegex.matches(it)) {
                         CrystalState.NOT_FOUND
-                    } else if (it.contains("Not Placed")) {
+                    } else if (crystalNotPlacedRegex.matches(it)) {
                         CrystalState.FOUND
                     } else {
                         CrystalState.PLACED
@@ -56,69 +58,73 @@ object PlayerDataUpdater {
             }
         }
 
-        val validScreenTitle = "Heart of the Mountain"
+        val hotmTitleRegex = regex("menu.hotm.hotm")
+        val crystalHollowsCrystalsRegex = regex("menu.hotm.crystal.itemName")
+        val abilitySelectedRegex = regex("menu.hotm.abilities.selected")
+        val peakOfTheMountainRegex = regex("menu.hotm.potm")
+
+        val mithrilPowderRegex = regex("menu.hotm.mithrilPowder")
+        val gemstonePowderRegex = regex("menu.hotm.gemstonePowder")
+        val glacitePowderRegex = regex("menu.hotm.glacitePowder")
         listenEvent<SetItemEvent, Unit> {
-            if (PlayerSessionData.currentScreen?.title?.string?.contains(validScreenTitle) == false) return@listenEvent
+            if (hotmTitleRegex.matches(PlayerSessionData.currentScreen?.title?.string.toString())) return@listenEvent
 
             val itemNameString = itemStack.displayName.string
             when {
-                itemNameString.contains("Crystal Hollows Crystals") -> updateCrystalState(itemStack)
+                crystalHollowsCrystalsRegex.matches(itemNameString) -> updateCrystalState(itemStack)
                 MiningAbility.rawNames.any { name -> itemNameString.contains(name) } -> {
-                    val selected = itemStack.lore.any { lore -> lore.string.contains("SELECTED") }
+                    val selected = itemStack.lore.any { lore -> abilitySelectedRegex.matches(lore.string) }
                     if (selected) {
                         val rawName =
                             MiningAbility.rawNames.find { name -> itemNameString.contains(name) } ?: return@listenEvent
                         playerData.currentProfile?.mining?.selectedAbility = MiningAbility.byRawName(rawName)
                     }
                 }
-                itemNameString.contains("Peak of the Mountain") -> {
+                peakOfTheMountainRegex.matches(itemNameString) -> {
                     val lore = itemStack.lore
                     val firstLine = lore.first().string
                     val level = firstLine.drop(6).first().digitToIntOrNull() ?: return@listenEvent
                     playerData.currentProfile?.mining?.abilityLevel = if (level > 1) 2 else 1
                 }
-                itemNameString.contains("Heart of the Mountain") -> {
+                hotmTitleRegex.matches(itemNameString) -> {
                     val lore = itemStack.lore.map { line -> line.string }
-                    val mithrilPowder =
-                        lore.find { line -> line.contains("Mithril Powder: ") }?.drop(16)?.doubleOrNull()
-                    if (mithrilPowder != null) playerData.currentProfile?.mining?.mithrilPowder = mithrilPowder.toInt()
-                    val gemstonePowder =
-                        lore.find { line -> line.contains("Gemstone Powder: ") }?.drop(17)?.doubleOrNull()
-                    if (gemstonePowder != null) playerData.currentProfile?.mining?.gemstonePowder =
-                        gemstonePowder.toInt()
-                    val glacitePowder =
-                        lore.find { line -> line.contains("Glacite Powder: ") }?.drop(16)?.doubleOrNull()
-                    if (glacitePowder != null) playerData.currentProfile?.mining?.glacitePowder = glacitePowder.toInt()
+                    val (mithrilPowder, gemstonePowder, glacitePowder) = lore.mapNotNull { line ->
+                        mithrilPowderRegex.singleGroup(line) ?: gemstonePowderRegex.singleGroup(line)
+                        ?: glacitePowderRegex.singleGroup(line)
+                    }
+                    playerData.currentProfile?.mining?.mithrilPowder =
+                        mithrilPowder.doubleOrNull()?.toInt() ?: return@listenEvent
+                    playerData.currentProfile?.mining?.gemstonePowder =
+                        gemstonePowder.doubleOrNull()?.toInt() ?: return@listenEvent
+                    playerData.currentProfile?.mining?.glacitePowder =
+                        glacitePowder.doubleOrNull()?.toInt() ?: return@listenEvent
                 }
             }
         }
     }
 
+    private val tablistMithrilPowderRegex = regex("tablist.mining.mithril")
+    private val tablistGemstonePowderRegex = regex("tablist.mining.gemstone")
+    private val tablistGlacitePowderRegex = regex("tablist.mining.glacite")
+
     @Suppress("unused")
     private val sideboardUpdateEvent = listenEvent<SideboardUpdateEvent, Unit> {
         cleanLines.forEach { line ->
-            if (line.contains("Mithril: ")) {
-                val mithril = line.drop(11).doubleOrNull()?.toInt()
-                if (mithril != null) {
-                    playerData.currentProfile?.mining?.mithrilPowder = mithril
-                    EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.MITHRIL, mithril))
-                }
-            }
+            val mithrilPowder = tablistMithrilPowderRegex.singleGroup(line)?.doubleOrNull()?.toInt()
+            val gemstonePowder = tablistGemstonePowderRegex.singleGroup(line)?.doubleOrNull()?.toInt()
+            val glacitePowder = tablistGlacitePowderRegex.singleGroup(line)?.doubleOrNull()?.toInt()
 
-            if (line.contains("Gemstone: ")) {
-                val gemstone = line.drop(12).doubleOrNull()?.toInt()
-                if (gemstone != null) {
-                    playerData.currentProfile?.mining?.gemstonePowder = gemstone
-                    EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.GEMSTONE, gemstone))
-                }
+            if (mithrilPowder != null) {
+                playerData.currentProfile?.mining?.mithrilPowder = mithrilPowder
+                EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.MITHRIL, mithrilPowder))
             }
-
-            if (line.contains("Glacite: ")) {
-                val glacite = line.drop(9).doubleOrNull()?.toInt()
-                if (glacite != null) {
-                    playerData.currentProfile?.mining?.glacitePowder = glacite
-                    EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.GLACITE, glacite))
-                }
+            if (gemstonePowder != null) {
+                playerData.currentProfile?.mining?.gemstonePowder = gemstonePowder
+                EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.GEMSTONE, gemstonePowder))
+            }
+            if (glacitePowder != null) {
+                playerData.currentProfile?.mining?.glacitePowder = glacitePowder
+                EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.GLACITE, glacitePowder))
             }
         }
     }
