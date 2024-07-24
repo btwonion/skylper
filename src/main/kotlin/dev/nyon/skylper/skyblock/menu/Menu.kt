@@ -5,7 +5,7 @@ import dev.nyon.skylper.skyblock.menu.bestiary.Bestiary
 import dev.nyon.skylper.skyblock.menu.collections.Collections
 
 object Menu {
-    val clickToViewRegex = regex("menu.collections.clickToView")
+    val clickToViewRegex = regex("menu.clickToView")
     fun init() {
         Collections.init()
         Bestiary.init()

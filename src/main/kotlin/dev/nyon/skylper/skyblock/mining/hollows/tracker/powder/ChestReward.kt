@@ -2,123 +2,67 @@ package dev.nyon.skylper.skyblock.mining.hollows.tracker.powder
 
 import dev.nyon.skylper.extensions.regex
 
-enum class ChestReward(val displayName: String, val regexKey: String) {
-    MITHRIL_POWDER("Mithril Powder", "mithrilpowder"),
-    GEMSTONE_POWDER("Gemstone Powder", "gemstonepowder"),
-    ROUGH_RUBY_GEMSTONE(
-        "Rough Ruby Gemstone", "roughrubygemstone"
-    ),
-    FLAWED_RUBY_GEMSTONE(
-        "Flawed Sapphire Gemstone", "flawedrubygemstone"
-    ),
-    FINE_RUBY_GEMSTONE(
-        "Fine Ruby Gemstone", "finerubygemstone"
-    ),
-    FLAWLESS_RUBY_GEMSTONE(
-        "Flawless Ruby Gemstone", "flawlessrubygemstone"
-    ),
+enum class ChestReward(val displayName: String) {
+    MITHRIL_POWDER("Mithril Powder"),
+    GEMSTONE_POWDER("Gemstone Powder"),
+    ROUGH_RUBY_GEMSTONE("Rough Ruby Gemstone"),
+    FLAWED_RUBY_GEMSTONE("Flawed Sapphire Gemstone"),
+    FINE_RUBY_GEMSTONE("Fine Ruby Gemstone"),
+    FLAWLESS_RUBY_GEMSTONE("Flawless Ruby Gemstone"),
 
-    ROUGH_SAPPHIRE_GEMSTONE(
-        "Rough Sapphire Gemstone", "roughsapphiregemstone"
-    ),
-    FLAWED_SAPPHIRE_GEMSTONE(
-        "Flawed Sapphire Gemstone", "flawedsapphiregemstone"
-    ),
-    FINE_SAPPHIRE_GEMSTONE(
-        "Fine Sapphire Gemstone", "finesapphiregemstone"
-    ),
-    FLAWLESS_SAPPHIRE_GEMSTONE(
-        "Flawless Sapphire Gemstone", "flawlesssapphiregemstone"
-    ),
+    ROUGH_SAPPHIRE_GEMSTONE("Rough Sapphire Gemstone"),
+    FLAWED_SAPPHIRE_GEMSTONE("Flawed Sapphire Gemstone"),
+    FINE_SAPPHIRE_GEMSTONE("Fine Sapphire Gemstone"),
+    FLAWLESS_SAPPHIRE_GEMSTONE("Flawless Sapphire Gemstone"),
 
-    ROUGH_AMBER_GEMSTONE(
-        "Rough Amber Gemstone", "roughambergemstone"
-    ),
-    FLAWED_AMBER_GEMSTONE(
-        "Flawed Amber Gemstone", "flawedambergemstone"
-    ),
-    FINE_AMBER_GEMSTONE(
-        "Fine Amber Gemstone", "fineambergemstone"
-    ),
-    FLAWLESS_AMBER_GEMSTONE(
-        "Flawless Amber Gemstone", "flawlessambergemstone"
-    ),
+    ROUGH_AMBER_GEMSTONE("Rough Amber Gemstone"),
+    FLAWED_AMBER_GEMSTONE("Flawed Amber Gemstone"),
+    FINE_AMBER_GEMSTONE("Fine Amber Gemstone"),
+    FLAWLESS_AMBER_GEMSTONE("Flawless Amber Gemstone"),
 
-    ROUGH_AMETHYST_GEMSTONE(
-        "Rough Amethyst Gemstone", "roughamethystgemstone"
-    ),
-    FLAWED_AMETHYST_GEMSTONE(
-        "Flawed Amethyst Gemstone", "flawedamethystgemstone"
-    ),
-    FINE_AMETHYST_GEMSTONE(
-        "Fine Amethyst Gemstone", "fineamethystgemstone"
-    ),
-    FLAWLESS_AMETHYST_GEMSTONE(
-        "Flawless Amethyst Gemstone", "flawlessamethystgemstone"
-    ),
+    ROUGH_AMETHYST_GEMSTONE("Rough Amethyst Gemstone"),
+    FLAWED_AMETHYST_GEMSTONE("Flawed Amethyst Gemstone"),
+    FINE_AMETHYST_GEMSTONE("Fine Amethyst Gemstone"),
+    FLAWLESS_AMETHYST_GEMSTONE("Flawless Amethyst Gemstone"),
 
-    ROUGH_JADE_GEMSTONE(
-        "Rough Jade Gemstone", "roughjadegemstone"
-    ),
-    FLAWED_JADE_GEMSTONE(
-        "Flawed Jade Gemstone", "flawedjadegemstone"
-    ),
-    FINE_JADE_GEMSTONE(
-        "Fine Jade Gemstone", "finejadegemstone"
-    ),
-    FLAWLESS_JADE_GEMSTONE(
-        "Flawless Jade Gemstone", "flawlessjadegemstone"
-    ),
+    ROUGH_JADE_GEMSTONE("Rough Jade Gemstone"),
+    FLAWED_JADE_GEMSTONE("Flawed Jade Gemstone"),
+    FINE_JADE_GEMSTONE("Fine Jade Gemstone"),
+    FLAWLESS_JADE_GEMSTONE("Flawless Jade Gemstone"),
 
-    ROUGH_TOPAZ_GEMSTONE(
-        "Rough Topaz Gemstone", "roughtopazgemstone"
-    ),
-    FLAWED_TOPAZ_GEMSTONE(
-        "Flawed Topaz Gemstone", "flawedtopazgemstone"
-    ),
-    FINE_TOPAZ_GEMSTONE(
-        "Fine Topaz Gemstone", "finetopazgemstone"
-    ),
-    FLAWLESS_TOPAZ_GEMSTONE(
-        "Flawless Topaz Gemstone", "flawlesstopazgemstone"
-    ),
+    ROUGH_TOPAZ_GEMSTONE("Rough Topaz Gemstone"),
+    FLAWED_TOPAZ_GEMSTONE("Flawed Topaz Gemstone"),
+    FINE_TOPAZ_GEMSTONE("Fine Topaz Gemstone"),
+    FLAWLESS_TOPAZ_GEMSTONE("Flawless Topaz Gemstone"),
 
-    FTX_3070("FTX 3070", "ftx3070"),
-    ELECTRON_TRANSIMTTER(
-        "Electron Transmitter", "electrontransimtter"
-    ),
-    ROBOTRON_REFLECTOR(
-        "Robotron Reflector", "robotronreflector"
-    ),
-    SUPERLITE_MOTOR("Superlite Motor", "superlitemotor"),
-    CONTROL_SWITCH("Control Switch", "controlswitch"),
-    SYNTHETIC_HEART("Synthetic Heart", "syntheticheart"),
+    FTX_3070("FTX 3070"),
+    ELECTRON_TRANSIMTTER("Electron Transmitter"),
+    ROBOTRON_REFLECTOR("Robotron Reflector"),
+    SUPERLITE_MOTOR("Superlite Motor"),
+    CONTROL_SWITCH("Control Switch"),
+    SYNTHETIC_HEART("Synthetic Heart"),
 
-    GOBLIN_EGG("Goblin Egg", "goblinegg"),
-    GREEN_GOBLIN_EGG(
-        "Green Goblin Egg", "greengoblinegg"
-    ),
-    RED_GOBLIN_EGG("Red Goblin Egg", "redgoblinegg"),
-    YELLOW_GOBLIN_EGG(
-        "Yellow Goblin Egg", "yellowgoblinegg"
-    ),
-    BLUE_GOBLIN_EGG("Blue Goblin Egg", "bluegoblinegg"),
+    GOBLIN_EGG("Goblin Egg"),
+    GREEN_GOBLIN_EGG("Green Goblin Egg"),
+    RED_GOBLIN_EGG("Red Goblin Egg"),
+    YELLOW_GOBLIN_EGG("Yellow Goblin Egg"),
+    BLUE_GOBLIN_EGG("Blue Goblin Egg"),
 
-    WISHING_COMPASS("Wishing Compass", "wishingcompass"),
+    WISHING_COMPASS("Wishing Compass"),
 
-    SLUDGE_JUICE("Sludge Juice", "sludgejuice"),
-    ASCENSION_ROPE("Ascension Rope", "ascensionrope"),
-    TREASURITE("Treasurite", "treasurite"),
-    JUNGLE_HEART("Jungle Heart", "jungleheart"),
-    PICKONIMBUS_2000("Pickonimbus 2000", "pickonimbus2000"),
-    YOGGIE("Yoggie", "yoggie"),
-    PREHISTORIC_EGG("Prehistoric Egg", "prehistoricegg"),
-    OIL_BARREL("Oil Barrel", "oilbarrel"),
+    SLUDGE_JUICE("Sludge Juice"),
+    ASCENSION_ROPE("Ascension Rope"),
+    TREASURITE("Treasurite"),
+    JUNGLE_HEART("Jungle Heart"),
+    PICKONIMBUS_2000("Pickonimbus 2000"),
+    YOGGIE("Yoggie"),
+    PREHISTORIC_EGG("Prehistoric Egg"),
+    OIL_BARREL("Oil Barrel"),
 
-    DIAMOND_ESSENCE("Diamond Essence", "diamondessence"),
-    GOLD_ESSENCE("Gold Essence", "goldessence");
+    DIAMOND_ESSENCE("Diamond Essence"),
+    GOLD_ESSENCE("Gold Essence");
 
     fun getRegex(): Regex {
-        return regex("mining.powder.tracker.reward.$regexKey.new")
+        return regex("chat.hollows.tracker.reward.${name.lowercase().replace("_", "")}")
     }
 }

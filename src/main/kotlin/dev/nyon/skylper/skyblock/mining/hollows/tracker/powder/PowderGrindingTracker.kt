@@ -36,10 +36,10 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
     private val config: Config.CrystalHollowsConfig.GrindingOverlay
         get() = overallConfig.mining.crystalHollows.powderGrindingOverlay
 
-    private val powderStartedPattern = regex("mining.powder.tracker.powder.started")
-    private val powderEndedPattern = regex("mining.powder.tracker.powder.ended")
+    private val powderStartedPattern = regex("chat.hollows.tracker.powder.started")
+    private val powderEndedPattern = regex("chat.hollows.tracker.powder.ended")
     private val pickedLockPattern = regex("chat.hollows.tracker.picked")
-    private val powderBossBarPattern = regex("mining.powder.tracker.powder.bossbar")
+    private val powderBossBarPattern = regex("bossbar.hollows.powder")
 
     @Suppress("unused")
     private val chatListener = listenEvent<MessageEvent, Unit> {

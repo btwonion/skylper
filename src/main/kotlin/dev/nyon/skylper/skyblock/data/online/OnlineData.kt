@@ -11,10 +11,9 @@ import kotlin.reflect.KClass
 abstract class OnlineData<T : Any>(val kClass: KClass<T>) {
     companion object {
         const val SKYBLOCK_API_URL = "https://api.hypixel.net/v2/resources/skyblock/"
-        const val SKYHANNI_REPO_URL = "https://raw.githubusercontent.com/hannibal002/SkyHanni-REPO/main/constants/"
         const val SKYLPER_REPO_URL = "https://raw.githubusercontent.com/btwonion/skylper/regexes/constants/" // TODO: change this back to master
 
-        val data: List<OnlineData<*>> = listOf(MayorData, Regexes, AdditionalRegexes, ToolGroups, IslandGroups, Locations)
+        val data: List<OnlineData<*>> = listOf(MayorData, Regexes, ToolGroups, IslandGroups, Locations)
     }
 
     abstract val url: String
