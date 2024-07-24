@@ -24,6 +24,9 @@ abstract class OnlineData<T : Any>(val kClass: KClass<T>) {
         val result = runCatching {
             val result = httpClient.get("$url$path").bodyAsText()
             json.decodeFromString(kClass.serializer(), result)
+        }.onFailure { throwable ->
+            println("Failed to load data from $url$path.")
+            throwable.printStackTrace()
         }
         setData(result.getOrNull())
     }

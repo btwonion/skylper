@@ -88,6 +88,6 @@
         "tablist.general.area": "Area: (.+)",
         "sideboard.general.skyblock": "skyblock|Skyblock|skiblock|Skiblock",
         "sideboard.general.zone": " (?:⏣|ф) (.*)",
-        "bossbar.hollows.powder": "PASSIVE EVENT 2X POWDER RUNNING FOR (?.*)"
+        "bossbar.hollows.powder": "PASSIVE EVENT 2X POWDER RUNNING FOR ?(?:\\((.*)\\))"
     }
 }
