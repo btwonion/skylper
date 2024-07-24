@@ -64,7 +64,7 @@
         "chat.mining.abilityUsed": "You used your (\\D+) Pickaxe Ability!",
         "chat.mining.abilityAvailable": "(\\D+) is now available!",
         "menu.clickToView": "Click to view!",
-        "menu.collections.collections": "Collections",
+        "menu.collections.collections": "(?:.*)?Collections",
         "menu.collections.craftedMinions": "Crafted Minions",
         "menu.collections.collectionsMaxedOut": "Collections Maxed Out: 100%",
         "menu.collections.collectionMaxedOut": "COLLECTION MAXED OUT!",
