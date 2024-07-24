@@ -72,7 +72,7 @@
         "menu.collections.minionUncompleted": "✖ Tier .*",
         "menu.bestiary.bestiary": "Bestiary ?.*?",
         "menu.bestiary.familiesCompleted": "Families Completed: 100%",
-        "menu.bestiary.maxed": "Overall Progress: 100% (MAX!)",
+        "menu.bestiary.maxed": "Overall Progress: 100% \\(MAX!\\)",
         "menu.hotm.crystal.notfound": "✖ Not Found",
         "menu.hotm.crystal.notplaced": "✖ Not Placed",
         "menu.hotm.crystal.itemName": "Crystal Hollows Crystals",
