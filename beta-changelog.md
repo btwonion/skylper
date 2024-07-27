@@ -1,8 +1,8 @@
 ## Features
-- update to 1.21
-
-## Bug Fixes
 none
 
+## Bug Fixes
+- fix rendering bugs occurring in 1.21
+
 ## Technical changes
-- remove unused code
+- now use regexes instead of string checks for easier responses to Hypixel's changes
