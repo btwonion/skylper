@@ -4,16 +4,24 @@ import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.RenderItemBackgroundEvent
 import dev.nyon.skylper.extensions.lore
+import dev.nyon.skylper.extensions.nameAsString
+import dev.nyon.skylper.extensions.regex
+import dev.nyon.skylper.skyblock.menu.Menu
 
 object CompletionHighlighter {
+    private val collectionsRegex = regex("menu.collections.collections")
+    private val collectionsMaxedOutRegex = regex("menu.collections.collectionsMaxedOut")
+    private val collectionMaxedOutRegex = regex("menu.collections.collectionMaxedOut")
+
     @Suppress("unused")
-    val renderItemBackgroundEvent = listenEvent<RenderItemBackgroundEvent, Int?> { (title, slot) ->
+    val renderItemBackgroundEvent = listenEvent<RenderItemBackgroundEvent, Int?> {
         if (!config.menu.collections.highlightNonCompletedCollections) return@listenEvent null
         val screenName = title.string
-        if (screenName.contains("Collections")) {
+        if (collectionsRegex.matches(screenName)) {
             val lore = slot.item.lore.map { it.string }
-            if (lore.none { it.contains("Click to view!") } || slot.item.displayName.string.contains("Crafted Minions")) return@listenEvent null
-            if (lore.any { it.contains("Collections Maxed Out: 100%") || it.contains("COLLECTION MAXED OUT!") }) return@listenEvent null
+            if (lore.none { Menu.clickToViewRegex.matches(it) }) return@listenEvent null
+            if (MinionCompletionHighlighter.craftedMinionsRegex.matches(slot.item.nameAsString)) return@listenEvent null
+            if (lore.any { collectionsMaxedOutRegex.matches(it) || collectionMaxedOutRegex.matches(it) }) return@listenEvent null
             return@listenEvent config.menu.collections.nonCompletedCollectionHighlightColor.rgb
         }
 

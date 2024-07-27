@@ -11,7 +11,6 @@ import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.tracker.Tracker
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.skyblock.data.skylper.currentProfile
-import dev.nyon.skylper.skyblock.data.skylper.playerData
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -36,15 +35,19 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
     private val config: Config.CrystalHollowsConfig.GrindingOverlay
         get() = overallConfig.mining.crystalHollows.powderGrindingOverlay
 
+    private val powderStartedPattern = regex("chat.hollows.tracker.powder.started")
+    private val powderEndedPattern = regex("chat.hollows.tracker.powder.ended")
+    private val pickedLockPattern = regex("chat.hollows.tracker.picked")
+    private val powderBossBarPattern = regex("bossbar.hollows.powder")
+
     @Suppress("unused")
     private val chatListener = listenEvent<MessageEvent, Unit> {
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
         val now = Clock.System.now()
-        val raw = it.text.string
         when {
-            PowderGrindingPatterns.powderStartedPattern.matches(raw) -> data.doublePowderActive = true
-            PowderGrindingPatterns.powderEndedPattern.matches(raw) -> data.doublePowderActive = false
-            PowderGrindingPatterns.pickedLockPattern.matches(raw) -> {
+            powderStartedPattern.matches(rawText) -> data.doublePowderActive = true
+            powderEndedPattern.matches(rawText) -> data.doublePowderActive = false
+            pickedLockPattern.matches(rawText) -> {
                 if (startTime == null) startTime = now
                 lastChestOpened = now
                 data.chest.updateByIncrease(1, this@PowderGrindingTracker)
@@ -52,10 +55,10 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
         }
 
         ChestReward.entries.forEach { reward ->
-            val matcher = reward.pattern.matcher(raw)
-            if (!matcher.matches()) return@forEach
+            val regex = reward.getRegex()
+            if (!regex.matches(rawText)) return@forEach
             if (startTime == null) startTime = now
-            val amount = matcher.group("amount").doubleOrNull()?.toInt() ?: return@forEach
+            val amount = regex.singleGroup(rawText)?.doubleOrNull()?.toInt() ?: return@forEach
             if (lastChestOpened == null || now - lastChestOpened!! > 100.milliseconds) data.chest.updateByIncrease(
                 1, this@PowderGrindingTracker
             )
@@ -64,21 +67,13 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
             when (reward) {
                 ChestReward.MITHRIL_POWDER -> {
                     EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.MITHRIL, fixedAmount))
-                    playerData.currentProfile?.mining?.mithrilPowder =
-                        fixedAmount + (playerData.currentProfile?.mining?.mithrilPowder ?: 0)
+                    currentProfile.mining.mithrilPowder += fixedAmount
                     data.mithril.updateByIncrease(fixedAmount, this@PowderGrindingTracker)
                 }
                 ChestReward.GEMSTONE_POWDER -> {
                     EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.GEMSTONE, fixedAmount))
-                    playerData.currentProfile?.mining?.gemstonePowder =
-                        fixedAmount + (playerData.currentProfile?.mining?.gemstonePowder ?: 0)
+                    currentProfile.mining.gemstonePowder += fixedAmount
                     data.gemstone.updateByIncrease(fixedAmount, this@PowderGrindingTracker)
-                }
-                ChestReward.GLACITE_POWDER -> {
-                    EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.GLACITE, fixedAmount))
-                    playerData.currentProfile?.mining?.glacitePowder =
-                        fixedAmount + (playerData.currentProfile?.mining?.glacitePowder ?: 0)
-                    data.glacite.updateByIncrease(fixedAmount, this@PowderGrindingTracker)
                 }
                 else -> {}
             }
@@ -86,10 +81,9 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
     }
 
     @Suppress("unused")
-    private val bossBarListener = listenEvent<BossBarNameUpdate, Unit> { (text) ->
+    private val bossBarListener = listenEvent<BossBarNameUpdate, Unit> {
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
-        val raw = text.string
-        if (!PowderGrindingPatterns.powderBossBarPattern.matches(raw)) return@listenEvent
+        if (!powderBossBarPattern.matches(rawText)) return@listenEvent
         data.doublePowderActive = true
     }
 

@@ -12,9 +12,8 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.network.chat.Component
 import kotlin.time.Duration.Companion.seconds
 
-@Suppress("SpellCheckingInspection")
 object PlayerSessionData {
-    var isOnHypixel = false
+    private var isOnHypixel = false
     var isOnSkyblock = false
 
     var footer: Component = Component.empty()
@@ -55,32 +54,30 @@ object PlayerSessionData {
         }
     }
 
+    private val areaRegex = regex("tablist.general.area")
     private fun updateFromTabList() {
         val onlinePlayers = minecraft.connection?.onlinePlayers ?: return
         mcScope.launch {
             onlinePlayers.forEach { entry ->
                 val displayName = entry.tabListDisplayName?.string ?: return@forEach
-                when {
-                    displayName.startsWith("Area: ") -> {
-                        val newArea = displayName.drop(6)
-                        if (newArea != currentArea) {
-                            invokeEvent(AreaChangeEvent(currentArea, newArea))
-                            currentArea = newArea
-                        }
-                    }
+                val area = areaRegex.singleGroup(displayName) ?: return@forEach
+                if (area != currentArea) {
+                    invokeEvent(AreaChangeEvent(currentArea, area))
+                    currentArea = area
                 }
             }
         }
     }
 
-    @Suppress("SpellCheckingInspection")
+    private val skyblockRegex = regex("sideboard.general.skyblock")
+    private val zoneRegex = regex("sideboard.general.zone")
     private fun updateFromSideboard() {
         var containsSkyblockTitle = false
         if (scoreboardLineStrings.isEmpty()) return
 
         scoreboardLineStrings.forEach { s ->
             when {
-                listOf("skyblock", "skiblock").any { s.contains(it, true) } -> {
+                skyblockRegex.matches(s) -> {
                     if (!isOnSkyblock) {
                         invokeEvent(SkyblockEnterEvent)
                         isOnSkyblock = true
@@ -89,8 +86,8 @@ object PlayerSessionData {
                     containsSkyblockTitle = true
                 }
 
-                s.contains("⏣") || s.contains("ф") -> {
-                    currentZone = s.drop(3)
+                zoneRegex.matches(s) -> {
+                    currentZone = zoneRegex.singleGroup(s) ?: return@forEach
                 }
             }
         }
@@ -114,14 +111,15 @@ object PlayerSessionData {
 
     @Suppress("unused")
     private val screenUpdateEvent = listenEvent<ScreenOpenEvent, Unit> {
-        currentScreen = it.screen
+        currentScreen = screen
     }
+
+    private val profileRegex = regex("chat.general.profile")
 
     @Suppress("unused")
     private val messageEvent = listenEvent<MessageEvent, Unit> {
-        val raw = it.text.string
-        if (raw.startsWith("§aYou are playing on profile: §e")) {
-            profile = raw.drop(32)
+        if (profileRegex.matches(rawText)) {
+            profile = profileRegex.singleGroup(rawText)
             invokeEvent(ProfileChangeEvent(null, profile))
         }
     }

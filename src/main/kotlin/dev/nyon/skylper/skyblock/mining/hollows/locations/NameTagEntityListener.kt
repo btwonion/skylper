@@ -9,8 +9,16 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.phys.Vec3
 
 object NameTagEntityListener {
+    private val yolkarRegex = regex("nametag.hollows.yolkar")
+    private val professorRegex = regex("nametag.hollows.professor_robot")
+    private val doorGuardianRegex  = regex("nametag.hollows.door_guardian")
+    private val odawaRegex  = regex("nametag.hollows.odawa")
+    private val corleoneRegex  = regex("nametag.hollows.corleone")
+    private val keyGuardianRegex  = regex("nametag.hollows.key_guardian")
+    private val balRegex  = regex("nametag.hollows.bal")
+
     @Suppress("unused")
-    val tickEvent = listenEvent<TickEvent, Unit> { _ ->
+    val tickEvent = listenEvent<TickEvent, Unit> {
         if (!HollowsModule.isPlayerInHollows) return@listenEvent
         var firstGuardianLocation: Vec3? = null
 
@@ -22,13 +30,11 @@ object NameTagEntityListener {
 
             var override = false
             val location: HollowsLocation? = when {
-                name?.contains("King Yolkar") == true -> HollowsLocation(
-                    entityPos, PreDefinedHollowsLocationSpecific.GOBLIN_KING
-                )
-                name?.contains("Professor Robot") == true -> HollowsLocation(
+                yolkarRegex.matches(name ?: "") -> HollowsLocation(entityPos, PreDefinedHollowsLocationSpecific.GOBLIN_KING)
+                professorRegex.matches(name ?: "") -> HollowsLocation(
                     entityPos.add(-16.0, 5.0, 21.0), PreDefinedHollowsLocationSpecific.PRECURSOR_CITY
                 )
-                name?.contains("Kalhuiki Door Guardian") == true -> {
+                doorGuardianRegex.matches(name ?: "") -> {
                     if (firstGuardianLocation == null) {
                         firstGuardianLocation = entityPos
                         null
@@ -38,16 +44,16 @@ object NameTagEntityListener {
                         HollowsLocation(crystalPos, PreDefinedHollowsLocationSpecific.JUNGLE_TEMPLE)
                     }
                 }
-                name?.contains("Odawa") == true -> HollowsLocation(entityPos, PreDefinedHollowsLocationSpecific.ODAWA)
-                customName?.contains("Boss Corleone") == true && entity.hasMaxHealth(1_000_000f) -> {
+                odawaRegex.matches(name ?: "") -> HollowsLocation(entityPos, PreDefinedHollowsLocationSpecific.ODAWA)
+                corleoneRegex.matches(customName ?: "") && entity.hasMaxHealth(1_000_000f) -> {
                     override = true
                     HollowsLocation(entityPos, PreDefinedHollowsLocationSpecific.CORLEONE)
                 }
-                customName?.contains("Key Guardian") == true -> {
+                keyGuardianRegex.matches(customName ?: "") -> {
                     override = true
                     HollowsLocation(entityPos, PreDefinedHollowsLocationSpecific.KEY_GUARDIAN)
                 }
-                customName?.contains("Bal") == true && entity.type == EntityType.MAGMA_CUBE -> HollowsLocation(
+                balRegex.matches(customName ?: "") && entity.type == EntityType.MAGMA_CUBE -> HollowsLocation(
                     entityPos, PreDefinedHollowsLocationSpecific.KHAZAD_DUM
                 )
 

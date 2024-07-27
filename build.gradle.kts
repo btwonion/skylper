@@ -1,4 +1,4 @@
-@file:Suppress("SpellCheckingInspection", "SENSELESS_COMPARISON", "UnstableApiUsage")
+@file:Suppress("SpellCheckingInspection", "UnstableApiUsage")
 
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -14,7 +14,7 @@ plugins {
     signing
 }
 
-val beta: Int = 22 // Pattern is '1.0.0-beta1-1.20.6-pre.2'
+val beta: Int? = 23 // Pattern is '1.0.0-beta1-1.20.6-pre.2'
 val featureVersion = "1.0.0${if (beta != null) "-beta$beta" else ""}"
 val mcVersion = property("mcVersion")!!.toString()
 val mcVersionRange = property("mcVersionRange")!!.toString()
@@ -72,7 +72,7 @@ dependencies {
     })
 
     implementation("org.vineflower:vineflower:1.10.1")
-    modImplementation("net.fabricmc:fabric-loader:0.15.11")
+    modImplementation("net.fabricmc:fabric-loader:0.16.0")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fapi")!!}")
     modImplementation("net.fabricmc:fabric-language-kotlin:1.11.0+kotlin.2.0.0")
 
@@ -86,13 +86,11 @@ dependencies {
 
     include(modImplementation("dev.nyon:konfig:2.0.1-1.20.4")!!)
 
-    val ktorVersion = "2.3.11"
+    val ktorVersion = "3.0.0-beta-2"
     include(implementation("io.ktor:ktor-client-core:$ktorVersion")!!)
     transitiveInclude(implementation("io.ktor:ktor-client-cio:$ktorVersion")!!)
     transitiveInclude(implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")!!)
     transitiveInclude(implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")!!)
-
-    testImplementation(kotlin("test"))
 
     transitiveInclude.resolvedConfiguration.resolvedArtifacts.forEach {
         include(it.moduleVersion.id.toString())

@@ -20,6 +20,6 @@ public class BossEventMixin {
         Component name,
         CallbackInfo ci
     ) {
-        EventHandler.INSTANCE.invokeEvent(new BossBarNameUpdate(name));
+        EventHandler.INSTANCE.invokeEvent(new BossBarNameUpdate(name, name.getString()));
     }
 }

@@ -12,6 +12,7 @@ import dev.nyon.skylper.skyblock.mining.hollows.render.ChestHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.render.ChestParticleHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.solvers.metaldetector.MetalDetectorSolver
 import dev.nyon.skylper.skyblock.mining.hollows.tracker.PassExpiryTracker
+import dev.nyon.skylper.skyblock.mining.hollows.tracker.nucleus.CrystalRunListener
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
 
@@ -50,7 +51,7 @@ object HollowsModule {
             waypoints.add(nucleusWaypoint)
         }
         listenEvent<AreaChangeEvent, Unit> {
-            if (it.next?.contains("Crystal Hollows") == false) {
+            if (next?.contains("Crystal Hollows") == false) {
                 waypoints.clear()
             } else {
                 waypoints.add(nucleusWaypoint)
@@ -60,10 +61,10 @@ object HollowsModule {
             if (!isPlayerInHollows) return@listenEvent
             waypoints.forEach { location ->
                 if (!location.isEnabled) return@forEach
-                location.waypoint.render(it.context)
+                location.waypoint.render(context)
             }
         }
-        listenEvent<LocatedHollowsStructureEvent, Unit> { (location, override) ->
+        listenEvent<LocatedHollowsStructureEvent, Unit> {
             if (!isPlayerInHollows) return@listenEvent
             val isFairyGrotto = location.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO
             val currentPos = minecraft.player?.position() ?: return@listenEvent

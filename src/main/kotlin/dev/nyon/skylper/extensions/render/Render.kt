@@ -1,6 +1,7 @@
 package dev.nyon.skylper.extensions.render
 
 import com.mojang.blaze3d.systems.RenderSystem
+import com.mojang.blaze3d.vertex.BufferUploader
 import com.mojang.blaze3d.vertex.DefaultVertexFormat
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexFormat
@@ -33,7 +34,7 @@ fun WorldRenderContext.renderText(
     matrices.pushPose()
     matrices.translate(correctedPos.x, correctedPos.y, correctedPos.z)
     matrices.mulPose(camera.rotation())
-    matrices.scale(-(scale * 0.025F), -(scale * 0.025F), -1F)
+    matrices.scale(scale * 0.025F, -(scale * 0.025F), 1F)
 
     val positionMatrix = matrices.last().pose()
     val xOffset = -font.width(text) / 2f
@@ -49,12 +50,12 @@ fun WorldRenderContext.renderText(
         text,
         xOffset,
         yOffset,
-        0xFFFFFF,
+        0xFFFFFFFF.toInt(),
         false,
         positionMatrix,
         consumers,
         Font.DisplayMode.SEE_THROUGH,
-        0xFFFFFFF,
+        0,
         LightTexture.FULL_BRIGHT
     )
     consumers.endBatch()
@@ -100,7 +101,10 @@ fun WorldRenderContext.renderFilled(
         javaColor.blue.toFloat() / 255,
         0.2f
     )
-    /*? if >=1.21 {*/ tes.clear() /*?} else {*/ /*tes.end() *//*?}*/
+    /*? if >=1.21 {*/
+    BufferUploader.drawWithShader(builder.build()!!)
+    tes.clear()
+    /*?} else {*/ /*tes.end() *//*?}*/
 }
 
 fun WorldRenderContext.renderOutline(

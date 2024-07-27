@@ -5,13 +5,14 @@ import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.MessageEvent
 import dev.nyon.skylper.extensions.SkyblockEnterEvent
 import dev.nyon.skylper.extensions.internalName
+import dev.nyon.skylper.extensions.regex
 import dev.nyon.skylper.extensions.render.cooldown.Cooldown
 import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft
-import dev.nyon.skylper.skyblock.Mining
+import dev.nyon.skylper.skyblock.data.online.IslandGroups
+import dev.nyon.skylper.skyblock.data.online.ToolGroups
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.data.skylper.currentProfile
-import dev.nyon.skylper.skyblock.data.skylper.playerData
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
@@ -25,45 +26,15 @@ import kotlin.time.Duration.Companion.seconds
 object MiningCooldown : Cooldown {
     override var cooldownEnd: Instant? = null
 
+    private val abilityUsedRegex = regex("chat.mining.abilityUsed")
+    private val abilityAvailable = regex("chat.mining.abilityAvailable")
+
     override fun isEnabled(): Boolean {
         return config.mining.miningAbilityIndicator
     }
 
-    private val internalMiningItemNames = setOf(
-        "WOOD_PICKAXE",
-        "GOLD_PICKAXE",
-        "STONE_PICKAXE",
-        "IRON_PICKAXE",
-        "DIAMOND_PICKAXE",
-        "ZOMBIE_PICKAXE",
-        "ROOKIE_PICKAXE",
-        "PROMISING_PICKAXE",
-        "STONK_PICKAXE",
-        "JUNGLE_PICKAXE",
-        "FRACTURED_MITHRIL_PICKAXE",
-        "BANDAGED_MITHRIL_PICKAXE",
-        "MITHRIL_PICKAXE",
-        "REFINED_MITHRIL_PICKAXE",
-        "TITANIUM_PICKAXE",
-        "REFINED_TITANIUM_PICKAXE",
-        "PICKONIMBUS",
-        "BINGONIMBUS_2000",
-        "MITHRIL_DRILL_1",
-        "MITHRIL_DRILL_2",
-        "TITANIUM_DRILL_1",
-        "TITANIUM_DRILL_2",
-        "TITANIUM_DRILL_3",
-        "TITANIUM_DRILL_4",
-        "DIVAN_DRILL",
-        "GEMSTONE_DRILL_1",
-        "GEMSTONE_DRILL_2",
-        "GEMSTONE_DRILL_3",
-        "GEMSTONE_DRILL_4",
-        "GEMSTONE_GAUNTLET"
-    )
-
     override fun isCorrectItem(stack: ItemStack): Boolean {
-        return internalMiningItemNames.contains(stack.internalName)
+        return ToolGroups.groups.mining.contains(stack.internalName)
     }
 
     @Suppress("unused")
@@ -78,13 +49,12 @@ object MiningCooldown : Cooldown {
 
     @Suppress("unused")
     private val listenChat = listenEvent<MessageEvent, Unit> {
-        val raw = it.text.string
-        if (raw.contains("You used your") && raw.contains("Pickaxe Ability!")) {
+        if (abilityUsedRegex.matches(rawText)) {
             abilityUsed()
             return@listenEvent
         }
 
-        if (raw.contains("is now available!")) {
+        if (abilityAvailable.matches(rawText)) {
             abilityAvailable()
             return@listenEvent
         }
@@ -93,7 +63,7 @@ object MiningCooldown : Cooldown {
     private fun abilityAvailable() {
         cooldownEnd = null
         if (config.mining.availableAbilityNotification) {
-            if (config.mining.availableAbilityNotificationOnMiningIslands && !Mining.miningIslands.contains(
+            if (config.mining.availableAbilityNotificationOnMiningIslands && !IslandGroups.groups.mining.contains(
                     PlayerSessionData.currentArea
                 )
             ) {
@@ -102,8 +72,8 @@ object MiningCooldown : Cooldown {
             minecraft.gui.setTitle(Component.literal("T")
                 .withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) }
                 .append(Component.literal(" Pickaxe Ability available ")
-                    .withStyle { it.withObfuscated(false).withColor(ChatFormatting.AQUA).withBold(true) }).append(
-                    Component.literal("T").withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) })
+                    .withStyle { it.withObfuscated(false).withColor(ChatFormatting.AQUA).withBold(true) })
+                .append(Component.literal("T").withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) })
             )
         }
     }
@@ -124,17 +94,17 @@ object MiningCooldown : Cooldown {
     }
 
     override fun getCooldownTime(): Duration? {
-        return when (playerData.currentProfile?.mining?.abilityLevel) {
-            1 -> playerData.currentProfile?.mining?.selectedAbility?.levelOne?.seconds
-            2 -> playerData.currentProfile?.mining?.selectedAbility?.levelTwo?.seconds
-            3 -> playerData.currentProfile?.mining?.selectedAbility?.levelThree?.seconds
+        return when (currentProfile.mining.abilityLevel) {
+            1 -> currentProfile.mining.selectedAbility?.levelOne?.seconds
+            2 -> currentProfile.mining.selectedAbility?.levelTwo?.seconds
+            3 -> currentProfile.mining.selectedAbility?.levelThree?.seconds
             else -> null
         }
     }
 }
 
 interface AbilityCooldownIdentifier {
-    @Suppress("ktlint:standard:function-naming", "FunctionName")
+    @Suppress("FunctionName")
     fun `skylper$getCooldownPercent`(
         itemStack: ItemStack, partialTicks: Float
     ): Float

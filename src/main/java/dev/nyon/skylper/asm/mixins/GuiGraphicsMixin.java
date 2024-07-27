@@ -39,6 +39,6 @@ public class GuiGraphicsMixin {
         @Nullable
         String text
     ) {
-        return ((AbilityCooldownIdentifier) instance).skylper$getCooldownPercent(stack, /*? if >=1.21 {*/ minecraft.getFrameTimeNs() /*?} else {*//* minecraft.getFrameTime() *//*?}*/);
+        return ((AbilityCooldownIdentifier) instance).skylper$getCooldownPercent(stack, /*? if >=1.21 {*/ minecraft.getFrameTimeNs() /*?} else {*/ /*minecraft.getFrameTime() *//*?}*/);
     }
 }
