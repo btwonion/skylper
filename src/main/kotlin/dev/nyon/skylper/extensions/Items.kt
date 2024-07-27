@@ -40,12 +40,17 @@ val ItemStack.lore: List<Component>
     get() {
         val lines = getTooltipLines(Item.TooltipContext.EMPTY, minecraft.player!!, TooltipFlag.ADVANCED)
         return lines.drop(1)
-    }/*?} else {*//*
-import dev.nyon.skylper.minecraft
+    }/*?} else {*/
+/*import dev.nyon.skylper.minecraft
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
+
+val ItemStack.nameAsString: String
+    get() {
+        return displayName.string.replace("[", "").replace("]", "")
+    }
 
 val ItemStack.extraAttributes: CompoundTag?
     get() {

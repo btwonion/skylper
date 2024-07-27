@@ -32,8 +32,8 @@ public abstract class GuiMixin {
     }
 }
 
-/*?} else {*//*
-import dev.nyon.skylper.extensions.EventHandler;
+/*?} else {*/
+/*import dev.nyon.skylper.extensions.EventHandler;
 import dev.nyon.skylper.extensions.RenderHudEvent;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
