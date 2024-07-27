@@ -12,6 +12,7 @@ import dev.nyon.skylper.skyblock.mining.hollows.render.ChestHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.render.ChestParticleHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.solvers.metaldetector.MetalDetectorSolver
 import dev.nyon.skylper.skyblock.mining.hollows.tracker.PassExpiryTracker
+import dev.nyon.skylper.skyblock.mining.hollows.tracker.nucleus.CrystalRunListener
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
 

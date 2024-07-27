@@ -4,12 +4,11 @@ import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.RenderHudEvent
 import dev.nyon.skylper.extensions.render.hud.HudWidget
-import dev.nyon.skylper.skyblock.Mining
 import dev.nyon.skylper.skyblock.data.online.IslandGroups
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.mining.TotalPowderWidget
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
-import dev.nyon.skylper.skyblock.mining.hollows.render.hud.CrystalCompletionWidget
+import dev.nyon.skylper.skyblock.mining.hollows.tracker.nucleus.CrystalCompletionWidget
 import dev.nyon.skylper.skyblock.mining.hollows.tracker.powder.PowderGrindingTracker
 import net.minecraft.client.gui.GuiGraphics
 
