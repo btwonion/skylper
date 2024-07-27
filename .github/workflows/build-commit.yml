@@ -7,6 +7,8 @@ on:
       - "LICENSE"
       - ".gitignore"
       - "changelog.md"
+      - "beta-changelog.md"
+      - "features.md"
       - ".editorconfig"
       - "src/*/resources/lang/*"
   pull_request:
@@ -14,7 +16,8 @@ on:
       - "README.md"
       - "LICENSE"
       - ".gitignore"
-      - "changelog.md"
+      - "beta-changelog.md"
+      - "features.md"
       - ".editorconfig"
       - "src/*/resources/lang/*"
   workflow_dispatch:
