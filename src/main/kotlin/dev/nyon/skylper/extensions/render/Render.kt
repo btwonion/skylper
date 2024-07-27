@@ -1,6 +1,7 @@
 package dev.nyon.skylper.extensions.render
 
 import com.mojang.blaze3d.systems.RenderSystem
+import com.mojang.blaze3d.vertex.BufferUploader
 import com.mojang.blaze3d.vertex.DefaultVertexFormat
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexFormat
@@ -100,7 +101,10 @@ fun WorldRenderContext.renderFilled(
         javaColor.blue.toFloat() / 255,
         0.2f
     )
-    /*? if >=1.21 {*/ tes.clear() /*?} else {*/ /*tes.end() *//*?}*/
+    /*? if >=1.21 {*/
+    BufferUploader.drawWithShader(builder.build()!!)
+    tes.clear()
+    /*?} else {*/ /*tes.end() *//*?}*/
 }
 
 fun WorldRenderContext.renderOutline(
