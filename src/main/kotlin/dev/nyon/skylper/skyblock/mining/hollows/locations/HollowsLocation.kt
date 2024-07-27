@@ -2,6 +2,7 @@ package dev.nyon.skylper.skyblock.mining.hollows.locations
 
 import dev.nyon.skylper.config.Config
 import dev.nyon.skylper.config.config
+import dev.nyon.skylper.extensions.regex
 import dev.nyon.skylper.extensions.render.waypoint.Waypoint
 import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import net.minecraft.network.chat.Component
@@ -35,12 +36,14 @@ interface HollowsLocationSpecific {
     val key: String
     val color: Int
     val displayName: Component
+    val regex: Regex
 }
 
 data class CustomHollowsLocationSpecific(
     override val key: String,
     override val color: Int = 0x844B00,
-    override val displayName: Component = Component.literal(key)
+    override val displayName: Component = Component.literal(key),
+    override val regex: Regex = regex("chat.hollows.locations.$key")
 ) : HollowsLocationSpecific
 
 enum class PreDefinedHollowsLocationSpecific(override val key: String, override val color: Int) :
@@ -57,5 +60,6 @@ enum class PreDefinedHollowsLocationSpecific(override val key: String, override 
     GOBLIN_QUEEN("goblin_queen", 0x9B5206),
     KHAZAD_DUM("khazad_dum", 0x800D00);
 
-    override val displayName: Component = Component.translatable("chat.skylper.hollows.locations.${this.key}", this.key)
+    override val displayName: Component = Component.translatable("chat.skylper.hollows.locations.$key", key)
+    override val regex: Regex = regex("chat.hollows.locations.$key")
 }

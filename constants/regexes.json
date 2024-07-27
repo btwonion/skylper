@@ -1,6 +1,17 @@
 {
     "regexes": {
         "chat.hollows.location": "(\\D+)?\\s?+(-?\\d+)(?:\\s+(-?\\d+))?\\s+(-?\\d+)\\s?+(\\D+)?",
+        "chat.hollows.locations.nucleus": ".*Crystal Nucleus.*",
+        "chat.hollows.locations.precursor_city": ".*Precursor City.*",
+        "chat.hollows.locations.jungle_temple": ".*Jungle Temple.*",
+        "chat.hollows.locations.odawa": ".*Odawa.*",
+        "chat.hollows.locations.key_guardian": ".*Key Guardian.*",
+        "chat.hollows.locations.divan_mines": ".*Mines of Divan.*",
+        "chat.hollows.locations.corleone": ".*Corleone.*",
+        "chat.hollows.locations.fairy_grotto": ".*Fairy Grotto.*",
+        "chat.hollows.locations.goblin_king": ".*King Yolkar.*",
+        "chat.hollows.locations.goblin_queen": ".*Goblin Queen's Den.*",
+        "chat.hollows.locations.khazad_dum": ".*Khazad Dûm.*",
         "chat.hollows.tracker.picked": "  CHEST LOCKPICKED .*",
         "chat.hollows.tracker.powder.started": "2X POWDER STARTED!.",
         "chat.hollows.tracker.powder.ended": "2X POWDER ENDED!.",
@@ -89,6 +100,13 @@
         "tablist.general.area": "Area: (.+)",
         "sideboard.general.skyblock": "SKYBLOCK",
         "sideboard.general.zone": " (?:⏣|ф) (.*)",
-        "bossbar.hollows.powder": "PASSIVE EVENT 2X POWDER RUNNING FOR ?(?:\\((.*)\\))"
+        "bossbar.hollows.powder": "PASSIVE EVENT 2X POWDER RUNNING FOR ?(?:\\((.*)\\))",
+        "nametag.hollows.yolkar": "King Yolkar",
+        "nametag.hollows.professor_robot": "Professor Robot",
+        "nametag.hollows.door_guardian": "Kalhuiki Door Guardian",
+        "nametag.hollows.odawa": "Odawa",
+        "nametag.hollows.corleone": "Boss Corleone",
+        "nametag.hollows.key_guardian": "Key Guardian",
+        "nametag.hollows.bal": "Bal"
     }
 }
