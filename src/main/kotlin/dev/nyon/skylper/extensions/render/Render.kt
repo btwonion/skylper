@@ -34,7 +34,7 @@ fun WorldRenderContext.renderText(
     matrices.pushPose()
     matrices.translate(correctedPos.x, correctedPos.y, correctedPos.z)
     matrices.mulPose(camera.rotation())
-    matrices.scale(-(scale * 0.025F), -(scale * 0.025F), -1F)
+    matrices.scale(scale * 0.025F, -(scale * 0.025F), 1F)
 
     val positionMatrix = matrices.last().pose()
     val xOffset = -font.width(text) / 2f
@@ -50,12 +50,12 @@ fun WorldRenderContext.renderText(
         text,
         xOffset,
         yOffset,
-        0xFFFFFF,
+        0xFFFFFFFF.toInt(),
         false,
         positionMatrix,
         consumers,
         Font.DisplayMode.SEE_THROUGH,
-        0xFFFFFFF,
+        0,
         LightTexture.FULL_BRIGHT
     )
     consumers.endBatch()
