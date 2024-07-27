@@ -6,3 +6,4 @@ none
 
 ## Technical changes
 - now use regexes instead of string checks for easier responses to Hypixel's changes
+- use yacl3 kotlin dsl for config creation
