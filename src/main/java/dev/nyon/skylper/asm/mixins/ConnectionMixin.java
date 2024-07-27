@@ -43,7 +43,7 @@ public class ConnectionMixin {
     }
 
     @Inject(
-        method = "disconnect",
+        method = "disconnect*",
         at = @At("TAIL")
     )
     private void clearDestinationTargets(

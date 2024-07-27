@@ -8,7 +8,6 @@ import dev.nyon.skylper.extensions.render.hud.TableHudWidget
 import dev.nyon.skylper.extensions.render.hud.components.PlainTextHudComponent
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.skyblock.data.skylper.currentProfile
-import dev.nyon.skylper.skyblock.data.skylper.playerData
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.minecraft.ChatFormatting
@@ -41,7 +40,7 @@ object TotalPowderWidget :
         addComponent(
             0, 1, PlainTextHudComponent(
                 Component.literal(
-                    playerData.currentProfile?.mining?.mithrilPowder?.format() ?: "Open /hotm screen"
+                    currentProfile.mining.mithrilPowder.format()
                 )
             )
         )
@@ -55,7 +54,7 @@ object TotalPowderWidget :
         addComponent(
             1, 1, PlainTextHudComponent(
                 Component.literal(
-                    playerData.currentProfile?.mining?.gemstonePowder?.format() ?: "Open /hotm screen"
+                    currentProfile.mining.gemstonePowder.format()
                 )
             )
         )
@@ -69,7 +68,7 @@ object TotalPowderWidget :
         addComponent(
             2, 1, PlainTextHudComponent(
                 Component.literal(
-                    playerData.currentProfile?.mining?.glacitePowder?.format() ?: "Open /hotm screen"
+                    currentProfile.mining.glacitePowder.format()
                 )
             )
         )

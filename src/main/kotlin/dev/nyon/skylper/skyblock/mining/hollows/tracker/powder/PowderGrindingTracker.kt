@@ -11,7 +11,6 @@ import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.tracker.Tracker
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.skyblock.data.skylper.currentProfile
-import dev.nyon.skylper.skyblock.data.skylper.playerData
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -68,14 +67,12 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
             when (reward) {
                 ChestReward.MITHRIL_POWDER -> {
                     EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.MITHRIL, fixedAmount))
-                    playerData.currentProfile?.mining?.mithrilPowder =
-                        fixedAmount + (playerData.currentProfile?.mining?.mithrilPowder ?: 0)
+                    currentProfile.mining.mithrilPowder += fixedAmount
                     data.mithril.updateByIncrease(fixedAmount, this@PowderGrindingTracker)
                 }
                 ChestReward.GEMSTONE_POWDER -> {
                     EventHandler.invokeEvent(PowderGainEvent(PowderGainEvent.PowderType.GEMSTONE, fixedAmount))
-                    playerData.currentProfile?.mining?.gemstonePowder =
-                        fixedAmount + (playerData.currentProfile?.mining?.gemstonePowder ?: 0)
+                    currentProfile.mining.gemstonePowder += fixedAmount
                     data.gemstone.updateByIncrease(fixedAmount, this@PowderGrindingTracker)
                 }
                 else -> {}

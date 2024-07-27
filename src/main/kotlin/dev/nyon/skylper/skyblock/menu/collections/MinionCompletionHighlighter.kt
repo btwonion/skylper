@@ -18,11 +18,8 @@ object MinionCompletionHighlighter {
         if (craftedMinionsRegex.matches(screenName)) {
             val lore = slot.item.lore.map { it.string }
             if (lore.none { clickToViewRecipesRegex.matches(it) }) return@listenEvent null
-            val incompleteCount = lore.count { minionUncompletedRegex.matches(it) }
-            if (incompleteCount == 0) return@listenEvent null
-            if (incompleteCount == 1) return@listenEvent config.menu.collections.barelyCompletedCollectionHighlightColor.rgb
-            if (lore.any { minionUncompletedRegex.matches(it) }) return@listenEvent config.menu.collections.nonCompletedCollectionHighlightColor.rgb
-            return@listenEvent null
+            if (lore.none { minionUncompletedRegex.matches(it) }) return@listenEvent null
+            return@listenEvent config.menu.collections.nonCompletedCollectionHighlightColor.rgb
         }
 
         null

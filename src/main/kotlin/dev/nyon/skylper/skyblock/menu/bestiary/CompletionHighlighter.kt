@@ -18,9 +18,8 @@ object CompletionHighlighter {
         val screenName = title.string
         if (bestiaryRegex.matches(screenName)) {
             val lore = slot.item.lore.map { it.string }
-            val rest = screenName.drop(11)
             if (lore.none { Menu.clickToViewRegex.matches(it) }) return@listenEvent null
-            if (lore.any { (rest.isEmpty() && familiesCompletedRegex.matches(it)) || maxedRegex.matches("MAX!") }) return@listenEvent null
+            if (lore.any { familiesCompletedRegex.matches(it) || maxedRegex.matches(it) }) return@listenEvent null
 
             return@listenEvent config.menu.bestiary.nonCompletedBestiaryHighlightColor.rgb
         }

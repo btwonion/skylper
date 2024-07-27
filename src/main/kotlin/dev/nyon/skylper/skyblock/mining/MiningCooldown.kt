@@ -13,7 +13,6 @@ import dev.nyon.skylper.skyblock.data.online.IslandGroups
 import dev.nyon.skylper.skyblock.data.online.ToolGroups
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.data.skylper.currentProfile
-import dev.nyon.skylper.skyblock.data.skylper.playerData
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
@@ -95,10 +94,10 @@ object MiningCooldown : Cooldown {
     }
 
     override fun getCooldownTime(): Duration? {
-        return when (playerData.currentProfile?.mining?.abilityLevel) {
-            1 -> playerData.currentProfile?.mining?.selectedAbility?.levelOne?.seconds
-            2 -> playerData.currentProfile?.mining?.selectedAbility?.levelTwo?.seconds
-            3 -> playerData.currentProfile?.mining?.selectedAbility?.levelThree?.seconds
+        return when (currentProfile.mining.abilityLevel) {
+            1 -> currentProfile.mining.selectedAbility?.levelOne?.seconds
+            2 -> currentProfile.mining.selectedAbility?.levelTwo?.seconds
+            3 -> currentProfile.mining.selectedAbility?.levelThree?.seconds
             else -> null
         }
     }

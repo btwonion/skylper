@@ -6,6 +6,9 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.serializer
+import net.fabricmc.loader.api.FabricLoader
+import kotlin.io.path.Path
+import kotlin.io.path.readText
 import kotlin.reflect.KClass
 
 abstract class OnlineData<T : Any>(val kClass: KClass<T>) {
@@ -22,7 +25,9 @@ abstract class OnlineData<T : Any>(val kClass: KClass<T>) {
     @OptIn(InternalSerializationApi::class)
     suspend inline fun refresh() {
         val result = runCatching {
-            val result = httpClient.get("$url$path").bodyAsText()
+            val result =
+                if (FabricLoader.getInstance().isDevelopmentEnvironment && url == SKYLPER_REPO_URL) Path("../constants/$path").readText()
+                else httpClient.get("$url$path").bodyAsText()
             json.decodeFromString(kClass.serializer(), result)
         }.onFailure { throwable ->
             println("Failed to load data from $url$path.")

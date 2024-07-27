@@ -8,7 +8,7 @@ import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
 
 object CrystalRunListener {
     private val crystalFoundRegex = regex("chat.hollows.run.crystalFound")
-    private val crystalPlacedRegex = regex("chat.hollows.run.crystalPlaced")  // todo
+    private val crystalPlacedRegex = regex("chat.hollows.run.crystalPlaced")
     private val runCompletedRegex = regex("chat.hollows.run.completed")
 
     private var nextIsCrystal = false
