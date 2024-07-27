@@ -1,6 +1,5 @@
 package dev.nyon.skylper.extensions.tracker
 
-import dev.isxander.yacl3.api.OptionGroup
 import dev.nyon.skylper.extensions.Event
 import dev.nyon.skylper.extensions.EventHandler
 import dev.nyon.skylper.extensions.math.toPrettyString
@@ -14,14 +13,10 @@ import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import kotlin.reflect.KClass
 
-abstract class Tracker<D : TrackerData>(val nameSpace: String, val data: D) :
+abstract class Tracker<D : TrackerData>(nameSpace: String, val data: D) :
     SimpleHudWidget(Component.translatable("menu.skylper.overlay.$nameSpace.title")) {
     val overlayNameSpace = "menu.skylper.overlay.$nameSpace"
     var startTime: Instant? = null
-
-    abstract fun appendConfigOptions(
-        builder: OptionGroup.Builder, categoryKey: String
-    ): OptionGroup.Builder
 
     abstract fun createComponents(data: D): List<Component>
 

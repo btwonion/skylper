@@ -62,8 +62,8 @@ object MiningCooldown : Cooldown {
 
     private fun abilityAvailable() {
         cooldownEnd = null
-        if (config.mining.availableAbilityNotification) {
-            if (config.mining.availableAbilityNotificationOnMiningIslands && !IslandGroups.groups.mining.contains(
+        if (config.mining.miningAbilityNotification) {
+            if (config.mining.miningAbilityNotificationOnMiningIslands && !IslandGroups.groups.mining.contains(
                     PlayerSessionData.currentArea
                 )
             ) {

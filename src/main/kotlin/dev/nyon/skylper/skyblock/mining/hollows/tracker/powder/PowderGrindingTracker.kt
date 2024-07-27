@@ -1,11 +1,6 @@
 package dev.nyon.skylper.skyblock.mining.hollows.tracker.powder
 
-import dev.isxander.yacl3.api.OptionGroup
 import dev.nyon.skylper.config.Config
-import dev.nyon.skylper.config.screen.extensions.description
-import dev.nyon.skylper.config.screen.extensions.getSet
-import dev.nyon.skylper.config.screen.extensions.primitive
-import dev.nyon.skylper.config.screen.extensions.tickBox
 import dev.nyon.skylper.extensions.*
 import dev.nyon.skylper.extensions.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.tracker.Tracker
@@ -100,56 +95,6 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
             data.chest.update(this@PowderGrindingTracker)
             data.mithril.update(this@PowderGrindingTracker)
             data.gemstone.update(this@PowderGrindingTracker)
-        }
-    }
-
-    override fun appendConfigOptions(
-        builder: OptionGroup.Builder, categoryKey: String
-    ) = builder.apply {
-        // opened chests toggle
-        fun OptionGroup.Builder.resourceConfig(
-            key: String, resourceConfig: Config.CrystalHollowsConfig.GrindingOverlay.ResourceConfig
-        ) {
-            val totalKey = "$key.total_stat"
-            primitive(categoryKey, totalKey) {
-                description(categoryKey, totalKey)
-                getSet({ resourceConfig.total }, { resourceConfig.total = it })
-                tickBox()
-            }
-
-            val minuteKey = "$key.minute_stat"
-            primitive(categoryKey, minuteKey) {
-                description(categoryKey, minuteKey)
-                getSet({ resourceConfig.perMinute }, { resourceConfig.perMinute = it })
-                tickBox()
-            }
-
-            val hourKey = "$key.hour_stat"
-            primitive(categoryKey, hourKey) {
-                description(categoryKey, hourKey)
-                getSet({ resourceConfig.perHour }, { resourceConfig.perHour = it })
-                tickBox()
-            }
-        }
-
-        val chestKey = "chests"
-        resourceConfig(chestKey, config.chests)
-
-        val gemstoneKey = "gemstone"
-        resourceConfig(gemstoneKey, config.gemstone)
-
-        val mithrilKey = "mithril"
-        resourceConfig(mithrilKey, config.mithril)
-
-        val glaciteKey = "glacite"
-        resourceConfig(glaciteKey, config.glacite)
-
-        // double powder toggle
-        val doublePowderKey = "double_powder"
-        primitive(categoryKey, doublePowderKey) {
-            description(categoryKey, doublePowderKey)
-            getSet({ config.doublePowder }, { config.doublePowder = it })
-            tickBox()
         }
     }
 
