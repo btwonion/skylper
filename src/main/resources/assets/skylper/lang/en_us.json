@@ -139,7 +139,7 @@
     "menu.skylper.keybinding.location_screen": "Open Crystal Hollows Location screen",
 
     "chat.skylper.hollows.locations.found": "[skylper] Found %d with the coordinates %d, %d, %d!",
-    "chat.skylper.hollows.locations.pick": "[skylper] Click to select %d for this coordinates!",
+    "chat.skylper.hollows.locations.pick": "[skylper] Click the structure that this coordinates belongs to: %d",
     "chat.skylper.hollows.locations.nucleus": "Crystal Nucleus",
     "chat.skylper.hollows.locations.precursor_city": "Precursor City",
     "chat.skylper.hollows.locations.jungle_temple": "Jungle Temple",

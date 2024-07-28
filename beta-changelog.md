@@ -1,9 +1,8 @@
 ## Features
-none
+- improve structure selection message for recognized locations in Crystal Hollows
 
 ## Bug Fixes
-- fix rendering bugs occurring in 1.21
+none
 
 ## Technical changes
-- now use regexes instead of string checks for easier responses to Hypixel's changes
-- use yacl3 kotlin dsl for config creation
+none

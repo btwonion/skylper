@@ -51,14 +51,20 @@ object PlayerChatLocationListener {
             }
         }
 
-        PreDefinedHollowsLocationSpecific.entries.forEach { specific ->
-            minecraft.player?.sendSystemMessage(Component.translatable(
-                "chat.skylper.hollows.locations.pick", specific.displayName.copy().withStyle(ChatFormatting.RED)
-            ).withStyle {
+        val locationsComponent = PreDefinedHollowsLocationSpecific.entries.map { specific ->
+            specific.displayName.copy().withStyle {
+                it.withColor(ChatFormatting.RED)
                 val command =
                     "/skylper hollows waypoints set ${specific.key} ${pos.x.toInt()} ${pos.y.toInt()} ${pos.z.toInt()}"
                 it.withClickEvent(ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command))
-            })
+            }
+        }.fold(Component.empty()) { acc, new ->
+            if (acc != Component.empty()) acc.append(Component.literal(", ").withStyle(ChatFormatting.WHITE))
+            acc.append(new)
+            acc
         }
+
+        val finalComponent = Component.translatable("chat.skylper.hollows.locations.pick", locationsComponent)
+        minecraft.player?.sendSystemMessage(finalComponent)
     }
 }
