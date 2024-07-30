@@ -14,7 +14,7 @@ plugins {
     signing
 }
 
-val beta: Int? = 25 // Pattern is '1.0.0-beta1-1.20.6-pre.2'
+val beta: Int? = 26 // Pattern is '1.0.0-beta1-1.20.6-pre.2'
 val featureVersion = "1.0.0${if (beta != null) "-beta$beta" else ""}"
 val mcVersion = property("mcVersion")!!.toString()
 val mcVersionRange = property("mcVersionRange")!!.toString()
@@ -67,7 +67,8 @@ val transitiveInclude: Configuration by configurations.creating {
 dependencies {
     minecraft("com.mojang:minecraft:$mcVersion")
     mappings(loom.layered {
-        parchment("org.parchmentmc.data:parchment-${property("deps.parchment")}@zip")
+        val parchment: String = property("deps.parchment").toString()
+        if (parchment.isNotEmpty()) parchment("org.parchmentmc.data:parchment-$parchment@zip")
         officialMojangMappings()
     })
 
