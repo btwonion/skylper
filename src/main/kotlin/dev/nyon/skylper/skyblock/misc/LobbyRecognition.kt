@@ -2,7 +2,10 @@ package dev.nyon.skylper.skyblock.misc
 
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.*
-import dev.nyon.skylper.extensions.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.LevelChangeEvent
+import dev.nyon.skylper.extensions.event.MessageEvent
+import dev.nyon.skylper.extensions.event.SkyblockQuitEvent
 import dev.nyon.skylper.minecraft
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component

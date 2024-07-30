@@ -1,4 +1,4 @@
-package dev.nyon.skylper.extensions
+package dev.nyon.skylper.extensions.event
 
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents
 

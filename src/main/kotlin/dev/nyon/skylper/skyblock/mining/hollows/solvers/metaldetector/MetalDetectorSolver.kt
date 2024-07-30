@@ -2,7 +2,8 @@ package dev.nyon.skylper.skyblock.mining.hollows.solvers.metaldetector
 
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.*
-import dev.nyon.skylper.extensions.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.*
 import dev.nyon.skylper.extensions.render.waypoint.Waypoint
 import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import dev.nyon.skylper.minecraft

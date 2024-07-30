@@ -1,8 +1,8 @@
 ## Features
-- improve structure selection message for recognized locations in Crystal Hollows
+none
 
 ## Bug Fixes
-none
+- use regex to remove color codes from rawText in MessageEvents
 
 ## Technical changes
 none

@@ -1,7 +1,7 @@
 package dev.nyon.skylper.skyblock.mining.hollows.tracker.nucleus
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.extensions.*
+import dev.nyon.skylper.extensions.event.*
 import dev.nyon.skylper.extensions.render.hud.TableHudWidget
 import dev.nyon.skylper.extensions.render.hud.components.PlainTextHudComponent
 import dev.nyon.skylper.independentScope

@@ -1,8 +1,8 @@
 package dev.nyon.skylper.skyblock.mining.hollows.tracker
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.extensions.EventHandler.listenEvent
-import dev.nyon.skylper.extensions.MessageEvent
+import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.MessageEvent
 import dev.nyon.skylper.extensions.regex
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule

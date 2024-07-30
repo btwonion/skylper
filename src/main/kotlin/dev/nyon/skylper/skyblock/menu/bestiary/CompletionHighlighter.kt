@@ -1,8 +1,8 @@
 package dev.nyon.skylper.skyblock.menu.bestiary
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.extensions.EventHandler
-import dev.nyon.skylper.extensions.RenderItemBackgroundEvent
+import dev.nyon.skylper.extensions.event.EventHandler
+import dev.nyon.skylper.extensions.event.RenderItemBackgroundEvent
 import dev.nyon.skylper.extensions.lore
 import dev.nyon.skylper.extensions.regex
 import dev.nyon.skylper.skyblock.menu.Menu

@@ -1,6 +1,6 @@
 package dev.nyon.skylper.extensions.tracker
 
-import dev.nyon.skylper.extensions.Event
+import dev.nyon.skylper.extensions.event.Event
 import kotlin.reflect.KClass
 
 interface TrackerData {

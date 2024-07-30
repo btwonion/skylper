@@ -1,8 +1,8 @@
 package dev.nyon.skylper.skyblock.menu.collections
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.extensions.EventHandler.listenEvent
-import dev.nyon.skylper.extensions.RenderItemBackgroundEvent
+import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.RenderItemBackgroundEvent
 import dev.nyon.skylper.extensions.lore
 import dev.nyon.skylper.extensions.nameAsString
 import dev.nyon.skylper.extensions.regex

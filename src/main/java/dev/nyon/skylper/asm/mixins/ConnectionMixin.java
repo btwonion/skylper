@@ -1,8 +1,8 @@
 package dev.nyon.skylper.asm.mixins;
 
-import dev.nyon.skylper.extensions.EventHandler;
-import dev.nyon.skylper.extensions.HypixelJoinEvent;
-import dev.nyon.skylper.extensions.HypixelQuitEvent;
+import dev.nyon.skylper.extensions.event.EventHandler;
+import dev.nyon.skylper.extensions.event.HypixelJoinEvent;
+import dev.nyon.skylper.extensions.event.HypixelQuitEvent;
 import net.minecraft.network.Connection;
 import net.minecraft.network.PacketSendListener;
 import net.minecraft.network.chat.Component;

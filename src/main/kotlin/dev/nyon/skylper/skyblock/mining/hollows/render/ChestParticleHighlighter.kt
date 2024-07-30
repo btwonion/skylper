@@ -1,9 +1,9 @@
 package dev.nyon.skylper.skyblock.mining.hollows.render
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.extensions.EventHandler.listenEvent
-import dev.nyon.skylper.extensions.ParticleSpawnEvent
-import dev.nyon.skylper.extensions.RenderAfterTranslucentEvent
+import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.ParticleSpawnEvent
+import dev.nyon.skylper.extensions.event.RenderAfterTranslucentEvent
 import dev.nyon.skylper.extensions.render.renderFilled
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.mcScope

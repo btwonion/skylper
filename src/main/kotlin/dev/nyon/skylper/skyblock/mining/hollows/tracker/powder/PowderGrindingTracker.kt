@@ -2,7 +2,8 @@ package dev.nyon.skylper.skyblock.mining.hollows.tracker.powder
 
 import dev.nyon.skylper.config.Config
 import dev.nyon.skylper.extensions.*
-import dev.nyon.skylper.extensions.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.*
+import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.tracker.Tracker
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.skyblock.data.skylper.currentProfile

@@ -107,6 +107,7 @@
         "nametag.hollows.odawa": "Odawa",
         "nametag.hollows.corleone": "Boss Corleone",
         "nametag.hollows.key_guardian": "Key Guardian",
-        "nametag.hollows.bal": "Bal"
+        "nametag.hollows.bal": "Bal",
+        "component.clean": "§[^a-f0-9]"
     }
 }

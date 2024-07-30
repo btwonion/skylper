@@ -1,8 +1,8 @@
 package dev.nyon.skylper.asm.mixins;
 
-import dev.nyon.skylper.extensions.BlockBreakEvent;
-import dev.nyon.skylper.extensions.BlockUpdateEvent;
-import dev.nyon.skylper.extensions.EventHandler;
+import dev.nyon.skylper.extensions.event.BlockBreakEvent;
+import dev.nyon.skylper.extensions.event.BlockUpdateEvent;
+import dev.nyon.skylper.extensions.event.EventHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;

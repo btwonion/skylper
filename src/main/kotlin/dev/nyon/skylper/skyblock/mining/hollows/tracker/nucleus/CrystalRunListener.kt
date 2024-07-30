@@ -1,7 +1,8 @@
 package dev.nyon.skylper.skyblock.mining.hollows.tracker.nucleus
 
 import dev.nyon.skylper.extensions.*
-import dev.nyon.skylper.extensions.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.*
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.mining.hollows.Crystal
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule

@@ -1,8 +1,8 @@
 package dev.nyon.skylper.asm.mixins;
 
-import dev.nyon.skylper.extensions.EventHandler;
-import dev.nyon.skylper.extensions.LevelChangeEvent;
-import dev.nyon.skylper.extensions.ParticleSpawnEvent;
+import dev.nyon.skylper.extensions.event.EventHandler;
+import dev.nyon.skylper.extensions.event.LevelChangeEvent;
+import dev.nyon.skylper.extensions.event.ParticleSpawnEvent;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.particles.ParticleOptions;

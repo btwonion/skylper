@@ -1,8 +1,8 @@
 package dev.nyon.skylper.skyblock.render
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.extensions.EventHandler.listenEvent
-import dev.nyon.skylper.extensions.RenderHudEvent
+import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.RenderHudEvent
 import dev.nyon.skylper.extensions.render.hud.HudWidget
 import dev.nyon.skylper.skyblock.data.online.IslandGroups
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData

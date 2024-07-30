@@ -1,9 +1,9 @@
 package dev.nyon.skylper.skyblock.mining.hollows.locations
 
-import dev.nyon.skylper.extensions.EventHandler
-import dev.nyon.skylper.extensions.EventHandler.listenEvent
-import dev.nyon.skylper.extensions.LocatedHollowsStructureEvent
-import dev.nyon.skylper.extensions.SideboardUpdateEvent
+import dev.nyon.skylper.extensions.event.EventHandler
+import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.LocatedHollowsStructureEvent
+import dev.nyon.skylper.extensions.event.SideboardUpdateEvent
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
 

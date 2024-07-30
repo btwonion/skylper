@@ -1,9 +1,9 @@
 package dev.nyon.skylper.skyblock.mining
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.extensions.EventHandler.listenEvent
-import dev.nyon.skylper.extensions.MessageEvent
-import dev.nyon.skylper.extensions.SkyblockEnterEvent
+import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.MessageEvent
+import dev.nyon.skylper.extensions.event.SkyblockEnterEvent
 import dev.nyon.skylper.extensions.internalName
 import dev.nyon.skylper.extensions.regex
 import dev.nyon.skylper.extensions.render.cooldown.Cooldown

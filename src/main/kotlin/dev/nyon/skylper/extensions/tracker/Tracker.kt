@@ -1,7 +1,7 @@
 package dev.nyon.skylper.extensions.tracker
 
-import dev.nyon.skylper.extensions.Event
-import dev.nyon.skylper.extensions.EventHandler
+import dev.nyon.skylper.extensions.event.Event
+import dev.nyon.skylper.extensions.event.EventHandler
 import dev.nyon.skylper.extensions.math.toPrettyString
 import dev.nyon.skylper.extensions.render.hud.SimpleHudWidget
 import dev.nyon.skylper.extensions.render.hud.components.PlainTextHudComponent

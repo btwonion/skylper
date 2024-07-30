@@ -1,4 +1,4 @@
-package dev.nyon.skylper.extensions
+package dev.nyon.skylper.extensions.event
 
 import dev.nyon.skylper.skyblock.mining.hollows.Crystal
 import dev.nyon.skylper.skyblock.mining.hollows.locations.HollowsLocation

@@ -1,8 +1,8 @@
 package dev.nyon.skylper.extensions.render
 
 /*? if >1.20.5 {*/
-import dev.nyon.skylper.extensions.EventHandler
-import dev.nyon.skylper.extensions.RenderHudEvent
+import dev.nyon.skylper.extensions.event.EventHandler
+import dev.nyon.skylper.extensions.event.RenderHudEvent
 import dev.nyon.skylper.minecraft
 //? if >=1.21
 import net.minecraft.client.DeltaTracker

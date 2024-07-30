@@ -1,7 +1,7 @@
 package dev.nyon.skylper.asm.mixins;
 
-import dev.nyon.skylper.extensions.EntitySpawnEvent;
-import dev.nyon.skylper.extensions.EventHandler;
+import dev.nyon.skylper.extensions.event.EntitySpawnEvent;
+import dev.nyon.skylper.extensions.event.EventHandler;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;

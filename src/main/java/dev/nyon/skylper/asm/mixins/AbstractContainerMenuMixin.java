@@ -1,8 +1,8 @@
 package dev.nyon.skylper.asm.mixins;
 
-import dev.nyon.skylper.extensions.EventHandler;
-import dev.nyon.skylper.extensions.InventoryInitEvent;
-import dev.nyon.skylper.extensions.SetItemEvent;
+import dev.nyon.skylper.extensions.event.EventHandler;
+import dev.nyon.skylper.extensions.event.InventoryInitEvent;
+import dev.nyon.skylper.extensions.event.SetItemEvent;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,7 +1,7 @@
 package dev.nyon.skylper.extensions.render.hud
 
-import dev.nyon.skylper.extensions.Event
-import dev.nyon.skylper.extensions.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.Event
+import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
 import dev.nyon.skylper.minecraft
 import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.GuiGraphics

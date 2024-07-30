@@ -1,8 +1,8 @@
 package dev.nyon.skylper.asm.mixins;
 
-import dev.nyon.skylper.extensions.EventHandler;
-import dev.nyon.skylper.extensions.RenderItemBackgroundEvent;
-import dev.nyon.skylper.extensions.ScreenOpenEvent;
+import dev.nyon.skylper.extensions.event.EventHandler;
+import dev.nyon.skylper.extensions.event.RenderItemBackgroundEvent;
+import dev.nyon.skylper.extensions.event.ScreenOpenEvent;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

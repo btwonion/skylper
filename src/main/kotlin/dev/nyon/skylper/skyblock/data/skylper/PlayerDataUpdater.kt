@@ -1,7 +1,8 @@
 package dev.nyon.skylper.skyblock.data.skylper
 
 import dev.nyon.skylper.extensions.*
-import dev.nyon.skylper.extensions.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.*
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.mining.MiningAbility
 import dev.nyon.skylper.skyblock.mining.hollows.Crystal

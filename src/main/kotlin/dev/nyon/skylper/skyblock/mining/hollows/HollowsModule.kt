@@ -1,10 +1,10 @@
 package dev.nyon.skylper.skyblock.mining.hollows
 
-import dev.nyon.skylper.extensions.AreaChangeEvent
-import dev.nyon.skylper.extensions.EventHandler.listenEvent
-import dev.nyon.skylper.extensions.LevelChangeEvent
-import dev.nyon.skylper.extensions.LocatedHollowsStructureEvent
-import dev.nyon.skylper.extensions.RenderAfterTranslucentEvent
+import dev.nyon.skylper.extensions.event.AreaChangeEvent
+import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.LevelChangeEvent
+import dev.nyon.skylper.extensions.event.LocatedHollowsStructureEvent
+import dev.nyon.skylper.extensions.event.RenderAfterTranslucentEvent
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.mining.hollows.locations.*

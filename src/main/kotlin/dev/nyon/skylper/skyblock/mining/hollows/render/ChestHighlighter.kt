@@ -1,11 +1,11 @@
 package dev.nyon.skylper.skyblock.mining.hollows.render
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.extensions.BlockInteractEvent
-import dev.nyon.skylper.extensions.BlockUpdateEvent
-import dev.nyon.skylper.extensions.EventHandler.listenEvent
-import dev.nyon.skylper.extensions.LevelChangeEvent
-import dev.nyon.skylper.extensions.RenderAfterTranslucentEvent
+import dev.nyon.skylper.extensions.event.BlockInteractEvent
+import dev.nyon.skylper.extensions.event.BlockUpdateEvent
+import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.LevelChangeEvent
+import dev.nyon.skylper.extensions.event.RenderAfterTranslucentEvent
 import dev.nyon.skylper.extensions.render.renderFilled
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.mcScope

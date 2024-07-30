@@ -1,4 +1,4 @@
-package dev.nyon.skylper.extensions
+package dev.nyon.skylper.extensions.event
 
 import kotlinx.coroutines.runBlocking
 import kotlin.reflect.KClass

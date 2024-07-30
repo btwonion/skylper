@@ -1,8 +1,9 @@
 package dev.nyon.skylper.skyblock.data.session
 
 import dev.nyon.skylper.extensions.*
-import dev.nyon.skylper.extensions.EventHandler.invokeEvent
-import dev.nyon.skylper.extensions.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.EventHandler.invokeEvent
+import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.*
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft
@@ -13,6 +14,7 @@ import net.minecraft.network.chat.Component
 import kotlin.time.Duration.Companion.seconds
 
 object PlayerSessionData {
+    val componentFixRegex = regex("component.clean")
     private var isOnHypixel = false
     var isOnSkyblock = false
 
@@ -42,7 +44,7 @@ object PlayerSessionData {
                 footer = minecraft.gui.tabList.footer
                 scoreboardLines = minecraft.retrieveScoreboardLines()
                 scoreboardLineStrings = scoreboardLines.map {
-                    it.string.replace("§[^a-f0-9]".toRegex(), "")
+                    it.string.replace(componentFixRegex, "")
                 }
 
                 invokeEvent(SideboardUpdateEvent(scoreboardLines, scoreboardLineStrings))

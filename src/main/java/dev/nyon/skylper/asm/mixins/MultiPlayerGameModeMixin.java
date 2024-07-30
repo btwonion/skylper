@@ -1,7 +1,7 @@
 package dev.nyon.skylper.asm.mixins;
 
-import dev.nyon.skylper.extensions.BlockInteractEvent;
-import dev.nyon.skylper.extensions.EventHandler;
+import dev.nyon.skylper.extensions.event.BlockInteractEvent;
+import dev.nyon.skylper.extensions.event.EventHandler;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.InteractionHand;

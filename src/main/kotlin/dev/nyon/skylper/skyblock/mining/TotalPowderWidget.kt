@@ -1,8 +1,8 @@
 package dev.nyon.skylper.skyblock.mining
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.extensions.Event
-import dev.nyon.skylper.extensions.PowderGainEvent
+import dev.nyon.skylper.extensions.event.Event
+import dev.nyon.skylper.extensions.event.PowderGainEvent
 import dev.nyon.skylper.extensions.math.format
 import dev.nyon.skylper.extensions.render.hud.TableHudWidget
 import dev.nyon.skylper.extensions.render.hud.components.PlainTextHudComponent
