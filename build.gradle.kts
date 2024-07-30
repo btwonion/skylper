@@ -45,7 +45,7 @@ loom {
 repositories {
     mavenCentral()
     maven("https://maven.terraformersmc.com")
-    maven("https://maven.parchmentmc.org")
+    maven("https://maven.quiltmc.org/repository/release/")
     maven("https://repo.nyon.dev/releases")
     maven("https://maven.isxander.dev/releases")
     exclusiveContent {
@@ -67,8 +67,8 @@ val transitiveInclude: Configuration by configurations.creating {
 dependencies {
     minecraft("com.mojang:minecraft:$mcVersion")
     mappings(loom.layered {
-        val parchment: String = property("deps.parchment").toString()
-        if (parchment.isNotEmpty()) parchment("org.parchmentmc.data:parchment-$parchment@zip")
+        val quiltMappings: String = property("deps.quiltmappings").toString()
+        if (quiltMappings.isNotEmpty()) mappings("org.quiltmc:quilt-mappings:$quiltMappings:intermediary-v2")
         officialMojangMappings()
     })
 
