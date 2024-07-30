@@ -60,7 +60,6 @@ repositories {
 
 val transitiveInclude: Configuration by configurations.creating {
     exclude(group = "org.jetbrains.kotlin")
-    exclude(group = "org.jetbrains.kotlinx")
     exclude(group = "com.mojang")
 }
 
