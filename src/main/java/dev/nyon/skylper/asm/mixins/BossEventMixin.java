@@ -9,6 +9,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//? if <1.21
+/*import dev.nyon.skylper.skyblock.data.session.PlayerSessionData;*/
+
 @Mixin(BossEvent.class)
 public class BossEventMixin {
 
@@ -20,6 +23,8 @@ public class BossEventMixin {
         Component name,
         CallbackInfo ci
     ) {
-        EventHandler.INSTANCE.invokeEvent(new BossBarNameUpdate(name, name.getString()));
+        String rawMessage = /*? if <1.21 {*//*name.getString().replace(PlayerSessionData.INSTANCE.getComponentFixRegex().toString(), ""); *//*?} else {*/ name.getString(); /*?}*/
+
+        EventHandler.INSTANCE.invokeEvent(new BossBarNameUpdate(name, rawMessage));
     }
 }
