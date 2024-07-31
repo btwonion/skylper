@@ -2,7 +2,8 @@
 none
 
 ## Bug Fixes
-- use regex to remove color codes from rawText in MessageEvents
+- fix Crystal state not recognized correctly on find
+- fix double powder not recognized correctly
 
 ## Technical changes
 none

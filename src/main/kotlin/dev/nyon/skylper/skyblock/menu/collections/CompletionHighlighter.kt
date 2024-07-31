@@ -16,8 +16,7 @@ object CompletionHighlighter {
     @Suppress("unused")
     val renderItemBackgroundEvent = listenEvent<RenderItemBackgroundEvent, Int?> {
         if (!config.menu.collections.highlightNonCompletedCollections) return@listenEvent null
-        val screenName = title.string
-        if (collectionsRegex.matches(screenName)) {
+        if (collectionsRegex.matches(rawTitle)) {
             val lore = slot.item.lore.map { it.string }
             if (lore.none { Menu.clickToViewRegex.matches(it) }) return@listenEvent null
             if (MinionCompletionHighlighter.craftedMinionsRegex.matches(slot.item.nameAsString)) return@listenEvent null

@@ -90,6 +90,6 @@ data class SideboardUpdateEvent(val lines: List<Component>, val cleanLines: List
 /**
  * Return type is the color as an [Int]
  */
-data class RenderItemBackgroundEvent(val title: Component, val slot: Slot) : Event<Int?>
+data class RenderItemBackgroundEvent(val title: Component, val rawTitle: String, val slot: Slot) : Event<Int?>
 
 data class LocatedHollowsStructureEvent(val location: HollowsLocation, val override: Boolean = false) : Event<Unit>

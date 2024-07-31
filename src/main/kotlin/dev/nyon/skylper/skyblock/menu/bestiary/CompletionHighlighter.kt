@@ -15,8 +15,7 @@ object CompletionHighlighter {
     @Suppress("unused")
     val renderItemBackgroundEvent = EventHandler.listenEvent<RenderItemBackgroundEvent, Int?> {
         if (!config.menu.bestiary.highlightNonCompletedBestiary) return@listenEvent null
-        val screenName = title.string
-        if (bestiaryRegex.matches(screenName)) {
+        if (bestiaryRegex.matches(rawTitle)) {
             val lore = slot.item.lore.map { it.string }
             if (lore.none { Menu.clickToViewRegex.matches(it) }) return@listenEvent null
             if (lore.any { familiesCompletedRegex.matches(it) || maxedRegex.matches(it) }) return@listenEvent null
