@@ -36,8 +36,6 @@
     "yacl3.config.skylper.category.hollows.root.option.chestLockHighlight.description": "Decides whether to highlight the lock particles of a chests or not.",
     "yacl3.config.skylper.category.hollows.root.option.autoPassRenew": "Auto renew Crystal Hollows Pass",
     "yacl3.config.skylper.category.hollows.root.option.autoPassRenew.description": "Decides whether the pass, which grants access to the Crystal Hollows, should be automatically renewed or not.",
-    "yacl3.config.skylper.category.hollows.root.option.metalDetectorHelper": "Metal Detector Helper",
-    "yacl3.config.skylper.category.hollows.root.option.metalDetectorHelper.description": "Toggles the metal detector helper in Mines of Divan.\nNOTE: The solver does conflict with Skyblocker's metal detector helper. To use the helper, disable Skyblocker's implementation of it.",
     "yacl3.config.skylper.category.hollows.group.locations": "Locations from chat",
     "yacl3.config.skylper.category.hollows.group.locations.description": "Settings about the structure location recognition in public chats.",
     "yacl3.config.skylper.category.hollows.group.locations.option.parseLocations": "Recognize locations",
@@ -153,9 +151,6 @@
     "chat.skylper.hollows.locations.khazad_dum": "Khazad Dûm",
     "chat.skylper.hollows.command.waypoint_created": "[skylper] Successfully created waypoint for %d!",
     "chat.skylper.hollows.command.waypoint_deleted": "[skylper] The waypoint %d was deleted successfully!",
-    "chat.skylper.hollows.solver.metaldetector.failed": "[skylper] The metal detector solver has failed! Try another location!",
-    "chat.skylper.hollows.solver.metaldetector.success": "[skylper] Found treasure location!",
-    "chat.skylper.hollows.solver.metaldetector.invalid": "[skylper] Solver found %d solutions! Try another location!",
     "chat.skylper.hollows.pickaxe_cooldown.not_found": "[skylper] No Pickaxe Ability could be found. If this is an error, please open the Heart of the Mountain (/hotm) screen!",
     "chat.skylper.misc.lobby_recognition": "[skylper] You've been in this lobby!"
 }

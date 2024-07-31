@@ -1,10 +1,8 @@
 ## Features
-none
+- remove metal detector helper in favor of Skyblocker's implementation
 
 ## Bug Fixes
-- fix crystal state not being recognized correctly
-- fix double powder not being recognized correctly
-- update structure select message
+none
 
 ## Technical changes
 none
