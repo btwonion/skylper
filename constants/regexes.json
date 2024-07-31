@@ -69,7 +69,7 @@
         "chat.hollows.passExpire": "Your pass to the Crystal Hollows will expire in 1 minute",
         "chat.hollows.run.completed": "You've earned a Crystal Loot Bundle!",
         "chat.hollows.run.crystalFound": "\\s{30}(\\w+) Crystal",
-        "chat.hollows.run.crystalPlaced": "✦ You placed the \\w+ Crystal!",
+        "chat.hollows.run.crystalPlaced": "✦ You placed the (\\w+) Crystal!",
         "chat.general.server_send": "Sending to server (\\w{7,8})...",
         "chat.general.profile": "§aYou are playing on profile: §e(\\w+)",
         "chat.mining.abilityUsed": "You used your (\\D+) Pickaxe Ability!",

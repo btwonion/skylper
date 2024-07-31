@@ -25,7 +25,6 @@ object CrystalRunListener {
     private fun String.checkFoundCrystal() {
         val match = crystalFoundRegex.singleGroup(this) ?: return
         val foundCrystal = Crystal.entries.find { it.displayName == match } ?: return
-        println("found: $foundCrystal")
 
         EventHandler.invokeEvent(CrystalFoundEvent(foundCrystal))
 
@@ -42,7 +41,6 @@ object CrystalRunListener {
     private fun String.checkPlacedCrystal() {
         val crystal =
             crystalPlacedRegex.singleGroup(this).run { Crystal.entries.find { it.displayName == this } } ?: return
-        println("placed: $crystal")
         EventHandler.invokeEvent(CrystalPlaceEvent(crystal))
     }
 
