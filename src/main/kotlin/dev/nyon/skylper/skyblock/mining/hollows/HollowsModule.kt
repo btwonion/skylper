@@ -10,7 +10,6 @@ import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.mining.hollows.locations.*
 import dev.nyon.skylper.skyblock.mining.hollows.render.ChestHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.render.ChestParticleHighlighter
-import dev.nyon.skylper.skyblock.mining.hollows.solvers.metaldetector.MetalDetectorSolver
 import dev.nyon.skylper.skyblock.mining.hollows.tracker.PassExpiryTracker
 import dev.nyon.skylper.skyblock.mining.hollows.tracker.nucleus.CrystalRunListener
 import net.minecraft.world.phys.AABB
@@ -38,7 +37,6 @@ object HollowsModule {
         ChestHighlighter.init()
         CrystalRunListener.init()
         PassExpiryTracker.init()
-        MetalDetectorSolver
         ChestParticleHighlighter
         registerHollowsLocationHotkey()
 
