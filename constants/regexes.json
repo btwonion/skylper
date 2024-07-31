@@ -100,7 +100,7 @@
         "tablist.general.area": "Area: (.+)",
         "sideboard.general.skyblock": "SKYBLOCK",
         "sideboard.general.zone": " (?:⏣|ф) (.*)",
-        "bossbar.hollows.powder": "PASSIVE EVENT 2X POWDER RUNNING FOR ?(?:\\((.*)\\))",
+        "bossbar.hollows.powder": "PASSIVE EVENT 2X POWDER RUNNING FOR (.*)",
         "nametag.hollows.yolkar": "King Yolkar",
         "nametag.hollows.professor_robot": "Professor Robot",
         "nametag.hollows.door_guardian": "Kalhuiki Door Guardian",
