@@ -2,8 +2,9 @@
 none
 
 ## Bug Fixes
-- fix Crystal state not recognized correctly on find
-- fix double powder not recognized correctly
+- fix crystal state not being recognized correctly
+- fix double powder not being recognized correctly
+- update structure select message
 
 ## Technical changes
 none
