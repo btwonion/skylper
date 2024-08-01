@@ -14,7 +14,6 @@ import net.minecraft.network.chat.Component
 import kotlin.time.Duration.Companion.seconds
 
 object PlayerSessionData {
-    val componentFixRegex = regex("component.clean")
     private var isOnHypixel = false
     var isOnSkyblock = false
 
@@ -44,7 +43,7 @@ object PlayerSessionData {
                 footer = minecraft.gui.tabList.footer
                 scoreboardLines = minecraft.retrieveScoreboardLines()
                 scoreboardLineStrings = scoreboardLines.map {
-                    it.string.replace(componentFixRegex, "")
+                    it.string.clean()
                 }
 
                 invokeEvent(SideboardUpdateEvent(scoreboardLines, scoreboardLineStrings))

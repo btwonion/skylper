@@ -1,8 +1,8 @@
 package dev.nyon.skylper.asm.mixins;
 
+import dev.nyon.skylper.extensions.StringKt;
 import dev.nyon.skylper.extensions.event.EventHandler;
 import dev.nyon.skylper.extensions.event.MessageEvent;
-import dev.nyon.skylper.skyblock.data.session.PlayerSessionData;
 import net.minecraft.client.multiplayer.chat.ChatListener;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,10 +22,7 @@ public class ChatListenerMixin {
         boolean isOverlay,
         CallbackInfo ci
     ) {
-        String rawMessage = message.getString()
-            .replace(PlayerSessionData.INSTANCE.getComponentFixRegex()
-                .toString(), "");
-
+        String rawMessage = StringKt.clean(message.getString());
         EventHandler.INSTANCE.invokeEvent(new MessageEvent(message, rawMessage));
     }
 }

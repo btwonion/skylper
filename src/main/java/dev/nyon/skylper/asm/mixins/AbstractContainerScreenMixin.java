@@ -1,9 +1,9 @@
 package dev.nyon.skylper.asm.mixins;
 
+import dev.nyon.skylper.extensions.StringKt;
 import dev.nyon.skylper.extensions.event.EventHandler;
 import dev.nyon.skylper.extensions.event.RenderItemBackgroundEvent;
 import dev.nyon.skylper.extensions.event.ScreenOpenEvent;
-import dev.nyon.skylper.skyblock.data.session.PlayerSessionData;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -56,9 +56,7 @@ public abstract class AbstractContainerScreenMixin extends Screen {
         Slot slot,
         CallbackInfo ci
     ) {
-        String rawTitle = title.getString()
-            .replace(PlayerSessionData.INSTANCE.getComponentFixRegex()
-                .toString(), "");
+        String rawTitle = StringKt.clean(title.getString());
 
         Integer callback = EventHandler.INSTANCE.invokeEvent(new RenderItemBackgroundEvent(title, rawTitle, slot));
         if (callback == null) return;

@@ -68,7 +68,7 @@
         "chat.hollows.run.crystalFound": "\\s{30}(\\w+) Crystal",
         "chat.hollows.run.crystalPlaced": "✦ You placed the (\\w+) Crystal!",
         "chat.general.server_send": "Sending to server (\\w{7,8})...",
-        "chat.general.profile": "§aYou are playing on profile: §e(\\w+)",
+        "chat.general.profile": "You are playing on profile: (\\w+)",
         "chat.mining.abilityUsed": "You used your (\\D+) Pickaxe Ability!",
         "chat.mining.abilityAvailable": "(\\D+) is now available!",
         "menu.clickToView": "Click to view!",
@@ -105,6 +105,6 @@
         "nametag.hollows.corleone": "Boss Corleone",
         "nametag.hollows.key_guardian": "Key Guardian",
         "nametag.hollows.bal": "Bal",
-        "component.clean": "§[^a-f0-9]"
+        "component.clean": "§[a-zA-Z0-9]"
     }
 }
