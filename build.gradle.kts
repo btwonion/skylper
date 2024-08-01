@@ -86,7 +86,7 @@ dependencies {
 
     include(modImplementation("dev.nyon:konfig:2.0.1-1.20.4")!!)
 
-    val ktorVersion = "3.0.0-beta-2"
+    val ktorVersion = "2.3.0"
     include(implementation("io.ktor:ktor-client-core:$ktorVersion")!!)
     transitiveInclude(implementation("io.ktor:ktor-client-cio:$ktorVersion")!!)
 
