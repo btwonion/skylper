@@ -89,8 +89,6 @@ dependencies {
     val ktorVersion = "3.0.0-beta-2"
     include(implementation("io.ktor:ktor-client-core:$ktorVersion")!!)
     transitiveInclude(implementation("io.ktor:ktor-client-cio:$ktorVersion")!!)
-    transitiveInclude(implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")!!)
-    transitiveInclude(implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")!!)
 
     transitiveInclude.resolvedConfiguration.resolvedArtifacts.forEach {
         include(it.moduleVersion.id.toString())
