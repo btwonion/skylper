@@ -47,7 +47,7 @@ object PlayerChatLocationListener {
             }
 
             if (matchingSpecific != null) {
-                val hollowsLocation = HollowsLocation(pos, matchingSpecific)
+                val hollowsLocation = HollowsLocation(pos, CreationReason.CHAT, matchingSpecific)
                 EventHandler.invokeEvent(LocatedHollowsStructureEvent(hollowsLocation))
 
                 minecraft.player?.sendSystemMessage(

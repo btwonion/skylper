@@ -2,8 +2,8 @@
 none
 
 ## Bug Fixes
-- correctly clean components from color codes
-  - fixes double powder not being recognized correctly
+- fix misplaced waypoints in Crystal Hollows
+- fix rare crash on waypoint creation
 
 ## Technical changes
 none

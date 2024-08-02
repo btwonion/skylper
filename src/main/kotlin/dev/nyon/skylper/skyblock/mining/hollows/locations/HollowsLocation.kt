@@ -8,7 +8,7 @@ import dev.nyon.skylper.extensions.render.waypoint.WaypointType
 import net.minecraft.network.chat.Component
 import net.minecraft.world.phys.Vec3
 
-data class HollowsLocation(var pos: Vec3, val specific: HollowsLocationSpecific) {
+data class HollowsLocation(var pos: Vec3, val reason: CreationReason, val specific: HollowsLocationSpecific) {
     val waypoint = Waypoint(specific.displayName, pos, WaypointType.BEAM, specific.color)
 
     private val locationConfig: Config.CrystalHollowsConfig.HollowsWaypoints

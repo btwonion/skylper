@@ -6,6 +6,7 @@ import dev.nyon.skylper.extensions.command.arg
 import dev.nyon.skylper.extensions.command.arguments.ClientBlockPosArgument
 import dev.nyon.skylper.extensions.command.executeAsync
 import dev.nyon.skylper.extensions.command.sub
+import dev.nyon.skylper.skyblock.mining.hollows.locations.CreationReason
 import dev.nyon.skylper.skyblock.mining.hollows.locations.CustomHollowsLocationSpecific
 import dev.nyon.skylper.skyblock.mining.hollows.locations.HollowsLocation
 import dev.nyon.skylper.skyblock.mining.hollows.locations.PreDefinedHollowsLocationSpecific
@@ -28,7 +29,7 @@ fun LiteralArgumentBuilder<FabricClientCommandSource>.appendCrystalHollowsSubCom
                             val specific = PreDefinedHollowsLocationSpecific.entries.find { it.key == key }
                                 ?: CustomHollowsLocationSpecific(key)
 
-                            val location = HollowsLocation(loc, specific)
+                            val location = HollowsLocation(loc, CreationReason.MANUAL, specific)
                             if (HollowsModule.waypoints.none { it.specific == specific } || specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO) {
                                 HollowsModule.waypoints.add(location)
                             } else {

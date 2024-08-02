@@ -17,7 +17,7 @@ object SideboardLocationListener {
             EventHandler.invokeEvent(
                 LocatedHollowsStructureEvent(
                     HollowsLocation(
-                        minecraft.player!!.position(), specific
+                        minecraft.player!!.position(), CreationReason.SIDEBOARD, specific
                     )
                 )
             )

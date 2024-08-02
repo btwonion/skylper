@@ -1,6 +1,7 @@
 package dev.nyon.skylper.extensions.event
 
 import dev.nyon.skylper.skyblock.mining.hollows.Crystal
+import dev.nyon.skylper.skyblock.mining.hollows.locations.CreationReason
 import dev.nyon.skylper.skyblock.mining.hollows.locations.HollowsLocation
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext
 import net.minecraft.client.gui.GuiGraphics
@@ -92,4 +93,4 @@ data class SideboardUpdateEvent(val lines: List<Component>, val cleanLines: List
  */
 data class RenderItemBackgroundEvent(val title: Component, val rawTitle: String, val slot: Slot) : Event<Int?>
 
-data class LocatedHollowsStructureEvent(val location: HollowsLocation, val override: Boolean = false) : Event<Unit>
+data class LocatedHollowsStructureEvent(val location: HollowsLocation) : Event<Unit>

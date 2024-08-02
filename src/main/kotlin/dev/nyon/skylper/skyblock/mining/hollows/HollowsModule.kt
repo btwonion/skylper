@@ -5,6 +5,8 @@ import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.event.LevelChangeEvent
 import dev.nyon.skylper.extensions.event.LocatedHollowsStructureEvent
 import dev.nyon.skylper.extensions.event.RenderAfterTranslucentEvent
+import dev.nyon.skylper.independentScope
+import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.mining.hollows.locations.*
@@ -12,6 +14,9 @@ import dev.nyon.skylper.skyblock.mining.hollows.render.ChestHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.render.ChestParticleHighlighter
 import dev.nyon.skylper.skyblock.mining.hollows.tracker.PassExpiryTracker
 import dev.nyon.skylper.skyblock.mining.hollows.tracker.nucleus.CrystalRunListener
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
 
@@ -26,8 +31,10 @@ object HollowsModule {
             return areaMatch && posMatch
         }
 
-    private val nucleusWaypoint =
-        HollowsLocation(Vec3(513.5, 115.0, 513.5), PreDefinedHollowsLocationSpecific.CRYSTAL_NUCLEUS)
+    private val nucleusWaypoint = HollowsLocation(
+        Vec3(513.5, 115.0, 513.5), CreationReason.STATIC, PreDefinedHollowsLocationSpecific.CRYSTAL_NUCLEUS
+    )
+    private val mutex = Mutex()
     val waypoints: MutableSet<HollowsLocation> = mutableSetOf()
 
     fun init() {
@@ -45,41 +52,49 @@ object HollowsModule {
 
     private fun handleWaypoints() {
         listenEvent<LevelChangeEvent, Unit> {
-            waypoints.clear()
-            waypoints.add(nucleusWaypoint)
+            resetWaypoints()
         }
         listenEvent<AreaChangeEvent, Unit> {
-            if (next?.contains("Crystal Hollows") == false) {
-                waypoints.clear()
-            } else {
-                waypoints.add(nucleusWaypoint)
-            }
+            resetWaypoints()
         }
         listenEvent<RenderAfterTranslucentEvent, Unit> {
             if (!isPlayerInHollows) return@listenEvent
-            waypoints.forEach { location ->
-                if (!location.isEnabled) return@forEach
-                location.waypoint.render(context)
+            mcScope.launch {
+                mutex.withLock {
+                    waypoints.forEach { location ->
+                        if (!location.isEnabled) return@forEach
+                        location.waypoint.render(context)
+                    }
+                }
             }
         }
         listenEvent<LocatedHollowsStructureEvent, Unit> {
             if (!isPlayerInHollows) return@listenEvent
-            val isFairyGrotto = location.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO
             val currentPos = minecraft.player?.position() ?: return@listenEvent
-            if (isFairyGrotto && waypoints.any {
-                    it.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO && it.pos.closerThan(
-                        currentPos, 25.0, 100.0
-                    )
-                }) {
-                return@listenEvent
-            }
-            val alreadyExists = waypoints.any { it.specific == location.specific }
-            if (alreadyExists) {
-                if (override) waypoints.first { it.specific == location.specific }.pos = location.pos
-                return@listenEvent
-            }
+            independentScope.launch {
+                mutex.withLock { // Explicitly handle Fairy Grotto
+                    if (location.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO && waypoints.filter { it.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO }
+                            .any { it.pos.distanceTo(currentPos) < 100 }) {
+                        return@withLock
+                    }
+                    val existing = waypoints.find { it.specific == location.specific }
+                    if (existing != null) {
+                        if (existing.reason.priority < location.reason.priority) return@withLock
+                        waypoints.remove(existing)
+                    }
 
-            waypoints.add(location)
+                    waypoints.add(location)
+                }
+            }
+        }
+    }
+
+    private fun resetWaypoints() {
+        independentScope.launch {
+            mutex.withLock {
+                waypoints.clear()
+                waypoints.add(nucleusWaypoint)
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ import dev.nyon.skylper.extensions.singleGroup
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.mining.hollows.Crystal
 import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
+import dev.nyon.skylper.skyblock.mining.hollows.locations.CreationReason
 import dev.nyon.skylper.skyblock.mining.hollows.locations.HollowsLocation
 
 object CrystalRunListener {
@@ -32,7 +33,7 @@ object CrystalRunListener {
         EventHandler.invokeEvent(
             LocatedHollowsStructureEvent(
                 HollowsLocation(
-                    minecraft.player!!.position(), location
+                    minecraft.player!!.position(), CreationReason.CRYSTAL, location
                 )
             )
         )
