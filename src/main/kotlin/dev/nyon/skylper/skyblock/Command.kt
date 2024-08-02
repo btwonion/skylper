@@ -5,6 +5,7 @@ import dev.nyon.skylper.config.screen.createYaclScreen
 import dev.nyon.skylper.extensions.command.executeAsync
 import dev.nyon.skylper.extensions.command.sub
 import dev.nyon.skylper.minecraft
+import dev.nyon.skylper.skyblock.data.online.OnlineData
 import dev.nyon.skylper.skyblock.mining.hollows.appendCrystalHollowsSubCommand
 import kotlinx.coroutines.delay
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
@@ -19,6 +20,14 @@ fun registerRootCommand() {
 
             root.sub("gui") { gui ->
                 gui.openConfigGui()
+            }
+
+            root.sub("data") { data ->
+                data.sub("reload") { reload ->
+                    reload.executeAsync {
+                        OnlineData.data.forEach { it.refresh() }
+                    }
+                }
             }
         })
     })
