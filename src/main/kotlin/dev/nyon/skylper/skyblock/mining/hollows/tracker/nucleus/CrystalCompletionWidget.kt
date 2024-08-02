@@ -6,6 +6,7 @@ import dev.nyon.skylper.extensions.render.hud.TableHudWidget
 import dev.nyon.skylper.extensions.render.hud.components.PlainTextHudComponent
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.skyblock.data.skylper.currentProfile
+import dev.nyon.skylper.skyblock.mining.hollows.HollowsModule
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.minecraft.network.chat.Component
@@ -35,6 +36,10 @@ object CrystalCompletionWidget : TableHudWidget(
             addComponent(index, 0, PlainTextHudComponent(Component.literal(instance.crystal.displayName)))
             addComponent(index, 1, PlainTextHudComponent(instance.state.component))
         }
+    }
+
+    override fun shouldRender(): Boolean {
+        return HollowsModule.isPlayerInHollows && config.mining.crystalHollows.crystalOverlay.enabled
     }
 
     init {

@@ -46,6 +46,7 @@ interface HudWidget {
     }
 
     fun clear()
+    fun shouldRender(): Boolean
 
     fun update() {
         clear()

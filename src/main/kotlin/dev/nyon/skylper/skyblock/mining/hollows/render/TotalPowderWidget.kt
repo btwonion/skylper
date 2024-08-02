@@ -7,6 +7,8 @@ import dev.nyon.skylper.extensions.math.format
 import dev.nyon.skylper.extensions.render.hud.TableHudWidget
 import dev.nyon.skylper.extensions.render.hud.components.PlainTextHudComponent
 import dev.nyon.skylper.independentScope
+import dev.nyon.skylper.skyblock.data.online.IslandGroups
+import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.data.skylper.currentProfile
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -72,6 +74,10 @@ object TotalPowderWidget :
                 )
             )
         )
+    }
+
+    override fun shouldRender(): Boolean {
+        return IslandGroups.groups.mining.contains(PlayerSessionData.currentArea) && config.mining.totalPowderOverlay.enabled
     }
 
     init {

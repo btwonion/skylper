@@ -34,7 +34,7 @@ class SkylperHudModifier(private val parent: Screen?) :
             ChatFormatting.GRAY.color!!
         )
 
-        enabledWidgets.forEach {
+        enabledWidgets.filter(HudWidget::shouldRender).forEach {
             it.render(guiGraphics, mouseX, mouseY)
         }
     }

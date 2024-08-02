@@ -139,6 +139,10 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
     override val updateTriggerEvents: List<KClass<out Event<out Any>>> =
         listOf(BossBarNameUpdate::class, MessageEvent::class)
 
+    override fun shouldRender(): Boolean {
+        return HollowsModule.isPlayerInHollows && dev.nyon.skylper.config.config.mining.crystalHollows.powderGrindingOverlay.enabled && PowderGrindingTracker.isGrinding
+    }
+
     init {
         init()
     }
