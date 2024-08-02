@@ -22,6 +22,7 @@ object NameTagEntityListener {
     private val corleoneRegex = regex("nametag.hollows.corleone")
     private val keyGuardianRegex = regex("nametag.hollows.key_guardian")
     private val balRegex = regex("nametag.hollows.bal")
+    private val lapisKeeperRegex = regex("nametag.hollows.lapis_keeper")
 
     @Suppress("unused")
     val tickEvent = listenEvent<TickEvent, Unit> {
@@ -36,9 +37,7 @@ object NameTagEntityListener {
 
             val location: HollowsLocation? = when {
                 yolkarRegex.matches(name ?: "") -> HollowsLocation(
-                    entityPos,
-                    CreationReason.NPC,
-                    PreDefinedHollowsLocationSpecific.GOBLIN_KING
+                    entityPos, CreationReason.NPC, PreDefinedHollowsLocationSpecific.GOBLIN_KING
                 )
                 professorRegex.matches(name ?: "") -> HollowsLocation(
                     entityPos.add(-16.0, 5.0, 21.0),
@@ -56,10 +55,15 @@ object NameTagEntityListener {
                     }
                 }
                 odawaRegex.matches(name ?: "") -> HollowsLocation(
-                    entityPos,
-                    CreationReason.NPC,
-                    PreDefinedHollowsLocationSpecific.ODAWA
+                    entityPos, CreationReason.NPC, PreDefinedHollowsLocationSpecific.ODAWA
                 )
+                lapisKeeperRegex.matches(name ?: "") -> {
+                    HollowsLocation(
+                        entityPos.add(-33.0, 0.0, -3.0),
+                        CreationReason.NPC,
+                        PreDefinedHollowsLocationSpecific.MINES_OF_DIVAN
+                    )
+                }
                 corleoneRegex.matches(customName ?: "") && entity.hasMaxHealth(1_000_000f) -> {
                     HollowsLocation(entityPos, CreationReason.NPC, PreDefinedHollowsLocationSpecific.CORLEONE)
                 }

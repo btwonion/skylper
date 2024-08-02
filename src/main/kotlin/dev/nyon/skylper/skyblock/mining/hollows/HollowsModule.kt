@@ -72,14 +72,15 @@ object HollowsModule {
             if (!isPlayerInHollows) return@listenEvent
             val currentPos = minecraft.player?.position() ?: return@listenEvent
             independentScope.launch {
-                mutex.withLock { // Explicitly handle Fairy Grotto
+                mutex.withLock {
+                    // Explicitly handle Fairy Grotto
                     if (location.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO && waypoints.filter { it.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO }
                             .any { it.pos.distanceTo(currentPos) < 100 }) {
                         return@withLock
                     }
                     val existing = waypoints.find { it.specific == location.specific }
                     if (existing != null) {
-                        if (existing.reason.priority < location.reason.priority) return@withLock
+                        if (existing.reason.priority <= location.reason.priority) return@withLock
                         waypoints.remove(existing)
                     }
 
