@@ -1,4 +1,4 @@
-package dev.nyon.skylper.skyblock.mining
+package dev.nyon.skylper.skyblock.mining.hollows.render
 
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.event.Event
