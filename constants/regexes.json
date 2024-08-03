@@ -105,7 +105,7 @@
         "nametag.hollows.professor_robot": "Professor Robot",
         "nametag.hollows.door_guardian": "Kalhuiki Door Guardian",
         "nametag.hollows.odawa": "Odawa",
-        "nametag.hollows.corleone": "Boss Corleone",
+        "nametag.hollows.corleone": "[Lv200] Boss Corleone .*",
         "nametag.hollows.key_guardian": "Key Guardian",
         "nametag.hollows.bal": "Bal",
         "nametag.hollows.lapis_keeper": "Keeper of Lapis",
