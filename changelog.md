@@ -12,6 +12,7 @@
 ```diff
 + mining ability indicator and notification
 + total powder overlay
++ highlight completed commissions in commissions menu
 ```
 
 ### Crystal Hollows

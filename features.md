@@ -9,6 +9,7 @@
 
 - mining ability indicator and notification
 - Total Powder overlay
+- highlight completed commissions in commissions menu
 
 #### Crystal Hollows
 

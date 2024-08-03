@@ -56,3 +56,8 @@ val ItemStack.lore: List<Component>
         )
         return lines.drop(1)
     }
+
+val ItemStack.rawLore: List<String>
+    get() {
+        return lore.map { it.string.clean() }
+    }

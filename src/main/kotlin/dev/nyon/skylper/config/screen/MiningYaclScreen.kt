@@ -4,6 +4,7 @@ package dev.nyon.skylper.config.screen
 
 import dev.isxander.yacl3.dsl.*
 import dev.nyon.skylper.config.config
+import java.awt.Color
 
 fun RootDsl.appendMiningCategory() {
     val mining by categories.registering {
@@ -24,7 +25,10 @@ fun RootDsl.appendMiningCategory() {
         }
 
         val cooldownNotificationOnMiningIslands by rootOptions.registering {
-            binding(true, { config.mining.miningAbilityNotificationOnMiningIslands }, { config.mining.miningAbilityNotificationOnMiningIslands = it })
+            binding(
+                true,
+                { config.mining.miningAbilityNotificationOnMiningIslands },
+                { config.mining.miningAbilityNotificationOnMiningIslands = it })
             controller = tickBox()
             descriptionBuilder {
                 addDefaultText(1)
@@ -37,7 +41,10 @@ fun RootDsl.appendMiningCategory() {
             }
 
             val enabled by options.registering {
-                binding(true, { config.mining.totalPowderOverlay.enabled }, { config.mining.totalPowderOverlay.enabled = it })
+                binding(
+                    true,
+                    { config.mining.totalPowderOverlay.enabled },
+                    { config.mining.totalPowderOverlay.enabled = it })
                 controller = tickBox()
                 descriptionBuilder {
                     addDefaultText(1)
@@ -58,6 +65,28 @@ fun RootDsl.appendMiningCategory() {
                 descriptionBuilder {
                     addDefaultText(1)
                 }
+            }
+        }
+
+        val highlightCompletedCommissions by rootOptions.registering {
+            binding(
+                true,
+                { config.mining.highlightCompletedCommissions },
+                { config.mining.highlightCompletedCommissions = it })
+            controller = tickBox()
+            descriptionBuilder {
+                addDefaultText(1)
+            }
+        }
+
+        val completedCommissionsHighlightColor by rootOptions.registering {
+            binding(
+                Color(255, 0, 0, 50),
+                { config.mining.completedCommissionsHighlightColor },
+                { config.mining.completedCommissionsHighlightColor = it })
+            controller = colorPicker()
+            descriptionBuilder {
+                addDefaultText(1)
             }
         }
     }

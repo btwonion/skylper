@@ -18,6 +18,7 @@ in [features.md](https://github.com/btwonion/skylper/blob/master/features.md).
 
 - mining ability indicator and notification
 - Total Powder overlay
+- highlight completed commissions in commissions menu
 
 #### Crystal Hollows
 
@@ -76,6 +77,6 @@ A stable version will release, when all the planned features listed above are im
 
 ### Other
 
-Currently supported versions are: 1.20.4, 1.20.6. This can change in the future!
+Currently supported versions are: 1.20.4, 1.20.6, 1.21. This can change in the future!
 
 If you need help with any of my mods just join my [discord server](https://nyon.dev/discord).

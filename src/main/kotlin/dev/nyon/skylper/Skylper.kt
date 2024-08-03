@@ -10,7 +10,7 @@ import dev.nyon.skylper.config.configJsonBuilder
 import dev.nyon.skylper.extensions.event.EventHandler
 import dev.nyon.skylper.extensions.event.FabricEvents
 import dev.nyon.skylper.extensions.event.MinecraftStopEvent
-import dev.nyon.skylper.skyblock.Mining
+import dev.nyon.skylper.skyblock.mining.Mining
 import dev.nyon.skylper.skyblock.data.online.OnlineData
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.data.skylper.PlayerDataSaver

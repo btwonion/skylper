@@ -30,7 +30,9 @@ data class Config(val mining: MiningConfig = MiningConfig(), val menu: Menu = Me
         var miningAbilityNotification: Boolean = true,
         var miningAbilityNotificationOnMiningIslands: Boolean = true,
         var miningAbilityIndicator: Boolean = true,
-        val totalPowderOverlay: TotalPowderOverlay = TotalPowderOverlay()
+        val totalPowderOverlay: TotalPowderOverlay = TotalPowderOverlay(),
+        var highlightCompletedCommissions: Boolean = true,
+        var completedCommissionsHighlightColor: @Contextual Color = Color(255, 0, 0, 50)
     )
 
     @Serializable

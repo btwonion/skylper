@@ -91,6 +91,8 @@
         "menu.hotm.mithrilPowder": "Mithril Powder: (\\d+[,]?\\d{0,3}[,]?\\d{0,3}[,]?\\d{0,3}[,]?\\d{0,3})",
         "menu.hotm.gemstonePowder": "Gemstone Powder: (\\d+[,]?\\d{0,3}[,]?\\d{0,3}[,]?\\d{0,3}[,]?\\d{0,3})",
         "menu.hotm.glacitePowder": "Glacite Powder: (\\d+[,]?\\d{0,3}[,]?\\d{0,3}[,]?\\d{0,3}[,]?\\d{0,3})",
+        "menu.commissions.title": "Commissions",
+        "menu.commissions.completed": "COMPLETED",
         "tablist.mining.mithril": "Mithril: (\\d+[,]?\\d{0,3}[,]?\\d{0,3}[,]?\\d{0,3}[,]?\\d{0,3})",
         "tablist.mining.gemstone": "Gemstone: (\\d+[,]?\\d{0,3}[,]?\\d{0,3}[,]?\\d{0,3}[,]?\\d{0,3})",
         "tablist.mining.glacite": "Glacite: (\\d+[,]?\\d{0,3}[,]?\\d{0,3}[,]?\\d{0,3}[,]?\\d{0,3})",
