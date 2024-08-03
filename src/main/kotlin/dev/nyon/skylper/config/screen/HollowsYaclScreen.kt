@@ -52,17 +52,6 @@ fun RootDsl.appendHollowsCategory() {
             }
         }
 
-        val metalDetectorHelper by rootOptions.registering {
-            binding(
-                true,
-                { config.mining.crystalHollows.metalDetectorHelper },
-                { config.mining.crystalHollows.metalDetectorHelper = it })
-            controller = tickBox()
-            descriptionBuilder {
-                addDefaultText(1)
-            }
-        }
-
         val locations by groups.registering {
             descriptionBuilder {
                 addDefaultText(1)

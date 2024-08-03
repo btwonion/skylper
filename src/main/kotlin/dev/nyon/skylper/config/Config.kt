@@ -43,7 +43,6 @@ data class Config(val mining: MiningConfig = MiningConfig(), val menu: Menu = Me
         val crystalOverlay: CrystalOverlay = CrystalOverlay(),
         val powderGrindingOverlay: GrindingOverlay = GrindingOverlay(),
         var autoRenewPass: Boolean = true,
-        var metalDetectorHelper: Boolean = true,
         var chestLockHighlight: Boolean = true
     ) {
         @Serializable
