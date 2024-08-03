@@ -35,7 +35,7 @@ val ItemStack.extraAttributes: CompoundTag?
 
 val ItemStack.internalName: String?
     get() {
-        val attributes = extraAttributes ?: return null
+        val attributes = compoundTag ?: return null
         val key = "id"
         if (!attributes.contains(key)) return null
         return attributes.getString(key)
