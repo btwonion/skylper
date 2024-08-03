@@ -35,49 +35,69 @@ object NameTagEntityListener {
             val customName = entity.customName?.string?.clean()
             val entityPos = entity.position()
 
-            val location: HollowsLocation? = when {
-                yolkarRegex.matches(name ?: "") -> HollowsLocation(
-                    entityPos, CreationReason.NPC, PreDefinedHollowsLocationSpecific.GOBLIN_KING
+            val location: List<HollowsLocation> = when {
+                yolkarRegex.matches(name ?: "") -> listOf(
+                    HollowsLocation(
+                        entityPos.add(0.0, 5.0, 0.0), CreationReason.NPC, PreDefinedHollowsLocationSpecific.GOBLIN_KING
+                    )
                 )
-                professorRegex.matches(name ?: "") -> HollowsLocation(
-                    entityPos.add(-16.0, 5.0, 21.0),
-                    CreationReason.NPC,
-                    PreDefinedHollowsLocationSpecific.PRECURSOR_CITY
+                professorRegex.matches(name ?: "") -> listOf(
+                    HollowsLocation(
+                        entityPos.add(-16.0, 5.0, 21.0),
+                        CreationReason.NPC,
+                        PreDefinedHollowsLocationSpecific.PRECURSOR_CITY
+                    )
                 )
                 doorGuardianRegex.matches(name ?: "") -> {
                     if (firstGuardianLocation == null) {
                         firstGuardianLocation = entityPos
-                        null
+                        emptyList()
                     } else {
                         val leftGuardian = listOf(firstGuardianLocation!!, entityPos).minByOrNull { it.x }!!
                         val crystalPos = leftGuardian.add(61.0, -44.0, 18.0)
-                        HollowsLocation(crystalPos, CreationReason.NPC, PreDefinedHollowsLocationSpecific.JUNGLE_TEMPLE)
+                        listOf(
+                            HollowsLocation(
+                                crystalPos, CreationReason.NPC, PreDefinedHollowsLocationSpecific.AMETHYST_CRYSTAL
+                            ), HollowsLocation(
+                                leftGuardian.add(0.0, 5.0, 0.0),
+                                CreationReason.NPC,
+                                PreDefinedHollowsLocationSpecific.JUNGLE_TEMPLE
+                            )
+                        )
                     }
                 }
-                odawaRegex.matches(name ?: "") -> HollowsLocation(
-                    entityPos, CreationReason.NPC, PreDefinedHollowsLocationSpecific.ODAWA
-                )
-                lapisKeeperRegex.matches(name ?: "") -> {
+                odawaRegex.matches(name ?: "") -> listOf(
                     HollowsLocation(
-                        entityPos.add(-33.0, 0.0, -3.0),
+                        entityPos, CreationReason.NPC, PreDefinedHollowsLocationSpecific.ODAWA
+                    )
+                )
+                lapisKeeperRegex.matches(name ?: "") -> listOf(
+                    HollowsLocation(
+                        entityPos.add(-33.0, 5.0, -3.0),
                         CreationReason.NPC,
                         PreDefinedHollowsLocationSpecific.MINES_OF_DIVAN
                     )
-                }
-                corleoneRegex.matches(customName ?: "") && entity.hasMaxHealth(1_000_000f) -> {
-                    HollowsLocation(entityPos, CreationReason.NPC, PreDefinedHollowsLocationSpecific.CORLEONE)
-                }
-                keyGuardianRegex.matches(customName ?: "") -> {
-                    HollowsLocation(entityPos, CreationReason.NPC, PreDefinedHollowsLocationSpecific.KEY_GUARDIAN)
-                }
-                balRegex.matches(customName ?: "") && entity.type == EntityType.MAGMA_CUBE -> HollowsLocation(
-                    entityPos, CreationReason.NPC, PreDefinedHollowsLocationSpecific.KHAZAD_DUM
+                )
+                corleoneRegex.matches(customName ?: "") && entity.hasMaxHealth(1_000_000f) -> listOf(
+                    HollowsLocation(
+                        entityPos, CreationReason.NPC, PreDefinedHollowsLocationSpecific.CORLEONE
+                    )
+                )
+                keyGuardianRegex.matches(customName ?: "") -> listOf(
+                    HollowsLocation(
+                        entityPos, CreationReason.NPC, PreDefinedHollowsLocationSpecific.KEY_GUARDIAN
+                    )
+                )
+                balRegex.matches(customName ?: "") && entity.type == EntityType.MAGMA_CUBE -> listOf(
+                    HollowsLocation(
+                        entityPos, CreationReason.NPC, PreDefinedHollowsLocationSpecific.KHAZAD_DUM
+                    )
                 )
 
-                else -> null
+                else -> emptyList()
             }
 
-            if (location != null) EventHandler.invokeEvent(LocatedHollowsStructureEvent(location))
+            location.forEach { EventHandler.invokeEvent(LocatedHollowsStructureEvent(it)) }
         }
     }
 }

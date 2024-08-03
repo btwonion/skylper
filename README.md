@@ -27,7 +27,7 @@ in [features.md](https://github.com/btwonion/skylper/blob/master/features.md).
     - goblin queen
     - precursor city
     - jungle temple
-    - amethyst crystal (explicitly as the jungle temple entrance differs from the crystal)
+    - amethyst crystal
     - odawa
     - khazad dum
     - mines of divan

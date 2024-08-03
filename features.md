@@ -18,7 +18,7 @@
     - goblin queen
     - precursor city
     - jungle temple
-    - amethyst crystal (explicitly as the jungle temple entrance differs from the crystal)
+    - amethyst crystal
     - odawa
     - khazad dum
     - mines of divan

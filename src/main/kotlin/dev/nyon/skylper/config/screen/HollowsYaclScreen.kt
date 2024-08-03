@@ -139,6 +139,17 @@ fun RootDsl.appendHollowsCategory() {
                 }
             }
 
+            val amethystCrystal by options.registering {
+                binding(
+                    true,
+                    { config.mining.crystalHollows.hollowsWaypoints.amethystCrystal },
+                    { config.mining.crystalHollows.hollowsWaypoints.amethystCrystal = it })
+                controller = tickBox()
+                descriptionBuilder {
+                    addDefaultText(1)
+                }
+            }
+
             val odawa by options.registering {
                 binding(
                     true,

@@ -20,6 +20,7 @@ data class HollowsLocation(var pos: Vec3, val reason: CreationReason, val specif
         PreDefinedHollowsLocationSpecific.CRYSTAL_NUCLEUS -> locationConfig.nucleus
         PreDefinedHollowsLocationSpecific.PRECURSOR_CITY -> locationConfig.precursorCity
         PreDefinedHollowsLocationSpecific.JUNGLE_TEMPLE -> locationConfig.jungleTemple
+        PreDefinedHollowsLocationSpecific.AMETHYST_CRYSTAL -> locationConfig.amethystCrystal
         PreDefinedHollowsLocationSpecific.ODAWA -> locationConfig.odawa
         PreDefinedHollowsLocationSpecific.KEY_GUARDIAN -> locationConfig.keyGuardian
         PreDefinedHollowsLocationSpecific.MINES_OF_DIVAN -> locationConfig.minesOfDivan
@@ -51,6 +52,7 @@ enum class PreDefinedHollowsLocationSpecific(override val key: String, override 
     CRYSTAL_NUCLEUS("nucleus", 0x7E0B7F),
     PRECURSOR_CITY("precursor_city", 0xACABAF),
     JUNGLE_TEMPLE("jungle_temple", 0x138012),
+    AMETHYST_CRYSTAL("amethyst_crystal", 0x6B0047),
     ODAWA("odawa", 0x138012),
     KEY_GUARDIAN("key_guardian", 0xFF0003),
     MINES_OF_DIVAN("divan_mines", 0x0E8208),

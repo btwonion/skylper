@@ -53,6 +53,7 @@ data class Config(val mining: MiningConfig = MiningConfig(), val menu: Menu = Me
             var goblinQueen: Boolean = true,
             var precursorCity: Boolean = true,
             var jungleTemple: Boolean = true,
+            var amethystCrystal: Boolean = false,
             var odawa: Boolean = true,
             var khazadDum: Boolean = true,
             var minesOfDivan: Boolean = true,
