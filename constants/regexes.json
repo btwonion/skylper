@@ -106,7 +106,7 @@
         "nametag.hollows.door_guardian": "Kalhuiki Door Guardian",
         "nametag.hollows.odawa": "Odawa",
         "nametag.hollows.corleone": "[Lv200] Boss Corleone .*",
-        "nametag.hollows.key_guardian": "Key Guardian",
+        "nametag.hollows.key_guardian": "[Lv100] Key Guardian .*",
         "nametag.hollows.bal": "Bal",
         "nametag.hollows.lapis_keeper": "Keeper of Lapis",
         "component.clean": "§[a-zA-Z0-9]"
