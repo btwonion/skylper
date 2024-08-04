@@ -11,6 +11,7 @@ on:
       - "features.md"
       - ".editorconfig"
       - "src/*/resources/lang/*"
+      - "constants/"
   pull_request:
     paths-ignore:
       - "README.md"
@@ -20,6 +21,7 @@ on:
       - "features.md"
       - ".editorconfig"
       - "src/*/resources/lang/*"
+      - "constants/"
   workflow_dispatch:
 
 jobs:
