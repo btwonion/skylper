@@ -1,8 +1,10 @@
+@file:Suppress("unused")
+
 package dev.nyon.skylper.skyblock.data.skylper
 
 import dev.nyon.skylper.extensions.*
-import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.event.*
+import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.mining.MiningAbility
 import dev.nyon.skylper.skyblock.mining.hollows.Crystal
@@ -51,7 +53,8 @@ object PlayerDataUpdater {
                     crystalNotPlacedRegex.matches(it) -> CrystalState.FOUND
                     else -> CrystalState.PLACED
                 }
-                currentProfile.mining.crystalHollows.crystals.first { instance -> instance.crystal == crystal }.state = newState
+                currentProfile.mining.crystalHollows.crystals.first { instance -> instance.crystal == crystal }.state =
+                    newState
             }
         }
 
@@ -91,12 +94,9 @@ object PlayerDataUpdater {
                         mithrilPowderRegex.singleGroup(line) ?: gemstonePowderRegex.singleGroup(line)
                         ?: glacitePowderRegex.singleGroup(line)
                     }
-                    currentProfile.mining.mithrilPowder =
-                        mithrilPowder.doubleOrNull()?.toInt() ?: return@listenEvent
-                    currentProfile.mining.gemstonePowder =
-                        gemstonePowder.doubleOrNull()?.toInt() ?: return@listenEvent
-                    currentProfile.mining.glacitePowder =
-                        glacitePowder.doubleOrNull()?.toInt() ?: return@listenEvent
+                    currentProfile.mining.mithrilPowder = mithrilPowder.doubleOrNull()?.toInt() ?: return@listenEvent
+                    currentProfile.mining.gemstonePowder = gemstonePowder.doubleOrNull()?.toInt() ?: return@listenEvent
+                    currentProfile.mining.glacitePowder = glacitePowder.doubleOrNull()?.toInt() ?: return@listenEvent
                 }
             }
         }
@@ -106,9 +106,16 @@ object PlayerDataUpdater {
     private val tablistGemstonePowderRegex = regex("tablist.mining.gemstone")
     private val tablistGlacitePowderRegex = regex("tablist.mining.glacite")
 
-    @Suppress("unused")
+    private val tablistUpdateEvent = listenEvent<TablistUpdateEvent, Unit> {
+        parsePowder(cleanLines)
+    }
+
     private val sideboardUpdateEvent = listenEvent<SideboardUpdateEvent, Unit> {
-        cleanLines.forEach { line ->
+        parsePowder(cleanLines)
+    }
+
+    private fun parsePowder(lines: List<String>) {
+        lines.forEach { line ->
             val mithrilPowder = tablistMithrilPowderRegex.singleGroup(line)?.doubleOrNull()?.toInt()
             val gemstonePowder = tablistGemstonePowderRegex.singleGroup(line)?.doubleOrNull()?.toInt()
             val glacitePowder = tablistGlacitePowderRegex.singleGroup(line)?.doubleOrNull()?.toInt()

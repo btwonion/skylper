@@ -58,10 +58,11 @@ object PlayerSessionData {
     private val areaRegex = regex("tablist.general.area")
     private fun updateFromTabList() {
         val onlinePlayers = minecraft.connection?.onlinePlayers ?: return
+        val lines = onlinePlayers.mapNotNull { it.tabListDisplayName?.string?.clean() }
+        invokeEvent(TablistUpdateEvent(onlinePlayers.mapNotNull { it.tabListDisplayName }, lines))
         mcScope.launch {
-            onlinePlayers.forEach { entry ->
-                val displayName = entry.tabListDisplayName?.string ?: return@forEach
-                val area = areaRegex.singleGroup(displayName) ?: return@forEach
+            lines.forEach { line ->
+                val area = areaRegex.singleGroup(line) ?: return@forEach
                 if (area != currentArea) {
                     invokeEvent(AreaChangeEvent(currentArea, area))
                     currentArea = area

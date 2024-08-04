@@ -1,7 +1,6 @@
 package dev.nyon.skylper.extensions.event
 
 import dev.nyon.skylper.skyblock.mining.hollows.Crystal
-import dev.nyon.skylper.skyblock.mining.hollows.locations.CreationReason
 import dev.nyon.skylper.skyblock.mining.hollows.locations.HollowsLocation
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext
 import net.minecraft.client.gui.GuiGraphics
@@ -78,7 +77,7 @@ data class InventoryInitEvent(val items: List<ItemStack>) : Event<Unit>
 
 data class BossBarNameUpdate(val text: Component, val rawText: String) : Event<Unit>
 
-data class PowderGainEvent(val type: PowderType, val amount: Int) : Event<Unit> {
+data class PowderGainEvent(val type: PowderType, val newAmount: Int) : Event<Unit> {
     enum class PowderType {
         GEMSTONE,
         MITHRIL,
@@ -87,6 +86,7 @@ data class PowderGainEvent(val type: PowderType, val amount: Int) : Event<Unit> 
 }
 
 data class SideboardUpdateEvent(val lines: List<Component>, val cleanLines: List<String>) : Event<Unit>
+data class TablistUpdateEvent(val lines: List<Component>, val cleanLines: List<String>) : Event<Unit>
 
 /**
  * Return type is the color as an [Int]
