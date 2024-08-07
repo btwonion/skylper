@@ -65,7 +65,7 @@
         "chat.hollows.tracker.reward.yellowgoblinegg": "\\s*Yellow Goblin Egg x(.+)",
         "chat.hollows.tracker.reward.yoggie": "\\s*Yoggie x(.+)",
         "chat.hollows.passExpire": "Your pass to the Crystal Hollows will expire in 1 minute",
-        "chat.hollows.run.completed": "  You've earned a Crystal Loot Bundle!",
+        "chat.hollows.run.completed": "  CRYSTAL NUCLEUS LOOT BUNDLE ",
         "chat.hollows.run.crystalFound": "\\s{30}(\\w+) Crystal",
         "chat.hollows.run.crystalPlaced": "✦ You placed the (\\w+) Crystal!",
         "chat.general.server_send": "Sending to server (\\w{7,8})...",
