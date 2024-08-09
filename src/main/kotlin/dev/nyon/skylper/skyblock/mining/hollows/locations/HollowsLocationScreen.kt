@@ -33,7 +33,10 @@ fun createLocationScreen(parent: Screen?): Screen = YetAnotherConfigLib("locatio
                     option(ButtonOption.createBuilder()
                         .name(Component.translatable("yacl3.config.locations.category.locations.delete"))
                         .description(OptionDescription.of(Component.translatable("yacl3.config.locations.category.locations.delete.description")))
-                        .action { _, _ -> HollowsModule.waypoints.remove(loc) }.build())
+                        .action { _, button ->
+                            HollowsModule.waypoints.remove(loc)
+                            button.setAvailable(false)
+                        }.build())
                 }.build()
             )
         }
