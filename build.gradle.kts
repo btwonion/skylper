@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "2.0.0"
     kotlin("plugin.serialization") version "2.0.0"
-    id("fabric-loom") version "1.6-SNAPSHOT"
+    id("fabric-loom") version "1.7-SNAPSHOT"
 
     id("me.modmuss50.mod-publish-plugin") version "0.5.+"
 
@@ -84,7 +84,7 @@ dependencies {
         modRuntimeOnly("maven.modrinth:$projectId:$versionId")
     }
 
-    include(modImplementation("dev.nyon:konfig:2.0.1-1.20.4")!!)
+    include(modImplementation("dev.nyon:konfig:2.0.2-1.20.4")!!)
 
     val ktorVersion = "2.3.0"
     include(implementation("io.ktor:ktor-client-core:$ktorVersion")!!)

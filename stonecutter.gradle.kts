@@ -104,7 +104,7 @@ tasks.register("postUpdate") {
     }
 
     val jsonString = Json.encodeToString(json)
-    val response = HttpClient.newHttpClient().send(
+    HttpClient.newHttpClient().send(
         HttpRequest.newBuilder(URI.create(url)).header("Content-Type", "application/json")
             .POST(BodyPublishers.ofString(jsonString)).build(), BodyHandlers.ofString()
     )

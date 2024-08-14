@@ -5,4 +5,4 @@
 - disable delete button of waypoint on deletion in location screen
 
 ## Technical changes
-none
+- update to konfig 2.0.2
