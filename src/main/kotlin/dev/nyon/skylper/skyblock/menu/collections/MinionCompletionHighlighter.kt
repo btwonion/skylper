@@ -7,9 +7,9 @@ import dev.nyon.skylper.extensions.lore
 import dev.nyon.skylper.extensions.regex
 
 object MinionCompletionHighlighter {
-    val craftedMinionsRegex = regex("menu.collections.craftedMinions")
-    private val clickToViewRecipesRegex = regex("menu.collections.clickToViewRecipes")
-    private val minionUncompletedRegex = regex("menu.collections.minionUncompleted")
+    val craftedMinionsRegex get() = regex("menu.collections.craftedMinions")
+    private val clickToViewRecipesRegex get() = regex("menu.collections.clickToViewRecipes")
+    private val minionUncompletedRegex get() = regex("menu.collections.minionUncompleted")
 
     @Suppress("unused")
     val renderItemBackgroundEvent = listenEvent<RenderItemBackgroundEvent, Int?> {

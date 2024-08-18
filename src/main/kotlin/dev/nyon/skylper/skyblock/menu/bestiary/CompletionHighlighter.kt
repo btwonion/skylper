@@ -8,9 +8,9 @@ import dev.nyon.skylper.extensions.regex
 import dev.nyon.skylper.skyblock.menu.Menu
 
 object CompletionHighlighter {
-    private val bestiaryRegex = regex("menu.bestiary.bestiary")
-    private val familiesCompletedRegex = regex("menu.bestiary.familiesCompleted")
-    private val maxedRegex = regex("menu.bestiary.maxed")
+    private val bestiaryRegex get() = regex("menu.bestiary.bestiary")
+    private val familiesCompletedRegex get() = regex("menu.bestiary.familiesCompleted")
+    private val maxedRegex get() = regex("menu.bestiary.maxed")
 
     @Suppress("unused")
     val renderItemBackgroundEvent = EventHandler.listenEvent<RenderItemBackgroundEvent, Int?> {

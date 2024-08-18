@@ -16,7 +16,7 @@ abstract class OnlineData<T : Any>(val kClass: KClass<T>) {
         const val SKYBLOCK_API_URL = "https://api.hypixel.net/v2/resources/skyblock/"
         const val SKYLPER_REPO_URL = "https://raw.githubusercontent.com/btwonion/skylper/master/constants/"
 
-        val data: List<OnlineData<*>> = listOf(MayorData, Regexes, ToolGroups, IslandGroups)
+        val data: List<OnlineData<*>> = listOf(MayorData, Regexes, ToolGroups, IslandGroups, Cooldowns)
     }
 
     abstract val url: String

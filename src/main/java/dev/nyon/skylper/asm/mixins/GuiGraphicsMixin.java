@@ -1,6 +1,6 @@
 package dev.nyon.skylper.asm.mixins;
 
-import dev.nyon.skylper.skyblock.mining.AbilityCooldownIdentifier;
+import dev.nyon.skylper.skyblock.cooldowns.AbilityCooldownIdentifier;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;

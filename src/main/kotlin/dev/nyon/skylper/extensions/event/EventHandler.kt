@@ -11,6 +11,11 @@ object EventHandler {
 
     private val listeners = mutableListOf<EventInstance<*, *>>()
 
+    inline fun <reified E : InfoEvent> listenInfoEvent(noinline callback: E.() -> Unit) {
+        val eventClass = E::class
+        listenEvent(eventClass, callback)
+    }
+
     inline fun <reified E : Event<C>, C : Any?> listenEvent(noinline callback: E.() -> C) {
         val eventClass = E::class
         listenEvent(eventClass, callback)

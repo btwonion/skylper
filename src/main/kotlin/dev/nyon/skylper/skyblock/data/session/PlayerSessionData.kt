@@ -2,7 +2,7 @@ package dev.nyon.skylper.skyblock.data.session
 
 import dev.nyon.skylper.extensions.*
 import dev.nyon.skylper.extensions.event.EventHandler.invokeEvent
-import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.extensions.event.*
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.mcScope
@@ -55,7 +55,7 @@ object PlayerSessionData {
         }
     }
 
-    private val areaRegex = regex("tablist.general.area")
+    private val areaRegex get() = regex("tablist.general.area")
     private fun updateFromTabList() {
         val onlinePlayers = minecraft.connection?.onlinePlayers ?: return
         val lines = onlinePlayers.mapNotNull { it.tabListDisplayName?.string?.clean() }
@@ -71,8 +71,8 @@ object PlayerSessionData {
         }
     }
 
-    private val skyblockRegex = regex("sideboard.general.skyblock")
-    private val zoneRegex = regex("sideboard.general.zone")
+    private val skyblockRegex get() = regex("sideboard.general.skyblock")
+    private val zoneRegex get() = regex("sideboard.general.zone")
     private fun updateFromSideboard() {
         var containsSkyblockTitle = false
         if (scoreboardLineStrings.isEmpty()) return
@@ -102,24 +102,24 @@ object PlayerSessionData {
     }
 
     @Suppress("unused")
-    private val hypixelJoinEvent = listenEvent<HypixelJoinEvent, Unit> {
+    private val hypixelJoinEvent = listenInfoEvent<HypixelJoinEvent> {
         isOnHypixel = true
     }
 
     @Suppress("unused")
-    private val hypixelQuitEvent = listenEvent<HypixelQuitEvent, Unit> {
+    private val hypixelQuitEvent = listenInfoEvent<HypixelQuitEvent> {
         clearData(true)
     }
 
     @Suppress("unused")
-    private val screenUpdateEvent = listenEvent<ScreenOpenEvent, Unit> {
+    private val screenUpdateEvent = listenInfoEvent<ScreenOpenEvent> {
         currentScreen = screen
     }
 
-    private val profileRegex = regex("chat.general.profile")
+    private val profileRegex get() = regex("chat.general.profile")
 
     @Suppress("unused")
-    private val messageEvent = listenEvent<MessageEvent, Unit> {
+    private val messageEvent = listenInfoEvent<MessageEvent> {
         if (profileRegex.matches(rawText)) {
             profile = profileRegex.singleGroup(rawText)
             invokeEvent(ProfileChangeEvent(null, profile))

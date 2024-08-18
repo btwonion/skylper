@@ -3,9 +3,9 @@ package dev.nyon.skylper.skyblock.render
 import dev.nyon.konfig.config.saveConfig
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.render.hud.HudWidget
-import dev.nyon.skylper.skyblock.mining.hollows.render.TotalPowderWidget
-import dev.nyon.skylper.skyblock.mining.hollows.tracker.nucleus.CrystalCompletionWidget
-import dev.nyon.skylper.skyblock.mining.hollows.tracker.powder.PowderGrindingTracker
+import dev.nyon.skylper.skyblock.render.mining.crystalHollows.TotalPowderWidget
+import dev.nyon.skylper.skyblock.render.mining.crystalHollows.CrystalCompletionWidget
+import dev.nyon.skylper.skyblock.tracker.mining.crystalHollows.powder.PowderGrindingTracker
 import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen

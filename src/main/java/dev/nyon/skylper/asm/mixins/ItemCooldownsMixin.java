@@ -1,7 +1,7 @@
 package dev.nyon.skylper.asm.mixins;
 
-import dev.nyon.skylper.extensions.render.cooldown.CooldownHandler;
-import dev.nyon.skylper.skyblock.mining.AbilityCooldownIdentifier;
+import dev.nyon.skylper.skyblock.cooldowns.CooldownHandler;
+import dev.nyon.skylper.skyblock.cooldowns.AbilityCooldownIdentifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
