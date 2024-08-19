@@ -149,7 +149,7 @@ data class ScreenOpenEvent(val screen: AbstractContainerScreen<*>) : InfoEvent
 /**
  * Is invoked, when an item is being set into an opened inventory.
  */
-data class SetItemEvent(val itemStack: ItemStack) : InfoEvent
+data class SetItemEvent(val itemStack: ItemStack, val rawScreenTitle: String) : InfoEvent
 
 /**
  * Is invoked, when an inventory is opened.

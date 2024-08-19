@@ -1,8 +1,11 @@
 package dev.nyon.skylper.asm.mixins;
 
+import dev.nyon.skylper.extensions.StringKt;
 import dev.nyon.skylper.extensions.event.EventHandler;
 import dev.nyon.skylper.extensions.event.InventoryInitEvent;
 import dev.nyon.skylper.extensions.event.SetItemEvent;
+import dev.nyon.skylper.skyblock.data.session.PlayerSessionData;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,7 +28,11 @@ public class AbstractContainerMenuMixin {
         ItemStack stack,
         CallbackInfo ci
     ) {
-        EventHandler.INSTANCE.invokeEvent(new SetItemEvent(stack));
+        AbstractContainerScreen<?> screen = PlayerSessionData.INSTANCE.getCurrentScreen();
+        if (screen == null) return;
+        String rawTitle = StringKt.clean(screen.getTitle().getString());
+
+        EventHandler.INSTANCE.invokeEvent(new SetItemEvent(stack, rawTitle));
     }
 
     @Inject(

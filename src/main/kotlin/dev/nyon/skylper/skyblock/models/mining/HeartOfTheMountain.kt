@@ -16,9 +16,8 @@ data class HeartOfTheMountain(
     var totalMithrilPowder: Int = 0,
     var totalGemstonePowder: Int = 0,
     var totalGlacitePowder: Int = 0,
-    val pickaxeAbility: String? = null,
+    var pickaxeAbility: String? = null,
     var peakOfTheMountainLevel: Int = 0,
     var skyMall: Boolean = false,
-    var powderBuffLevel: Int = 0,
-    var mineshaftMayhem: Boolean = false,
+    var powderBuffLevel: Int = 0
 )

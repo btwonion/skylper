@@ -18,3 +18,7 @@ fun String.doubleOrNull(): Double? {
         it * multiplier
     }
 }
+
+fun String.intOrNull(): Int? {
+    return doubleOrNull()?.toInt()
+}
