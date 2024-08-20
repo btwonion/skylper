@@ -9,9 +9,9 @@ fun regex(key: String): Regex {
 }
 
 fun Regex.singleGroup(text: String): String? {
-    return groups(text).getOrNull(1)
+    return groups(text)?.getOrNull(1)
 }
 
-fun Regex.groups(text: String): List<String> {
-    return find(text)?.groupValues ?: emptyList()
+fun Regex.groups(text: String): List<String>? {
+    return find(text)?.groupValues
 }

@@ -1,6 +1,7 @@
 package dev.nyon.skylper.skyblock.data.skylper
 
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
+import dev.nyon.skylper.skyblock.models.Pet
 import dev.nyon.skylper.skyblock.models.mining.HeartOfTheMountain
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
@@ -27,4 +28,7 @@ data class StoredPlayerData(
 )
 
 @Serializable
-data class ProfileData(val heartOfTheMountain: HeartOfTheMountain = HeartOfTheMountain())
+data class ProfileData(
+    val pets: MutableList<Pet> = mutableListOf(),
+    val heartOfTheMountain: HeartOfTheMountain = HeartOfTheMountain()
+)
