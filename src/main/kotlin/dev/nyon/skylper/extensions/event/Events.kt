@@ -1,5 +1,6 @@
 package dev.nyon.skylper.extensions.event
 
+import dev.nyon.skylper.skyblock.models.mining.PowderType
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.ChestReward
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.Crystal
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.HollowsLocation
@@ -164,13 +165,12 @@ data class BossBarNameUpdate(val text: Component, val rawText: String) : InfoEve
 /**
  * Is invoked, when the player's powder count changes.
  */
-data class PowderUpdateEvent(val type: PowderType, val newAmount: Int) : InfoEvent {
-    enum class PowderType {
-        GEMSTONE,
-        MITHRIL,
-        GLACITE
-    }
-}
+data class PowderGainEvent(val type: PowderType, val amount: Int) : InfoEvent
+
+/**
+ * Is invoked, when the powder amount is corrected by the tablist.
+ */
+data object PowderAdjustedEvent : InfoEvent
 
 /**
  * Is invoked, when a player picks a treasure chest in the Crystal Hollows.
@@ -180,7 +180,7 @@ object TreasureChestPickEvent : InfoEvent
 /**
  * Is invoked, when a player receives rewards from a treasure chest in the Crystal Hollows.
  */
-data class TreasureChestRewardsEvent(val rewards: List<ChestReward>) : InfoEvent
+data class TreasureChestRewardsEvent(val rewards: Map<ChestReward, Int>) : InfoEvent
 
 /**
  * Is invoked every second. Gives the clean and styled sideboard lines.

@@ -12,7 +12,7 @@ import dev.nyon.skylper.skyblock.models.mining.crystalHollows.CrystalState
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.HollowsLocation
 
 object CrystalsApi {
-    val crystalStates get() = currentProfile.heartOfTheMountain.crystals
+    val crystalStates get() = HeartOfTheMountainApi.data.crystals
 
     private val crystalFoundRegex get() = regex("chat.hollows.run.crystalFound")
     private val crystalPlacedRegex get() = regex("chat.hollows.run.crystalPlaced")
@@ -28,7 +28,7 @@ object CrystalsApi {
         val match = crystalFoundRegex.singleGroup(this) ?: return
         val foundCrystal = Crystal.entries.find { it.displayName == match } ?: return
 
-        currentProfile.heartOfTheMountain.crystals.find { it.crystal == foundCrystal }?.state = CrystalState.FOUND
+        HeartOfTheMountainApi.data.crystals.find { it.crystal == foundCrystal }?.state = CrystalState.FOUND
         EventHandler.invokeEvent(CrystalFoundEvent(foundCrystal))
 
         val location = foundCrystal.associatedLocationSpecific() ?: return
@@ -42,7 +42,7 @@ object CrystalsApi {
     private fun String.checkPlacedCrystal() {
         val crystal =
             crystalPlacedRegex.singleGroup(this).run { Crystal.entries.find { it.displayName == this } } ?: return
-        currentProfile.heartOfTheMountain.crystals.find { it.crystal == crystal }?.state = CrystalState.PLACED
+        HeartOfTheMountainApi.data.crystals.find { it.crystal == crystal }?.state = CrystalState.PLACED
         EventHandler.invokeEvent(CrystalPlaceEvent(crystal))
     }
 }

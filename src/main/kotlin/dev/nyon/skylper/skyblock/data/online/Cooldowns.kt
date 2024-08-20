@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 object Cooldowns : OnlineData<SkylperCooldowns>(SkylperCooldowns::class) {
     override val url: String = SKYLPER_REPO_URL
-    override val path: String = "regexes.json"
+    override val path: String = "cooldowns.json"
 
     var cooldowns: SkylperCooldowns = SkylperCooldowns(mapOf())
 

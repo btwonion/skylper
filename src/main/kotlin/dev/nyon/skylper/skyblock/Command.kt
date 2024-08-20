@@ -2,6 +2,8 @@ package dev.nyon.skylper.skyblock
 
 import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
+import dev.nyon.konfig.config.saveConfig
+import dev.nyon.skylper.config.config
 import dev.nyon.skylper.config.screen.createYaclScreen
 import dev.nyon.skylper.extensions.command.arg
 import dev.nyon.skylper.extensions.command.arguments.ClientBlockPosArgument
@@ -10,6 +12,7 @@ import dev.nyon.skylper.extensions.command.sub
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.api.CrystalHollowsLocationApi
 import dev.nyon.skylper.skyblock.data.online.OnlineData
+import dev.nyon.skylper.skyblock.data.skylper.playerData
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.CreationReason
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.CustomHollowsLocationSpecific
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.HollowsLocation
@@ -87,6 +90,13 @@ fun registerRootCommand() {
                 data.sub("reload") { reload ->
                     reload.executeAsync {
                         OnlineData.data.forEach { it.refresh() }
+                    }
+                }
+
+                data.sub("save") { save ->
+                    save.executeAsync {
+                        saveConfig(config)
+                        saveConfig(playerData)
                     }
                 }
             }

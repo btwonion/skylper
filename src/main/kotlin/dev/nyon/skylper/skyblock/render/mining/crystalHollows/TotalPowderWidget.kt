@@ -2,13 +2,13 @@ package dev.nyon.skylper.skyblock.render.mining.crystalHollows
 
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.event.Event
-import dev.nyon.skylper.extensions.event.PowderUpdateEvent
+import dev.nyon.skylper.extensions.event.PowderGainEvent
 import dev.nyon.skylper.extensions.math.format
 import dev.nyon.skylper.extensions.render.hud.TableHudWidget
 import dev.nyon.skylper.extensions.render.hud.components.PlainTextHudComponent
+import dev.nyon.skylper.skyblock.data.api.PowderApi
 import dev.nyon.skylper.skyblock.data.online.IslandGroups
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
-import dev.nyon.skylper.skyblock.data.skylper.currentProfile
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import kotlin.reflect.KClass
@@ -25,7 +25,7 @@ object TotalPowderWidget :
             config.mining.totalPowderOverlay.y = value.toInt()
             field = value
         }
-    override val updateTriggerEvents: List<KClass<out Event<out Any>>> = listOf(PowderUpdateEvent::class)
+    override val updateTriggerEvents: List<KClass<out Event<out Any>>> = listOf(PowderGainEvent::class)
 
     override fun update() {
         super.update()
@@ -38,7 +38,7 @@ object TotalPowderWidget :
         addComponent(
             0, 1, PlainTextHudComponent(
                 Component.literal(
-                    currentProfile.mining.mithrilPowder.format()
+                    PowderApi.currentMithrilPowder.format()
                 )
             )
         )
@@ -52,7 +52,7 @@ object TotalPowderWidget :
         addComponent(
             1, 1, PlainTextHudComponent(
                 Component.literal(
-                    currentProfile.mining.gemstonePowder.format()
+                    PowderApi.currentGemstonePowder.format()
                 )
             )
         )
@@ -66,7 +66,7 @@ object TotalPowderWidget :
         addComponent(
             2, 1, PlainTextHudComponent(
                 Component.literal(
-                    currentProfile.mining.glacitePowder.format()
+                    PowderApi.currentGlacitePowder.format()
                 )
             )
         )

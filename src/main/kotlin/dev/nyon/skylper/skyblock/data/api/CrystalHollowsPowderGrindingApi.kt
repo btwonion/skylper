@@ -1,13 +1,11 @@
 package dev.nyon.skylper.skyblock.data.api
 
 import dev.nyon.skylper.extensions.doubleOrNull
-import dev.nyon.skylper.extensions.event.BossBarNameUpdate
-import dev.nyon.skylper.extensions.event.EventHandler
+import dev.nyon.skylper.extensions.event.*
 import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
-import dev.nyon.skylper.extensions.event.MessageEvent
-import dev.nyon.skylper.extensions.event.TreasureChestPickEvent
 import dev.nyon.skylper.extensions.regex
 import dev.nyon.skylper.extensions.singleGroup
+import dev.nyon.skylper.skyblock.models.mining.PowderType
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.ChestReward
 import dev.nyon.skylper.skyblock.tracker.mining.crystalHollows.powder.PowderGrindingTracker.data
 import dev.nyon.skylper.skyblock.tracker.mining.crystalHollows.powder.PowderGrindingTracker.startTime
@@ -21,6 +19,10 @@ object CrystalHollowsPowderGrindingApi {
 
     var doublePowderActive: Boolean = false
 
+    private val chestRewardToPowderType = mapOf(
+        ChestReward.MITHRIL_POWDER to PowderType.MITHRIL,
+        ChestReward.GEMSTONE_POWDER to PowderType.GEMSTONE
+    )
     @Suppress("unused")
     private val chatListener = listenInfoEvent<MessageEvent> {
         if (!CrystalHollowsLocationApi.isPlayerInHollows) return@listenInfoEvent
@@ -37,6 +39,16 @@ object CrystalHollowsPowderGrindingApi {
             if (startTime == null) startTime = now
             val amount = regex.singleGroup(rawText)?.doubleOrNull()?.toInt() ?: return@associateWith 0
             amount
+        }
+
+        EventHandler.invokeEvent(TreasureChestRewardsEvent(rewards))
+
+
+        rewards.forEach { (reward, amount) ->
+            if (!chestRewardToPowderType.containsKey(reward)) return@forEach
+            val type = chestRewardToPowderType[reward] ?: return@forEach
+            val fixedAmount = amount * PowderApi.getPowderMultiplier(type)
+            EventHandler.invokeEvent(PowderGainEvent(type, fixedAmount.toInt()))
         }
     }
 

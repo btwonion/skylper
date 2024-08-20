@@ -17,7 +17,7 @@ object CrystalNucleusRunApi {
 
     private fun String.checkRunCompleted() {
         if (!runCompletedRegex.matches(this)) return
-        currentProfile.mining.crystalHollows.crystals.forEach { it.state = CrystalState.NOT_FOUND }
+        CrystalsApi.crystalStates.forEach { it.state = CrystalState.NOT_FOUND }
         EventHandler.invokeEvent(NucleusRunCompleteEvent)
     }
 }

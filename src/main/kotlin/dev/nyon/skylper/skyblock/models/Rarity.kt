@@ -1,6 +1,9 @@
 package dev.nyon.skylper.skyblock.models
 
-enum class Rarity(private val colorCode: Char) {
+import kotlinx.serialization.Serializable
+
+@Serializable
+enum class Rarity(val colorCode: Char) {
     COMMON('f'),
     UNCOMMON('a'),
     RARE('9'),
@@ -11,11 +14,5 @@ enum class Rarity(private val colorCode: Char) {
     SPECIAL('c'),
     VERY_SPECIAL('c'),
     ULTIMATE('4'),
-    ADMIN('4');
-
-    companion object {
-        fun byColor(char: Char): Rarity? {
-            return entries.find { it.colorCode == char }
-        }
-    }
+    ADMIN('4')
 }

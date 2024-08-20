@@ -1,25 +1,33 @@
 package dev.nyon.skylper.skyblock.data.api
 
-import dev.nyon.skylper.extensions.event.PowderUpdateEvent
+import dev.nyon.skylper.extensions.doubleOrNull
+import dev.nyon.skylper.extensions.event.*
+import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.extensions.internalName
+import dev.nyon.skylper.extensions.regex
+import dev.nyon.skylper.extensions.singleGroup
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.models.Rarity
+import dev.nyon.skylper.skyblock.models.mining.PowderType
 
 object PowderApi {
+    val currentMithrilPowder get() = HeartOfTheMountainApi.data.currentMithrilPowder
+    val currentGemstonePowder get() = HeartOfTheMountainApi.data.currentGemstonePowder
+    val currentGlacitePowder get() = HeartOfTheMountainApi.data.currentGlacitePowder
 
     // This function does not consider glacite powder yet. Atm only used for Powder Grinding calculation.
-    fun getPowderMultiplier(type: PowderUpdateEvent.PowderType): Double {
-        var multiplier = 1.0
+    fun getPowderMultiplier(type: PowderType): Double {
+        var multiplier = if (CrystalHollowsPowderGrindingApi.doublePowderActive) 2.0 else 1.0
         multiplier += HeartOfTheMountainApi.data.powderBuffLevel.toFloat() / 100.0
 
         val currentPet = PetApi.currentPet
-        when (currentPet?.name) {
+        when (currentPet?.type) {
             "Scatha" -> {
-                if (currentPet.rarity == Rarity.LEGENDARY && type == PowderUpdateEvent.PowderType.GEMSTONE) multiplier += currentPet.level / 500.0
+                if (currentPet.tier == Rarity.LEGENDARY && type == PowderType.GEMSTONE) multiplier += currentPet.level / 500.0
             }
 
             "Mithril Golem" -> {
-                when (currentPet.rarity) {
+                when (currentPet.tier) {
                     Rarity.RARE -> multiplier += currentPet.level / 1000.0
                     Rarity.EPIC, Rarity.LEGENDARY -> multiplier += currentPet.level / 500.0
                     else -> {}
@@ -40,5 +48,48 @@ object PowderApi {
         }
 
         return multiplier
+    }
+
+    @Suppress("unused")
+    private val powderGainListener = listenInfoEvent<PowderGainEvent> {
+        when (type) {
+            PowderType.MITHRIL -> {
+                HeartOfTheMountainApi.data.currentMithrilPowder += amount
+                HeartOfTheMountainApi.data.totalMithrilPowder += amount
+            }
+
+            PowderType.GEMSTONE -> {
+                HeartOfTheMountainApi.data.currentGemstonePowder += amount
+                HeartOfTheMountainApi.data.totalGemstonePowder += amount
+            }
+
+            PowderType.GLACITE -> {
+                HeartOfTheMountainApi.data.currentGlacitePowder += amount
+                HeartOfTheMountainApi.data.totalGlacitePowder += amount
+            }
+        }
+    }
+
+    @Suppress("unused")
+    private val tablistUpdateListener = listenInfoEvent<TablistUpdateEvent> { parsePowder(cleanLines) }
+    @Suppress("unused")
+    private val sideboardUpdateListener = listenInfoEvent<SideboardUpdateEvent> { parsePowder(cleanLines) }
+
+    private val tablistMithrilPowderRegex get() = regex("tablist.mining.mithril")
+    private val tablistGemstonePowderRegex get() = regex("tablist.mining.gemstone")
+    private val tablistGlacitePowderRegex get() = regex("tablist.mining.glacite")
+
+    private fun parsePowder(lines: List<String>) {
+        lines.forEach { line ->
+            val mithrilPowder = tablistMithrilPowderRegex.singleGroup(line)?.doubleOrNull()?.toInt()
+            val gemstonePowder = tablistGemstonePowderRegex.singleGroup(line)?.doubleOrNull()?.toInt()
+            val glacitePowder = tablistGlacitePowderRegex.singleGroup(line)?.doubleOrNull()?.toInt()
+
+            mithrilPowder?.let { HeartOfTheMountainApi.data.currentMithrilPowder = it }
+            gemstonePowder?.let { HeartOfTheMountainApi.data.currentGemstonePowder = it }
+            glacitePowder?.let { HeartOfTheMountainApi.data.currentGlacitePowder = it }
+
+            EventHandler.invokeEvent(PowderAdjustedEvent)
+        }
     }
 }

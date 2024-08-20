@@ -7,7 +7,7 @@ import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.extensions.tracker.Tracker
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.skyblock.data.api.CrystalHollowsLocationApi
-import dev.nyon.skylper.skyblock.data.skylper.currentProfile
+import dev.nyon.skylper.skyblock.models.mining.PowderType
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
@@ -21,7 +21,6 @@ import dev.nyon.skylper.config.config as overallConfig
 
 object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grinding", PowderGrindingData()) {
     private var lastChestOpened: Instant? = null
-    private var startPowderData: Pair<Int, Int> = currentProfile.mining.mithrilPowder to currentProfile.mining.gemstonePowder
 
     private val isGrinding: Boolean
         get() {
@@ -40,8 +39,12 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
     }
 
     @Suppress("unused")
-    private val treasureChestRewardsEvent = listenInfoEvent<TreasureChestRewardsEvent> {
-
+    private val treasureChestRewardsEvent = listenInfoEvent<PowderGainEvent> {
+        when (type) {
+            PowderType.MITHRIL -> data.mithril.updateByIncrease(amount, this@PowderGrindingTracker)
+            PowderType.GEMSTONE -> data.gemstone.updateByIncrease(amount, this@PowderGrindingTracker)
+            else -> {}
+        }
     }
 
     @Suppress("unused")

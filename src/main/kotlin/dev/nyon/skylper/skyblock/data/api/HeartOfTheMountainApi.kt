@@ -46,13 +46,13 @@ object HeartOfTheMountainApi {
         when {
             name.matches(hotmRegex) -> {
                 lore.forEach {
-                    it.parsePowderFromLine(mithrilPowderRegex, gemstonePowderRegex, glacitePowderRegex)
+                    it.parsePowderFromLine(mithrilPowderRegex, gemstonePowderRegex, glacitePowderRegex, false)
                 }
             }
 
             name.matches(crystalsItemNameRegex) -> {
                 lore.forEach { line ->
-                    val crystal = Crystal.entries.find { line.contains(it.name) } ?: return@forEach
+                    val crystal = Crystal.entries.find { line.contains(it.displayName) } ?: return@forEach
                     CrystalsApi.crystalStates.find { it.crystal == crystal }?.state = when {
                         line.matches(crystalNotFoundRegex) -> CrystalState.NOT_FOUND
                         line.matches(crystalFoundRegex) -> CrystalState.FOUND
@@ -63,12 +63,12 @@ object HeartOfTheMountainApi {
 
             name.matches(resetHotmRegex) -> {
                 lore.forEach {
-                    it.parsePowderFromLine(resetMithrilPowderRegex, resetGemstonePowderRegex, resetGlacitePowderRegex)
+                    it.parsePowderFromLine(resetMithrilPowderRegex, resetGemstonePowderRegex, resetGlacitePowderRegex, true)
                 }
             }
 
             name.matches(potmItemNameRegex) -> {
-                val level = potmLevelRegex.singleGroup(lore[1])?.toIntOrNull()
+                val level = potmLevelRegex.singleGroup(lore.first())?.toIntOrNull()
                 if (level != null) data.peakOfTheMountainLevel = level
             }
 
@@ -77,7 +77,7 @@ object HeartOfTheMountainApi {
             }
 
             name.matches(powderBuffRegex) -> {
-                var level = powderBuffLevelRegex.singleGroup(lore[1])?.toIntOrNull()
+                var level = powderBuffLevelRegex.singleGroup(lore.first())?.toIntOrNull()
                 if (lore.none { enabledRegex.matches(it) }) level = 0
                 if (level != null) data.powderBuffLevel = level
             }
@@ -89,14 +89,14 @@ object HeartOfTheMountainApi {
     }
 
     private fun String.parsePowderFromLine(
-        mithrilPowderRegex: Regex, gemstonePowderRegex: Regex, glacitePowderRegex: Regex
+        mithrilPowderRegex: Regex, gemstonePowderRegex: Regex, glacitePowderRegex: Regex, total: Boolean
     ) {
         val mithrilPowder = mithrilPowderRegex.singleGroup(this)?.intOrNull()
         val gemstonePowder = gemstonePowderRegex.singleGroup(this)?.intOrNull()
         val glacitePowder = glacitePowderRegex.singleGroup(this)?.intOrNull()
 
-        mithrilPowder?.let { data.currentMithrilPowder = it }
-        gemstonePowder?.let { data.currentGemstonePowder = it }
-        glacitePowder?.let { data.totalGlacitePowder = it }
+        mithrilPowder?.let { if (total) data.totalMithrilPowder = it else data.currentMithrilPowder = it }
+        gemstonePowder?.let { if (total) data.totalGemstonePowder = it else data.currentGemstonePowder = it  }
+        glacitePowder?.let { if (total) data.totalGlacitePowder = it else data.currentGlacitePowder = it }
     }
 }

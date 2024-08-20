@@ -13,7 +13,7 @@ import net.minecraft.world.item.Item
 
 val ItemStack.nameAsString: String
     get() {
-        return displayName.string.replace("[", "").replace("]", "")
+        return displayName.string.replace("[", "").replace("]", "").clean()
     }
 
 val ItemStack.compoundTag: CompoundTag?

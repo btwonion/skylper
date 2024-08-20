@@ -14,7 +14,6 @@ import dev.nyon.skylper.skyblock.data.api.Apis
 import dev.nyon.skylper.skyblock.data.online.OnlineData
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.data.skylper.PlayerDataSaver
-import dev.nyon.skylper.skyblock.data.skylper.PlayerDataUpdater
 import dev.nyon.skylper.skyblock.data.skylper.StoredPlayerData
 import dev.nyon.skylper.skyblock.data.skylper.playerData
 import dev.nyon.skylper.skyblock.menu.Menu
@@ -69,7 +68,6 @@ object Skylper : ClientModInitializer {
     private suspend fun setup() {
         OnlineData.data.forEach { it.refresh() }
         PlayerSessionData.startUpdaters()
-        PlayerDataUpdater.initUpdaters()
         PlayerDataSaver.startSaveTask()
         registerRootCommand()
 

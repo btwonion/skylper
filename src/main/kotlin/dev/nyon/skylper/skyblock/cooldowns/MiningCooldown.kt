@@ -8,6 +8,7 @@ import dev.nyon.skylper.extensions.internalName
 import dev.nyon.skylper.extensions.regex
 import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft
+import dev.nyon.skylper.skyblock.data.api.HeartOfTheMountainApi
 import dev.nyon.skylper.skyblock.data.online.Cooldowns
 import dev.nyon.skylper.skyblock.data.online.IslandGroups
 import dev.nyon.skylper.skyblock.data.online.ToolGroups
@@ -94,9 +95,9 @@ object MiningCooldown : Cooldown {
     }
 
     override fun getCooldownTime(): Duration? {
-        val abilityLevel = if (currentProfile.heartOfTheMountain.peakOfTheMountainLevel == 0) 1 else 2
+        val abilityLevel = if (HeartOfTheMountainApi.data.peakOfTheMountainLevel == 0) 1 else 2
         val cooldowns =
-            Cooldowns.cooldowns.mining[currentProfile.heartOfTheMountain.pickaxeAbility ?: return null] ?: return null
+            Cooldowns.cooldowns.mining[HeartOfTheMountainApi.data.pickaxeAbility ?: return null] ?: return null
         return cooldowns[abilityLevel].seconds
     }
 }

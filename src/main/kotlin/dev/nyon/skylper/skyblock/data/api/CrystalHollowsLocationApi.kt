@@ -104,7 +104,7 @@ object CrystalHollowsChatLocation {
         if (!CrystalHollowsLocationApi.isPlayerInHollows) return@listenInfoEvent
 
         val rawMessage = rawText.dropWhile { it != ':' }
-        val loc = regex.groups(rawMessage).let {
+        val loc = regex.groups(rawMessage)?.let {
             if (it.isEmpty()) return@let null
 
             return@let Vec3(
