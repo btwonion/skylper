@@ -55,7 +55,6 @@ object PetApi {
     private val setItemListener = listenInfoEvent<SetItemEvent> {
         if (!petTitleRegex.matches(rawScreenTitle)) return@listenInfoEvent
         val itemName = itemStack.nameAsString
-        println(itemName.matches(petNameRegex))
         val level = petNameRegex.singleGroup(itemName)?.toIntOrNull() ?: return@listenInfoEvent
         val petInfo = itemStack.compoundTag?.getCompound("petInfo") ?: return@listenInfoEvent
         val pet = json.decodeFromString<Pet>(petInfo.toString())
