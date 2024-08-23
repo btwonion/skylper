@@ -2,9 +2,13 @@ package dev.nyon.skylper.extensions
 
 import dev.nyon.skylper.skyblock.data.online.Regexes
 
+val sentWarnings: MutableList<String> = mutableListOf()
 fun regex(key: String): Regex {
     val regex = Regexes.regexes[key]
-    if (regex == null) println("No regex found for key $key.")
+    if (regex == null && !sentWarnings.contains(key)) {
+        sentWarnings.add(key)
+        println("No regex found for key $key.")
+    }
     return regex ?: "\\A(?!x)x".toRegex()
 }
 
