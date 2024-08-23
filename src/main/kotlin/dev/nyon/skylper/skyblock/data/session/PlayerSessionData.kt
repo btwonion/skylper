@@ -1,9 +1,9 @@
 package dev.nyon.skylper.skyblock.data.session
 
 import dev.nyon.skylper.extensions.*
+import dev.nyon.skylper.extensions.event.*
 import dev.nyon.skylper.extensions.event.EventHandler.invokeEvent
 import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
-import dev.nyon.skylper.extensions.event.*
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft

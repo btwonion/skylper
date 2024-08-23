@@ -72,6 +72,7 @@ object PowderApi {
 
     @Suppress("unused")
     private val tablistUpdateListener = listenInfoEvent<TablistUpdateEvent> { parsePowder(cleanLines) }
+
     @Suppress("unused")
     private val sideboardUpdateListener = listenInfoEvent<SideboardUpdateEvent> { parsePowder(cleanLines) }
 

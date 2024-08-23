@@ -13,7 +13,6 @@ import dev.nyon.skylper.skyblock.data.online.Cooldowns
 import dev.nyon.skylper.skyblock.data.online.IslandGroups
 import dev.nyon.skylper.skyblock.data.online.ToolGroups
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
-import dev.nyon.skylper.skyblock.data.skylper.currentProfile
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
@@ -73,8 +72,8 @@ object MiningCooldown : Cooldown {
             minecraft.gui.setTitle(Component.literal("T")
                 .withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) }
                 .append(Component.literal(" Pickaxe Ability available ")
-                    .withStyle { it.withObfuscated(false).withColor(ChatFormatting.AQUA).withBold(true) })
-                .append(Component.literal("T").withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) })
+                    .withStyle { it.withObfuscated(false).withColor(ChatFormatting.AQUA).withBold(true) }).append(
+                    Component.literal("T").withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) })
             )
         }
     }

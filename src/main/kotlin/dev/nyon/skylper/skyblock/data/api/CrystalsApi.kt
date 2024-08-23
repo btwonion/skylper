@@ -5,7 +5,6 @@ import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.extensions.regex
 import dev.nyon.skylper.extensions.singleGroup
 import dev.nyon.skylper.minecraft
-import dev.nyon.skylper.skyblock.data.skylper.currentProfile
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.CreationReason
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.Crystal
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.CrystalState

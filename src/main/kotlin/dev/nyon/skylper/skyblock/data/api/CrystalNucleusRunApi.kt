@@ -5,7 +5,6 @@ import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.extensions.event.MessageEvent
 import dev.nyon.skylper.extensions.event.NucleusRunCompleteEvent
 import dev.nyon.skylper.extensions.regex
-import dev.nyon.skylper.skyblock.data.skylper.currentProfile
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.CrystalState
 
 object CrystalNucleusRunApi {

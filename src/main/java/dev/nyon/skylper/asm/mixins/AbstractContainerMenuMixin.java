@@ -30,7 +30,8 @@ public class AbstractContainerMenuMixin {
     ) {
         AbstractContainerScreen<?> screen = PlayerSessionData.INSTANCE.getCurrentScreen();
         if (screen == null) return;
-        String rawTitle = StringKt.clean(screen.getTitle().getString());
+        String rawTitle = StringKt.clean(screen.getTitle()
+            .getString());
 
         EventHandler.INSTANCE.invokeEvent(new SetItemEvent(stack, rawTitle));
     }

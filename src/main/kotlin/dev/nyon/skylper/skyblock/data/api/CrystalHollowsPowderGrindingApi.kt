@@ -20,9 +20,9 @@ object CrystalHollowsPowderGrindingApi {
     var doublePowderActive: Boolean = false
 
     private val chestRewardToPowderType = mapOf(
-        ChestReward.MITHRIL_POWDER to PowderType.MITHRIL,
-        ChestReward.GEMSTONE_POWDER to PowderType.GEMSTONE
+        ChestReward.MITHRIL_POWDER to PowderType.MITHRIL, ChestReward.GEMSTONE_POWDER to PowderType.GEMSTONE
     )
+
     @Suppress("unused")
     private val chatListener = listenInfoEvent<MessageEvent> {
         if (!CrystalHollowsLocationApi.isPlayerInHollows) return@listenInfoEvent

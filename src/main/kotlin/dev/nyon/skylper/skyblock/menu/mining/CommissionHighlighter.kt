@@ -8,7 +8,7 @@ import dev.nyon.skylper.extensions.regex
 
 object CommissionHighlighter {
     private val commissionsTitleRegex get() = regex("menu.commissions.title")
-    private val commissionCompletedRegex get()  = regex("menu.commissions.completed")
+    private val commissionCompletedRegex get() = regex("menu.commissions.completed")
 
     @Suppress("unused")
     val renderBackgroundEvent = listenEvent<RenderItemBackgroundEvent, Int?> {

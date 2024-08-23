@@ -29,6 +29,5 @@ data class StoredPlayerData(
 
 @Serializable
 data class ProfileData(
-    val pets: MutableList<Pet> = mutableListOf(),
-    val heartOfTheMountain: HeartOfTheMountain = HeartOfTheMountain()
+    val pets: MutableList<Pet> = mutableListOf(), val heartOfTheMountain: HeartOfTheMountain = HeartOfTheMountain()
 )

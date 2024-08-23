@@ -63,7 +63,12 @@ object HeartOfTheMountainApi {
 
             name.matches(resetHotmRegex) -> {
                 lore.forEach {
-                    it.parsePowderFromLine(resetMithrilPowderRegex, resetGemstonePowderRegex, resetGlacitePowderRegex, true)
+                    it.parsePowderFromLine(
+                        resetMithrilPowderRegex,
+                        resetGemstonePowderRegex,
+                        resetGlacitePowderRegex,
+                        true
+                    )
                 }
             }
 
@@ -96,7 +101,7 @@ object HeartOfTheMountainApi {
         val glacitePowder = glacitePowderRegex.singleGroup(this)?.intOrNull()
 
         mithrilPowder?.let { if (total) data.totalMithrilPowder = it else data.currentMithrilPowder = it }
-        gemstonePowder?.let { if (total) data.totalGemstonePowder = it else data.currentGemstonePowder = it  }
+        gemstonePowder?.let { if (total) data.totalGemstonePowder = it else data.currentGemstonePowder = it }
         glacitePowder?.let { if (total) data.totalGlacitePowder = it else data.currentGlacitePowder = it }
     }
 }

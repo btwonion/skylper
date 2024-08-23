@@ -3,8 +3,8 @@ package dev.nyon.skylper.skyblock.render
 import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.extensions.event.RenderHudEvent
 import dev.nyon.skylper.extensions.render.hud.HudWidget
-import dev.nyon.skylper.skyblock.render.mining.crystalHollows.TotalPowderWidget
 import dev.nyon.skylper.skyblock.render.mining.crystalHollows.CrystalCompletionWidget
+import dev.nyon.skylper.skyblock.render.mining.crystalHollows.TotalPowderWidget
 import dev.nyon.skylper.skyblock.tracker.mining.crystalHollows.powder.PowderGrindingTracker
 import net.minecraft.client.gui.GuiGraphics
 

@@ -1,54 +1,54 @@
 {
-    "schemaVersion": 1,
-    "id": "${id}",
-    "name": "${name}",
-    "description": "${description}",
-    "icon": "assets/skylper/icon/icon.png",
-    "contact": {
-        "issues": "https://github.com/btwonion/skylper/issues",
-        "sources": "https://github.com/btwonion/skylper"
-    },
-    "authors": [
-        "btwonion"
+  "schemaVersion": 1,
+  "id": "${id}",
+  "name": "${name}",
+  "description": "${description}",
+  "icon": "assets/skylper/icon/icon.png",
+  "contact": {
+    "issues": "https://github.com/btwonion/skylper/issues",
+    "sources": "https://github.com/btwonion/skylper"
+  },
+  "authors": [
+    "btwonion"
+  ],
+  "contributors": [],
+  "license": [
+    "GNU General Public License v3.0"
+  ],
+  "version": "${version}",
+  "environment": "client",
+  "depends": {
+    "fabric-language-kotlin": ">=1.11.0+kotlin.2.0.0",
+    "fabric-api": "*",
+    "yet_another_config_lib_v3": "*",
+    "minecraft": "${mc}"
+  },
+  "suggests": {
+    "modmenu": "*"
+  },
+  "entrypoints": {
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "dev.nyon.skylper.Skylper"
+      }
     ],
-    "contributors": [],
-    "license": [
-        "GNU General Public License v3.0"
-    ],
-    "version": "${version}",
-    "environment": "client",
-    "depends": {
-        "fabric-language-kotlin": ">=1.11.0+kotlin.2.0.0",
-        "fabric-api": "*",
-        "yet_another_config_lib_v3": "*",
-        "minecraft": "${mc}"
-    },
-    "suggests": {
-        "modmenu": "*"
-    },
-    "entrypoints": {
-        "client": [
-            {
-                "adapter": "kotlin",
-                "value": "dev.nyon.skylper.Skylper"
-            }
-        ],
-        "modmenu": [
-            {
-                "adapter": "kotlin",
-                "value": "dev.nyon.skylper.config.ModMenuImpl"
-            }
-        ]
-    },
-    "mixins": [
-        "skylper.mixins.json"
-    ],
-    "accessWidener": "aw/${aw}.accesswidener",
-    "custom": {
-        "modmenu": {
-            "links": {
-                "modmenu.discord": "https://discord.gg/pmHTtZnMd3"
-            }
-        }
+    "modmenu": [
+      {
+        "adapter": "kotlin",
+        "value": "dev.nyon.skylper.config.ModMenuImpl"
+      }
+    ]
+  },
+  "mixins": [
+    "skylper.mixins.json"
+  ],
+  "accessWidener": "aw/${aw}.accesswidener",
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/pmHTtZnMd3"
+      }
     }
+  }
 }

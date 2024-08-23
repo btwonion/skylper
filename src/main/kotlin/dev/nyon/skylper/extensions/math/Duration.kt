@@ -29,14 +29,10 @@ fun Duration.toPrettyString(): String = when (inWholeMilliseconds) {
                 if (hasSeconds) {
                     if (components++ > 0) append(' ')
                     when {
-                        seconds != 0 || hasDays || hasHours || hasMinutes ->
-                            appendFractional(seconds, "s")
-                        nanoseconds >= 1_000_000 ->
-                            appendFractional(nanoseconds / 1_000_000, "ms")
-                        nanoseconds >= 1_000 ->
-                            appendFractional(nanoseconds / 1_000, "us")
-                        else ->
-                            append(nanoseconds).append("ns")
+                        seconds != 0 || hasDays || hasHours || hasMinutes -> appendFractional(seconds, "s")
+                        nanoseconds >= 1_000_000 -> appendFractional(nanoseconds / 1_000_000, "ms")
+                        nanoseconds >= 1_000 -> appendFractional(nanoseconds / 1_000, "us")
+                        else -> append(nanoseconds).append("ns")
                     }
                 }
                 if (isNegative && components > 1) insert(1, '(').append(')')

@@ -1,7 +1,7 @@
 package dev.nyon.skylper.extensions.math
 
 import java.text.NumberFormat
-import java.util.Locale
+import java.util.*
 
 private val numberFormat = NumberFormat.getCompactNumberInstance(Locale.ROOT, NumberFormat.Style.SHORT).also {
     it.minimumFractionDigits = 1

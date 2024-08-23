@@ -74,7 +74,14 @@ fun WorldRenderContext.renderBeaconBeam(
     matrices.pushPose()
     matrices.translate(pos.x - cameraPos.x, pos.y - cameraPos.y, pos.z - cameraPos.z)
 
-    internalRenderBeaconBeam(matrices, consumers()!!, /*? if >=1.21 {*/ tickCounter().getGameTimeDeltaPartialTick(true) /*?} else {*/ /*tickDelta() *//*?}*/ , world().gameTime, color, MAX_BUILD_HEIGHT.toInt())
+    internalRenderBeaconBeam(
+        matrices,
+        consumers()!!, /*? if >=1.21 {*/
+        tickCounter().getGameTimeDeltaPartialTick(true) /*?} else {*/ /*tickDelta() *//*?}*/,
+        world().gameTime,
+        color,
+        MAX_BUILD_HEIGHT.toInt()
+    )
 
     matrices.popPose()
 }
@@ -85,8 +92,11 @@ fun WorldRenderContext.renderFilled(
     val tes = RenderSystem.renderThreadTesselator()
     //? if <1.21
     /*val builder = tes.builder*/
-    val javaColor = color.color
-    /*? if >=1.21 {*/ val builder = tes.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_COLOR)/*?} else {*//*builder.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_COLOR)*//*?}*/
+    val javaColor = color.color/*? if >=1.21 {*/
+    val builder = tes.begin(
+        VertexFormat.Mode.TRIANGLE_STRIP,
+        DefaultVertexFormat.POSITION_COLOR
+    )/*?} else {*//*builder.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_COLOR)*//*?}*/
     LevelRenderer.addChainedFilledBoxVertices(
         matrices,
         builder,
@@ -100,11 +110,9 @@ fun WorldRenderContext.renderFilled(
         javaColor.green.toFloat() / 255,
         javaColor.blue.toFloat() / 255,
         0.2f
-    )
-    /*? if >=1.21 {*/
+    )/*? if >=1.21 {*/
     BufferUploader.drawWithShader(builder.build()!!)
-    tes.clear()
-    /*?} else {*/ /*tes.end() *//*?}*/
+    tes.clear()/*?} else {*/ /*tes.end() *//*?}*/
 }
 
 fun WorldRenderContext.renderOutline(
@@ -116,8 +124,11 @@ fun WorldRenderContext.renderOutline(
     val tes = RenderSystem.renderThreadTesselator()
     //? if <1.21
     /*val builder = tes.builder*/
-    val javaColor = color.color
-    /*? if >=1.21 {*/ val builder = tes.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_COLOR)/*?} else {*//*builder.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_COLOR)*//*?}*/
+    val javaColor = color.color/*? if >=1.21 {*/
+    val builder = tes.begin(
+        VertexFormat.Mode.TRIANGLE_STRIP,
+        DefaultVertexFormat.POSITION_COLOR
+    )/*?} else {*//*builder.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_COLOR)*//*?}*/
     LevelRenderer.renderLineBox(
         matrices,
         builder,
@@ -131,8 +142,7 @@ fun WorldRenderContext.renderOutline(
         javaColor.green.toFloat() / 255,
         javaColor.blue.toFloat() / 255,
         0.2f
-    )
-    /*? if >=1.21 {*/ tes.clear() /*?} else {*/ /*tes.end() *//*?}*/
+    )/*? if >=1.21 {*/ tes.clear() /*?} else {*/ /*tes.end() *//*?}*/
 }
 
 fun WorldRenderContext.renderCustomWithBox(box: AABB, throughWalls: Boolean, block: (matrices: PoseStack) -> Unit) {

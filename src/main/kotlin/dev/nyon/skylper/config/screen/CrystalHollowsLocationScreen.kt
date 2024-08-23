@@ -21,24 +21,24 @@ fun createLocationScreen(parent: Screen?): Screen = YetAnotherConfigLib("locatio
                     name(loc.specific.displayName)
                     description(OptionDescription.of(Component.translatable("yacl3.config.locations.category.locations.description")))
 
-                    option(
-                        ButtonOption.createBuilder()
+                    option(ButtonOption.createBuilder()
                         .name(Component.translatable("yacl3.config.locations.category.locations.share"))
                         .description(OptionDescription.of(Component.translatable("yacl3.config.locations.category.locations.share.description")))
                         .available(PlayerSessionData.isOnSkyblock).action { _, _ ->
                             minecraft.player?.connection?.sendChat(
                                 "${loc.specific.displayName.string} at ${loc.pos.x} ${loc.pos.y} ${loc.pos.z}"
                             )
-                        }.build())
+                        }.build()
+                    )
 
-                    option(
-                        ButtonOption.createBuilder()
+                    option(ButtonOption.createBuilder()
                         .name(Component.translatable("yacl3.config.locations.category.locations.delete"))
                         .description(OptionDescription.of(Component.translatable("yacl3.config.locations.category.locations.delete.description")))
                         .action { _, button ->
                             CrystalHollowsLocationApi.waypoints.remove(loc)
                             button.setAvailable(false)
-                        }.build())
+                        }.build()
+                    )
                 }.build()
             )
         }

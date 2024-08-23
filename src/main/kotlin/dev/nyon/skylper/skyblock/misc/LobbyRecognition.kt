@@ -1,11 +1,12 @@
 package dev.nyon.skylper.skyblock.misc
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.extensions.*
 import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.extensions.event.LevelChangeEvent
 import dev.nyon.skylper.extensions.event.MessageEvent
 import dev.nyon.skylper.extensions.event.SkyblockQuitEvent
+import dev.nyon.skylper.extensions.regex
+import dev.nyon.skylper.extensions.singleGroup
 import dev.nyon.skylper.minecraft
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
@@ -34,6 +35,8 @@ object LobbyRecognition {
 
         if (!config.misc.recognizeLobbies) return@listenInfoEvent
         if (!containsServerAlready) return@listenInfoEvent
-        minecraft.player?.sendSystemMessage(Component.translatable("chat.skylper.misc.lobby_recognition").withStyle(ChatFormatting.GRAY))
+        minecraft.player?.sendSystemMessage(
+            Component.translatable("chat.skylper.misc.lobby_recognition").withStyle(ChatFormatting.GRAY)
+        )
     }
 }
