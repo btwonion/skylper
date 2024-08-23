@@ -1,13 +1,15 @@
 package dev.nyon.skylper.skyblock.menu
 
 import dev.nyon.skylper.extensions.regex
-import dev.nyon.skylper.skyblock.menu.bestiary.Bestiary
-import dev.nyon.skylper.skyblock.menu.collections.Collections
+import dev.nyon.skylper.skyblock.menu.bestiary.BestiaryMenu
+import dev.nyon.skylper.skyblock.menu.collections.CollectionsMenu
+import dev.nyon.skylper.skyblock.menu.mining.MiningMenu
 
 object Menu {
-    val clickToViewRegex = regex("menu.clickToView")
+    val clickToViewRegex get() = regex("menu.clickToView")
     fun init() {
-        Collections.init()
-        Bestiary.init()
+        CollectionsMenu.init()
+        BestiaryMenu.init()
+        MiningMenu.init()
     }
 }

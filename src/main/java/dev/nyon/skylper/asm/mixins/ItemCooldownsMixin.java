@@ -1,7 +1,7 @@
 package dev.nyon.skylper.asm.mixins;
 
-import dev.nyon.skylper.extensions.render.cooldown.CooldownHandler;
-import dev.nyon.skylper.skyblock.mining.AbilityCooldownIdentifier;
+import dev.nyon.skylper.skyblock.cooldowns.AbilityCooldownIdentifier;
+import dev.nyon.skylper.skyblock.cooldowns.CooldownHandler;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
@@ -20,8 +20,7 @@ public abstract class ItemCooldownsMixin implements AbilityCooldownIdentifier {
 
     @Override
     public float skylper$getCooldownPercent(
-        @NotNull
-        ItemStack itemStack,
+        @NotNull ItemStack itemStack,
         float partialTicks
     ) {
         var skylperPercentage = CooldownHandler.INSTANCE.getPercentage(itemStack);

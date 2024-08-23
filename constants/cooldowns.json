@@ -1,0 +1,34 @@
+{
+    "mining": {
+        "Mining Speed Boost": [
+            120,
+            120,
+            120
+        ],
+        "Pickolubus": [
+            120,
+            110,
+            100
+        ],
+        "Vein Seeker": [
+            60,
+            60,
+            60
+        ],
+        "Maniac Miner": [
+            60,
+            59,
+            59
+        ],
+        "Gemstone Infusion": [
+            140,
+            140,
+            140
+        ],
+        "Hazardous Miner": [
+            140,
+            140,
+            140
+        ]
+    }
+}

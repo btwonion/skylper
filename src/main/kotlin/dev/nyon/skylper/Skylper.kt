@@ -10,17 +10,16 @@ import dev.nyon.skylper.config.configJsonBuilder
 import dev.nyon.skylper.extensions.event.EventHandler
 import dev.nyon.skylper.extensions.event.FabricEvents
 import dev.nyon.skylper.extensions.event.MinecraftStopEvent
-import dev.nyon.skylper.skyblock.mining.Mining
+import dev.nyon.skylper.skyblock.data.api.Apis
 import dev.nyon.skylper.skyblock.data.online.OnlineData
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.data.skylper.PlayerDataSaver
-import dev.nyon.skylper.skyblock.data.skylper.PlayerDataUpdater
 import dev.nyon.skylper.skyblock.data.skylper.StoredPlayerData
 import dev.nyon.skylper.skyblock.data.skylper.playerData
 import dev.nyon.skylper.skyblock.menu.Menu
 import dev.nyon.skylper.skyblock.misc.Misc
 import dev.nyon.skylper.skyblock.registerRootCommand
-import dev.nyon.skylper.skyblock.render.SkylperHud
+import dev.nyon.skylper.skyblock.render.Render
 import kotlinx.coroutines.*
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper
@@ -69,21 +68,20 @@ object Skylper : ClientModInitializer {
     private suspend fun setup() {
         OnlineData.data.forEach { it.refresh() }
         PlayerSessionData.startUpdaters()
-        PlayerDataUpdater.initUpdaters()
         PlayerDataSaver.startSaveTask()
         registerRootCommand()
 
         FabricEvents.listenForFabricEvents()
 
-        SkylperHud.init()
+        Render.init()
 
-        Mining.init()
+        Apis.init()
         Menu.init()
         Misc.init()
     }
 
     private fun handleStop() {
-        EventHandler.listenEvent<MinecraftStopEvent, Unit> {
+        EventHandler.listenInfoEvent<MinecraftStopEvent> {
             saveConfig(internalConfig)
             saveConfig(playerData)
         }

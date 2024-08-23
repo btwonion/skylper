@@ -1,16 +1,16 @@
 package dev.nyon.skylper.skyblock.render
 
-import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
+import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.extensions.event.RenderHudEvent
 import dev.nyon.skylper.extensions.render.hud.HudWidget
-import dev.nyon.skylper.skyblock.mining.hollows.render.TotalPowderWidget
-import dev.nyon.skylper.skyblock.mining.hollows.tracker.nucleus.CrystalCompletionWidget
-import dev.nyon.skylper.skyblock.mining.hollows.tracker.powder.PowderGrindingTracker
+import dev.nyon.skylper.skyblock.render.mining.crystalHollows.CrystalCompletionWidget
+import dev.nyon.skylper.skyblock.render.mining.crystalHollows.TotalPowderWidget
+import dev.nyon.skylper.skyblock.tracker.mining.crystalHollows.powder.PowderGrindingTracker
 import net.minecraft.client.gui.GuiGraphics
 
 object SkylperHud {
     fun init() {
-        listenEvent<RenderHudEvent, Unit> {
+        listenInfoEvent<RenderHudEvent> {
             context.renderWidget(CrystalCompletionWidget)
             context.renderWidget(PowderGrindingTracker)
             context.renderWidget(TotalPowderWidget)

@@ -1,6 +1,9 @@
 package dev.nyon.skylper.config.screen
 
-import dev.isxander.yacl3.dsl.*
+import dev.isxander.yacl3.dsl.RootDsl
+import dev.isxander.yacl3.dsl.controller
+import dev.isxander.yacl3.dsl.descriptionBuilder
+import dev.isxander.yacl3.dsl.tickBox
 import dev.nyon.skylper.config.config
 
 fun RootDsl.appendMiscCategory() {

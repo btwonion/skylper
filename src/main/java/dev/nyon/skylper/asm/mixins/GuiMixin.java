@@ -1,6 +1,7 @@
 package dev.nyon.skylper.asm.mixins;
 
-/*? if >1.20.5 {*/
+    /*? if >1.20.5 {*/
+
 import dev.nyon.skylper.extensions.render.CustomRenderLayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -31,7 +32,7 @@ public abstract class GuiMixin {
     }
 }
 
-/*?} else {*/
+    /*?} else {*/
 /*import dev.nyon.skylper.extensions.event.EventHandler;
 import dev.nyon.skylper.extensions.event.RenderHudEvent;
 import net.minecraft.client.gui.Gui;

@@ -1,6 +1,6 @@
 package dev.nyon.skylper.asm.mixins;
 
-import dev.nyon.skylper.skyblock.mining.AbilityCooldownIdentifier;
+import dev.nyon.skylper.skyblock.cooldowns.AbilityCooldownIdentifier;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -36,9 +36,14 @@ public class GuiGraphicsMixin {
         ItemStack stack,
         int x,
         int y,
-        @Nullable
-        String text
+        @Nullable String text
     ) {
-        return ((AbilityCooldownIdentifier) instance).skylper$getCooldownPercent(stack, /*? if >=1.21 {*/ minecraft.getFrameTimeNs() /*?} else {*/ /*minecraft.getFrameTime() *//*?}*/);
+        return ((AbilityCooldownIdentifier) instance).skylper$getCooldownPercent(
+            stack,
+            /*? if >=1.21 {*/
+            minecraft.getFrameTimeNs()
+            /*?} else {*/ /*minecraft.getFrameTime() 
+            *//*?}*/
+        );
     }
 }
