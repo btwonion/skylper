@@ -74,6 +74,11 @@ data class CrystalFoundEvent(val crystal: Crystal) : InfoEvent
 data class CrystalPlaceEvent(val crystal: Crystal) : InfoEvent
 
 /**
+ * Is invoked, when a crystal state is updated apart from place, found or run complete events.
+ */
+object CrystalStateUpdateEvent : InfoEvent
+
+/**
  * Is invoked, when player gains a Crystal Loot Bundle.
  */
 object NucleusRunCompleteEvent : InfoEvent

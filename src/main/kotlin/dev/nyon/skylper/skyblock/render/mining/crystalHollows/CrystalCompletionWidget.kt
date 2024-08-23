@@ -23,7 +23,11 @@ object CrystalCompletionWidget : TableHudWidget(
             field = value
         }
     override val updateTriggerEvents: List<KClass<out Event<out Any>>> = listOf(
-        CrystalFoundEvent::class, CrystalPlaceEvent::class, NucleusRunCompleteEvent::class, LevelChangeEvent::class
+        CrystalFoundEvent::class,
+        CrystalPlaceEvent::class,
+        NucleusRunCompleteEvent::class,
+        LevelChangeEvent::class,
+        CrystalStateUpdateEvent::class
     )
 
     override fun update() {
