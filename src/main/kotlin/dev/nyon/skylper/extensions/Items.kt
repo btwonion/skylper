@@ -1,15 +1,15 @@
 package dev.nyon.skylper.extensions
 
 /*? if >=1.20.6 {*/
-import dev.nyon.skylper.minecraft
 import net.minecraft.core.component.DataComponents
+/*?}*/
+
+import dev.nyon.skylper.minecraft
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
-
-/*?}*/
 
 val ItemStack.nameAsString: String
     get() {
