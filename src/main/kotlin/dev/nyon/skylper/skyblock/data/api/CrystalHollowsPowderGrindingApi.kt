@@ -7,8 +7,6 @@ import dev.nyon.skylper.extensions.regex
 import dev.nyon.skylper.extensions.singleGroup
 import dev.nyon.skylper.skyblock.models.mining.PowderType
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.ChestReward
-import dev.nyon.skylper.skyblock.tracker.mining.crystalHollows.powder.PowderGrindingTracker.data
-import dev.nyon.skylper.skyblock.tracker.mining.crystalHollows.powder.PowderGrindingTracker.startTime
 import kotlinx.datetime.Clock
 
 object CrystalHollowsPowderGrindingApi {
@@ -36,7 +34,6 @@ object CrystalHollowsPowderGrindingApi {
         val rewards = ChestReward.entries.associateWith { reward ->
             val regex = reward.getRegex()
             if (!regex.matches(rawText)) return@associateWith 0
-            if (startTime == null) startTime = now
             val amount = regex.singleGroup(rawText)?.doubleOrNull()?.toInt() ?: return@associateWith 0
             amount
         }.toMutableMap().filter { it.value != 0 }
@@ -55,6 +52,6 @@ object CrystalHollowsPowderGrindingApi {
     private val bossBarListener = listenInfoEvent<BossBarNameUpdate> {
         if (!CrystalHollowsLocationApi.isPlayerInHollows) return@listenInfoEvent
         if (!powderBossBarPattern.matches(rawText)) return@listenInfoEvent
-        data.doublePowderActive = true
+        doublePowderActive = true
     }
 }
