@@ -94,8 +94,7 @@ fun WorldRenderContext.renderFilled(
     /*val builder = tes.builder*/
     val javaColor = color.color/*? if >=1.21 {*/
     val builder = tes.begin(
-        VertexFormat.Mode.TRIANGLE_STRIP,
-        DefaultVertexFormat.POSITION_COLOR
+        VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_COLOR
     )/*?} else {*//*builder.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_COLOR)*//*?}*/
     LevelRenderer.addChainedFilledBoxVertices(
         matrices,
@@ -126,8 +125,7 @@ fun WorldRenderContext.renderOutline(
     /*val builder = tes.builder*/
     val javaColor = color.color/*? if >=1.21 {*/
     val builder = tes.begin(
-        VertexFormat.Mode.TRIANGLE_STRIP,
-        DefaultVertexFormat.POSITION_COLOR
+        VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_COLOR
     )/*?} else {*//*builder.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_COLOR)*//*?}*/
     LevelRenderer.renderLineBox(
         matrices,
@@ -142,7 +140,9 @@ fun WorldRenderContext.renderOutline(
         javaColor.green.toFloat() / 255,
         javaColor.blue.toFloat() / 255,
         0.2f
-    )/*? if >=1.21 {*/ tes.clear() /*?} else {*/ /*tes.end() *//*?}*/
+    )
+
+    /*? if >=1.21 {*/ tes.clear() /*?} else {*/ /*tes.end() *//*?}*/
 }
 
 fun WorldRenderContext.renderCustomWithBox(box: AABB, throughWalls: Boolean, block: (matrices: PoseStack) -> Unit) {

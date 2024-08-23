@@ -19,8 +19,8 @@ public interface BeaconRendererInvoker {
         int height,
         /*? if >=1.21 {*/
         int color
-        /*?} else {*/ /*float[] colors */
-        /*?}*/
+        /*?} else {*/ /*float[] colors 
+        *//*?}*/
     ) {
     }
 }

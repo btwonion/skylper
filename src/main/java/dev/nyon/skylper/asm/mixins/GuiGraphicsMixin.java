@@ -42,8 +42,8 @@ public class GuiGraphicsMixin {
             stack,
             /*? if >=1.21 {*/
             minecraft.getFrameTimeNs()
-            /*?} else {*/ /*minecraft.getFrameTime() */
-            /*?}*/
+            /*?} else {*/ /*minecraft.getFrameTime() 
+            *//*?}*/
         );
     }
 }
