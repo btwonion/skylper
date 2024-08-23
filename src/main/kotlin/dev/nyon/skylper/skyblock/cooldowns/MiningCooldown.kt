@@ -66,14 +66,12 @@ object MiningCooldown : Cooldown {
             if (config.mining.miningAbilityNotificationOnMiningIslands && !IslandGroups.groups.mining.contains(
                     PlayerSessionData.currentArea
                 )
-            ) {
-                return
-            }
+            ) return
             minecraft.gui.setTitle(Component.literal("T")
                 .withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) }
                 .append(Component.literal(" Pickaxe Ability available ")
-                    .withStyle { it.withObfuscated(false).withColor(ChatFormatting.AQUA).withBold(true) }).append(
-                    Component.literal("T").withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) })
+                    .withStyle { it.withObfuscated(false).withColor(ChatFormatting.AQUA).withBold(true) })
+                .append(Component.literal("T").withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) })
             )
         }
     }

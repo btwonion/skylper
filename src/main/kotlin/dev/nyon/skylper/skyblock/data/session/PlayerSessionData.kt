@@ -7,6 +7,7 @@ import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft
+import dev.nyon.skylper.skyblock.models.Area
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
@@ -21,7 +22,7 @@ object PlayerSessionData {
     var scoreboardLines = emptyList<Component>()
     var scoreboardLineStrings = emptyList<String>()
 
-    var currentArea: String? = null
+    var currentArea: Area? = null
     var currentZone: String? = null
 
     var profile: String? = null
@@ -62,7 +63,8 @@ object PlayerSessionData {
         invokeEvent(TablistUpdateEvent(onlinePlayers.mapNotNull { it.tabListDisplayName }, lines))
         mcScope.launch {
             lines.forEach { line ->
-                val area = areaRegex.singleGroup(line) ?: return@forEach
+                if (!areaRegex.matches(line)) return@forEach
+                val area = Area.entries.find { it.getRegex().matches(line) } ?: return@forEach
                 if (area != currentArea) {
                     invokeEvent(AreaChangeEvent(currentArea, area))
                     currentArea = area

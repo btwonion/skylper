@@ -9,6 +9,7 @@ import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
+import dev.nyon.skylper.skyblock.models.Area
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.CreationReason
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.HollowsLocation
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.PreDefinedHollowsLocationSpecific
@@ -37,7 +38,7 @@ object CrystalHollowsLocationApi {
 
     val isPlayerInHollows: Boolean
         get() {
-            val areaMatch = PlayerSessionData.currentArea?.contains("Crystal Hollows") == true
+            val areaMatch = PlayerSessionData.currentArea == Area.CRYSTAL_HOLLOWS
             val posMatch = hollowsBox.contains(minecraft.player?.position() ?: return false)
             return areaMatch && posMatch
         }

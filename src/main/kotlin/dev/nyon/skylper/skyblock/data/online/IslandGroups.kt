@@ -1,5 +1,6 @@
 package dev.nyon.skylper.skyblock.data.online
 
+import dev.nyon.skylper.skyblock.models.Area
 import kotlinx.serialization.Serializable
 
 object IslandGroups : OnlineData<IslandGroupsData>(IslandGroupsData::class) {
@@ -14,4 +15,4 @@ object IslandGroups : OnlineData<IslandGroupsData>(IslandGroupsData::class) {
 }
 
 @Serializable
-data class IslandGroupsData(val mining: List<String>)
+data class IslandGroupsData(val mining: List<Area>)
