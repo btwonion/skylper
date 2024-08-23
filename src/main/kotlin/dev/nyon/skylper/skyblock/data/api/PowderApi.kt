@@ -15,7 +15,7 @@ object PowderApi {
     val currentGemstonePowder get() = HeartOfTheMountainApi.data.currentGemstonePowder
     val currentGlacitePowder get() = HeartOfTheMountainApi.data.currentGlacitePowder
 
-    // This function does not consider glacite powder yet. Atm only used for Powder Grinding calculation.
+    // Only used for Powder Grinding calculation.
     fun getPowderMultiplier(type: PowderType): Double {
         var multiplier = if (CrystalHollowsPowderGrindingApi.doublePowderActive) 2.0 else 1.0
         multiplier += HeartOfTheMountainApi.data.powderBuffLevel.toFloat() / 100.0

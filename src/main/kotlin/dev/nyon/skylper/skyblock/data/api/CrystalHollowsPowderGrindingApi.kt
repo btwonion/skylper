@@ -39,10 +39,9 @@ object CrystalHollowsPowderGrindingApi {
             if (startTime == null) startTime = now
             val amount = regex.singleGroup(rawText)?.doubleOrNull()?.toInt() ?: return@associateWith 0
             amount
-        }
+        }.toMutableMap().filter { it.value != 0 }
 
         EventHandler.invokeEvent(TreasureChestRewardsEvent(rewards))
-
 
         rewards.forEach { (reward, amount) ->
             if (!chestRewardToPowderType.containsKey(reward)) return@forEach

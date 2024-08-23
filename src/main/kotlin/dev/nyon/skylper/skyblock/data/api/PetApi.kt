@@ -36,7 +36,7 @@ object PetApi {
     }
 
     private fun petFound(name: String, level: Int?) {
-        val storedPet = pets.find { it.type == name } ?: return
+        val storedPet = pets.find { it.type == name.uppercase() } ?: return
         pets.forEach { it.active = false }
         level?.let { storedPet.level = it }
         storedPet.active = true
@@ -56,8 +56,8 @@ object PetApi {
         if (!petTitleRegex.matches(rawScreenTitle)) return@listenInfoEvent
         val itemName = itemStack.nameAsString
         val level = petNameRegex.singleGroup(itemName)?.toIntOrNull() ?: return@listenInfoEvent
-        val petInfo = itemStack.compoundTag?.getCompound("petInfo") ?: return@listenInfoEvent
-        val pet = json.decodeFromString<Pet>(petInfo.toString())
+        val petInfo = itemStack.compoundTag?.getString("petInfo") ?: return@listenInfoEvent
+        val pet = kotlin.runCatching { json.decodeFromString<Pet>(petInfo) }.getOrNull() ?: return@listenInfoEvent
         if (pet.active) currentPet = pet
         pet.level = level
         pets.add(pet)
