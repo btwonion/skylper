@@ -10,14 +10,11 @@ import dev.nyon.skylper.config.configJsonBuilder
 import dev.nyon.skylper.extensions.event.FabricEvents
 import dev.nyon.skylper.extensions.event.MinecraftStopEvent
 import dev.nyon.skylper.extensions.event.SkylperEvent
-import dev.nyon.skylper.skyblock.data.api.Apis
 import dev.nyon.skylper.skyblock.data.online.OnlineData
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.data.skylper.PlayerDataSaver
 import dev.nyon.skylper.skyblock.data.skylper.StoredPlayerData
 import dev.nyon.skylper.skyblock.data.skylper.playerData
-import dev.nyon.skylper.skyblock.menu.Menu
-import dev.nyon.skylper.skyblock.misc.Misc
 import dev.nyon.skylper.skyblock.registerRootCommand
 import kotlinx.coroutines.*
 import net.fabricmc.api.ClientModInitializer
@@ -69,10 +66,6 @@ object Skylper : ClientModInitializer {
         registerRootCommand()
 
         FabricEvents.listenForFabricEvents()
-
-        Apis.init()
-        Menu.init()
-        Misc.init()
     }
 
     @SkylperEvent

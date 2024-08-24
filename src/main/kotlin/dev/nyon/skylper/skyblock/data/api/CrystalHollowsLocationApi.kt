@@ -24,12 +24,6 @@ import net.minecraft.world.phys.Vec3
 
 @Suppress("unused")
 object CrystalHollowsLocationApi {
-    fun init() {
-        CrystalHollowsChatLocation
-        CrystalHollowsNameTagLocation
-        CrystalHollowsSideboardLocation
-    }
-
     val hollowsBox = AABB(201.0, 30.0, 201.0, 824.0, 189.0, 824.0)
 
     val isPlayerInHollows: Boolean
