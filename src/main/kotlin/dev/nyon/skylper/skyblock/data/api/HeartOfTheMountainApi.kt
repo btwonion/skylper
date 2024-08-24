@@ -1,8 +1,8 @@
 package dev.nyon.skylper.skyblock.data.api
 
 import dev.nyon.skylper.extensions.*
-import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.extensions.event.SetItemEvent
+import dev.nyon.skylper.extensions.event.SkylperEvent
 import dev.nyon.skylper.skyblock.data.skylper.currentProfile
 import dev.nyon.skylper.skyblock.models.mining.HeartOfTheMountain
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.Crystal
@@ -37,9 +37,10 @@ object HeartOfTheMountainApi {
     private val powderBuffRegex get() = regex("menu.hotm.powderbuff")
     private val powderBuffLevelRegex get() = regex("menu.hotm.powderbuff.level")
 
-    @Suppress("unused")
-    private val inventoryInitEvent = listenInfoEvent<SetItemEvent> {
-        if (!hotmRegex.matches(rawScreenTitle)) return@listenInfoEvent
+    @SkylperEvent
+    fun setItemEvent(event: SetItemEvent) {
+        if (!hotmRegex.matches(event.rawScreenTitle)) return
+        val itemStack = event.itemStack
         val lore = itemStack.rawLore
         val name = itemStack.nameAsString
 

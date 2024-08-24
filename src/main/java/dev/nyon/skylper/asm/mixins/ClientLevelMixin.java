@@ -1,7 +1,7 @@
 package dev.nyon.skylper.asm.mixins;
 
 import dev.nyon.skylper.extensions.event.EntitySpawnEvent;
-import dev.nyon.skylper.extensions.event.EventHandler;
+import dev.nyon.skylper.extensions.event.EventInvokerKt;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,6 +20,6 @@ public class ClientLevelMixin {
         Entity entity,
         CallbackInfo ci
     ) {
-        EventHandler.INSTANCE.invokeEvent(new EntitySpawnEvent(entity));
+        EventInvokerKt.invokeEvent(new EntitySpawnEvent(entity));
     }
 }

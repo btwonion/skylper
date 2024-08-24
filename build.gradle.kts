@@ -4,11 +4,13 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "2.0.0"
-    kotlin("plugin.serialization") version "2.0.0"
+    kotlin("jvm")
+    kotlin("plugin.serialization") version "2.0.20"
     id("fabric-loom") version "1.7-SNAPSHOT"
 
     id("me.modmuss50.mod-publish-plugin") version "0.5.+"
+
+    id("com.google.devtools.ksp")
 
     `maven-publish`
     signing
@@ -59,6 +61,7 @@ repositories {
 }
 
 val transitiveInclude: Configuration by configurations.creating {
+    exclude(group = "org.jetbrains.kotlinx")
     exclude(group = "org.jetbrains.kotlin")
     exclude(group = "com.mojang")
 }
@@ -85,6 +88,8 @@ dependencies {
     }
 
     include(modImplementation("dev.nyon:konfig:2.0.2-1.20.4")!!)
+
+    compileOnly(ksp(project(":processor"))!!)
 
     val ktorVersion = "2.3.0"
     include(implementation("io.ktor:ktor-client-core:$ktorVersion")!!)

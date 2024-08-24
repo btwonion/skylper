@@ -5,7 +5,7 @@ import dev.isxander.yacl3.api.OptionDescription
 import dev.isxander.yacl3.api.OptionGroup
 import dev.isxander.yacl3.dsl.YetAnotherConfigLib
 import dev.nyon.skylper.Skylper
-import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
+import dev.nyon.skylper.extensions.event.SkylperEvent
 import dev.nyon.skylper.extensions.event.TickEvent
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.api.CrystalHollowsLocationApi
@@ -45,6 +45,7 @@ fun createLocationScreen(parent: Screen?): Screen = YetAnotherConfigLib("locatio
     }
 }.generateScreen(parent)
 
-fun registerHollowsLocationHotkey() = listenInfoEvent<TickEvent> {
+@SkylperEvent
+fun hollowsLocationKeyTickEvent(event: TickEvent) {
     if (Skylper.crystalHollowsLocationKeybinding.consumeClick()) minecraft.setScreen(createLocationScreen(null))
 }

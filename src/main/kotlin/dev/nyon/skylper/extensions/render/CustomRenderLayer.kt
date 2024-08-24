@@ -1,8 +1,8 @@
 package dev.nyon.skylper.extensions.render
 
 /*? if >1.20.5 {*/
-import dev.nyon.skylper.extensions.event.EventHandler
 import dev.nyon.skylper.extensions.event.RenderHudEvent
+import dev.nyon.skylper.extensions.event.invokeEvent
 import dev.nyon.skylper.minecraft
 //? if >=1.21
 import net.minecraft.client.DeltaTracker
@@ -14,6 +14,6 @@ object CustomRenderLayer : LayeredDraw.Layer {
         guiGraphics: GuiGraphics, /*? if >=1.21 {*/ deltaTracker: DeltaTracker /*?} else {*/ /*f: Float *//*?}*/
     ) {
         if (minecraft.gui.debugOverlay.showDebugScreen()) return
-        EventHandler.invokeEvent(RenderHudEvent(guiGraphics))
+        invokeEvent(RenderHudEvent(guiGraphics))
     }
 }/*?}*/

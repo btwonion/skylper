@@ -1,10 +1,8 @@
 package dev.nyon.skylper.skyblock.data.api
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.config.screen.registerHollowsLocationHotkey
 import dev.nyon.skylper.extensions.*
 import dev.nyon.skylper.extensions.event.*
-import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft
@@ -30,8 +28,6 @@ object CrystalHollowsLocationApi {
         CrystalHollowsChatLocation
         CrystalHollowsNameTagLocation
         CrystalHollowsSideboardLocation
-
-        registerHollowsLocationHotkey()
     }
 
     val hollowsBox = AABB(201.0, 30.0, 201.0, 824.0, 189.0, 824.0)
@@ -49,28 +45,35 @@ object CrystalHollowsLocationApi {
     private val mutex = Mutex()
     val waypoints: MutableSet<HollowsLocation> = mutableSetOf()
 
-    private val levelChangeEvent = listenInfoEvent<LevelChangeEvent> {
+    @SkylperEvent
+    fun levelChangeEvent(event: LevelChangeEvent) {
         resetWaypoints()
     }
-    private val areaChangeEvent = listenInfoEvent<AreaChangeEvent> {
+
+    @SkylperEvent
+    fun areaChangeEvent(event: AreaChangeEvent) {
         resetWaypoints()
     }
-    private val renderInWorldEvent = listenInfoEvent<RenderAfterTranslucentEvent> {
-        if (!isPlayerInHollows) return@listenInfoEvent
+
+    @SkylperEvent(area = Area.CRYSTAL_HOLLOWS)
+    fun renderInWorldEvent(event: RenderAfterTranslucentEvent) {
         mcScope.launch {
             mutex.withLock {
                 waypoints.forEach { location ->
                     if (!location.isEnabled) return@forEach
-                    location.waypoint.render(context)
+                    location.waypoint.render(event.context)
                 }
             }
         }
     }
-    private val locatedStructureEvent = listenInfoEvent<LocatedHollowsStructureEvent> {
-        if (!isPlayerInHollows) return@listenInfoEvent
-        val currentPos = minecraft.player?.position() ?: return@listenInfoEvent
+
+    @SkylperEvent(area = Area.CRYSTAL_HOLLOWS)
+    fun locatedStructureEvent(event: LocatedHollowsStructureEvent) {
+        val currentPos = minecraft.player?.position() ?: return
+        val location = event.location
         independentScope.launch {
-            mutex.withLock { // Explicitly handle Fairy Grotto
+            mutex.withLock {
+                // Explicitly handle Fairy Grotto
                 if (location.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO && waypoints.filter { it.specific == PreDefinedHollowsLocationSpecific.FAIRY_GROTTO }
                         .any { it.pos.distanceTo(currentPos) < 100 }) {
                     return@withLock
@@ -99,21 +102,20 @@ object CrystalHollowsLocationApi {
 object CrystalHollowsChatLocation {
     private val regex get() = regex("chat.hollows.location")
 
-    @Suppress("unused")
-    private val messageEvent = listenInfoEvent<MessageEvent> {
-        if (!config.mining.crystalHollows.parseLocationChats) return@listenInfoEvent
-        if (!CrystalHollowsLocationApi.isPlayerInHollows) return@listenInfoEvent
+    @SkylperEvent(area = Area.CRYSTAL_HOLLOWS)
+    fun messageEvent(event: MessageEvent) {
+        if (!config.mining.crystalHollows.parseLocationChats) return
 
-        val rawMessage = rawText.dropWhile { it != ':' }
+        val rawMessage = event.rawText.dropWhile { it != ':' }
         val loc = regex.groups(rawMessage)?.let {
             if (it.isEmpty()) return@let null
 
             return@let Vec3(
                 it[2].toDoubleOrNull() ?: 0.0, it[3].toDoubleOrNull() ?: 35.0, it[4].toDoubleOrNull() ?: 0.0
             )
-        } ?: return@listenInfoEvent
+        } ?: return
 
-        if (!CrystalHollowsLocationApi.hollowsBox.contains(loc)) return@listenInfoEvent
+        if (!CrystalHollowsLocationApi.hollowsBox.contains(loc)) return
 
         handleRawChatLocation(loc, rawMessage)
     }
@@ -128,7 +130,7 @@ object CrystalHollowsChatLocation {
 
             if (matchingSpecific != null) {
                 val hollowsLocation = HollowsLocation(pos, CreationReason.CHAT, matchingSpecific)
-                EventHandler.invokeEvent(LocatedHollowsStructureEvent(hollowsLocation))
+                invokeEvent(LocatedHollowsStructureEvent(hollowsLocation))
 
                 minecraft.player?.sendSystemMessage(
                     Component.translatable(
@@ -165,9 +167,8 @@ object CrystalHollowsNameTagLocation {
     private val balRegex get() = regex("nametag.hollows.bal")
     private val lapisKeeperRegex get() = regex("nametag.hollows.lapis_keeper")
 
-    @Suppress("unused")
-    val tickEvent = listenInfoEvent<TickEvent> {
-        if (!CrystalHollowsLocationApi.isPlayerInHollows) return@listenInfoEvent
+    @SkylperEvent(area = Area.CRYSTAL_HOLLOWS)
+    fun tickEvent(event: TickEvent) {
         var firstGuardianLocation: Vec3? = null
 
         minecraft.level?.entities?.get(minecraft.player!!.radiusBox(50)) { entity ->
@@ -238,19 +239,18 @@ object CrystalHollowsNameTagLocation {
                 else -> emptyList()
             }
 
-            location.forEach { EventHandler.invokeEvent(LocatedHollowsStructureEvent(it)) }
+            location.forEach { invokeEvent(LocatedHollowsStructureEvent(it)) }
         }
     }
 }
 
 object CrystalHollowsSideboardLocation {
-    @Suppress("unused")
-    private val sideboardUpdateEvent = listenInfoEvent<SideboardUpdateEvent> {
-        if (!CrystalHollowsLocationApi.isPlayerInHollows) return@listenInfoEvent
-        cleanLines.forEach { line ->
+    @SkylperEvent(area = Area.CRYSTAL_HOLLOWS)
+    fun sideBoardUpdateEvent(event: SideboardUpdateEvent) {
+        event.cleanLines.forEach { line ->
             val specific = PreDefinedHollowsLocationSpecific.entries.find { it.regex.matches(line) } ?: return@forEach
 
-            EventHandler.invokeEvent(
+            invokeEvent(
                 LocatedHollowsStructureEvent(
                     HollowsLocation(
                         minecraft.player!!.position(), CreationReason.SIDEBOARD, specific

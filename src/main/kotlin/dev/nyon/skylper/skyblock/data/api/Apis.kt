@@ -4,8 +4,6 @@ object Apis {
     fun init() {
         CrystalHollowsLocationApi.init()
         CrystalHollowsPowderGrindingApi
-        CrystalNucleusRunApi.init()
-        CrystalsApi.init()
         HeartOfTheMountainApi
         PetApi
         PowderApi

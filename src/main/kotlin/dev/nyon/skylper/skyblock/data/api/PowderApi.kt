@@ -2,7 +2,6 @@ package dev.nyon.skylper.skyblock.data.api
 
 import dev.nyon.skylper.extensions.doubleOrNull
 import dev.nyon.skylper.extensions.event.*
-import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.extensions.internalName
 import dev.nyon.skylper.extensions.regex
 import dev.nyon.skylper.extensions.singleGroup
@@ -50,9 +49,10 @@ object PowderApi {
         return multiplier
     }
 
-    @Suppress("unused")
-    private val powderGainListener = listenInfoEvent<PowderGainEvent> {
-        when (type) {
+    @SkylperEvent
+    fun powderGainEvent(event: PowderGainEvent) {
+        val amount = event.amount
+        when (event.type) {
             PowderType.MITHRIL -> {
                 HeartOfTheMountainApi.data.currentMithrilPowder += amount
                 HeartOfTheMountainApi.data.totalMithrilPowder += amount
@@ -70,11 +70,11 @@ object PowderApi {
         }
     }
 
-    @Suppress("unused")
-    private val tablistUpdateListener = listenInfoEvent<TablistUpdateEvent> { parsePowder(cleanLines) }
+    @SkylperEvent
+    fun tablistUpdateEvent(event: TablistUpdateEvent) { parsePowder(event.cleanLines) }
 
-    @Suppress("unused")
-    private val sideboardUpdateListener = listenInfoEvent<SideboardUpdateEvent> { parsePowder(cleanLines) }
+    @SkylperEvent
+    fun sideboardUpdateEvent(event: SideboardUpdateEvent) { parsePowder(event.cleanLines) }
 
     private val tablistMithrilPowderRegex get() = regex("tablist.mining.mithril")
     private val tablistGemstonePowderRegex get() = regex("tablist.mining.gemstone")
@@ -90,7 +90,7 @@ object PowderApi {
             gemstonePowder?.let { HeartOfTheMountainApi.data.currentGemstonePowder = it }
             glacitePowder?.let { HeartOfTheMountainApi.data.currentGlacitePowder = it }
 
-            EventHandler.invokeEvent(PowderAdjustedEvent)
+            invokeEvent(PowderAdjustedEvent)
         }
     }
 }

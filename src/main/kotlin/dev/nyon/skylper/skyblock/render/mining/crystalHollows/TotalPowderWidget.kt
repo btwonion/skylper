@@ -1,8 +1,6 @@
 package dev.nyon.skylper.skyblock.render.mining.crystalHollows
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.extensions.event.Event
-import dev.nyon.skylper.extensions.event.PowderGainEvent
 import dev.nyon.skylper.extensions.math.format
 import dev.nyon.skylper.extensions.render.hud.TableHudWidget
 import dev.nyon.skylper.extensions.render.hud.components.PlainTextHudComponent
@@ -11,7 +9,6 @@ import dev.nyon.skylper.skyblock.data.online.IslandGroups
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
-import kotlin.reflect.KClass
 
 object TotalPowderWidget :
     TableHudWidget(Component.translatable("menu.skylper.overlay.hollows.total_powder.title"), 3, 2) {
@@ -25,7 +22,6 @@ object TotalPowderWidget :
             config.mining.totalPowderOverlay.y = value.toInt()
             field = value
         }
-    override val updateTriggerEvents: List<KClass<out Event<out Any>>> = listOf(PowderGainEvent::class)
 
     override fun update() {
         super.update()

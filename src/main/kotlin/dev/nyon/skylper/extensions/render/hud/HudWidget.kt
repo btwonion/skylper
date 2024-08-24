@@ -1,12 +1,13 @@
 package dev.nyon.skylper.extensions.render.hud
 
-import dev.nyon.skylper.extensions.event.Event
-import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
+import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.minecraft
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
-import kotlin.reflect.KClass
+import kotlin.time.Duration.Companion.seconds
 
 interface HudWidget {
     companion object {
@@ -21,7 +22,6 @@ interface HudWidget {
     val height: Int
     val width: Int
     val title: Component
-    val updateTriggerEvents: List<KClass<out Event<out Any>>>
 
     /**
      * Renders the widget's background and title
@@ -52,11 +52,12 @@ interface HudWidget {
         clear()
     }
 
-    @Suppress("UNCHECKED_CAST")
     fun init() {
-        update()
-        updateTriggerEvents.map { it as KClass<out Event<Any>> }.forEach {
-            listenEvent(it) { update() }
+        independentScope.launch {
+            while (true) {
+                update()
+                delay(.5.seconds)
+            }
         }
     }
 }

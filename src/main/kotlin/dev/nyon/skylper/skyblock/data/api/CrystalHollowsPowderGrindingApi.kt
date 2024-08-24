@@ -2,9 +2,9 @@ package dev.nyon.skylper.skyblock.data.api
 
 import dev.nyon.skylper.extensions.doubleOrNull
 import dev.nyon.skylper.extensions.event.*
-import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.extensions.regex
 import dev.nyon.skylper.extensions.singleGroup
+import dev.nyon.skylper.skyblock.models.Area
 import dev.nyon.skylper.skyblock.models.mining.PowderType
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.ChestReward
 import dev.nyon.skylper.skyblock.tracker.mining.crystalHollows.powder.PowderGrindingTracker.data
@@ -23,14 +23,14 @@ object CrystalHollowsPowderGrindingApi {
         ChestReward.MITHRIL_POWDER to PowderType.MITHRIL, ChestReward.GEMSTONE_POWDER to PowderType.GEMSTONE
     )
 
-    @Suppress("unused")
-    private val chatListener = listenInfoEvent<MessageEvent> {
-        if (!CrystalHollowsLocationApi.isPlayerInHollows) return@listenInfoEvent
+    @SkylperEvent(area = Area.CRYSTAL_HOLLOWS)
+    fun chatListener(event: MessageEvent) {
+        val rawText = event.rawText
         val now = Clock.System.now()
         when {
             powderStartedPattern.matches(rawText) -> doublePowderActive = true
             powderEndedPattern.matches(rawText) -> doublePowderActive = false
-            pickedLockPattern.matches(rawText) -> EventHandler.invokeEvent(TreasureChestPickEvent)
+            pickedLockPattern.matches(rawText) -> invokeEvent(TreasureChestPickEvent)
         }
 
         val rewards = ChestReward.entries.associateWith { reward ->
@@ -41,20 +41,19 @@ object CrystalHollowsPowderGrindingApi {
             amount
         }.toMutableMap().filter { it.value != 0 }
 
-        EventHandler.invokeEvent(TreasureChestRewardsEvent(rewards))
+        invokeEvent(TreasureChestRewardsEvent(rewards))
 
         rewards.forEach { (reward, amount) ->
             if (!chestRewardToPowderType.containsKey(reward)) return@forEach
             val type = chestRewardToPowderType[reward] ?: return@forEach
             val fixedAmount = amount * PowderApi.getPowderMultiplier(type)
-            EventHandler.invokeEvent(PowderGainEvent(type, fixedAmount.toInt()))
+            invokeEvent(PowderGainEvent(type, fixedAmount.toInt()))
         }
     }
 
-    @Suppress("unused")
-    private val bossBarListener = listenInfoEvent<BossBarNameUpdate> {
-        if (!CrystalHollowsLocationApi.isPlayerInHollows) return@listenInfoEvent
-        if (!powderBossBarPattern.matches(rawText)) return@listenInfoEvent
+    @SkylperEvent(area = Area.CRYSTAL_HOLLOWS)
+    fun bossBarListener(event: BossBarNameUpdate) {
+        if (!powderBossBarPattern.matches(event.rawText)) return
         data.doublePowderActive = true
     }
 }

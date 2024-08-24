@@ -1,7 +1,7 @@
 package dev.nyon.skylper.asm.mixins;
 
 import dev.nyon.skylper.extensions.event.BlockInteractEvent;
-import dev.nyon.skylper.extensions.event.EventHandler;
+import dev.nyon.skylper.extensions.event.EventInvokerKt;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.InteractionHand;
@@ -25,6 +25,6 @@ public class MultiPlayerGameModeMixin {
         BlockHitResult result,
         CallbackInfoReturnable<InteractionResult> cir
     ) {
-        EventHandler.INSTANCE.invokeEvent(new BlockInteractEvent(result));
+        EventInvokerKt.invokeEvent(new BlockInteractEvent(result));
     }
 }
