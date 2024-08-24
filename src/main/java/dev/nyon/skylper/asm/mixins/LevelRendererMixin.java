@@ -1,6 +1,6 @@
 package dev.nyon.skylper.asm.mixins;
 
-import dev.nyon.skylper.extensions.event.EventHandler;
+import dev.nyon.skylper.extensions.event.EventInvokerKt;
 import dev.nyon.skylper.extensions.event.LevelChangeEvent;
 import dev.nyon.skylper.extensions.event.ParticleSpawnEvent;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -32,7 +32,7 @@ public class LevelRendererMixin {
         double zSpeed,
         CallbackInfo ci
     ) {
-        EventHandler.INSTANCE.invokeEvent(new ParticleSpawnEvent(options,
+        EventInvokerKt.invokeEvent(new ParticleSpawnEvent(options,
             new Vec3(x, y, z),
             xSpeed,
             ySpeed,
@@ -50,6 +50,6 @@ public class LevelRendererMixin {
         ClientLevel level,
         CallbackInfo ci
     ) {
-        EventHandler.INSTANCE.invokeEvent(new LevelChangeEvent(level));
+        EventInvokerKt.invokeEvent(new LevelChangeEvent(level));
     }
 }

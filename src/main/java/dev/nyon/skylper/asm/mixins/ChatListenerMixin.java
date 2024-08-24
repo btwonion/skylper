@@ -1,7 +1,7 @@
 package dev.nyon.skylper.asm.mixins;
 
 import dev.nyon.skylper.extensions.StringKt;
-import dev.nyon.skylper.extensions.event.EventHandler;
+import dev.nyon.skylper.extensions.event.EventInvokerKt;
 import dev.nyon.skylper.extensions.event.MessageEvent;
 import net.minecraft.client.multiplayer.chat.ChatListener;
 import net.minecraft.network.chat.Component;
@@ -23,6 +23,6 @@ public class ChatListenerMixin {
         CallbackInfo ci
     ) {
         String rawMessage = StringKt.clean(message.getString());
-        EventHandler.INSTANCE.invokeEvent(new MessageEvent(message, rawMessage));
+        EventInvokerKt.invokeEvent(new MessageEvent(message, rawMessage));
     }
 }

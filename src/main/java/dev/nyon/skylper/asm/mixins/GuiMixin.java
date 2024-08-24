@@ -33,7 +33,8 @@ public abstract class GuiMixin {
 }
 
     /*?} else {*/
-/*import dev.nyon.skylper.extensions.event.EventHandler;
+/*
+import dev.nyon.skylper.extensions.event.EventInvokerKt;
 import dev.nyon.skylper.extensions.event.RenderHudEvent;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
@@ -67,7 +68,7 @@ public abstract class GuiMixin {
         CallbackInfo callbackInfo
     ) {
         if (getDebugOverlay().showDebugScreen()) return;
-        EventHandler.INSTANCE.invokeEvent(new RenderHudEvent(drawContext));
+        EventInvokerKt.invokeEvent(new RenderHudEvent(drawContext));
     }
 }
 *//*?}*/

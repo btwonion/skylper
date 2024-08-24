@@ -1,7 +1,7 @@
 package dev.nyon.skylper.asm.mixins;
 
 import dev.nyon.skylper.extensions.StringKt;
-import dev.nyon.skylper.extensions.event.EventHandler;
+import dev.nyon.skylper.extensions.event.EventInvokerKt;
 import dev.nyon.skylper.extensions.event.RenderItemBackgroundEvent;
 import dev.nyon.skylper.extensions.event.ScreenOpenEvent;
 import net.minecraft.client.gui.GuiGraphics;
@@ -41,7 +41,7 @@ public abstract class AbstractContainerScreenMixin extends Screen {
         leftPos = (this.width - imageWidth) / 2;
         topPos = (this.height - imageHeight) / 2;
 
-        EventHandler.INSTANCE.invokeEvent(new ScreenOpenEvent((AbstractContainerScreen) (Object) this));
+        EventInvokerKt.invokeEvent(new ScreenOpenEvent((AbstractContainerScreen) (Object) this));
     }
 
     @Inject(
@@ -58,7 +58,7 @@ public abstract class AbstractContainerScreenMixin extends Screen {
     ) {
         String rawTitle = StringKt.clean(title.getString());
 
-        Integer callback = EventHandler.INSTANCE.invokeEvent(new RenderItemBackgroundEvent(title, rawTitle, slot));
+        Integer callback = EventInvokerKt.invokeEvent(new RenderItemBackgroundEvent(title, rawTitle, slot));
         if (callback == null) return;
         guiGraphics.fill(slot.x, slot.y, slot.x + 16, slot.y + 16, callback);
     }

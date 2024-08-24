@@ -1,13 +1,14 @@
 package dev.nyon.skylper.skyblock.render.mining.crystalHollows
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.extensions.event.ParticleSpawnEvent
+import dev.nyon.skylper.extensions.event.SkylperEvent
 import dev.nyon.skylper.extensions.render.renderFilled
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.api.CrystalHollowsLocationApi
+import dev.nyon.skylper.skyblock.models.Area
 import dev.nyon.skylper.skyblock.render.Highlighter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -24,23 +25,19 @@ object ChestParticleHighlighter : Highlighter {
     private val particlePositions = mutableMapOf<Vec3, Instant>()
     private val mutex = Mutex()
 
-    @Suppress("unused")
-    private val particleSpawnEvent = listenInfoEvent<ParticleSpawnEvent> {
-        if (!CrystalHollowsLocationApi.isPlayerInHollows) return@listenInfoEvent
-        if (!config.mining.crystalHollows.chestLockHighlight) return@listenInfoEvent
-        if (options.type != ParticleTypes.CRIT || xSpeed != 0.0 || ySpeed != 0.0 || zSpeed != 0.0) {
-            return@listenInfoEvent
-        }
-        val distance = minecraft.player?.position()?.distanceTo(pos)
-        if (distance == null || distance > 5.0) return@listenInfoEvent
+    @SkylperEvent(area = Area.CRYSTAL_HOLLOWS)
+    fun particleSpawnEvent(event: ParticleSpawnEvent) {
+        if (!config.mining.crystalHollows.chestLockHighlight) return
+        if (event.options.type != ParticleTypes.CRIT || event.xSpeed != 0.0 || event.ySpeed != 0.0 || event.zSpeed != 0.0) return
+        val distance = minecraft.player?.position()?.distanceTo(event.pos)
+        if (distance == null || distance > 5.0) return
         independentScope.launch {
             mutex.withLock {
-                particlePositions[pos] = Clock.System.now()
+                particlePositions[event.pos] = Clock.System.now()
             }
         }
     }
 
-    @Suppress("unused")
     override fun render(context: WorldRenderContext) {
         if (!CrystalHollowsLocationApi.isPlayerInHollows) return
         if (!config.mining.crystalHollows.chestLockHighlight) return

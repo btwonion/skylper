@@ -1,9 +1,9 @@
 package dev.nyon.skylper.skyblock.cooldowns
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.extensions.event.MessageEvent
 import dev.nyon.skylper.extensions.event.SkyblockEnterEvent
+import dev.nyon.skylper.extensions.event.SkylperEvent
 import dev.nyon.skylper.extensions.internalName
 import dev.nyon.skylper.extensions.regex
 import dev.nyon.skylper.mcScope
@@ -37,8 +37,8 @@ object MiningCooldown : Cooldown {
         return ToolGroups.groups.mining.contains(stack.internalName)
     }
 
-    @Suppress("unused")
-    private val skyblockJoin = listenInfoEvent<SkyblockEnterEvent> {
+    @SkylperEvent
+    fun skyblockEnterEvent(event: SkyblockEnterEvent) {
         val now = Clock.System.now()
         mcScope.launch {
             delay(3.seconds)
@@ -47,16 +47,16 @@ object MiningCooldown : Cooldown {
         }
     }
 
-    @Suppress("unused")
-    private val listenChat = listenInfoEvent<MessageEvent> {
-        if (abilityUsedRegex.matches(rawText)) {
+    @SkylperEvent
+    fun messageEvent(event: MessageEvent) {
+        if (abilityUsedRegex.matches(event.rawText)) {
             abilityUsed()
-            return@listenInfoEvent
+            return
         }
 
-        if (abilityAvailable.matches(rawText)) {
+        if (abilityAvailable.matches(event.rawText)) {
             abilityAvailable()
-            return@listenInfoEvent
+            return
         }
     }
 
@@ -66,14 +66,12 @@ object MiningCooldown : Cooldown {
             if (config.mining.miningAbilityNotificationOnMiningIslands && !IslandGroups.groups.mining.contains(
                     PlayerSessionData.currentArea
                 )
-            ) {
-                return
-            }
+            ) return
             minecraft.gui.setTitle(Component.literal("T")
                 .withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) }
                 .append(Component.literal(" Pickaxe Ability available ")
-                    .withStyle { it.withObfuscated(false).withColor(ChatFormatting.AQUA).withBold(true) }).append(
-                    Component.literal("T").withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) })
+                    .withStyle { it.withObfuscated(false).withColor(ChatFormatting.AQUA).withBold(true) })
+                .append(Component.literal("T").withStyle { it.withObfuscated(true).withColor(ChatFormatting.WHITE) })
             )
         }
     }

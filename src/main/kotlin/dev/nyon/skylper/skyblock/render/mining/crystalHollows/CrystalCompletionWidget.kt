@@ -1,13 +1,11 @@
 package dev.nyon.skylper.skyblock.render.mining.crystalHollows
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.extensions.event.*
 import dev.nyon.skylper.extensions.render.hud.TableHudWidget
 import dev.nyon.skylper.extensions.render.hud.components.PlainTextHudComponent
 import dev.nyon.skylper.skyblock.data.api.CrystalHollowsLocationApi
 import dev.nyon.skylper.skyblock.data.api.CrystalsApi
 import net.minecraft.network.chat.Component
-import kotlin.reflect.KClass
 
 object CrystalCompletionWidget : TableHudWidget(
     Component.translatable("menu.skylper.hollows.tabhud.crystals.title"), 5, 2
@@ -22,13 +20,6 @@ object CrystalCompletionWidget : TableHudWidget(
             config.mining.crystalHollows.crystalOverlay.y = value.toInt()
             field = value
         }
-    override val updateTriggerEvents: List<KClass<out Event<out Any>>> = listOf(
-        CrystalFoundEvent::class,
-        CrystalPlaceEvent::class,
-        NucleusRunCompleteEvent::class,
-        LevelChangeEvent::class,
-        CrystalStateUpdateEvent::class
-    )
 
     override fun update() {
         super.update()

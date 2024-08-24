@@ -1,6 +1,6 @@
 package dev.nyon.skylper.asm.mixins;
 
-import dev.nyon.skylper.extensions.event.EventHandler;
+import dev.nyon.skylper.extensions.event.EventInvokerKt;
 import dev.nyon.skylper.extensions.event.HypixelJoinEvent;
 import dev.nyon.skylper.extensions.event.HypixelQuitEvent;
 import net.minecraft.network.Connection;
@@ -38,7 +38,7 @@ public class ConnectionMixin {
         if (!(address instanceof InetSocketAddress inetSocketAddress)) return;
         if (!inetSocketAddress.getHostName()
             .contains("hypixel.net")) return;
-        EventHandler.INSTANCE.invokeEvent(HypixelJoinEvent.INSTANCE);
+        EventInvokerKt.invokeEvent(HypixelJoinEvent.INSTANCE);
     }
 
     @Inject(
@@ -49,6 +49,6 @@ public class ConnectionMixin {
         Component message,
         CallbackInfo ci
     ) {
-        EventHandler.INSTANCE.invokeEvent(HypixelQuitEvent.INSTANCE);
+        EventInvokerKt.invokeEvent(HypixelQuitEvent.INSTANCE);
     }
 }

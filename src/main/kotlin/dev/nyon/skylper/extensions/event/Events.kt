@@ -1,5 +1,6 @@
 package dev.nyon.skylper.extensions.event
 
+import dev.nyon.skylper.skyblock.models.Area
 import dev.nyon.skylper.skyblock.models.mining.PowderType
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.ChestReward
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.Crystal
@@ -36,7 +37,7 @@ object TickEvent : InfoEvent
 /**
  * Is invoked, when player warps to another island or logs onto Skyblock.
  */
-data class AreaChangeEvent(val previous: String?, val next: String?) : InfoEvent
+data class AreaChangeEvent(val previous: Area?, val next: Area?) : InfoEvent
 
 /**
  * Is invoked, when player switches profiles.

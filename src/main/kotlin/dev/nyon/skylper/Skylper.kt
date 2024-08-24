@@ -7,19 +7,15 @@ import dev.nyon.konfig.config.saveConfig
 import dev.nyon.skylper.config.Config
 import dev.nyon.skylper.config.configDir
 import dev.nyon.skylper.config.configJsonBuilder
-import dev.nyon.skylper.extensions.event.EventHandler
 import dev.nyon.skylper.extensions.event.FabricEvents
 import dev.nyon.skylper.extensions.event.MinecraftStopEvent
-import dev.nyon.skylper.skyblock.data.api.Apis
+import dev.nyon.skylper.extensions.event.SkylperEvent
 import dev.nyon.skylper.skyblock.data.online.OnlineData
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
 import dev.nyon.skylper.skyblock.data.skylper.PlayerDataSaver
 import dev.nyon.skylper.skyblock.data.skylper.StoredPlayerData
 import dev.nyon.skylper.skyblock.data.skylper.playerData
-import dev.nyon.skylper.skyblock.menu.Menu
-import dev.nyon.skylper.skyblock.misc.Misc
 import dev.nyon.skylper.skyblock.registerRootCommand
-import dev.nyon.skylper.skyblock.render.Render
 import kotlinx.coroutines.*
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper
@@ -50,8 +46,6 @@ object Skylper : ClientModInitializer {
         mcDispatcher = minecraft.asCoroutineDispatcher()
         mcScope = CoroutineScope(SupervisorJob() + mcDispatcher)
 
-        handleStop()
-
         config(
             configDir.resolve("skylper.json"), 1, Config(), configJsonBuilder::invoke
         ) { _, _ -> null }
@@ -72,18 +66,11 @@ object Skylper : ClientModInitializer {
         registerRootCommand()
 
         FabricEvents.listenForFabricEvents()
-
-        Render.init()
-
-        Apis.init()
-        Menu.init()
-        Misc.init()
     }
 
-    private fun handleStop() {
-        EventHandler.listenInfoEvent<MinecraftStopEvent> {
-            saveConfig(internalConfig)
-            saveConfig(playerData)
-        }
+    @SkylperEvent
+    fun handleStop(event: MinecraftStopEvent) {
+        saveConfig(internalConfig)
+        saveConfig(playerData)
     }
 }

@@ -1,8 +1,8 @@
 package dev.nyon.skylper.skyblock.menu.collections
 
 import dev.nyon.skylper.config.config
-import dev.nyon.skylper.extensions.event.EventHandler.listenEvent
 import dev.nyon.skylper.extensions.event.RenderItemBackgroundEvent
+import dev.nyon.skylper.extensions.event.SkylperEvent
 import dev.nyon.skylper.extensions.lore
 import dev.nyon.skylper.extensions.regex
 
@@ -11,16 +11,16 @@ object MinionCompletionHighlighter {
     private val clickToViewRecipesRegex get() = regex("menu.collections.clickToViewRecipes")
     private val minionUncompletedRegex get() = regex("menu.collections.minionUncompleted")
 
-    @Suppress("unused")
-    val renderItemBackgroundEvent = listenEvent<RenderItemBackgroundEvent, Int?> {
-        if (!config.menu.collections.highlightNonCompletedCollections) return@listenEvent null
-        if (craftedMinionsRegex.matches(rawTitle)) {
-            val lore = slot.item.lore.map { it.string }
-            if (lore.none { clickToViewRecipesRegex.matches(it) }) return@listenEvent null
-            if (lore.none { minionUncompletedRegex.matches(it) }) return@listenEvent null
-            return@listenEvent config.menu.collections.nonCompletedCollectionHighlightColor.rgb
+    @SkylperEvent
+    fun renderItemBackgroundEvent(event: RenderItemBackgroundEvent): Int? {
+        if (!config.menu.collections.highlightNonCompletedCollections) return null
+        if (craftedMinionsRegex.matches(event.rawTitle)) {
+            val lore = event.slot.item.lore.map { it.string }
+            if (lore.none { clickToViewRecipesRegex.matches(it) }) return null
+            if (lore.none { minionUncompletedRegex.matches(it) }) return null
+            return config.menu.collections.nonCompletedCollectionHighlightColor.rgb
         }
 
-        null
+        return null
     }
 }

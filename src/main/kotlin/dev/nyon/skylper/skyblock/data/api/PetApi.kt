@@ -1,10 +1,10 @@
 package dev.nyon.skylper.skyblock.data.api
 
 import dev.nyon.skylper.extensions.*
-import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.extensions.event.MessageEvent
 import dev.nyon.skylper.extensions.event.ScreenOpenEvent
 import dev.nyon.skylper.extensions.event.SetItemEvent
+import dev.nyon.skylper.extensions.event.SkylperEvent
 import dev.nyon.skylper.skyblock.data.skylper.currentProfile
 import dev.nyon.skylper.skyblock.models.Pet
 
@@ -16,8 +16,9 @@ object PetApi {
     private val autoPetRegex get() = regex("chat.general.pet.autopet")
     private val levelUpRegex get() = regex("chat.general.pet.levelup")
 
-    @Suppress("unused")
-    private val messageListener = listenInfoEvent<MessageEvent> {
+    @SkylperEvent
+    fun messageEvent(event: MessageEvent) {
+        val rawText = event.rawText
         summonedPetRegex.singleGroup(rawText)?.let { foundName ->
             petFound(foundName, null)
         }
@@ -46,18 +47,18 @@ object PetApi {
     private val petTitleRegex get() = regex("menu.pets.title")
     private val petNameRegex get() = regex("menu.pets.name")
 
-    @Suppress("unused")
-    private val initPetsScreenListener = listenInfoEvent<ScreenOpenEvent> {
-        if (petTitleRegex.matches(screen.title.string.clean())) pets.clear()
+    @SkylperEvent
+    fun screenOpenEvent(event: ScreenOpenEvent) {
+        if (petTitleRegex.matches(event.screen.title.string.clean())) pets.clear()
     }
 
-    @Suppress("unused")
-    private val setItemListener = listenInfoEvent<SetItemEvent> {
-        if (!petTitleRegex.matches(rawScreenTitle)) return@listenInfoEvent
-        val itemName = itemStack.nameAsString
-        val level = petNameRegex.singleGroup(itemName)?.toIntOrNull() ?: return@listenInfoEvent
-        val petInfo = itemStack.compoundTag?.getString("petInfo") ?: return@listenInfoEvent
-        val pet = kotlin.runCatching { json.decodeFromString<Pet>(petInfo) }.getOrNull() ?: return@listenInfoEvent
+    @SkylperEvent
+    fun setItemEvent(event: SetItemEvent) {
+        if (!petTitleRegex.matches(event.rawScreenTitle)) return
+        val itemName = event.itemStack.nameAsString
+        val level = petNameRegex.singleGroup(itemName)?.toIntOrNull() ?: return
+        val petInfo = event.itemStack.compoundTag?.getString("petInfo") ?: return
+        val pet = kotlin.runCatching { json.decodeFromString<Pet>(petInfo) }.getOrNull() ?: return
         if (pet.active) currentPet = pet
         pet.level = level
         pets.add(pet)

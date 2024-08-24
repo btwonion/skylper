@@ -3,7 +3,6 @@ package dev.nyon.skylper.skyblock.tracker.mining.crystalHollows.powder
 import dev.nyon.skylper.config.Config
 import dev.nyon.skylper.extensions.Symbols
 import dev.nyon.skylper.extensions.event.*
-import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.extensions.tracker.Tracker
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.skyblock.data.api.CrystalHollowsLocationApi
@@ -15,7 +14,6 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
-import kotlin.reflect.KClass
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 import dev.nyon.skylper.config.config as overallConfig
@@ -31,24 +29,19 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
     private val config: Config.CrystalHollowsConfig.GrindingOverlay
         get() = overallConfig.mining.crystalHollows.powderGrindingOverlay
 
-    @Suppress("unused")
-    private val treasureChestPickEvent = listenInfoEvent<TreasureChestPickEvent> {
+    @SkylperEvent
+    fun treasureChestPickEvent(event: TreasureChestPickEvent) {
         val now = Clock.System.now()
         if (startTime == null) startTime = now
         lastChestOpened = now
         data.chest.updateByIncrease(1, this@PowderGrindingTracker)
     }
 
-    @Suppress("unused")
-    private val treasureChestRewardsEvent = listenInfoEvent<TreasureChestRewardsEvent> {
-        if (startTime == null) startTime = Clock.System.now()
-    }
-
-    @Suppress("unused")
-    private val powderGainEvent = listenInfoEvent<PowderGainEvent> {
-        when (type) {
-            PowderType.MITHRIL -> data.mithril.updateByIncrease(amount, this@PowderGrindingTracker)
-            PowderType.GEMSTONE -> data.gemstone.updateByIncrease(amount, this@PowderGrindingTracker)
+    @SkylperEvent
+    fun powderGainRewardEvent(event: PowderGainEvent) {
+        when (event.type) {
+            PowderType.MITHRIL -> data.mithril.updateByIncrease(event.amount, this@PowderGrindingTracker)
+            PowderType.GEMSTONE -> data.gemstone.updateByIncrease(event.amount, this@PowderGrindingTracker)
             else -> {}
         }
     }
@@ -105,9 +98,6 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
             config.y = value.toInt()
             field = value
         }
-
-    override val updateTriggerEvents: List<KClass<out Event<out Any>>> =
-        listOf(BossBarNameUpdate::class, MessageEvent::class)
 
     override fun shouldRender(): Boolean {
         return CrystalHollowsLocationApi.isPlayerInHollows && overallConfig.mining.crystalHollows.powderGrindingOverlay.enabled && isGrinding

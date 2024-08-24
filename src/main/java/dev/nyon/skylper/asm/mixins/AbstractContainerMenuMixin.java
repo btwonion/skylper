@@ -1,7 +1,7 @@
 package dev.nyon.skylper.asm.mixins;
 
 import dev.nyon.skylper.extensions.StringKt;
-import dev.nyon.skylper.extensions.event.EventHandler;
+import dev.nyon.skylper.extensions.event.EventInvokerKt;
 import dev.nyon.skylper.extensions.event.InventoryInitEvent;
 import dev.nyon.skylper.extensions.event.SetItemEvent;
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData;
@@ -33,7 +33,7 @@ public class AbstractContainerMenuMixin {
         String rawTitle = StringKt.clean(screen.getTitle()
             .getString());
 
-        EventHandler.INSTANCE.invokeEvent(new SetItemEvent(stack, rawTitle));
+        EventInvokerKt.invokeEvent(new SetItemEvent(stack, rawTitle));
     }
 
     @Inject(
@@ -46,6 +46,6 @@ public class AbstractContainerMenuMixin {
         ItemStack carried,
         CallbackInfo ci
     ) {
-        EventHandler.INSTANCE.invokeEvent(new InventoryInitEvent(items));
+        EventInvokerKt.invokeEvent(new InventoryInitEvent(items));
     }
 }

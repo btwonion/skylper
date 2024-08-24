@@ -2,7 +2,7 @@ package dev.nyon.skylper.asm.mixins;
 
 import dev.nyon.skylper.extensions.event.BlockBreakEvent;
 import dev.nyon.skylper.extensions.event.BlockUpdateEvent;
-import dev.nyon.skylper.extensions.event.EventHandler;
+import dev.nyon.skylper.extensions.event.EventInvokerKt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
@@ -26,7 +26,7 @@ public class LevelMixin {
         int recursionLeft,
         CallbackInfoReturnable<Boolean> cir
     ) {
-        EventHandler.INSTANCE.invokeEvent(new BlockUpdateEvent(pos, state));
+        EventInvokerKt.invokeEvent(new BlockUpdateEvent(pos, state));
     }
 
     @Inject(
@@ -40,6 +40,6 @@ public class LevelMixin {
         int recursionLeft,
         CallbackInfoReturnable<Boolean> cir
     ) {
-        EventHandler.INSTANCE.invokeEvent(new BlockBreakEvent(pos));
+        EventInvokerKt.invokeEvent(new BlockBreakEvent(pos));
     }
 }

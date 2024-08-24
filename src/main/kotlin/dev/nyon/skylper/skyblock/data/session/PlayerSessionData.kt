@@ -2,11 +2,10 @@ package dev.nyon.skylper.skyblock.data.session
 
 import dev.nyon.skylper.extensions.*
 import dev.nyon.skylper.extensions.event.*
-import dev.nyon.skylper.extensions.event.EventHandler.invokeEvent
-import dev.nyon.skylper.extensions.event.EventHandler.listenInfoEvent
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft
+import dev.nyon.skylper.skyblock.models.Area
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
@@ -21,7 +20,7 @@ object PlayerSessionData {
     var scoreboardLines = emptyList<Component>()
     var scoreboardLineStrings = emptyList<String>()
 
-    var currentArea: String? = null
+    var currentArea: Area? = null
     var currentZone: String? = null
 
     var profile: String? = null
@@ -62,7 +61,8 @@ object PlayerSessionData {
         invokeEvent(TablistUpdateEvent(onlinePlayers.mapNotNull { it.tabListDisplayName }, lines))
         mcScope.launch {
             lines.forEach { line ->
-                val area = areaRegex.singleGroup(line) ?: return@forEach
+                if (!areaRegex.matches(line)) return@forEach
+                val area = Area.entries.find { it.getRegex().matches(line) } ?: return@forEach
                 if (area != currentArea) {
                     invokeEvent(AreaChangeEvent(currentArea, area))
                     currentArea = area
@@ -101,27 +101,27 @@ object PlayerSessionData {
         }
     }
 
-    @Suppress("unused")
-    private val hypixelJoinEvent = listenInfoEvent<HypixelJoinEvent> {
+    @SkylperEvent
+    fun hypixelJoinEvent(event: HypixelJoinEvent) {
         isOnHypixel = true
     }
 
-    @Suppress("unused")
-    private val hypixelQuitEvent = listenInfoEvent<HypixelQuitEvent> {
+    @SkylperEvent
+    fun hypixelQuitEvent(event: HypixelQuitEvent) {
         clearData(true)
     }
 
-    @Suppress("unused")
-    private val screenUpdateEvent = listenInfoEvent<ScreenOpenEvent> {
-        currentScreen = screen
+    @SkylperEvent
+    fun screenOpenEvent(event: ScreenOpenEvent) {
+        currentScreen = event.screen
     }
 
     private val profileRegex get() = regex("chat.general.profile")
 
-    @Suppress("unused")
-    private val messageEvent = listenInfoEvent<MessageEvent> {
-        if (profileRegex.matches(rawText)) {
-            profile = profileRegex.singleGroup(rawText)
+    @SkylperEvent
+    fun messageEvent(event: MessageEvent) {
+        if (profileRegex.matches(event.rawText)) {
+            profile = profileRegex.singleGroup(event.rawText)
             invokeEvent(ProfileChangeEvent(null, profile))
         }
     }
