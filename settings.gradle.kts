@@ -37,4 +37,4 @@ extensions.configure<StonecutterSettings> {
     create(rootProject)
 }
 
-include(":processor")
+include(":annotation-processor")

@@ -89,7 +89,7 @@ dependencies {
 
     include(modImplementation("dev.nyon:konfig:2.0.2-1.20.4")!!)
 
-    compileOnly(ksp(project(":processor"))!!)
+    compileOnly(ksp(project(":annotation-processor"))!!)
 
     val ktorVersion = "2.3.0"
     include(implementation("io.ktor:ktor-client-core:$ktorVersion")!!)
