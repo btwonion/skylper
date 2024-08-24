@@ -10,6 +10,7 @@ class EventProcessor(private val codeGenerator: CodeGenerator, private val logge
     override fun process(resolver: Resolver): List<KSAnnotated> {
         val symbols = resolver.getSymbolsWithAnnotation(skylperEventPath).filterIsInstance<KSFunctionDeclaration>()
 
+        logger.warn("Found ${symbols.toList().size} to process!")
         if (!symbols.iterator().hasNext()) return emptyList()
 
         val file = codeGenerator.createNewFile(
@@ -28,7 +29,7 @@ class EventProcessor(private val codeGenerator: CodeGenerator, private val logge
                 import dev.nyon.skylper.skyblock.models.Area
                 
                 object LoadedEvents {
-                    val events = setOf(
+                val events = setOf(
                 
             """.trimIndent()
             )

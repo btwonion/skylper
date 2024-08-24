@@ -13,11 +13,10 @@ plugins {
     id("com.google.devtools.ksp")
 
     `maven-publish`
-    signing
 }
 
-val beta: Int? = 31 // Pattern is '1.0.0-beta1-1.20.6-pre.2'
-val featureVersion = "1.0.0${if (beta != null) "-beta$beta" else ""}"
+val beta: Int = 31 // Pattern is '1.0.0-beta1-1.20.6-pre.2'; when beta == 0 beta is null
+val featureVersion = "1.0.0${if (beta != 0) "-beta$beta" else ""}"
 val mcVersion = property("mcVersion")!!.toString()
 val mcVersionRange = property("mcVersionRange")!!.toString()
 val awVersion = if (stonecutter.compare(mcVersion, "1.21") >= 0) "1.21" else "1.20"
@@ -124,7 +123,6 @@ tasks {
         }
     }
 
-
     register("releaseMod") {
         group = "publishing"
 
@@ -137,6 +135,10 @@ tasks {
     }
 
     withType<KotlinCompile> {
+        inputs.files(
+            (project.file("../../src/main/kotlin/dev/nyon/skylper/extensions/event/").listFiles()?.map { it.path }
+                ?: emptyList()).toTypedArray())
+
         compilerOptions {
             jvmTarget = JvmTarget.fromTarget(javaVersion)
         }
@@ -145,8 +147,8 @@ tasks {
 
 val changelogText = buildString {
     append("# v${project.version}\n")
-    if (beta != null) append("### As this is still a beta version, this version can contain bugs. Feel free to report ANY misbehaviours and errors!")
-    rootProject.file("${if (beta != null) "beta-" else ""}changelog.md").readText().also { append(it) }
+    if (beta != 0) append("### As this is still a beta version, this version can contain bugs. Feel free to report ANY misbehaviours and errors!")
+    rootProject.file("${if (beta != 0) "beta-" else ""}changelog.md").readText().also { append(it) }
 }
 
 val supportedMcVersions: List<String> =
@@ -155,7 +157,7 @@ publishMods {
     displayName = "v${project.version}"
     file = tasks.remapJar.get().archiveFile
     changelog = changelogText
-    type = if (beta != null) BETA else STABLE
+    type = if (beta != 0) BETA else STABLE
     modLoaders.addAll("fabric", "quilt")
 
     modrinth {
@@ -205,9 +207,3 @@ java {
         targetCompatibility = it
     }
 }
-
-/*
-signing {
-    sign(publishing.publications)
-}
- */
