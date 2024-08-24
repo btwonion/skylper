@@ -1,8 +1,10 @@
 package dev.nyon.skylper.skyblock.data.api
 
 import dev.nyon.skylper.extensions.*
+import dev.nyon.skylper.extensions.event.CrystalStateUpdateEvent
 import dev.nyon.skylper.extensions.event.SetItemEvent
 import dev.nyon.skylper.extensions.event.SkylperEvent
+import dev.nyon.skylper.extensions.event.invokeEvent
 import dev.nyon.skylper.skyblock.data.skylper.currentProfile
 import dev.nyon.skylper.skyblock.models.mining.HeartOfTheMountain
 import dev.nyon.skylper.skyblock.models.mining.crystalHollows.Crystal
@@ -60,7 +62,7 @@ object HeartOfTheMountainApi {
                         else -> CrystalState.PLACED
                     }
                 }
-                EventHandler.invokeEvent(CrystalStateUpdateEvent)
+                invokeEvent(CrystalStateUpdateEvent)
             }
 
             name.matches(resetHotmRegex) -> {
