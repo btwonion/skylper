@@ -12,7 +12,6 @@ import net.minecraft.network.chat.Component
 import kotlin.reflect.KClass
 
 data class PowderGrindingData(
-    var doublePowderActive: Boolean = false,
     var gemstone: ResourceData = ResourceData(),
     var mithril: ResourceData = ResourceData(),
     var chest: ResourceData = ResourceData()
@@ -76,7 +75,6 @@ data class PowderGrindingData(
     override val resetTriggers: List<KClass<out Event<out Any>>> = listOf(LevelChangeEvent::class)
 
     override fun reset() {
-        doublePowderActive = false
         gemstone = ResourceData()
         mithril = ResourceData()
         chest = ResourceData()

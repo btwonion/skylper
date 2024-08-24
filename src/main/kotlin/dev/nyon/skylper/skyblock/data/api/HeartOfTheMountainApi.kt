@@ -60,6 +60,7 @@ object HeartOfTheMountainApi {
                         else -> CrystalState.PLACED
                     }
                 }
+                EventHandler.invokeEvent(CrystalStateUpdateEvent)
             }
 
             name.matches(resetHotmRegex) -> {

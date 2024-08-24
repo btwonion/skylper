@@ -6,6 +6,7 @@ import dev.nyon.skylper.extensions.event.*
 import dev.nyon.skylper.extensions.tracker.Tracker
 import dev.nyon.skylper.independentScope
 import dev.nyon.skylper.skyblock.data.api.CrystalHollowsLocationApi
+import dev.nyon.skylper.skyblock.data.api.CrystalHollowsPowderGrindingApi
 import dev.nyon.skylper.skyblock.models.mining.PowderType
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -79,7 +80,7 @@ object PowderGrindingTracker : Tracker<PowderGrindingData>("hollows.powder_grind
             if (config.doublePowder) {
                 add(
                     finalComponent("double_powder",
-                        Component.literal(if (data.doublePowderActive) Symbols.CHECK_MARK else Symbols.CROSS)
+                        Component.literal(if (CrystalHollowsPowderGrindingApi.doublePowderActive) Symbols.CHECK_MARK else Symbols.CROSS)
                             .withStyle { it.withBold(true).withColor(ChatFormatting.WHITE) })
                 )
             }
