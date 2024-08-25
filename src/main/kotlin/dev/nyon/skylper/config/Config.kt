@@ -31,6 +31,7 @@ data class Config(val mining: MiningConfig = MiningConfig(), val menu: Menu = Me
         var miningAbilityNotificationOnMiningIslands: Boolean = true,
         var miningAbilityIndicator: Boolean = true,
         val totalPowderOverlay: TotalPowderOverlay = TotalPowderOverlay(),
+        val eventOverlay: EventOverlay = EventOverlay(),
         var highlightCompletedCommissions: Boolean = true,
         var completedCommissionsHighlightColor: @Contextual Color = Color(255, 0, 0, 50)
     )
@@ -87,6 +88,9 @@ data class Config(val mining: MiningConfig = MiningConfig(), val menu: Menu = Me
 
     @Serializable
     data class TotalPowderOverlay(var enabled: Boolean = true, var x: Int = 5, var y: Int = 300)
+
+    @Serializable
+    data class EventOverlay(var enabled: Boolean = true, var x: Int = 5, var y: Int = 500)
 
     @Serializable
     data class Menu(val collections: Collections = Collections(), val bestiary: Bestiary = Bestiary()) {

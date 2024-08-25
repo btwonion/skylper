@@ -2,6 +2,7 @@
 
 package dev.nyon.skylper.extensions
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.DoubleArraySerializer
@@ -51,5 +52,17 @@ object Vec3Serializer : KSerializer<Vec3> {
     override fun serialize(encoder: Encoder, value: Vec3) {
         val data = doubleArrayOf(value.x, value.y, value.z)
         encoder.encodeSerializableValue(delegateSerializer, data)
+    }
+}
+
+object InstantMillisSerializer : KSerializer<Instant> {
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("instant", PrimitiveKind.FLOAT)
+
+    override fun deserialize(decoder: Decoder): Instant {
+        return Instant.fromEpochMilliseconds(decoder.decodeFloat().toLong())
+    }
+
+    override fun serialize(encoder: Encoder, value: Instant) {
+        encoder.encodeFloat(value.toEpochMilliseconds().toFloat())
     }
 }

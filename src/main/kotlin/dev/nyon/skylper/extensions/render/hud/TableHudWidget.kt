@@ -14,7 +14,7 @@ import kotlin.math.max
  * @param rows The rows the table should have.
  * @param columns The columns the table should have.
  */
-abstract class TableHudWidget(override var title: Component, private val rows: Int, private val columns: Int) :
+abstract class TableHudWidget(override var title: Component, var rows: Int, var columns: Int) :
     HudWidget {
     val components: MutableMap<Int, HudComponent> = mutableMapOf()
     private val mutex = Mutex()

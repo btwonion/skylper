@@ -3,6 +3,7 @@ package dev.nyon.skylper.skyblock.render
 import dev.nyon.skylper.extensions.event.RenderHudEvent
 import dev.nyon.skylper.extensions.event.SkylperEvent
 import dev.nyon.skylper.extensions.render.hud.HudWidget
+import dev.nyon.skylper.skyblock.render.mining.MiningEventWidget
 import dev.nyon.skylper.skyblock.render.mining.crystalHollows.CrystalCompletionWidget
 import dev.nyon.skylper.skyblock.render.mining.crystalHollows.TotalPowderWidget
 import dev.nyon.skylper.skyblock.tracker.mining.crystalHollows.powder.PowderGrindingTracker
@@ -15,6 +16,7 @@ object SkylperHud {
         context.renderWidget(CrystalCompletionWidget)
         context.renderWidget(PowderGrindingTracker)
         context.renderWidget(TotalPowderWidget)
+        context.renderWidget(MiningEventWidget)
     }
 
     private fun GuiGraphics.renderWidget(
