@@ -10,10 +10,12 @@ import dev.nyon.skylper.extensions.regex
 import dev.nyon.skylper.mcScope
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.api.HeartOfTheMountainApi
+import dev.nyon.skylper.skyblock.data.api.SkyMallApi
 import dev.nyon.skylper.skyblock.data.online.Cooldowns
 import dev.nyon.skylper.skyblock.data.online.IslandGroups
 import dev.nyon.skylper.skyblock.data.online.ToolGroups
 import dev.nyon.skylper.skyblock.data.session.PlayerSessionData
+import dev.nyon.skylper.skyblock.models.mining.SkyMallPerk
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
@@ -95,7 +97,9 @@ object MiningCooldown : Cooldown {
         val abilityLevel = if (HeartOfTheMountainApi.data.peakOfTheMountainLevel == 0) 1 else 2
         val cooldowns =
             Cooldowns.cooldowns.mining[HeartOfTheMountainApi.data.pickaxeAbility ?: return null] ?: return null
-        return cooldowns[abilityLevel].seconds
+        val normalTime = cooldowns[abilityLevel].seconds
+        val skyMallPerkEnabled = SkyMallApi.currentPerk == SkyMallPerk.REDUCED_COOLDOWN
+        return if (skyMallPerkEnabled) normalTime * 0.8 else normalTime
     }
 }
 
