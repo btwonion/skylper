@@ -31,19 +31,14 @@ object MiningEventWidget : TableHudWidget(Component.translatable("menu.skylper.o
             addComponent(index, 0, PlainTextHudComponent(event.event.getDisplayName()))
             val remaining = event.endsAt - Clock.System.now()
             addComponent(
-                index,
-                1,
-                PlainTextHudComponent(
+                index, 1, PlainTextHudComponent(
                     Component.translatable(
-                        "menu.skylper.overlay.mining.events.ends_in",
-                        remaining.toPrettyString()
+                        "menu.skylper.overlay.mining.events.ends_in", remaining.toPrettyString()
                     )
                 )
             )
             addComponent(
-                index,
-                2,
-                PlainTextHudComponent(
+                index, 2, PlainTextHudComponent(
                     Component.translatable(
                         "menu.skylper.overlay.mining.events.lobby_count.${if (event.lobbyCount == 1) "single" else "multiple"}",
                         event.lobbyCount
@@ -54,7 +49,7 @@ object MiningEventWidget : TableHudWidget(Component.translatable("menu.skylper.o
     }
 
     override fun shouldRender(): Boolean {
-        return IslandGroups.groups.miningEvents.contains(PlayerSessionData.currentArea) && config.mining.eventOverlay.enabled
+        return IslandGroups.groups.miningEvents.contains(PlayerSessionData.currentArea) && config.mining.eventOverlay.enabled && MiningEventApi.currentEvents.isNotEmpty()
     }
 
     init {
