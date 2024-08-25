@@ -66,6 +66,38 @@ fun RootDsl.appendMiningCategory() {
             }
         }
 
+        val miningEventOverlay by groups.registering {
+            descriptionBuilder {
+                addDefaultText(1)
+            }
+
+            val enabled by options.registering {
+                binding(true,
+                    { config.mining.eventOverlay.enabled },
+                    { config.mining.eventOverlay.enabled = it })
+                controller = tickBox()
+                descriptionBuilder {
+                    addDefaultText(1)
+                }
+            }
+
+            val x by options.registering {
+                binding(5, { config.mining.eventOverlay.x }, { config.mining.eventOverlay.x = it })
+                controller = numberField(0 as Int)
+                descriptionBuilder {
+                    addDefaultText(1)
+                }
+            }
+
+            val y by options.registering {
+                binding(300, { config.mining.eventOverlay.y }, { config.mining.eventOverlay.y = it })
+                controller = numberField(0 as Int)
+                descriptionBuilder {
+                    addDefaultText(1)
+                }
+            }
+        }
+
         val highlightCompletedCommissions by rootOptions.registering {
             binding(true,
                 { config.mining.highlightCompletedCommissions },

@@ -15,7 +15,7 @@ plugins {
     `maven-publish`
 }
 
-val beta: Int = 31 // Pattern is '1.0.0-beta1-1.20.6-pre.2'; when beta == 0 beta is null
+val beta: Int = 32 // Pattern is '1.0.0-beta1-1.20.6-pre.2'; when beta == 0 beta is null
 val featureVersion = "1.0.0${if (beta != 0) "-beta$beta" else ""}"
 val mcVersion = property("mcVersion")!!.toString()
 val mcVersionRange = property("mcVersionRange")!!.toString()

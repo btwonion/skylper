@@ -3,6 +3,12 @@
         "GOLD_MINE",
         "DEEP_CAVERNS",
         "DWARVEN_MINES",
-        "CRYSTAL_HOLLOWS"
+        "CRYSTAL_HOLLOWS",
+        "MINESHAFT"
+    ],
+    "mining_events": [
+        "DWARVEN_MINES",
+        "CRYSTAL_HOLLOWS",
+        "MINESHAFT"
     ]
 }

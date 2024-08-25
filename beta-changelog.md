@@ -1,12 +1,8 @@
 ## Features
-- update powders from tablist more often
-- rework powder calculation for powder grinding widget
-- use better prefix for chat messages
+- add event forecast widget for dwarves, crystals and mineshafts
 
 ## Bug Fixes
-- disable delete button of waypoint on deletion in location screen
+none
 
 ## Technical changes
-- update to konfig 2.0.2
-- rework event api to be hot-swappable
-- redo all calculations to apis
+none

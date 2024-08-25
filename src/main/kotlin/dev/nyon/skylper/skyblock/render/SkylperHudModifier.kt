@@ -3,6 +3,7 @@ package dev.nyon.skylper.skyblock.render
 import dev.nyon.konfig.config.saveConfig
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.extensions.render.hud.HudWidget
+import dev.nyon.skylper.skyblock.render.mining.MiningEventWidget
 import dev.nyon.skylper.skyblock.render.mining.crystalHollows.CrystalCompletionWidget
 import dev.nyon.skylper.skyblock.render.mining.crystalHollows.TotalPowderWidget
 import dev.nyon.skylper.skyblock.tracker.mining.crystalHollows.powder.PowderGrindingTracker
@@ -18,6 +19,7 @@ class SkylperHudModifier(private val parent: Screen?) :
         if (config.mining.crystalHollows.crystalOverlay.enabled) add(CrystalCompletionWidget)
         if (config.mining.crystalHollows.powderGrindingOverlay.enabled) add(PowderGrindingTracker)
         if (config.mining.totalPowderOverlay.enabled) add(TotalPowderWidget)
+        if (config.mining.eventOverlay.enabled) add(MiningEventWidget)
     }.onEach(HudWidget::update)
 
     override fun render(
