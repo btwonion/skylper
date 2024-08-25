@@ -147,7 +147,7 @@ tasks {
 
 val changelogText = buildString {
     append("# v${project.version}\n")
-    if (beta != 0) append("### As this is still a beta version, this version can contain bugs. Feel free to report ANY misbehaviours and errors!")
+    if (beta != 0) append("### As this is still a beta version, this version can contain bugs. Feel free to report ANY misbehaviours and errors!\n")
     rootProject.file("${if (beta != 0) "beta-" else ""}changelog.md").readText().also { append(it) }
 }
 
