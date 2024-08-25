@@ -5,4 +5,4 @@
 none
 
 ## Technical changes
-none
+- make constructor parameters of TableHudWidget to variables to allow resizable table widgets
