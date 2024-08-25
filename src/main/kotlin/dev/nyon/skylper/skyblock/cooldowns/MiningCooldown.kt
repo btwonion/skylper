@@ -1,6 +1,7 @@
 package dev.nyon.skylper.skyblock.cooldowns
 
 import dev.nyon.skylper.config.config
+import dev.nyon.skylper.extensions.chatTranslatable
 import dev.nyon.skylper.extensions.event.MessageEvent
 import dev.nyon.skylper.extensions.event.SkyblockEnterEvent
 import dev.nyon.skylper.extensions.event.SkylperEvent
@@ -87,8 +88,7 @@ object MiningCooldown : Cooldown {
     }
 
     private fun noAbilitySelectedNotice() {
-        minecraft.player?.sendSystemMessage(Component.translatable("chat.skylper.hollows.pickaxe_cooldown.not_found")
-            .withStyle { it.withColor(ChatFormatting.RED) })
+        minecraft.player?.sendSystemMessage(chatTranslatable("chat.skylper.hollows.pickaxe_cooldown.not_found"))
     }
 
     override fun getCooldownTime(): Duration? {

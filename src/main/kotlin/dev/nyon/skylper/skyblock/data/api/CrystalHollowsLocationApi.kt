@@ -127,8 +127,12 @@ object CrystalHollowsChatLocation {
                 invokeEvent(LocatedHollowsStructureEvent(hollowsLocation))
 
                 minecraft.player?.sendSystemMessage(
-                    Component.translatable(
-                        "chat.skylper.hollows.locations.found", matchingSpecific.displayName.string, pos.x, pos.y, pos.z
+                    chatTranslatable(
+                        "chat.skylper.hollows.locations.found",
+                        matchingSpecific.displayName.string,
+                        pos.x,
+                        pos.y,
+                        pos.z
                     )
                 )
                 return
@@ -146,7 +150,7 @@ object CrystalHollowsChatLocation {
             acc.append(new.withStyle(ChatFormatting.RED))
         }
 
-        val finalComponent = Component.translatable("chat.skylper.hollows.locations.pick", locationsComponent)
+        val finalComponent = chatTranslatable("chat.skylper.hollows.locations.pick", locationsComponent)
         minecraft.player?.sendSystemMessage(finalComponent)
     }
 }
