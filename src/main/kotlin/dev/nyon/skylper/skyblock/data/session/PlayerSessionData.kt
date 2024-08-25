@@ -58,7 +58,7 @@ object PlayerSessionData {
     private fun updateFromTabList() {
         val onlinePlayers = minecraft.connection?.onlinePlayers ?: return
         val lines = onlinePlayers.mapNotNull { it.tabListDisplayName?.string?.clean() }
-        invokeEvent(TablistUpdateEvent(onlinePlayers.mapNotNull { it.tabListDisplayName }, lines))
+        invokeEvent(TablistUpdateEvent(onlinePlayers.mapNotNull { it.tabListDisplayName }, lines.toList()))
         mcScope.launch {
             lines.forEach { line ->
                 if (!areaRegex.matches(line)) return@forEach
