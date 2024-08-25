@@ -5,10 +5,12 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import dev.nyon.konfig.config.saveConfig
 import dev.nyon.skylper.config.config
 import dev.nyon.skylper.config.screen.createYaclScreen
+import dev.nyon.skylper.extensions.chatTranslatable
 import dev.nyon.skylper.extensions.command.arg
 import dev.nyon.skylper.extensions.command.arguments.ClientBlockPosArgument
 import dev.nyon.skylper.extensions.command.executeAsync
 import dev.nyon.skylper.extensions.command.sub
+import dev.nyon.skylper.extensions.skylperPrefix
 import dev.nyon.skylper.minecraft
 import dev.nyon.skylper.skyblock.data.api.CrystalHollowsLocationApi
 import dev.nyon.skylper.skyblock.data.online.OnlineData
@@ -51,7 +53,7 @@ fun registerRootCommand() {
                                     }
 
                                     context.source.sendFeedback(
-                                        Component.translatable(
+                                        chatTranslatable(
                                             "chat.skylper.hollows.command.waypoint_created", specific.displayName
                                         )
                                     )
@@ -72,7 +74,7 @@ fun registerRootCommand() {
 
                                 CrystalHollowsLocationApi.waypoints.removeAll { it.specific == specific }
                                 context.source.sendFeedback(
-                                    Component.translatable(
+                                    chatTranslatable(
                                         "chat.skylper.hollows.command.waypoint_deleted", specific.displayName
                                     )
                                 )
@@ -97,6 +99,14 @@ fun registerRootCommand() {
                     save.executeAsync {
                         saveConfig(config)
                         saveConfig(playerData)
+                    }
+                }
+            }
+
+            root.sub("debug") { debug ->
+                debug.sub("prefix") { prefix ->
+                    prefix.executeAsync {
+                        it.source.sendFeedback(skylperPrefix)
                     }
                 }
             }

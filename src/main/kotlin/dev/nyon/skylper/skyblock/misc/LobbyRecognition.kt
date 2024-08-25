@@ -1,6 +1,7 @@
 package dev.nyon.skylper.skyblock.misc
 
 import dev.nyon.skylper.config.config
+import dev.nyon.skylper.extensions.chatTranslatable
 import dev.nyon.skylper.extensions.event.LevelChangeEvent
 import dev.nyon.skylper.extensions.event.MessageEvent
 import dev.nyon.skylper.extensions.event.SkyblockQuitEvent
@@ -8,8 +9,6 @@ import dev.nyon.skylper.extensions.event.SkylperEvent
 import dev.nyon.skylper.extensions.regex
 import dev.nyon.skylper.extensions.singleGroup
 import dev.nyon.skylper.minecraft
-import net.minecraft.ChatFormatting
-import net.minecraft.network.chat.Component
 
 object LobbyRecognition {
     private val joinedLobbies = mutableSetOf<String>()
@@ -36,7 +35,7 @@ object LobbyRecognition {
         if (!config.misc.recognizeLobbies) return
         if (!containsServerAlready) return
         minecraft.player?.sendSystemMessage(
-            Component.translatable("chat.skylper.misc.lobby_recognition").withStyle(ChatFormatting.GRAY)
+            chatTranslatable("chat.skylper.misc.lobby_recognition")
         )
     }
 }
