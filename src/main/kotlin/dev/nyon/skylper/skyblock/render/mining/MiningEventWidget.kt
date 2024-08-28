@@ -16,9 +16,9 @@ object MiningEventWidget : TableHudWidget(Component.translatable("menu.skylper.o
             config.mining.eventOverlay.x = value.toInt()
             field = value
         }
-    override var y: Double = config.mining.eventOverlay.x.toDouble()
+    override var y: Double = config.mining.eventOverlay.y.toDouble()
         set(value) {
-            config.mining.eventOverlay.x = value.toInt()
+            config.mining.eventOverlay.y = value.toInt()
             field = value
         }
 
