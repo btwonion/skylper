@@ -2,6 +2,9 @@
 
 Utility mod for Hypixel Skyblock
 
+# Archived
+This mod is as of November 27th 2024 archived. I will not provide further bug fixes or features cause of my lack of time and my interest in Hypixel Skyblock.
+
 ## Features
 
 You can find a full list of the features below and
